@@ -1,0 +1,38 @@
+---
+title: "EDUC 643 Assignments"
+site: distill::distill_website
+output:
+  html_document:
+    css: educquant.css
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+### 1. General Guidelines
+
+The goal of the assignments is to practice the concepts and vocabulary we have been modeling in class and implement some of the techniques we have learned. You may work on your own or collaborate with one (1) partner. Please make sure that you engage in a a full, fair and mutually-agreeable collaboration if you do choose to collaborate. If you do collaborate, you should plan, execute and write-up your analyses together, not simply divide the work. Please make sure to indicate clearly when your work is joint and any other individual or resource (outside of class material) you consulted in your responses.
+
+(Here we need to add more details about global expectations and requirements for all the assignments, grading and points distribution for participation, five assignments, and/or final project/exam, late submission policy, etc. from syllabus.)
+
+### 2. Submission Requirements
+
+Please upload below two files on Canvas before TBD time:  
+
+ * An .html or .pdf file that includes both - 
+   + your typed responses (in your own words and not identical to anybody else's), tables, and/or figures to the problems  
+   + and the R code chunks that generated your answers (hint: if you choose to compose your answers in markdown, simply set up echo = TRUE, include = TRUE in you .Rmd file)  
+   
+ * The .Rmd or .R file that you used to render the tables and figures in the above html/pdf. 
+
+### 3. Details about Assignments
+
+#### 3.1. Assignment 1
+
+
+
+
+
+
+

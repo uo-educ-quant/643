@@ -1,0 +1,56 @@
+---
+title: "EDUC 643 Syllabus"
+site: distill::distill_website
+output:
+  html_document:
+    css: educquant.css
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+### General Course Information
+
+
+### Course Overview
+
+
+### Student Learning Outcomes
+
+
+### Textbooks and Reading Materials
+
+
+### Weekly [Schedule](./schedule.html) 
+
+
+### Grading Components and Criteria 
+
+
+### Role of the GEs  
+
+
+### Student Engagement Inventory
+
+
+### Attendance and Absence Guidelines  
+
+
+### Expected Classroom Behavior
+
+
+### Diversity, Equity, and Inclusion  
+
+### Indigenous Recognition Statement  
+
+### Using Pronouns and Personal Preference  
+
+### Your Well-being
+
+### Reporting Obligations  
+
+### More per university requirements...
+
+
+

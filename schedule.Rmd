@@ -1,0 +1,76 @@
+---
+title: "EDUC 643 Schedule"
+site: distill::distill_website
+output:
+  html_document:
+    css: educquant.css
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+### Week 1
+
+Topic: 
+
+Readings: TBD
+
+Lecture:
+
+* Lecture slides: [html file](./slides/EDUC643_1_intro.html)
+
+Assignment:
+
+R Tutorial slides/activity assignment: [html file](./slides/tutorial2.html)
+
+### Week 2 
+
+Date: TBD
+
+Topic: 
+
+Readings: TBD
+
+Lecture: 
+
+ * Slides: [html file](./slides/EDUC643_2_assumptions.html)
+ * Data: 
+ * R script: 
+ 
+### Week 3 
+
+Date: TBD
+
+Topic: 
+
+Readings: TBD
+
+Lecture: 
+
+ * Slides: [html file](./slides/EDUC643_3_mult_regression.html)
+ * Data: 
+ * R script: 
+ 
+Assignment 1: 
+
+ * Due TBD; 
+ * [html file](./assignments/assignment01.html)
+ * [workwage.csv dataset](./data/workwage.csv)
+ 
+### Week 4
+
+Date: TBD
+
+Topic: 
+
+Readings: TBD
+
+Lecture: 
+
+ * Slides: [html file](./slides/EDUC643_4_ANOVA.html)
+ * Data: 
+ * R script: 
+ 
+
+

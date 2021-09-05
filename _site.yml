@@ -1,9 +1,15 @@
-title: "EDUC 643"
+name: EDUC 643
 output_dir: "docs"
 navbar:
+  title: EDUC 643
+  left:
+  - text: Syllabus
+    href: syllabus.html
+  - text: Schedule
+    href: schedule.html
   right:
-    - text: "Home"
-      href: index.html
-    - text: "About"
-      href: about.html
-output: distill::distill_article
+  - text: Assignments
+    href: assignments.html
+  - text: Course repo
+    href: https://github.com/uo-educ-quant/643
+theme: educquant.css
