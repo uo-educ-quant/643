@@ -1,0 +1,120 @@
+---
+title: "Intro and regression refresher"
+subtitle: "EDUC 643: General Linear Model I"
+author: "TBD"
+#date: "`r format(Sys.time(), '%d %B %Y')`"
+output:
+  xaringan::moon_reader:
+    css: ['default','new.css']
+    # self_contained: true
+    nature:
+      highlightStyle: github
+      highlightLines: true
+      countIncrementalSlides: false
+
+---
+
+```{R, setup, include = F}
+library(pacman)
+p_load(here, tidyverse, ggplot2, xaringan, knitr, kableExtra, foreign)
+
+i_am("slides/EDUC643_1_intro.rmd")
+
+# Define color
+red_pink <- "#e64173"
+turquoise <- "#20B2AA"
+orange <- "#FFA500"
+red <- "#fb6107"
+blue <- "#3b3b9a"
+green <- "#8bb174"
+grey_light <- "grey70"
+grey_mid <- "grey50"
+grey_dark <- "grey20"
+purple <- "#6A5ACD"
+slate <- "#314f4f"
+# Dark slate grey: #314f4f
+
+# Knitr options
+opts_chunk$set(
+  comment = "#>",
+  fig.align = "center",
+  fig.height = 6.75,
+  fig.width = 10.5,
+  warning = F,
+  message = F
+)
+opts_chunk$set(dev = "svg")
+options(device = function(file, width, height) {
+  svg(tempfile(), width = width, height = height)
+})
+options(knitr.table.format = "html")
+
+```
+# Roadmap
+<font size = "3">
+.pull-left[
+1. A refresher on foundations of the General Linear Model
+ - Review of bivariate regression
+ - Coefficient and model-level inference
+ - Correlation and causality
+ 
+2. Assumptions and diagnostics
+ - Residuals, studentized, standardized
+ - Normality of residuals, homoscedasticity, linearity and independence
+ - Diagnostics
+
+3. Multiple regression
+ - Concept of statistical adjustment (control)
+ - Variance decomposition in MR
+ - Measuring effect size in MR
+ - Multi-collinearity
+]
+
+.pull-right[
+4. Categorical predictors
+ - Coding dummy variables
+ - ANOVA as a special regression model with one categorical predictor
+ - Adding a continuous predictor, ANCOVA as a special regression model with a categorical predictor and one or many continuous predictors
+ - Variance decomposition when categorical predictors are in the model
+
+5. Interactions and non-linearity
+ - Intro to the concept of interaction in MR models
+ - Interpreting the interaction between a categorical predictor and continuous predictor
+ - Interpreting the interaction between two continuous predictors
+
+6. Model building
+]
+</font>
+
+---
+class: middle, inverse
+
+# Bivariate regression
+
+---
+<<<<<<< HEAD
+## A motivating question
+
+```{r, echo=T}
+do <- read.spss(here::here("data/male_do_eating.sav"), to.data.frame=T)
+summary(do$EDEQ_restraint)
+summary(do$BMI)
+```
+
+---
+## Bivariate relationships
+```{r, echo=F}
+ggplot(do, aes(x=BMI, y=EDEQ_restraint)) + geom_point()
+```
+---
+=======
+>>>>>>> 476a8018f846dc4c6b72c607adb0cf80932ae1f0
+class: middle, inverse
+
+# Regression inference
+
+---
+class: middle, inverse
+
+# Correlation and causality
+
