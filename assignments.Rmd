@@ -3,7 +3,9 @@ title: "EDUC 643 Assignments"
 site: distill::distill_website
 output:
   html_document:
-    css: educquant.css
+    toc: true
+    toc_float: true
+    toc_depth: 4
 ---
 
 ```{r setup, include=FALSE}

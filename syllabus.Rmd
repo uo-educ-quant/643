@@ -3,6 +3,8 @@ title: "EDUC 643 Syllabus"
 site: distill::distill_website
 output:
   html_document:
+    toc: true
+    toc_float: true
     css: educquant.css
 ---
 
@@ -22,7 +24,8 @@ knitr::opts_chunk$set(echo = TRUE)
 ### Textbooks and Reading Materials
 
 
-### Weekly [Schedule](./schedule.html) 
+### [Schedule](./schedule.html) 
+
 
 
 ### Grading Components and Criteria 
