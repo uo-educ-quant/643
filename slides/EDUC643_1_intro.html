@@ -4,7 +4,7 @@
     <title>Intro and regression refresher</title>
     <meta charset="utf-8" />
     <meta name="author" content="TBD" />
-    <script src="EDUC643_1_intro_files/header-attrs-2.9/header-attrs.js"></script>
+    <script src="EDUC643_1_intro_files/header-attrs-2.8/header-attrs.js"></script>
     <link href="EDUC643_1_intro_files/remark-css-0.0.1/default.css" rel="stylesheet" />
     <link rel="stylesheet" href="new.css" type="text/css" />
   </head>
@@ -62,18 +62,23 @@ class: middle, inverse
 # Bivariate regression
 
 ---
-<<<<<<< HEAD
+
 ## A motivating question
+
+Using real-world data about the dietary habits, health, and self-appraisals of younger males, we aim to answer the following RQ:
+* Does dietary restraint predict BMI among younger adult males?
 
 
 ```r
-do &lt;- read.spss(here::here("data/male_do_eating.sav"), to.data.frame=T)
+do &lt;- read.spss(here::here("data/male_do_eating.sav"), to.data.frame=T) %&gt;% 
+  select(Study_ID, EDEQ_restraint, BMI) %&gt;% 
+  drop_na()
 summary(do$EDEQ_restraint)
 ```
 
 ```
-#&gt;    Min. 1st Qu.  Median    Mean 3rd Qu.    Max.    NA's 
-#&gt;   0.000   0.200   1.200   1.395   2.200   6.000       5
+#&gt;    Min. 1st Qu.  Median    Mean 3rd Qu.    Max. 
+#&gt;   0.000   0.200   1.200   1.387   2.200   6.000
 ```
 
 ```r
@@ -81,25 +86,643 @@ summary(do$BMI)
 ```
 
 ```
-#&gt;    Min. 1st Qu.  Median    Mean 3rd Qu.    Max.    NA's 
-#&gt;   7.891  21.520  24.364  25.377  28.286  57.204      15
+#&gt;    Min. 1st Qu.  Median    Mean 3rd Qu.    Max. 
+#&gt;   7.891  21.520  24.364  25.376  28.284  57.204
 ```
 
 ---
 ## Bivariate relationships
-&lt;img src="EDUC643_1_intro_files/figure-html/unnamed-chunk-2-1.svg" style="display: block; margin: auto;" /&gt;
+
+We are interested in the *relationship* between dietary restraint and BMI. Statistically, the relationship is the same regardless of which variable is the outcome.
+
+.pull-left[
+&lt;img src="EDUC643_1_intro_files/figure-html/unnamed-chunk-2-1.png" style="display: block; margin: auto;" /&gt;
+]
+.pull-right[
+&lt;img src="EDUC643_1_intro_files/figure-html/unnamed-chunk-3-1.png" style="display: block; margin: auto;" /&gt;
+]
+
 ---
-=======
->>>>>>> 476a8018f846dc4c6b72c607adb0cf80932ae1f0
+## Regression Equations
+
+For theoretical reasons, we are choosing to regress BMI (DV) on dietary restraint (IV). 
+
+&lt;img src="EDUC643_1_intro_files/figure-html/unnamed-chunk-4-1.png" style="display: block; margin: auto;" /&gt;
+
+A linear regression equation borrows the mathematical framework for a line to summarize this relationship.
+`$$\text{BMI} = \beta_0 + \beta_1(\text{Dietary_Restraint})$$`
+---
+## Regression Equations
+
+The regression line describes the mean value of Y for each possible "input" value of X.
+
+`$$\text{BMI} = \beta_0 + \beta_1(\text{Dietary_Restraint})$$`
+
+--
+Our data already provides us with observations of BMI and dietary restraint:
+
+
+```
+#&gt;   EDEQ_restraint      BMI
+#&gt; 1            0.0 23.32485
+#&gt; 2            1.2 16.62282
+#&gt; 3            0.4 18.74667
+#&gt; 4            0.4 15.44678
+#&gt; 5            0.0 20.22119
+#&gt; 6            1.2 26.28313
+```
+
+--
+So, modelling requires us to find the best intercept `\((\beta_0)\)` and slope `\((\beta_1)\)` to represent the relationship.
+
+---
+## Components of a regression equation
+
+`$$BMI = \color{orange}{(\beta_0)} + \color{purple}{(\beta_1)}(\text{Dietary Restraint})$$`
+
+&lt;span style = "color:orange"&gt; Intercept `\((\beta_0)\)`: &lt;/span&gt; Predicted outcome when X is equal to 0.
+
+--
+
+&lt;span style = "color:purple"&gt; Slope `\((\beta_1)\)`: &lt;/span&gt; Predicted increase in the outcome for every one unit increase in X.
+
+--
+
+**Write out the appropriate regression equation for a line that has an intercept of 20 and Dietary Restraint slope of 1.5.**
+
+---
+## Components of a regression equation
+
+&lt;span style = "color:orange"&gt; Intercept `\((\beta_0)\)`: &lt;/span&gt; Predicted outcome when X is equal to 0.
+
+&lt;span style = "color:purple"&gt; Slope `\((\beta_1)\)`: &lt;/span&gt; Predicted increase in the outcome for every one unit increase in X.
+
+
+`$$BMI = \color{orange}{20} + \color{purple}{1.5}(\text{Dietary Restraint})$$`
+**What is the expected BMI value for a Dietary Restraint rating of 2?**
+---
+## Components of a regression equation
+
+&lt;span style = "color:orange"&gt; Intercept `\((\beta_0)\)`: &lt;/span&gt; Predicted outcome when X is equal to 0.
+
+&lt;span style = "color:purple"&gt; Slope `\((\beta_1)\)`: &lt;/span&gt; Predicted increase in the outcome for every one unit increase in X.
+
+
+
+`$$BMI = \color{orange}{20} + \color{purple}{1.5}(2) = 20 + 3 = 23$$`
+**For a Dietary Restraint rating of 2, the predicted BMI value is 23.**
+---
+## Error/Residual Term
+"No model is perfect, but some are useful." - George Box
+
+&lt;img src="EDUC643_1_intro_files/figure-html/unnamed-chunk-6-1.png" style="display: block; margin: auto;" /&gt;
+
+Is Dietary Restraint a perfect predictor of BMI?
+
+---
+## Error/Residual Term
+"No model is perfect, but some are useful." - George Box
+
+&lt;img src="EDUC643_1_intro_files/figure-html/unnamed-chunk-7-1.png" style="display: block; margin: auto;" /&gt;
+
+Is Dietary Restraint a perfect predictor of BMI? - NO! 
+
+---
+## Unmeasured Variables
+A "perfect" regression equation would probably include a lot more variables:
+
+`$$BMI = \beta_0 + \beta_1(\text{Dietary Restraint}) + \beta_2(\text{Meal Frequency}) + \beta_3(\text{Nutritional Habits})... \beta_\infty$$`
+Many of these might not even be measurable!
+
+---
+## Residual/Error Term
+
+In a regression model, all the variability that we couldn't explain with our predictor is condensed into a &lt;span style="color:green"&gt; residual term `\((e_1)\)` &lt;/span&gt;.
+
+&lt;img src="EDUC643_1_intro_files/figure-html/unnamed-chunk-8-1.png" style="display: block; margin: auto;" /&gt;
+
+`$$BMI = \beta_0 + \beta_1(\text{Dietary Restraint}) + \color{green}{e_1}$$`
+---
+## Sum of Squares
+
+For any observation, the residual is the difference between the observed and predicted value.
+
+`$$e_i = Y_i - \hat{Y_i}$$`
+
+--
+
+Squaring the residual terms `\((e_i^2)\)` allows us to treat negative and positive deviations equally, and puts a greater penalty on larger deviations.
+
+
+```
+    BMI predicted_BMI residual residual_sq
+1 23.32         23.94    -0.61        0.38
+2 16.62         25.18    -8.56       73.27
+3 18.75         24.35    -5.61       31.43
+4 15.45         24.35    -8.91       79.32
+5 20.22         23.94    -3.72       13.82
+6 26.28         25.18     1.10        1.21
+```
+--
+
+The **sum of squares** is the sum of all our squared residuals:
+
+`$$\Large \Sigma(e_i)^2$$`
+
+---
+## Ordinary Least Squares (OLS) Regression
+
+An OLS-fitted regression finds the best intercept and slope values to minimize the sum of squared residuals.
+
+.pull-left[
+&lt;img src="EDUC643_1_intro_files/figure-html/unnamed-chunk-10-1.png" style="display: block; margin: auto;" /&gt;
+]
+
+.pull-right[
+&lt;img src="EDUC643_1_intro_files/figure-html/unnamed-chunk-11-1.png" style="display: block; margin: auto;" /&gt;
+
+]
+
+Which regression line appears to be a better fit?
+
+---
+## Ordinary Least Squares (OLS) Regression
+
+An OLS-fitted regression finds the best intercept and slope values to minimize the sum of squared residuals.
+
+.pull-left[
+&lt;img src="EDUC643_1_intro_files/figure-html/unnamed-chunk-12-1.png" style="display: block; margin: auto;" /&gt;
+`\(\bf{\Sigma(e_i)^2 = 67314.93}\)`
+
+]
+
+.pull-right[
+&lt;img src="EDUC643_1_intro_files/figure-html/unnamed-chunk-13-1.png" style="display: block; margin: auto;" /&gt;
+`\(\Sigma(e_i)^2 = 100859.80\)`
+]
+
+Using the OLS method, the regression line on the left is a better fit (67,314 &lt; 100,859).
+
+---
+## Sum of Squared Residuals (SSR)
+
+SSR is a grander concept than just model predictions. It is a way of thinking about variability.
+
+--
+
+Our outcome's variability is simply the sum of squared deviations from its mean.
+
+`$$SSR_\text{BMI} = \sum{(Y_i - \bar{Y})^2}$$`
+&lt;img src="EDUC643_1_intro_files/figure-html/unnamed-chunk-14-1.png" style="display: block; margin: auto;" /&gt;
+---
+## Partitioning Variance
+
+The goal of regression is to account for some of this variability with our model's predictors.
+
+We can partition the outcome's variance into:
+* Model-accounted variance
+* Residual variance
+
+`$$SS_\text{BMI} = SS_\text{Model} + SS_\text{Residual}$$`
+--
+
+Remember our goal with OLS regression is to find the model coefficients that minimize `\(SS_\text{Residual}\)`.
+
+
+---
+# Partitioning Variance
+`$$\text{If } SS_\text{BMI} = \color{purple}{SS_\text{Model}} + {SS_\text{Residual}}$$`
+
+`\(\color{purple}{SS_\text{Model}}\)` is the sum of squared deviations between the model predicted values `\((\hat{Y})\)` and the mean `\((\bar{Y})\)`.
+
+&lt;img src="EDUC643_1_intro_files/figure-html/unnamed-chunk-15-1.png" style="display: block; margin: auto;" /&gt;
+`$$\color{purple}{SS_\text{Model} = \sum{(\hat{Y} - \bar{Y})^2}}$$`
+---
+# Partitioning Variance
+`$$\text{If } SS_\text{BMI} = \color{purple}{SS_\text{Model}} + \color{green}{SS_\text{Residual}}$$`
+
+`\(\color{green}{SS_\text{Residual}}\)` is the sum of squared deviations between the model predicted values `\((\hat{Y})\)` and the observed values `\((Y)\)`.
+
+&lt;img src="EDUC643_1_intro_files/figure-html/unnamed-chunk-16-1.png" style="display: block; margin: auto;" /&gt;
+`$$\color{green}{SS_\text{Model} = \sum{(Y - \hat{Y})^2}}$$`
+
+---
+## R-Squared
+
+Partitioning variance can be useful for model evaluation.
+
+`$$SS_\text{BMI} = SS_\text{Model} + SS_\text{Residual}$$`
+`\(R^2\)` is the proportion of variance in the outcome our model accounts for.
+
+`$$R^2 = \frac{SS_\text{Model}}{SS_\text{BMI}}$$`
+--
+For example, if `\(R^2 = 0.30\)`, then our model accounts for 30% of our sample's variance in BMI.
+
+--
+More on this soon.
+
+---
+## Evaluating a regression
+
+Let's try fitting our regression in R.
+
+
+```r
+fit &lt;- lm(BMI ~ EDEQ_restraint, do)
+summary(fit)
+```
+
+```
+#&gt; 
+#&gt; Call:
+#&gt; lm(formula = BMI ~ EDEQ_restraint, data = do)
+#&gt; 
+#&gt; Residuals:
+#&gt;     Min      1Q  Median      3Q     Max 
+#&gt; -19.064  -3.962  -0.928   2.685  33.266 
+#&gt; 
+#&gt; Coefficients:
+#&gt;                Estimate Std. Error t value Pr(&gt;|t|)    
+#&gt; (Intercept)     23.9383     0.2631  90.973  &lt; 2e-16 ***
+#&gt; EDEQ_restraint   1.0369     0.1358   7.638  4.8e-14 ***
+#&gt; ---
+#&gt; Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
+#&gt; 
+#&gt; Residual standard error: 6.081 on 1092 degrees of freedom
+#&gt; Multiple R-squared:  0.05072,	Adjusted R-squared:  0.04985 
+#&gt; F-statistic: 58.34 on 1 and 1092 DF,  p-value: 4.799e-14
+```
+
+
+---
+## Evaluating a regression - Coefficients
+
+Here we can find our intercept and slope coefficients for our linear regression.
+
+
+```
+...
+Coefficients:
+               Estimate Std. Error t value Pr(&gt;|t|)    
+*(Intercept)     23.9383     0.2631  90.973  &lt; 2e-16 ***
+*EDEQ_restraint   1.0369     0.1358   7.638  4.8e-14 ***
+---
+Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
+
+Residual standard error: 6.081 on 1092 degrees of freedom
+Multiple R-squared:  0.05072,	Adjusted R-squared:  0.04985 
+F-statistic: 58.34 on 1 and 1092 DF,  p-value: 4.799e-14
+...
+```
+
+**The predicted BMI for a young male with a dietary restraint rating of 0 is 23.94 `\((\beta_0)\)`.**
+
+--
+
+**For each one unit increase in dietary restraint, there is an expected increase of 1.04 `\((\beta_1)\)` in BMI.**
+
+---
+## Evaluating a regression - Residuals
+
+Here is our summary of the residual error.
+
+
+```
+...
+Coefficients:
+               Estimate Std. Error t value Pr(&gt;|t|)    
+(Intercept)     23.9383     0.2631  90.973  &lt; 2e-16 ***
+EDEQ_restraint   1.0369     0.1358   7.638  4.8e-14 ***
+---
+Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
+
+*Residual standard error: 6.081 on 1092 degrees of freedom
+Multiple R-squared:  0.05072,	Adjusted R-squared:  0.04985 
+F-statistic: 58.34 on 1 and 1092 DF,  p-value: 4.799e-14
+...
+```
+
+The residual standard error (RSE) is the standard deviation of the residuals. This summarizes the variability of observed values around the model-predicted values, **in the original units of the DV.**
+
+`$$RSE = 6.081$$`
+
+This means observed values vary around our model-predicted BMI with a standard deviation of 6.081. In BMI, 6 units is quite large!
+
+---
+## Evaluating a regression - R-Squared
+
+Here is our summary of model performance.
+
+
+```
+...
+Coefficients:
+               Estimate Std. Error t value Pr(&gt;|t|)    
+(Intercept)     23.9383     0.2631  90.973  &lt; 2e-16 ***
+EDEQ_restraint   1.0369     0.1358   7.638  4.8e-14 ***
+---
+Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
+
+Residual standard error: 6.081 on 1092 degrees of freedom
+*Multiple R-squared:  0.05072,	Adjusted R-squared:  0.04985 
+F-statistic: 58.34 on 1 and 1092 DF,  p-value: 4.799e-14
+...
+```
+
+The R-squared value is .05.
+
+This means that our model accounts for 5% of the variance in BMI. Since our model has only one predictor, we can alternatively say Dietary Restraint accounts for 5% of the variance in BMI.
+
+---
 class: middle, inverse
 
 # Regression inference
+
+---
+## What are we testing in a regression?
+
+There are multiple inferential tests in a regression model:
+* Test of the model (omnibus test) 
+* Tests of the coefficients
+
+
+```
+...
+Coefficients:
+               Estimate Std. Error t value Pr(&gt;|t|)    
+*(Intercept)     23.9383     0.2631  90.973  &lt; 2e-16 ***
+*EDEQ_restraint   1.0369     0.1358   7.638  4.8e-14 ***
+---
+Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
+
+Residual standard error: 6.081 on 1092 degrees of freedom
+Multiple R-squared:  0.05072,	Adjusted R-squared:  0.04985 
+*F-statistic: 58.34 on 1 and 1092 DF,  p-value: 4.799e-14
+...
+```
+
+
+---
+### F-Distributions and Omnibus Tests
+
+The omnibus test uses the F-distribution to test the ratio of two variances (i.e., explained vs unexplained variance).
+
+Null hypothesis: The model does not account for variance in Y.
+
+If we reject the null, then the model accounts for more variance than we would expect by chance. 
+---
+### F-Distributions and Omnibus Tests
+
+Just like tests with other probability distribution, we are testing the probability of obtaining a value (or more extreme value) of F under the F-Distribution.
+
+`$$\Large F = \frac{MS_{Model}}{MS_{residual}}$$`
+
+Mean Squares (MS) are the Sums of Squares divided by their respective degrees of freedom.
+
+---
+# Interpreting the Omnibus Test
+
+
+```
+...
+Coefficients:
+               Estimate Std. Error t value Pr(&gt;|t|)    
+(Intercept)     23.9383     0.2631  90.973  &lt; 2e-16 ***
+EDEQ_restraint   1.0369     0.1358   7.638  4.8e-14 ***
+---
+Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
+
+Residual standard error: 6.081 on 1092 degrees of freedom
+Multiple R-squared:  0.05072,	Adjusted R-squared:  0.04985 
+*F-statistic: 58.34 on 1 and 1092 DF,  p-value: 4.799e-14
+...
+```
+
+Our omnibus test was significant (p &lt; .001), therefore we can reject the null hypothesis that the model accounts for zero variance in BMI.
+
+---
+### Regression Coefficients
+
+Significance tests of regression coefficients test the null hypothesis that `\(\beta = 0\)`. (there is no linear relationship between the predictor and the outcome).
+
+`$$\Large H_{0}: \beta_{1}= 0$$`
+`$$\Large H_{1}: \beta_{1} \neq 0$$`
+Here, the p-value refers to the probability of obtaining a slope equal to or more extreme than `\(b\)` assuming `\(H_0\)` is true. 
+
+---
+### Regression Coefficients
+
+Our R output shows us the significance of the intercept. Typically, we are not interested in whether the intercept significantly differs from 0.
+
+
+```
+...
+Coefficients:
+               Estimate Std. Error t value Pr(&gt;|t|)    
+*(Intercept)     23.9383     0.2631  90.973  &lt; 2e-16 ***
+EDEQ_restraint   1.0369     0.1358   7.638  4.8e-14 ***
+---
+Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
+
+Residual standard error: 6.081 on 1092 degrees of freedom
+Multiple R-squared:  0.05072,	Adjusted R-squared:  0.04985 
+F-statistic: 58.34 on 1 and 1092 DF,  p-value: 4.799e-14
+...
+```
+
+---
+### Regression Coefficients
+
+
+```
+...
+Coefficients:
+               Estimate Std. Error t value Pr(&gt;|t|)    
+(Intercept)     23.9383     0.2631  90.973  &lt; 2e-16 ***
+*EDEQ_restraint   1.0369     0.1358   7.638  4.8e-14 ***
+---
+Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
+
+Residual standard error: 6.081 on 1092 degrees of freedom
+Multiple R-squared:  0.05072,	Adjusted R-squared:  0.04985 
+F-statistic: 58.34 on 1 and 1092 DF,  p-value: 4.799e-14
+...
+```
+
+`$$t = \frac{\hat{\beta_1} - 0}{SE(\hat{\beta_1})} = \frac{1.04}{.14} = 7.43$$`
+`$$Pr(t &lt; -7.43 \text{ or } t &gt; 7.43)|H_0 = 0.000000000000048 \text{ or p &lt;.001}$$`
+---
+### Regression Coefficients
+
+
+```
+...
+Coefficients:
+               Estimate Std. Error t value Pr(&gt;|t|)    
+(Intercept)     23.9383     0.2631  90.973  &lt; 2e-16 ***
+*EDEQ_restraint   1.0369     0.1358   7.638  4.8e-14 ***
+---
+Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
+
+Residual standard error: 6.081 on 1092 degrees of freedom
+Multiple R-squared:  0.05072,	Adjusted R-squared:  0.04985 
+F-statistic: 58.34 on 1 and 1092 DF,  p-value: 4.799e-14
+...
+```
+
+Under the null hypothesis, it is extremely unlikely to obtain a Dietary Restraint slope of 1.04 (p &lt; .001). Therefore, we can reject the null and conclude that there is a significant relationship between Dietary Restraint rating and BMI.
+---
+### Inference in Regression
+
+In a simple regression model, we are testing for a linear relationship between a predictor and the outcome.
+
+&lt;img src="EDUC643_1_intro_files/figure-html/unnamed-chunk-26-1.png" style="display: block; margin: auto;" /&gt;
+
+It is important to inspect the data to make sure we are modelling correctly. Otherwise, we'd miss this non-linear relationship!
+---
+## Summarizing Regression Results
+
+
+```
+...
+Coefficients:
+               Estimate Std. Error t value Pr(&gt;|t|)    
+(Intercept)     23.9383     0.2631  90.973  &lt; 2e-16 ***
+*EDEQ_restraint   1.0369     0.1358   7.638  4.8e-14 ***
+---
+Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
+
+Residual standard error: 6.081 on 1092 degrees of freedom
+Multiple R-squared:  0.05072,	Adjusted R-squared:  0.04985 
+F-statistic: 58.34 on 1 and 1092 DF,  p-value: 4.799e-14
+...
+```
+
+A simple regression model was used to describe the relationship between BMI and Dietary Restraint in young adult males. Dietary Restraint was found to be a significant predictor (p &lt; .001) and accounted for approximately 5.07% of the variance in BMI. For each one unit increase in Dietary Restraint, there is an average increase of 1.04 BMI units.
+
+---
+### Regressions as a prediction
+
+Regression equations can be used to evaluate the relationship between variables, and to predict expected values based on particular values of our IVs.
+
+We can ask: What is the expected BMI value for a young male with a Dietary Restraint rating of **4**?
+
+--
+`$$\Large BMI = 23.94 + 1.04*(\boldsymbol{4}) = 28.1$$`
+The expected BMI for a Dietary Restraint of 4 is 28.1
+
+--
+
+Technically, there is no limit to what we can input!
+
+---
+### Predicting beyond your data
+
+Regression equations can be used to evaluate the relationship between variables, and to predict expected values based on particular values of our IVs.
+
+We can ask: What is the expected BMI value for a young male with a Dietary Restraint rating of **400**?
+
+--
+
+Using our measure, this is not a possible value of Dietary Restraint but we can still estimate BMI using our regression equation.
+
+--
+`$$\Large BMI = 23.94 + 1.04*(\boldsymbol{400}) = 439.94$$`
+An adult would have to weight 2,894 pounds at 5' 8" to get a BMI of 439.94.
+
+--
+
+**Only predict within the bounds of your data.**
 
 ---
 class: middle, inverse
 
 # Correlation and causality
 
+---
+## Oregon Divorces and Beef Consumption
+
+Does U.S. beef consumption cause more "beefs" between Oregonians and their spouses?
+* What is the relationship between Oregon's per capita divorce rate and U.S. per capita beef consumption? 
+
+--
+&lt;img src="EDUC643_1_intro_files/figure-html/unnamed-chunk-28-1.png" style="display: block; margin: auto;" /&gt;
+
+There certainly seems to be a relationship! Let's run a simple regression model.
+---
+## Regression Models -  Divorce and Beef
+
+If we regress divorce rate on beef consumption...
+
+
+```
+...
+Coefficients:
+                 Estimate Std. Error t value Pr(&gt;|t|)  
+(Intercept)       -3.7437     2.8068  -1.334   0.2190  
+*beef_consumption   0.1285     0.0451   2.849   0.0215 *
+---
+Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
+
+Residual standard error: 0.2711 on 8 degrees of freedom
+Multiple R-squared:  0.5037,	Adjusted R-squared:  0.4416 
+F-statistic: 8.119 on 1 and 8 DF,  p-value: 0.0215
+...
+```
+
+Beef consumption accounts for 50% of the variance in Oregon's divorce rate!
+
+---
+## Regression Models -  Divorce and Beef
+
+If we regress U.S. beef consumption on Oregon's divorce rate...
+
+
+```
+...
+Coefficients:
+             Estimate Std. Error t value Pr(&gt;|t|)    
+(Intercept)    45.551      5.866   7.765 5.41e-05 ***
+*divorce_rate    3.920      1.376   2.849   0.0215 *  
+---
+Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
+
+Residual standard error: 1.498 on 8 degrees of freedom
+Multiple R-squared:  0.5037,	Adjusted R-squared:  0.4416 
+F-statistic: 8.119 on 1 and 8 DF,  p-value: 0.0215
+...
+```
+
+Oregon's divorce rate accounts for 50% of the variance in U.S. beef consumption?
+---
+## Regression Models -  Divorce and Beef
+
+What can we conclude? - Do increases in Oregon's divorce rate **cause** increases in U.S. beef consumption, or do increases in beef consumption **cause** increases in the divorce rate?
+
+--
+
+**Probably neither...**
+
+--
+
+We tested for a linear relationship. There is a significant linear relationship or correlation between divorce rate and beef consumption, but we did not conduct an experimental study.
+
+**We cannot establish causality, nor the direction of the relationship with a statistical test.**
+
+--
+
+Study design is critical.
+
+---
+## Turn and Talk
+
+* Discuss science communication and how you would distinguish correlations from causal relationships to the average person.
+
+* In what contexts might it be difficult to conduct an experimental study to establish causality?
+
+---
+
+End of Slides
     </textarea>
 <style data-target="print-only">@media screen {.remark-slide-container{display:block;}.remark-slide-scaler{box-shadow:none;}}</style>
 <script src="https://remarkjs.com/downloads/remark-latest.min.js"></script>
