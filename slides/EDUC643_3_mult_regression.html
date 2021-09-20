@@ -4,9 +4,12 @@
     <title>Multiple Regression</title>
     <meta charset="utf-8" />
     <meta name="author" content="TBD" />
-    <script src="EDUC643_3_mult_regression_files/header-attrs-2.9/header-attrs.js"></script>
+    <script src="EDUC643_3_mult_regression_files/header-attrs-2.11/header-attrs.js"></script>
     <link href="EDUC643_3_mult_regression_files/remark-css-0.0.1/default.css" rel="stylesheet" />
-    <link rel="stylesheet" href="new.css" type="text/css" />
+    <link href="EDUC643_3_mult_regression_files/remark-css-0.0.1/uo.css" rel="stylesheet" />
+    <link href="EDUC643_3_mult_regression_files/remark-css-0.0.1/ki-fonts.css" rel="stylesheet" />
+    <link rel="stylesheet" href="my_custom.css" type="text/css" />
+    <link rel="stylesheet" href="xaringanthemer.css" type="text/css" />
   </head>
   <body>
     <textarea id="source">
@@ -22,6 +25,120 @@ class: center, middle, inverse, title-slide
 
 # Roadmap
 
+&lt;img src="Roadmap3.jpg" width="90%" style="display: block; margin: auto;" /&gt;
+---
+# A motivating question
+
+Using real-world data about the dietary habits, health, and self-appraisals of younger males, we aim to answer the following RQ:
+
+- .blue[**Does dietary restraint predict BMI among younger adult males?**]
+
+
+```
+#&gt; 'data.frame':	771 obs. of  51 variables:
+#&gt;  $ id                            : chr  "1" "2" "3" "4" ...
+#&gt;  $ updated_race_group            : Factor w/ 4 levels "white, non-Hispanic",..: 2 2 2 2 2 2 2 2 2 2 ...
+#&gt;  $ BMI                           : num  19.8 24.6 22.6 23.6 20.9 ...
+#&gt;  $ age_year                      : num  18 24 25 28 25 18 25 20 29 22 ...
+#&gt;  $ education_group               : Factor w/ 9 levels "less than HS",..: 1 2 5 2 2 2 5 3 3 4 ...
+#&gt;  $ school_group                  : Factor w/ 2 levels "not in school",..: 2 1 1 1 1 2 2 2 1 2 ...
+#&gt;  $ marital_status_group          : Factor w/ 7 levels "single","single but committed relationship",..: 1 1 1 5 5 1 5 1 4 1 ...
+#&gt;  $ employment_group              : Factor w/ 4 levels "disbility","unemployed",..: 2 2 3 1 3 2 4 3 2 3 ...
+#&gt;  $ income_group                  : Factor w/ 11 levels "less than 19,999",..: 1 1 1 2 1 1 11 7 2 4 ...
+#&gt;  $ sexual_orientation_group      : Factor w/ 7 levels "hetero","gay",..: 1 1 1 1 6 1 1 1 1 1 ...
+#&gt;  $ overweight_group              : Factor w/ 2 levels "no","yes": 2 1 1 1 1 1 1 1 1 1 ...
+#&gt;  $ hypertension_group            : Factor w/ 2 levels "no","yes": 1 1 1 2 1 1 2 1 1 1 ...
+#&gt;  $ high_cholest_group            : Factor w/ 2 levels "no","yes": 1 1 1 2 1 1 1 1 1 1 ...
+#&gt;  $ type2diabetes_group           : Factor w/ 2 levels "no","yes": 1 1 1 1 1 1 1 1 1 1 ...
+#&gt;  $ sleep_apnea_group             : Factor w/ 2 levels "no","yes": 1 1 1 1 1 1 1 1 1 1 ...
+#&gt;  $ heart_disease_group           : Factor w/ 2 levels "no","yes": 1 1 1 1 1 1 2 1 1 1 ...
+#&gt;  $ stroke_group                  : Factor w/ 2 levels "no","yes": 1 1 1 1 1 1 1 1 1 1 ...
+#&gt;  $ cancer_group                  : Factor w/ 2 levels "no","yes": 1 1 1 1 1 1 1 1 1 1 ...
+#&gt;  $ GERD_group                    : Factor w/ 2 levels "no","yes": 1 1 1 2 1 1 1 1 1 1 ...
+#&gt;  $ hypothyroidism_group          : Factor w/ 2 levels "no","yes": 1 1 1 1 1 1 1 1 1 1 ...
+#&gt;  $ congestive_heart_failure_group: Factor w/ 2 levels "no","yes": 1 1 1 1 1 1 1 1 1 1 ...
+#&gt;  $ depression_group              : Factor w/ 2 levels "no","yes": 1 1 1 1 1 1 1 1 1 1 ...
+#&gt;  $ anxiety_group                 : Factor w/ 2 levels "no","yes": 1 1 1 1 1 1 1 1 1 1 ...
+#&gt;  $ eating_disorder_group         : Factor w/ 2 levels "no","yes": 1 1 1 1 1 1 1 1 1 1 ...
+#&gt;  $ insomnia_group                : Factor w/ 2 levels "no","yes": 1 1 1 1 1 1 1 1 1 1 ...
+#&gt;  $ OE_frequency                  : num  0 20 0 0 0 0 4 1 0 4 ...
+#&gt;  $ OE_present                    : Factor w/ 2 levels "no","yes": 1 2 1 1 1 1 2 2 1 2 ...
+#&gt;  $ OBE_frequency                 : num  0 3 0 0 0 0 3 0 0 1 ...
+#&gt;  $ OBE_present                   : Factor w/ 2 levels "no","yes": 1 2 1 1 1 1 2 1 1 2 ...
+#&gt;  $ SBE_frequency                 : num  0 26 0 0 0 0 5 1 0 0 ...
+#&gt;  $ SBE_present                   : Factor w/ 2 levels "no","yes": 1 2 1 1 1 1 2 2 1 1 ...
+#&gt;  $ LOC_presence                  : Factor w/ 2 levels "no","yes": 1 2 1 1 1 1 2 2 1 2 ...
+#&gt;  $ LOC_frequency                 : num  0 29 0 0 0 0 8 1 0 1 ...
+#&gt;  $ EDEQ_restraint                : num  0 0.2 0 0.4 1.2 0.2 2 2.6 1.2 0.4 ...
+#&gt;  $ DERS_strategy                 : num  1 2 1 3 3 1 2 1 1 3 ...
+#&gt;  $ DERS_nonaccept                : num  1 3.33 1 3 2.33 ...
+#&gt;  $ DERS_impuls                   : num  1 3 1 3 1 ...
+#&gt;  $ DERS_goals                    : num  1 3 1 3 3 ...
+#&gt;  $ DERS_clarity                  : num  1 3 1 3 2.67 ...
+#&gt;  $ DERS_awareness                : num  5 3.33 5 3 2.33 ...
+#&gt;  $ DERS_total                    : num  1.67 2.94 1.67 3 2.39 ...
+#&gt;  $ DMS_mean                      : num  1 1.53 1.07 1.87 2.4 ...
+#&gt;  $ MBAS_muscularity              : num  11 11 11 7 19 11 18 16 14 21 ...
+#&gt;  $ MBAS_fat                      : num  5 5 5 5 6 15 8 17 12 17 ...
+#&gt;  $ MBAS_height                   : num  7 7 3 3 3 7 8 9 3 7 ...
+#&gt;  $ EDS_total                     : num  21 21 22 52 93 90 70 75 71 69 ...
+#&gt;  $ SATAQ_thinness                : num  1 1 1.4 1 2.2 2 2.8 2.6 3.8 4.4 ...
+#&gt;  $ SATAQ_muscular                : num  1 1 1 2 2 2.8 2.2 4 5 4.2 ...
+#&gt;  $ SATAQ_total                   : num  1 1 1.2 1.5 2.1 2.4 2.5 3.3 4.4 4.3 ...
+#&gt;  $ MEIM_explore                  : num  1 1 1 1 1 ...
+#&gt;  $ MEIM_commit                   : num  1 1 1 1 1.67 ...
+#&gt;  - attr(*, "variable.labels")= Named chr [1:51] "Study participant ID" "Racial/ethnic identity (see values)" "Body mass index in kg/m-squared" "Total years of age" ...
+#&gt;   ..- attr(*, "names")= chr [1:51] "Study_ID" "updated_race_group" "BMI" "age_year" ...
+#&gt;  - attr(*, "codepage")= int 65001
+```
+---
+# Bivariate relationship
+&lt;img src="EDUC643_3_mult_regression_files/figure-html/unnamed-chunk-3-1.svg" style="display: block; margin: auto;" /&gt;
+
+---
+# Regression results
+
+
+```
+#&gt; 
+#&gt; Call:
+#&gt; lm(formula = BMI ~ EDEQ_restraint, data = do)
+#&gt; 
+#&gt; Residuals:
+#&gt;     Min      1Q  Median      3Q     Max 
+#&gt; -16.463  -3.884  -1.013   2.494  28.941 
+#&gt; 
+#&gt; Coefficients:
+#&gt;                Estimate Std. Error t value Pr(&gt;|t|)    
+#&gt; (Intercept)     24.1907     0.2954  81.884  &lt; 2e-16 ***
+#&gt; EDEQ_restraint   0.8143     0.1586   5.134 3.59e-07 ***
+#&gt; ---
+#&gt; Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
+#&gt; 
+#&gt; Residual standard error: 5.769 on 769 degrees of freedom
+#&gt; Multiple R-squared:  0.03314,	Adjusted R-squared:  0.03188 
+#&gt; F-statistic: 26.36 on 1 and 769 DF,  p-value: 3.593e-07
+```
+
+--
+
+.red[**But perhaps there are other features among the participants that also influence their BMI?**]
+
+---
+# Goals for the unit
+
+- Articulate the concepts of multiple regression and .red["statistical adjustment"]
+- Distinguish between the substantive implications of the terms .red["statistical control"] and .red["statistical adjustment"]
+- Estimate the parameters of a multiple regression model
+- Visually display the results of multiple regresion models
+- State the main effects assumption and what the implication would be if it is violated
+- Conduct statistical inference tests of single predictors ($t$-test) and full model ($F$-test) in multiple regression
+- Decompose the total variance into its component parts (model and residual) and use the `\(R^{2}\)` statistic to describe this decomposition
+- Describe problems for regression associated with the phenomenon of multicollinearity
+- Use visual schema (e.g., Venn diagrams) to assess regression models for the potential of multicollinearity
+- Use statistical results (e.g., correlation matrices or heat maps) to assess regression models for the potential of multicollinearity
+- Describe and implement some solutions to multi-collinearity
+
 ---
 class: middle, inverse
 
@@ -30,17 +147,59 @@ class: middle, inverse
 ---
 class: middle, inverse
 
-# Variance decomposition
-
+# Inference in multiple regression
 ---
+
 class: middle, inverse
 
-# Effect sizes
+# Variance decomposition in multiple regression
+
+---
+# Bivariate v. multiple regression
+
+|                     |  Bivariate regression       |   Multiple regression
+|----------------------------------------------------------------------------
+| Model specification | `\(\hat{Y}=\hat{\beta_{0}} + \hat{\beta_{1}}\mathbf{X}_{1}\)` | `\(\hat{Y}=\hat{\beta_{0}} + \hat{\beta_{1}}\mathbf{X}_{1} + \hat{\beta_{2}}\mathbf{X}_{2} + \cdots \hat{\beta_{k}}\mathbf{X}_{k}\)`
+| Interpretation of `\(\hat{\beta_{0}}\)` | Predicted value of Y when X=0 | Predicted value of Y when .red[all] Xs = 0
+| Interpretation of `\(\hat{\beta_{1}}\)` | Difference in Y per 1 unit of X | Difference in Y per 1 unit difference in `\(X_{1}\)`, adjusting for `\(X_{2} \cdots X_{k}\)`
+| Graphical representation | Fitted line     | Fitted plane in 3D (with two Xs) &lt;br&gt; Plot with prototypical lines
+| Residuals   | Distance between observation and fitted .red-pink[line] | Distance between line and fitted .red-pink[plane]
+| Inference: `\(t\)`-tests | `\(H_{0} = \beta_{1} = 0\)` &lt;br&gt; Is there a relationship between X and Y in pop? | `\(H_{0} = \beta_{1} = 0\)` &lt;br&gt; Adjusting for  `\(X_{2} \cdots X_{k}\)` is there a relationship between `\(X_{1}\)` and Y in the population? &lt;br&gt; Repeat for each X
+
+---
+# Bivariate v. multiple regression
+
+|                     |  Bivariate regression       |   Multiple regression
+|----------------------------------------------------------------------------
+| Inference: `\(F\)`-test | `\(H_{0} = \beta_{1} = 0\)` &lt;br&gt; same result as `\(t\)`-test |  `\(H_{0} = \textrm{all } \beta_{1} = 0\)` &lt;br&gt; Does *any* predictor have a relationship with Y in the population?
+| `\(R^{2}\)` | `\(\frac{Regress SS}{Total SS}\)` &lt;br&gt; % of variation in Y explained by X | `\(\frac{Regress SS}{Total SS}\)` &lt;br&gt; % of variation in Y explained by `\(X_{1} \cdots X_{k}\)` 
+| Regression assumptions | See prior unit          | Same as bivariate, but .red[**at each combination of the Xs**]. &lt;br&gt; Main effects assumption
+
+
+
+
 
 ---
 class: middle, inverse
 
 # Multi-collinearity
+
+---
+Multicollinearity occurs when predictor variables are highly related to each other.
+
+This can be a simple relationship, such as when X1 is strongly correlated with X2. This is easy to recognize, interpret, and correct for.
+Sometimes multicollinearity is difficult to detect, such as when X1 is not strongly correlated with X2, X3, or X4, but the combination of the latter three is a strong predictor of X1.
+
+Multicollinearity increases the standard errors of your slope coefficients.
+
+Perfect collinearity never happens (except in the instance of a duplicated variable). There are degrees of multicollinearity. More multicollinearity = more problematic model.
+
+Ways to address
+- Increase sample size
+- Remember, with small samples, our estimates can be wildly off. Even if the true relationship between X1 and X2 is small, the sample correlation might be high because of random error.
+- Remove a variable from your model.
+- Composite or factor scores
+ +If variables are highly correlated because they index the same underlying construct, why not just use them to create a more precise measure of that construct?
     </textarea>
 <style data-target="print-only">@media screen {.remark-slide-container{display:block;}.remark-slide-scaler{box-shadow:none;}}</style>
 <script src="https://remarkjs.com/downloads/remark-latest.min.js"></script>
