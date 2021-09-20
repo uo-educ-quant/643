@@ -487,7 +487,7 @@ ggplot(do, aes(x = predict, y = resid)) +
 ---
 # Solutions to heteroscedasticity
 
-Heteroscedasticity biases our standard errors. The standard deviation of the estimator $\hat{beta_{1}}$ is inconsistent for the true value of $\sigma^2_{\hat{\beta_{1}}}$ when there is heteroscedasticity. The sample-based statistic do not follow a standard normal distribution (following the CLT). This would invalidate our inferencing.
+Heteroscedasticity biases our standard errors. The standard deviation of the estimator $\hat{\beta_{1}}$ is inconsistent for the true value of $\sigma^2_{\hat{\beta_{1}}}$ when there is heteroscedasticity. The sample-based statistic do not follow a standard normal distribution (following the CLT). This would invalidate our inferencing.
 
 However, we generally can correct for the presence of heteroscedasticity by the computation of .red[heteroscedasticity-robust standard errors]. There are several approaches that rely on the variance-covariance matrix of the errors and a good deal of matrix algebra. 
 

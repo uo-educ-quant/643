@@ -193,18 +193,18 @@ summary(lm(BMI ~ EDEQ_noise, data=do))
 #&gt; 
 #&gt; Residuals:
 #&gt;     Min      1Q  Median      3Q     Max 
-#&gt; -17.913  -3.899  -0.989   2.953  33.698 
+#&gt; -18.911  -3.875  -0.960   2.883  32.521 
 #&gt; 
 #&gt; Coefficients:
 #&gt;             Estimate Std. Error t value Pr(&gt;|t|)    
-#&gt; (Intercept)  24.2558     0.2550  95.135  &lt; 2e-16 ***
-*#&gt; EDEQ_noise    0.8132     0.1271   6.396 2.36e-10 ***
+#&gt; (Intercept)  24.1433     0.2539  95.089  &lt; 2e-16 ***
+*#&gt; EDEQ_noise    0.8925     0.1263   7.069 2.77e-12 ***
 #&gt; ---
 #&gt; Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
 #&gt; 
-*#&gt; Residual standard error: 6.128 on 1092 degrees of freedom
-#&gt; Multiple R-squared:  0.03611,	Adjusted R-squared:  0.03523 
-#&gt; F-statistic: 40.91 on 1 and 1092 DF,  p-value: 2.356e-10
+*#&gt; Residual standard error: 6.103 on 1092 degrees of freedom
+#&gt; Multiple R-squared:  0.04376,	Adjusted R-squared:  0.04289 
+#&gt; F-statistic: 49.98 on 1 and 1092 DF,  p-value: 2.772e-12
 ```
 ---
 # Addressing measurement error
@@ -420,7 +420,7 @@ Let's look at this for our estimates of disordered eating:
 ---
 # Solutions to heteroscedasticity
 
-Heteroscedasticity biases our standard errors. The standard deviation of the estimator `\(\hat{beta_{1}}\)` is inconsistent for the true value of `\(\sigma^2_{\hat{\beta_{1}}}\)` when there is heteroscedasticity. The sample-based statistic do not follow a standard normal distribution (following the CLT). This would invalidate our inferencing.
+Heteroscedasticity biases our standard errors. The standard deviation of the estimator `\(\hat{\beta_{1}}\)` is inconsistent for the true value of `\(\sigma^2_{\hat{\beta_{1}}}\)` when there is heteroscedasticity. The sample-based statistic do not follow a standard normal distribution (following the CLT). This would invalidate our inferencing.
 
 However, we generally can correct for the presence of heteroscedasticity by the computation of .red[heteroscedasticity-robust standard errors]. There are several approaches that rely on the variance-covariance matrix of the errors and a good deal of matrix algebra. 
 
