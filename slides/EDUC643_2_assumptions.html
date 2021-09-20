@@ -4,9 +4,12 @@
     <title>Regression assumptions and diagnostics</title>
     <meta charset="utf-8" />
     <meta name="author" content="TBD" />
-    <script src="EDUC643_2_assumptions_files/header-attrs-2.9/header-attrs.js"></script>
+    <script src="EDUC643_2_assumptions_files/header-attrs-2.11/header-attrs.js"></script>
     <link href="EDUC643_2_assumptions_files/remark-css-0.0.1/default.css" rel="stylesheet" />
-    <link rel="stylesheet" href="new.css" type="text/css" />
+    <link href="EDUC643_2_assumptions_files/remark-css-0.0.1/uo.css" rel="stylesheet" />
+    <link href="EDUC643_2_assumptions_files/remark-css-0.0.1/ki-fonts.css" rel="stylesheet" />
+    <link rel="stylesheet" href="my_custom.css" type="text/css" />
+    <link rel="stylesheet" href="xaringanthemer.css" type="text/css" />
   </head>
   <body>
     <textarea id="source">
@@ -22,20 +25,605 @@ class: center, middle, inverse, title-slide
 
 # Roadmap
 
+&lt;img src="Roadmap2.jpg" width="90%" style="display: block; margin: auto;" /&gt;
+---
+# A motivating question
+
+Using real-world data about the dietary habits, health, and self-appraisals of younger males, we aim to answer the following RQ:
+
+- .blue[**Does dietary restraint predict BMI among younger adult males?**]
+
+
+---
+# Bivariate relationship
+&lt;img src="EDUC643_2_assumptions_files/figure-html/unnamed-chunk-3-1.svg" style="display: block; margin: auto;" /&gt;
+
+---
+# Regression results
+
+
+
+```r
+fit &lt;- lm(BMI ~ EDEQ_restraint, data=do)
+tidy(fit)
+```
+
+```
+#&gt; # A tibble: 2 x 5
+#&gt;   term           estimate std.error statistic  p.value
+#&gt;   &lt;chr&gt;             &lt;dbl&gt;     &lt;dbl&gt;     &lt;dbl&gt;    &lt;dbl&gt;
+#&gt; 1 (Intercept)       23.9      0.263     91.0  0       
+#&gt; 2 EDEQ_restraint     1.04     0.136      7.64 4.80e-14
+```
+
+
+- Each 1 unit difference in dietary restraint behaviors (*EDEQ_RESTRAINT*) is associated with a 1.04 unit difference in Body Mass Index (*BMI*).
+ + This represents 1/6th of a standard deviation of the outcome (*BMI*), or a relatively large effect
+- Effect is statistically significant
+ + Unlikely that in the population of 18-30 yo males that there is no relationship between dietary restraint behaviors and BMI.
+- There is still a lot of residual variation
+
+--
+
+.blue[**So should we believe these results???**]
+
+---
+# Goals of the unit
+
+- Articulate the assumptions of the General Linear Model broadly and least squares estimation and inference particularly
+- Describe sources of assumption violation in the regression model including: measurement error, non-linearity, heteroscedasticity, non-normally distributed residuals, correlated errors, and outliers.
+- Articulate properties of residuals and describe their centrality in understanding the regression model assumptions
+- Conduct diagnostic tests on regression model assumption violations
+- Implement a consistent screening protocol to identify regression model assumption violations
+- Implement solutions to regression model assumption violations, when appropriate
+
+
+
 ---
 class: middle, inverse
 
-# Residuals: raw, studentized, standardized
+# Regression fundamentals: the remix
+
+---
+# Some definitions
+
+When you conduct any kind of statistical analysis, there are three phenomenon you are interested in:
+- **The estimand**: the underlying quantity you are seeking to learn about in the population 
+  + "the dropout rate", "disordered eating", etc.
+- **The estimator**: the method used to obtain an approximation of this quantity
+  + "Ordinary Least Squares regression", "*t*-test", "LASSO", etc.)
+- **The estimate(s)**: the value obtained from conducting a particular statistical test in a particular set of data
+  + "38.1 scale points", "5.5 percentage points", "a log-odds ratio of 2.3", etc)
+
+--
+
+In estimating a model to data, you are seeking an estimator that will return a .blue[**BLUE**] estimate:
+ + .blue[**B**]est
+ + .blue[**L**]inear
+ + .blue[**U**]nbiased
+ + .blue[**E**]stimate
+ 
+--
+
+**If the assumptions of linear regression are met, OLS estimators are always .blue[BLUE].**
+
+---
+# Key assumptions of regression
+
+#### In fitting these models, we assume that the relationships are characterized by:
+- No measurement error
+- Linearity
+- Homoscedasticity (or homoskedasticity?)
+- Normally distributed residuals 
+- Independent errors
+- No unduly influential outliers
+
+---
+# Key assumptions of regression
+
+
+.pull-left[
+At each value of X, there is a distribution of Y. These distributions have a mean `\(\mu_{Y|X}\)` and a variance of `\(\sigma^2_{Y|X}\)`
+1. **Measurement error**: Values of X are non-overlapping
+2. **Linearity**: The mean of each X distribution `\((\mu_{Y|X})\)` can be joined together by a straight line
+3. **Homoscedasticity**: Variance of each distribution `\((\sigma^2_{Y|X})\)` is identical
+4. **Normality**: At each given value of X, the values of Y are normally distributed
+5. **Independence**: Conditional on values of X, the values of Y are independent of each other
+]
+
+.pull-right[
+&lt;img src="reg_assumpt.png" width="1280" style="display: block; margin: auto;" /&gt;
+(6. **Outliers** are baked into several of above)
+]
+
+--
+
+These assumptions are not about the sample, but are about the individual error terms *in the population*.
 
 ---
 class: middle, inverse
 
-# Linear regression assumptions
+# Regression diagnostics: measurement error
+
+---
+# Original estimates
+
+Classical measurement error (our predictor variable is measured imprecisely) will bias our results to zero and increase residual standard error.
+
+
+```r
+summary(lm(BMI ~ EDEQ_restraint, data=do))
+```
+
+```
+#&gt; 
+#&gt; Call:
+#&gt; lm(formula = BMI ~ EDEQ_restraint, data = do)
+#&gt; 
+#&gt; Residuals:
+#&gt;     Min      1Q  Median      3Q     Max 
+#&gt; -19.064  -3.962  -0.928   2.685  33.266 
+#&gt; 
+#&gt; Coefficients:
+#&gt;                Estimate Std. Error t value Pr(&gt;|t|)    
+#&gt; (Intercept)     23.9383     0.2631  90.973  &lt; 2e-16 ***
+*#&gt; EDEQ_restraint   1.0369     0.1358   7.638  4.8e-14 ***
+#&gt; ---
+#&gt; Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
+#&gt; 
+*#&gt; Residual standard error: 6.081 on 1092 degrees of freedom
+#&gt; Multiple R-squared:  0.05072,	Adjusted R-squared:  0.04985 
+#&gt; F-statistic: 58.34 on 1 and 1092 DF,  p-value: 4.799e-14
+```
+---
+# Addding measurement error
+
+Classical measurement error (our predictor variable is measured imprecisely) will bias our results to zero and increase residual standard error.
+
+
+```r
+do$EDEQ_noise &lt;- jitter(do$EDEQ_restraint, factor = 5, amount = 1)
+summary(lm(BMI ~ EDEQ_noise, data=do))
+```
+
+```
+#&gt; 
+#&gt; Call:
+#&gt; lm(formula = BMI ~ EDEQ_noise, data = do)
+#&gt; 
+#&gt; Residuals:
+#&gt;     Min      1Q  Median      3Q     Max 
+#&gt; -17.913  -3.899  -0.989   2.953  33.698 
+#&gt; 
+#&gt; Coefficients:
+#&gt;             Estimate Std. Error t value Pr(&gt;|t|)    
+#&gt; (Intercept)  24.2558     0.2550  95.135  &lt; 2e-16 ***
+*#&gt; EDEQ_noise    0.8132     0.1271   6.396 2.36e-10 ***
+#&gt; ---
+#&gt; Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
+#&gt; 
+*#&gt; Residual standard error: 6.128 on 1092 degrees of freedom
+#&gt; Multiple R-squared:  0.03611,	Adjusted R-squared:  0.03523 
+#&gt; F-statistic: 40.91 on 1 and 1092 DF,  p-value: 2.356e-10
+```
+---
+# Addressing measurement error
+
+- Test for presence of measurement error with reliability statistics
+- Solve by creating factors of underlying constructs, adjust standard errors post-hoc, SEM, get more data, improve design
+
+#### We'll learn about reliability in EDUC 645 as well as in more advanced courses such as EDLD 667
+#### We will also learn about some solutions in 633/634 (SEM) and EDLD 650 and 679 (causal inference)
+#### These are generally problems that are solved by design rather than stats
 
 ---
 class: middle, inverse
 
-# Regression diagnostics
+# Regression diagnostics: residuals
+
+---
+# Residuals
+
+&lt;img src="EDUC643_2_assumptions_files/figure-html/unnamed-chunk-8-1.svg" style="display: block; margin: auto;" /&gt;
+
+Our fitted regression line contains the "predicted" values of *BMI* for each value of *DIETARY_RESTRAINT*. But almost all of the "actual" values of *BMI* lie off the actual line regression line.
+---
+# Example: Participant #1089
+
+&lt;img src="EDUC643_2_assumptions_files/figure-html/unnamed-chunk-9-1.svg" style="display: block; margin: auto;" /&gt;
+
+
+
+--
+
+.blue[*What can we say about this study participant's BMI, relative to our prediction?*]
+
+
+---
+# What is a "residual"?
+
+#### The difference ("vertical distance") between the observed value of the outcome its predicted value is called the *residual*.
+
+#### Residuals can be substantively and statistically useful:
+- Represent individual deviations from average trend
+- Tell us about values of the outcome after taking into account ("adjusting for") the predictor
+ + In this case, tell us whether study participants have higher or lower BMI indices than predicted, given their dietary restraint behaviors
+
+---
+# Raw and studentized residuals
+
+Raw residuals give us information on how far each observed value is from its predicted value *in the original units of the outcome*. Sometimes it may be valuable to be able to quantify residuals in more standard units. 
+
+- **Raw residuals**: Observed minus fitted values:
+
+`$$r_{i} = y_{i} - \hat{y_{i}}$$`
+
+- **Standardized residuals**: Can transform raw residuals into standardized units by dividing by the Mean Square Error (estimate of standard deviation of the residuals).&lt;sup&gt;1&lt;/sup&gt;
+
+`$$stdr_{i} = \frac{r_{i}}{\sqrt{MSE}}$$`
+
+
+- **Studentized residuals**: Raw residuals come from models that may be influenced by individual data points (esp. in small samples). To avoid this problem, it is helpful to estimate residuals that come from a model based on all data *except the case at hand (i)*. Here, `\(MSE_{i}\)` is based on a regression fit without observation `\(i\)`. 
+
+`$$stur_{i} = \frac{r_{i}}{\sqrt{MSE_{i}}}$$`
+
+.footnote[[1] Technically, this is an oversimplification as we usually calculate standardized and studentized residuals by also accounting for the "leverage" of observation *i* (how much does it influence the regression statistics).]
+
+
+---
+# Residuals as tools
+
+Residuals can be valuable diagnostic tools to assessing the assumptions of the regression model. In addition to serving as mechanisms to test the overall model, they can point to specific observations that may warrant further inspection. This might include:
+
+- Noticing patterns to change your theory about the correct model or functional form to use
+- Inspecting particular cases to determine whether they are mis-measured or belong to a different population than the main one of your study
+- Improve your research design overall
+
+---
+# Recovering residuals in R
+
+```r
+fit &lt;- lm(BMI ~ EDEQ_restraint, data=do)
+
+# predict asks for the predicted values
+do$predict &lt;- predict(fit)
+
+# residuals asks for the raw residual
+do$resid &lt;- residuals(fit)
+
+# rstandard asks for the standardized residual
+do$std_resid &lt;- rstandard(fit)
+
+# rstudent asks for the studentized residual
+do$stu_resid &lt;- rstudent(fit)
+```
+
+We can now treat these residual and predicted values as new variables in our dataset and examine using all the other univariate and multivariate analysis tools we have.
+
+---
+# Examining the residuals
+
+
+```r
+summary(do$resid)
+```
+
+```
+#&gt;    Min. 1st Qu.  Median    Mean 3rd Qu.    Max. 
+#&gt; -19.064  -3.962  -0.928   0.000   2.685  33.266
+```
+
+- Sample mean of the residuals is *always* exactly zero
+- On a scale ranging from about 5 to 60, most of our residuals are within 5 BMI units. However, we've done a poor job of predicting BMI for some participants.
+
+--
+
+
+
+```r
+summary(do$std_resid)
+```
+
+```
+#&gt;      Min.   1st Qu.    Median      Mean   3rd Qu.      Max. 
+#&gt; -3.140908 -0.651970 -0.152739  0.000022  0.441871  5.475401
+```
+
+- Compare to the standardized residuals. *How similar are they?*&lt;sup&gt;1&lt;/sup&gt;
+- Note the minima and maxima values. .blue[*Given a sample of ~1100 individuals, what does this make you think?*]
+
+.footnote[[1] Our standardized and studentized residuals have means *close to* zero, but not quite because of "leverage" corrections (see slide 18)
+]
+
+---
+# Examining the residuals
+Standard deviation of the raw residuals can be quite useful in checking our assumptions
+- .blue[*What assumption?*]
+
+
+```r
+sd(do$resid)
+```
+
+```
+#&gt; [1] 6.07839
+```
+
+--
+
+How does this compare to the standardized residual?
+
+
+```r
+sd(do$std_resid)
+```
+
+```
+#&gt; [1] 1.000621
+```
+
+---
+# Non-linearity
+
+In addition to examining the original scatterplot to detect the presence of non-linearity...
+
+&lt;img src="EDUC643_2_assumptions_files/figure-html/unnamed-chunk-15-1.svg" style="display: block; margin: auto;" /&gt;
+---
+# Non-linearity
+
+In addition to examining the original scatterplot to detect the presence of non-linearity...
+
+&lt;img src="EDUC643_2_assumptions_files/figure-html/unnamed-chunk-16-1.svg" style="display: block; margin: auto;" /&gt;
+
+--
+
+**We can also examine the residuals to detect non-linearity!**
+
+---
+# Non-linearity: residuals v. fitted
+
+Plotting the residual values against their fitted values can provide **EXTREMELY** informative insights to many of our regression assumptions. 
+
+&lt;img src="EDUC643_2_assumptions_files/figure-html/unnamed-chunk-17-1.svg" style="display: block; margin: auto;" /&gt;
+---
+# Non-linearity: residuals v. fitted
+
+Plotting the residual values against their fitted values can provide **EXTREMELY** informative insights to many of our regression assumptions. 
+
+&lt;img src="EDUC643_2_assumptions_files/figure-html/unnamed-chunk-18-1.svg" style="display: block; margin: auto;" /&gt;
+---
+# Non-linearity: residuals v. fitted
+
+Let's look at this for our estimates of disordered eating:
+&lt;img src="EDUC643_2_assumptions_files/figure-html/unnamed-chunk-19-1.svg" style="display: block; margin: auto;" /&gt;
+
+.red-pink[**What evidence do you observe of linearity or non-linearity in the residuals for our disordered eating sample?**]
+
+---
+# Heteroscedasticity
+
+**Heteroscedasticity**: when variance of Y conditional on X `\((\sigma^2_{Y|X})\)` differs as a function of X
+
+&lt;img src="EDUC643_2_assumptions_files/figure-html/unnamed-chunk-20-1.svg" style="display: block; margin: auto;" /&gt;
+---
+# Heteroscedasticity
+
+**Heteroscedasticity**: when variance of Y conditional on X `\((\sigma^2_{Y|X})\)` differs as a function of X
+
+&lt;img src="EDUC643_2_assumptions_files/figure-html/unnamed-chunk-21-1.svg" style="display: block; margin: auto;" /&gt;
+---
+# Residual heterodscedasticity
+&lt;img src="EDUC643_2_assumptions_files/figure-html/unnamed-chunk-22-1.svg" style="display: block; margin: auto;" /&gt;
+
+.blue[**What evidence do you observe of homoscedasticity or heteroscedastictiy in the residuals for our disordered eating sample?**]
+
+---
+# Solutions to heteroscedasticity
+
+Heteroscedasticity biases our standard errors. The standard deviation of the estimator `\(\hat{beta_{1}}\)` is inconsistent for the true value of `\(\sigma^2_{\hat{\beta_{1}}}\)` when there is heteroscedasticity. The sample-based statistic do not follow a standard normal distribution (following the CLT). This would invalidate our inferencing.
+
+However, we generally can correct for the presence of heteroscedasticity by the computation of .red[heteroscedasticity-robust standard errors]. There are several approaches that rely on the variance-covariance matrix of the errors and a good deal of matrix algebra. 
+
+---
+# Solutions to heteroscedasticity
+We won't spend time on these now, but know that if you are concerned about the presence of heteroscedasticity in your data, you will generally want to use heteroscedasticity-robust standard errors (sometimes called sandwich estimators or [Eicker-Huber-White standard errors](https://www.jstor.org/stable/1912934) ). Some R options include the `estimatr::lm_robust` command.
+
+
+
+```r
+tidy(lm(BMI ~ EDEQ_restraint, data=do))
+```
+
+```
+#&gt; # A tibble: 2 x 5
+#&gt;   term           estimate std.error statistic  p.value
+#&gt;   &lt;chr&gt;             &lt;dbl&gt;     &lt;dbl&gt;     &lt;dbl&gt;    &lt;dbl&gt;
+#&gt; 1 (Intercept)       23.9      0.263     91.0  0       
+*#&gt; 2 EDEQ_restraint     1.04     0.136      7.64 4.80e-14
+```
+
+```r
+tidy(estimatr::lm_robust(BMI ~ EDEQ_restraint, se_type="HC1", data=do))
+```
+
+```
+#&gt;             term  estimate std.error statistic      p.value   conf.low
+#&gt; 1    (Intercept) 23.938280 0.2556127 93.650586 0.000000e+00 23.4367326
+*#&gt; 2 EDEQ_restraint  1.036911 0.1578113  6.570577 7.743309e-11  0.7272636
+#&gt;   conf.high   df outcome
+#&gt; 1 24.439828 1092     BMI
+#&gt; 2  1.346559 1092     BMI
+```
+
+---
+# Residual normality: boxplot
+
+For the standard errors (and associated inference tests) that we conduct in the regression analysis to be correct, the residuals **must be normally distributed.** Here it makes most sense to use our *studentized residuals*. .blue[**Why?**]
+
+
+```r
+boxplot(rstudent(fit))
+```
+
+&lt;img src="EDUC643_2_assumptions_files/figure-html/unnamed-chunk-25-1.svg" style="display: block; margin: auto;" /&gt;
+
+--
+
+A few outliers, particularly in the positive direction... (means we are *under*-predicting the BMI of these folks)
+
+---
+# Residual normality: histogram
+
+For the standard errors (and associated inference tests) that we conduct in the regression analysis to be correct, the residuals **must be normally distributed**
+
+&lt;img src="EDUC643_2_assumptions_files/figure-html/unnamed-chunk-26-1.svg" style="display: block; margin: auto;" /&gt;
+
+--
+
+And this is confirmed in this histogram. .blue[What sort of skew is this distribution exhibiting?]
+
+
+All in all, though, these seem roughly normally distributed.
+
+
+---
+# Residual normality: resid v. fitted 
+
+For the standard errors (and associated inference tests) that we conduct in the regression analysis to be correct, the residuals **must be normally distributed**
+&lt;img src="EDUC643_2_assumptions_files/figure-html/unnamed-chunk-27-1.svg" style="display: block; margin: auto;" /&gt;
+
+&lt;span style="color:blue"&gt; What would you be looking for here to assess for **normality**? &lt;span&gt;
+
+---
+# Residual normality: QQ plot
+
+For the standard errors (and associated inference tests) that we conduct in the regression analysis to be correct, the residuals **must be normally distributed**
+
+&lt;img src="EDUC643_2_assumptions_files/figure-html/unnamed-chunk-28-1.svg" style="display: block; margin: auto;" /&gt;
+---
+# Residual independence
+
+If observations (and residuals) are correlated (i.e., there is some feature in our data that makes some observations have correlated outcomes), then our model is mis-specified and we will have biased standard errors.
+
+Imagine that most of the young men in our disordered eating sample lived in one of six cities. 
+
+&lt;img src="EDUC643_2_assumptions_files/figure-html/unnamed-chunk-29-1.svg" style="display: block; margin: auto;" /&gt;
+---
+# Residual independence
+
+&lt;img src="EDUC643_2_assumptions_files/figure-html/unnamed-chunk-30-1.svg" style="display: block; margin: auto;" /&gt;
+
+--
+
+**Depending on disciplinary perspective, we can address these concerns through multi-level modeling or standard error adjustment. More on this in EDUC 645 and EDLD 628/629 (HLM)**
+
+---
+# Outliers
+
+#### Broadly defined as highly atypical and/or influential data point(s). These could be a result of:
+ + Coding (recording) error
+ + Accurate observations of a rare case
+ + Observation of an individual from a different population
+ 
+--
+
+#### We can characterize outliers on three dimensions:
+1. Leverage
+ + How unusual is the case in the 'X' direction?
+2. Distance
+ + How unusual is the case in the 'Y' direction?
+3. Influence
+ + How much does the relationship (regression coefficient) change in the absence of the case?
+ + Influence is roughly Leverage * Distance
+ 
+---
+# Outliers
+
+&lt;img src="EDUC643_2_assumptions_files/figure-html/unnamed-chunk-31-1.svg" style="display: block; margin: auto;" /&gt;
+
+.blue[*How would you characterize participant #11 on leverage and distance?*]
+
+ 
+---
+# Outliers
+
+
+```r
+do_out &lt;- filter(do, id!=11)
+tidy(lm(BMI ~ EDEQ_restraint, data=do))
+```
+
+```
+#&gt; # A tibble: 2 x 5
+#&gt;   term           estimate std.error statistic  p.value
+#&gt;   &lt;chr&gt;             &lt;dbl&gt;     &lt;dbl&gt;     &lt;dbl&gt;    &lt;dbl&gt;
+*#&gt; 1 (Intercept)       23.9      0.263     91.0  0       
+*#&gt; 2 EDEQ_restraint     1.04     0.136      7.64 4.80e-14
+```
+
+```r
+tidy(lm(BMI ~ EDEQ_restraint, data=do_out))
+```
+
+```
+#&gt; # A tibble: 2 x 5
+#&gt;   term           estimate std.error statistic  p.value
+#&gt;   &lt;chr&gt;             &lt;dbl&gt;     &lt;dbl&gt;     &lt;dbl&gt;    &lt;dbl&gt;
+*#&gt; 1 (Intercept)       23.9      0.260     91.9  0       
+*#&gt; 2 EDEQ_restraint     1.06     0.134      7.91 6.29e-15
+```
+
+--
+
+**Things don't change much in this case!**
+
+---
+# Outlier best practices
+
+There are various tests and common "rules of thumb" you may hear to assess each of distance, leverage and influence:
+ - Mahalanobis distance, studentized residuals, Cook's distance, etc.
+ 
+*Our recommendation*: address outliers substantively rather than with a particular statistic or "rule of thumb." Some recommendations:
+- The more data you have, the less relevant outliers are
+- Analyze data with/without outliers to see whether results change
+- Use outlier identification to identify mis-coded data and/or individuals who are substantively different than the population of interest (e.g, a student who has 24 schools of enrollment in middle school is likely from a fundamentally different population than students who have between 1 and 6 schools)
+
+---
+# Screening steps
+
+1. **Calculate univariate and bivariate descriptive stats**
+ - Check max/min and examine for outlying observations
+ - Verify the type of variable (factor or numeric?)
+ - Verify the observation counts match the expected numbers
+2. **Create boxplots, histograms, density and scatter plots**
+ - Examine for outliers and floor/ceiling effects
+ - Check for linearity, skew, and normality
+3. **Test assumptions using residuals**
+ - Graph residuals by predicted value. Check for linearity and heteroscedasticity
+ - Graph residuals by a few other variable to think about independence
+ - Plot residual distribution and Q-Q plot to check for normality
+
+---
+# Putting it all together
+
+Ordinary Least Squares (OLS) estimators return the Best Linear Unbiased Estimate (.blue[BLUE]) *as long as certain assumptions are met*.
+- Before accepting a set of results, examine these assumptions in turn to make sure they are tenable. .red[**You can't be sure the substantive interpretation of the results is correct until you have evaluated your assumptions!**]
+- Residuals can be key tools in evaluating these assumptions
+
+Linear regression models assume that:
+- There is no measurement error, the relationship is linear, the variance of Y at each value of X is homoscedastic, residuals are normally distributed, errors are independent and there are no unduly influential outliers.
+- Violations of these assumptions mean that either our estimates will be biased, our standard errors will be biased, or both will be.
+
+We can conduct a series of diagnostic steps and (sometimes) corrections to ensure our assumptions are met
+- Develop a set of regular best practices that you implement every time prior to fitting models to ensure the basic assumptions of regression are satisfied
+- Some assumption violations can be addressed via data management and statistical tools. Others are a feature of our research design that cannot be solved *post-hoc*.
+
+---
+class: middle, inverse
+# Synthesis and wrap-up
+
+
+ 
     </textarea>
 <style data-target="print-only">@media screen {.remark-slide-container{display:block;}.remark-slide-scaler{box-shadow:none;}}</style>
 <script src="https://remarkjs.com/downloads/remark-latest.min.js"></script>
