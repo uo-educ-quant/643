@@ -5,7 +5,7 @@ author: "TBD"
 #date: "`r format(Sys.time(), '%d %B %Y')`"
 output:
   xaringan::moon_reader:
-    css: ['default','new.css']
+    css: ['default', 'uo', 'ki-fonts', 'my_custom.css', 'xaringanthemer.css']
     # self_contained: true
     nature:
       highlightStyle: github
@@ -16,23 +16,22 @@ output:
 
 ```{R, setup, include = F}
 library(pacman)
-p_load(here, tidyverse, ggplot2, xaringan, knitr, kableExtra)
+p_load(here, tidyverse, ggplot2, xaringan, knitr, kableExtra, foreign, broom, xaringanthemer)
 
 i_am("slides/EDUC643_3_mult_regression.rmd")
 
-# Define color
-red_pink <- "#e64173"
-turquoise <- "#20B2AA"
-orange <- "#FFA500"
-red <- "#fb6107"
-blue <- "#3b3b9a"
-green <- "#8bb174"
-grey_light <- "grey70"
-grey_mid <- "grey50"
-grey_dark <- "grey20"
-purple <- "#6A5ACD"
-slate <- "#314f4f"
-# Dark slate grey: #314f4f
+
+extra_css <- list(
+  ".red"   = list(color = "red"),
+  ".blue"  =list(color = "blue"),
+  ".green" = list(color = "#8bb174"),
+  ".purple" = list(color = "#6A5ACD"),
+  ".red-pink" = list(color= "#e64173"),
+  ".grey-light" = list(color= "grey70"),
+  ".slate" = list(color="#314f4f"),
+  ".small" = list("font-size" = "90%"))
+
+write_extra_css(css = extra_css, outfile = "my_custom.css")
 
 # Knitr options
 opts_chunk$set(
@@ -52,6 +51,61 @@ options(knitr.table.format = "html")
 ```
 # Roadmap
 
+```{r, echo=F, out.width="90%"}
+include_graphics("Roadmap3.jpg")
+```
+---
+# A motivating question
+
+Using real-world data about the dietary habits, health, and self-appraisals of younger males, we aim to answer the following RQ:
+
+- .blue[**Does dietary restraint predict BMI among younger adult males?**]
+
+```{r, echo=F}
+do <- read.spss(here::here("data/male_do_eating.sav"), to.data.frame=T) %>% 
+  drop_na()
+do <- rownames_to_column(do, "id")
+do <- select(do, -c(Study_ID))
+str(do)
+```
+---
+# Bivariate relationship
+```{r, echo=F}
+lm_plot <- ggplot(do, aes(x=EDEQ_restraint, y=BMI)) + 
+  geom_point() +
+  geom_smooth(method = "lm", se=F) +
+  xlab("Dietary restraint index")
+
+lm_plot
+```
+
+---
+# Regression results
+
+```{r, echo=F}
+fit <- lm(BMI ~ EDEQ_restraint, data=do)
+summary(fit)
+```
+
+--
+
+.red[**But perhaps there are other features among the participants that also influence their BMI?**]
+
+---
+# Goals for the unit
+
+- Articulate the concepts of multiple regression and .red["statistical adjustment"]
+- Distinguish between the substantive implications of the terms .red["statistical control"] and .red["statistical adjustment"]
+- Estimate the parameters of a multiple regression model
+- Visually display the results of multiple regresion models
+- State the main effects assumption and what the implication would be if it is violated
+- Conduct statistical inference tests of single predictors ($t$-test) and full model ($F$-test) in multiple regression
+- Decompose the total variance into its component parts (model and residual) and use the $R^{2}$ statistic to describe this decomposition
+- Describe problems for regression associated with the phenomenon of multicollinearity
+- Use visual schema (e.g., Venn diagrams) to assess regression models for the potential of multicollinearity
+- Use statistical results (e.g., correlation matrices or heat maps) to assess regression models for the potential of multicollinearity
+- Describe and implement some solutions to multi-collinearity
+
 ---
 class: middle, inverse
 
@@ -60,14 +114,56 @@ class: middle, inverse
 ---
 class: middle, inverse
 
-# Variance decomposition
-
+# Inference in multiple regression
 ---
+
 class: middle, inverse
 
-# Effect sizes
+# Variance decomposition in multiple regression
+
+---
+# Bivariate v. multiple regression
+
+|                     |  Bivariate regression       |   Multiple regression
+|----------------------------------------------------------------------------
+| Model specification | $\hat{Y}=\hat{\beta_{0}} + \hat{\beta_{1}}\mathbf{X}_{1}$ | $\hat{Y}=\hat{\beta_{0}} + \hat{\beta_{1}}\mathbf{X}_{1} + \hat{\beta_{2}}\mathbf{X}_{2} + \cdots \hat{\beta_{k}}\mathbf{X}_{k}$
+| Interpretation of $\hat{\beta_{0}}$ | Predicted value of Y when X=0 | Predicted value of Y when .red[all] Xs = 0
+| Interpretation of $\hat{\beta_{1}}$ | Difference in Y per 1 unit of X | Difference in Y per 1 unit difference in $X_{1}$, adjusting for $X_{2} \cdots X_{k}$
+| Graphical representation | Fitted line     | Fitted plane in 3D (with two Xs) <br> Plot with prototypical lines
+| Residuals   | Distance between observation and fitted .red-pink[line] | Distance between line and fitted .red-pink[plane]
+| Inference: $t$-tests | $H_{0} = \beta_{1} = 0$ <br> Is there a relationship between X and Y in pop? | $H_{0} = \beta_{1} = 0$ <br> Adjusting for  $X_{2} \cdots X_{k}$ is there a relationship between $X_{1}$ and Y in the population? <br> Repeat for each X
+
+---
+# Bivariate v. multiple regression
+
+|                     |  Bivariate regression       |   Multiple regression
+|----------------------------------------------------------------------------
+| Inference: $F$-test | $H_{0} = \beta_{1} = 0$ <br> same result as $t$-test |  $H_{0} = \textrm{all } \beta_{1} = 0$ <br> Does *any* predictor have a relationship with Y in the population?
+| $R^{2}$ | $\frac{Regress SS}{Total SS}$ <br> % of variation in Y explained by X | $\frac{Regress SS}{Total SS}$ <br> % of variation in Y explained by $X_{1} \cdots X_{k}$ 
+| Regression assumptions | See prior unit          | Same as bivariate, but .red[**at each combination of the Xs**]. <br> Main effects assumption
+
+
+
+
 
 ---
 class: middle, inverse
 
 # Multi-collinearity
+
+---
+Multicollinearity occurs when predictor variables are highly related to each other.
+
+This can be a simple relationship, such as when X1 is strongly correlated with X2. This is easy to recognize, interpret, and correct for.
+Sometimes multicollinearity is difficult to detect, such as when X1 is not strongly correlated with X2, X3, or X4, but the combination of the latter three is a strong predictor of X1.
+
+Multicollinearity increases the standard errors of your slope coefficients.
+
+Perfect collinearity never happens (except in the instance of a duplicated variable). There are degrees of multicollinearity. More multicollinearity = more problematic model.
+
+Ways to address
+- Increase sample size
+- Remember, with small samples, our estimates can be wildly off. Even if the true relationship between X1 and X2 is small, the sample correlation might be high because of random error.
+- Remove a variable from your model.
+- Composite or factor scores
+ +If variables are highly correlated because they index the same underlying construct, why not just use them to create a more precise measure of that construct?
