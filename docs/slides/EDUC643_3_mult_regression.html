@@ -34,63 +34,6 @@ Using real-world data about the dietary habits, health, and self-appraisals of y
 - .blue[**Does dietary restraint predict BMI among younger adult males?**]
 
 
-```
-#&gt; 'data.frame':	771 obs. of  51 variables:
-#&gt;  $ id                            : chr  "1" "2" "3" "4" ...
-#&gt;  $ updated_race_group            : Factor w/ 4 levels "white, non-Hispanic",..: 2 2 2 2 2 2 2 2 2 2 ...
-#&gt;  $ BMI                           : num  19.8 24.6 22.6 23.6 20.9 ...
-#&gt;  $ age_year                      : num  18 24 25 28 25 18 25 20 29 22 ...
-#&gt;  $ education_group               : Factor w/ 9 levels "less than HS",..: 1 2 5 2 2 2 5 3 3 4 ...
-#&gt;  $ school_group                  : Factor w/ 2 levels "not in school",..: 2 1 1 1 1 2 2 2 1 2 ...
-#&gt;  $ marital_status_group          : Factor w/ 7 levels "single","single but committed relationship",..: 1 1 1 5 5 1 5 1 4 1 ...
-#&gt;  $ employment_group              : Factor w/ 4 levels "disbility","unemployed",..: 2 2 3 1 3 2 4 3 2 3 ...
-#&gt;  $ income_group                  : Factor w/ 11 levels "less than 19,999",..: 1 1 1 2 1 1 11 7 2 4 ...
-#&gt;  $ sexual_orientation_group      : Factor w/ 7 levels "hetero","gay",..: 1 1 1 1 6 1 1 1 1 1 ...
-#&gt;  $ overweight_group              : Factor w/ 2 levels "no","yes": 2 1 1 1 1 1 1 1 1 1 ...
-#&gt;  $ hypertension_group            : Factor w/ 2 levels "no","yes": 1 1 1 2 1 1 2 1 1 1 ...
-#&gt;  $ high_cholest_group            : Factor w/ 2 levels "no","yes": 1 1 1 2 1 1 1 1 1 1 ...
-#&gt;  $ type2diabetes_group           : Factor w/ 2 levels "no","yes": 1 1 1 1 1 1 1 1 1 1 ...
-#&gt;  $ sleep_apnea_group             : Factor w/ 2 levels "no","yes": 1 1 1 1 1 1 1 1 1 1 ...
-#&gt;  $ heart_disease_group           : Factor w/ 2 levels "no","yes": 1 1 1 1 1 1 2 1 1 1 ...
-#&gt;  $ stroke_group                  : Factor w/ 2 levels "no","yes": 1 1 1 1 1 1 1 1 1 1 ...
-#&gt;  $ cancer_group                  : Factor w/ 2 levels "no","yes": 1 1 1 1 1 1 1 1 1 1 ...
-#&gt;  $ GERD_group                    : Factor w/ 2 levels "no","yes": 1 1 1 2 1 1 1 1 1 1 ...
-#&gt;  $ hypothyroidism_group          : Factor w/ 2 levels "no","yes": 1 1 1 1 1 1 1 1 1 1 ...
-#&gt;  $ congestive_heart_failure_group: Factor w/ 2 levels "no","yes": 1 1 1 1 1 1 1 1 1 1 ...
-#&gt;  $ depression_group              : Factor w/ 2 levels "no","yes": 1 1 1 1 1 1 1 1 1 1 ...
-#&gt;  $ anxiety_group                 : Factor w/ 2 levels "no","yes": 1 1 1 1 1 1 1 1 1 1 ...
-#&gt;  $ eating_disorder_group         : Factor w/ 2 levels "no","yes": 1 1 1 1 1 1 1 1 1 1 ...
-#&gt;  $ insomnia_group                : Factor w/ 2 levels "no","yes": 1 1 1 1 1 1 1 1 1 1 ...
-#&gt;  $ OE_frequency                  : num  0 20 0 0 0 0 4 1 0 4 ...
-#&gt;  $ OE_present                    : Factor w/ 2 levels "no","yes": 1 2 1 1 1 1 2 2 1 2 ...
-#&gt;  $ OBE_frequency                 : num  0 3 0 0 0 0 3 0 0 1 ...
-#&gt;  $ OBE_present                   : Factor w/ 2 levels "no","yes": 1 2 1 1 1 1 2 1 1 2 ...
-#&gt;  $ SBE_frequency                 : num  0 26 0 0 0 0 5 1 0 0 ...
-#&gt;  $ SBE_present                   : Factor w/ 2 levels "no","yes": 1 2 1 1 1 1 2 2 1 1 ...
-#&gt;  $ LOC_presence                  : Factor w/ 2 levels "no","yes": 1 2 1 1 1 1 2 2 1 2 ...
-#&gt;  $ LOC_frequency                 : num  0 29 0 0 0 0 8 1 0 1 ...
-#&gt;  $ EDEQ_restraint                : num  0 0.2 0 0.4 1.2 0.2 2 2.6 1.2 0.4 ...
-#&gt;  $ DERS_strategy                 : num  1 2 1 3 3 1 2 1 1 3 ...
-#&gt;  $ DERS_nonaccept                : num  1 3.33 1 3 2.33 ...
-#&gt;  $ DERS_impuls                   : num  1 3 1 3 1 ...
-#&gt;  $ DERS_goals                    : num  1 3 1 3 3 ...
-#&gt;  $ DERS_clarity                  : num  1 3 1 3 2.67 ...
-#&gt;  $ DERS_awareness                : num  5 3.33 5 3 2.33 ...
-#&gt;  $ DERS_total                    : num  1.67 2.94 1.67 3 2.39 ...
-#&gt;  $ DMS_mean                      : num  1 1.53 1.07 1.87 2.4 ...
-#&gt;  $ MBAS_muscularity              : num  11 11 11 7 19 11 18 16 14 21 ...
-#&gt;  $ MBAS_fat                      : num  5 5 5 5 6 15 8 17 12 17 ...
-#&gt;  $ MBAS_height                   : num  7 7 3 3 3 7 8 9 3 7 ...
-#&gt;  $ EDS_total                     : num  21 21 22 52 93 90 70 75 71 69 ...
-#&gt;  $ SATAQ_thinness                : num  1 1 1.4 1 2.2 2 2.8 2.6 3.8 4.4 ...
-#&gt;  $ SATAQ_muscular                : num  1 1 1 2 2 2.8 2.2 4 5 4.2 ...
-#&gt;  $ SATAQ_total                   : num  1 1 1.2 1.5 2.1 2.4 2.5 3.3 4.4 4.3 ...
-#&gt;  $ MEIM_explore                  : num  1 1 1 1 1 ...
-#&gt;  $ MEIM_commit                   : num  1 1 1 1 1.67 ...
-#&gt;  - attr(*, "variable.labels")= Named chr [1:51] "Study participant ID" "Racial/ethnic identity (see values)" "Body mass index in kg/m-squared" "Total years of age" ...
-#&gt;   ..- attr(*, "names")= chr [1:51] "Study_ID" "updated_race_group" "BMI" "age_year" ...
-#&gt;  - attr(*, "codepage")= int 65001
-```
 ---
 # Bivariate relationship
 &lt;img src="EDUC643_3_mult_regression_files/figure-html/unnamed-chunk-3-1.svg" style="display: block; margin: auto;" /&gt;
@@ -132,7 +75,7 @@ Using real-world data about the dietary habits, health, and self-appraisals of y
 - Estimate the parameters of a multiple regression model
 - Visually display the results of multiple regresion models
 - State the main effects assumption and what the implication would be if it is violated
-- Conduct statistical inference tests of single predictors ($t$-test) and full model ($F$-test) in multiple regression
+- Conduct statistical inference tests of single predictors ( `\(t\)`-test) and full model ( `\(F\)`-test) in multiple regression
 - Decompose the total variance into its component parts (model and residual) and use the `\(R^{2}\)` statistic to describe this decomposition
 - Describe problems for regression associated with the phenomenon of multicollinearity
 - Use visual schema (e.g., Venn diagrams) to assess regression models for the potential of multicollinearity
@@ -185,21 +128,199 @@ class: middle, inverse
 # Multi-collinearity
 
 ---
+# Power of multiple regression
+
+Multiple regression can be a powerful tool to adjust for sample differences that depend on a variable other than the one in which we are interested and focus on the key question we have.
+
+Take this example of a theoretical relationship between height and reading ability:
+&lt;img src="EDUC643_3_mult_regression_files/figure-html/unnamed-chunk-5-1.svg" style="display: block; margin: auto;" /&gt;
+---
+# Power of multiple regression
+
+Multiple regression can be a powerful tool to adjust for sample differences that depend on a variable other than the one in which we are interested and focus on the key question we have.
+
+Take this example of a theoretical relationship between height and reading ability:
+&lt;img src="EDUC643_3_mult_regression_files/figure-html/unnamed-chunk-6-1.svg" style="display: block; margin: auto;" /&gt;
+
+--
+
+.blue[*Do we really believe this or are there statistical adjustments we can make to reveal the true nature of the relationship?*]
+
+---
+# Power of multiple regression
+Multiple regression can be a powerful tool to adjust for sample differences that depend on a variable other than the one in which we are interested and focus on the key question we have.
+
+Take this example of a theoretical relationship between height and reading ability:
+&lt;img src="EDUC643_3_mult_regression_files/figure-html/unnamed-chunk-7-1.svg" style="display: block; margin: auto;" /&gt;
+---
+# Power of multiple regression
+Formally testing this:
+
+
+```r
+summary(lm(read ~ height + grade, data=reading))
+```
+
+```
+#&gt; 
+#&gt; Call:
+#&gt; lm(formula = read ~ height + grade, data = reading)
+#&gt; 
+#&gt; Residuals:
+#&gt;     Min      1Q  Median      3Q     Max 
+#&gt; -4.5747 -0.9787  0.0229  0.9910  4.2605 
+#&gt; 
+#&gt; Coefficients:
+#&gt;              Estimate Std. Error t value Pr(&gt;|t|)    
+#&gt; (Intercept) -0.266133   0.407565  -0.653 0.513918    
+#&gt; height       0.006718   0.009997   0.672 0.501727    
+#&gt; grade3rd     0.510637   0.131011   3.898 0.000104 ***
+#&gt; grade4th     0.831877   0.136910   6.076 1.75e-09 ***
+#&gt; grade5th     1.123386   0.144658   7.766 2.01e-14 ***
+#&gt; ---
+#&gt; Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
+#&gt; 
+#&gt; Residual standard error: 1.417 on 995 degrees of freedom
+#&gt; Multiple R-squared:  0.08649,	Adjusted R-squared:  0.08282 
+#&gt; F-statistic: 23.55 on 4 and 995 DF,  p-value: &lt; 2.2e-16
+```
+---
+# Limits of multiple regression
+
+However, sometimes, multiple regression cannot solve the problem if predictors are "too highly" correlated. For example, if women and men have unequal access to jobs of different status, adjusting for job status will not recover the relationship between gender and wages.&lt;sup&gt;[1]&lt;/sup&gt;
+
+&lt;img src="EDUC643_3_mult_regression_files/figure-html/unnamed-chunk-9-1.svg" style="display: block; margin: auto;" /&gt;
+.footnote[[1] This was a problem many researchers identified in [Google's efforts] (https://www.npr.org/2019/03/05/700288695/google-pay-study-finds-its-underpaying-men-for-some-jobs) to document pay disparities in 2019.]
+---
+# Limits of multiple regression
+
+However, sometimes, multiple regression cannot solve the problem if predictors are "too highly" correlated. For example, if women and men have unequal access to jobs of different status, adjusting for job status will not recover the relationship between gender and wages.
+&lt;img src="EDUC643_3_mult_regression_files/figure-html/unnamed-chunk-10-1.svg" style="display: block; margin: auto;" /&gt;
+
+---
+# Limits of multiple regression
+
+On average, women have lower wages than men:
+
+```r
+tidy(lm(wage ~ gend, data=discr))
+```
+
+```
+#&gt; # A tibble: 2 x 5
+#&gt;   term        estimate std.error statistic p.value
+#&gt;   &lt;chr&gt;          &lt;dbl&gt;     &lt;dbl&gt;     &lt;dbl&gt;   &lt;dbl&gt;
+#&gt; 1 (Intercept)   87508.      46.1     1900.       0
+#&gt; 2 gendWomen    -25009.      65.1     -384.       0
+```
+
+On average, women are in lower status jobs than men:
+
+```r
+tidy(lm(wage ~ status, data=discr))
+```
+
+```
+#&gt; # A tibble: 2 x 5
+#&gt;   term        estimate std.error statistic p.value
+#&gt;   &lt;chr&gt;          &lt;dbl&gt;     &lt;dbl&gt;     &lt;dbl&gt;   &lt;dbl&gt;
+#&gt; 1 (Intercept)   47513.     17.1      2774.       0
+#&gt; 2 status         4998.      2.76     1811.       0
+```
+---
+# Limits of multiple regression
+
+However, once we adjust for job status, there is no wage differential, on average in the population, between men and women:
+
+```r
+tidy(lm(wage ~ gend + status, data=discr))
+```
+
+```
+#&gt; # A tibble: 3 x 5
+#&gt;   term        estimate std.error statistic p.value
+#&gt;   &lt;chr&gt;          &lt;dbl&gt;     &lt;dbl&gt;     &lt;dbl&gt;   &lt;dbl&gt;
+#&gt; 1 (Intercept)  47583.      46.2    1030.    0     
+#&gt; 2 gendWomen      -53.0     32.2      -1.65  0.0996
+#&gt; 3 status        4990.       5.60    890.    0
+```
+
+--
+
+If two predictors are "too highly" correlated, we can't adjust for one to evaluate the effects of the other. This is known as .red[**multicollinearity**].
+
+---
+# Multicollinearity
+
 Multicollinearity occurs when predictor variables are highly related to each other.
 
-This can be a simple relationship, such as when X1 is strongly correlated with X2. This is easy to recognize, interpret, and correct for.
-Sometimes multicollinearity is difficult to detect, such as when X1 is not strongly correlated with X2, X3, or X4, but the combination of the latter three is a strong predictor of X1.
+This can be a simple relationship, such as when two of our predictors are strongly related to one another. This is usually straightforward to recognize, interpret, and correct for.
 
-Multicollinearity increases the standard errors of your slope coefficients.
+Sometimes multicollinearity is difficult to detect, such as when our variable of interest (e.g., `\(X_{1}\)`) is not strongly correlated with any one `\(X_{k}\)`, but the combination of the `\(X\)`s is a strong predictor of `\(X_{1}\)`.
 
-Perfect collinearity never happens (except in the instance of a duplicated variable). There are degrees of multicollinearity. More multicollinearity = more problematic model.
+--
 
-Ways to address
-- Increase sample size
-- Remember, with small samples, our estimates can be wildly off. Even if the true relationship between X1 and X2 is small, the sample correlation might be high because of random error.
-- Remove a variable from your model.
-- Composite or factor scores
- +If variables are highly correlated because they index the same underlying construct, why not just use them to create a more precise measure of that construct?
+### Multicollinearity biases our regression estimates and increases the standard errors of our regression coefficients.
+
+
+---
+# Venn diagrams of collinearity
+
+---
+# Estimates of collinearity in R
+
+
+
+```r
+cormat &lt;- round(cor(cordat),3)
+cormat[lower.tri(cormat)] &lt;- NA
+print(cormat)
+```
+
+```
+#&gt;             EDS_tot OE_freq    BMI MBAS_musc MBAS_height DMS_mean
+#&gt; EDS_tot           1   0.144 -0.053     0.298       0.398    0.211
+#&gt; OE_freq          NA   1.000  0.079     0.086       0.005   -0.002
+#&gt; BMI              NA      NA  1.000    -0.002      -0.007   -0.082
+#&gt; MBAS_musc        NA      NA     NA     1.000       0.663    0.391
+#&gt; MBAS_height      NA      NA     NA        NA       1.000    0.483
+#&gt; DMS_mean         NA      NA     NA        NA          NA    1.000
+```
+
+---
+# Visual heatmap
+
+&lt;img src="EDUC643_3_mult_regression_files/figure-html/unnamed-chunk-16-1.svg" style="display: block; margin: auto;" /&gt;
+---
+# Correlation and collinearity
+
+Perfect collinearity never happens (except in the instance of a duplicated variable). There are degrees of multicollinearity. 
+
+### More multicollinearity = more problematic model.
+
+--
+
+In practice, when we detect problems with collinearity, what we are really detecting is strongly correlated predictors. 
+
+Note that in the example of height and grade, once we partial out grade, there is no relationship between height and reading. However, after partialling out height, there is still a relationship between grade and reading. This is because there is still variation in grade at each value of height.  
+
+.red[**Don't abuse the term collinear!**]
+
+---
+# Putting multicollinearity together
+
+1. **Statistical adjustments can help recover the "true" relationship in your data that is obscured by confounding variables.**
+2. **When two variables are highly correlated, it may be impossible to adjust for one**
+ - This is known as the problem of .red[**multicollinearity**] (*though the term is not quite right!*)
+3. **Graphical representations (such as Venn diagrams) can help you conceptualize the potential for multicollinearity**
+4. **Use correlation matrices to detect for the phenomenon of highly correlated variables**
+ - Consider visual representations to detect patterns more easily
+5. **Solutions to multicollinearity**:
+ - Increase sample size, remove a variable, create a composite or factor score (more to come in EDUC 645!)
+ 
+---
+class: middle, inverse
+# Synthesis and wrap-up
     </textarea>
 <style data-target="print-only">@media screen {.remark-slide-container{display:block;}.remark-slide-scaler{box-shadow:none;}}</style>
 <script src="https://remarkjs.com/downloads/remark-latest.min.js"></script>

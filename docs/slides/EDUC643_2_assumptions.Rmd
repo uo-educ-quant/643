@@ -87,7 +87,8 @@ do <- select(do, -c(Study_ID))
 lm_plot <- ggplot(do, aes(x=EDEQ_restraint, y=BMI)) + 
   geom_point() +
   geom_smooth(method = "lm", se=F) +
-  xlab("Dietary restraint index")
+  xlab("Dietary restraint index") + 
+  theme_minimal(base_size = 16)
 
 lm_plot
 ```
@@ -250,7 +251,8 @@ do1089 <- filter(do, id==1089)
                      size = 3) +
    geom_segment(aes(xend = EDEQ_restraint, yend=predict), col = "red", alpha = 0.8, data= do1089) +
    annotate('text', label = "#1089", x = 3.3, y = 36, color = "red", size = 5) +
-   xlab("Dietary restraint index")
+   xlab("Dietary restraint index") +
+   theme_minimal(base_size = 16)
 resid_c
 ```
 
@@ -339,7 +341,7 @@ summary(do$std_resid)
 ```
 
 - Compare to the standardized residuals. *How similar are they?*<sup>1</sup>
-- Note the minima and maxima values. .blue[*Given a sample of ~1100 individuals, what does this make you think?*]
+- Note the minima and maxima values. .blue[*Given a sample of ~800 individuals, what does this make you think?*]
 
 .footnote[[1] Our standardized and studentized residuals have means *close to* zero, but not quite because of "leverage" corrections (see slide 18)
 ]
@@ -374,7 +376,8 @@ quad <- cbind.data.frame(x, y)
 ggplot(quad, aes(x, y)) +
   geom_point() +
   geom_smooth(method=lm, se=F) +
-  theme(axis.title.x = element_blank(), axis.title.y = element_blank(), axis.text.y = element_blank())
+  theme_minimal(base_size = 16) +
+  theme(axis.title.x = element_blank(), axis.title.y = element_blank(), axis.text.y = element_blank()) 
 
 ```
 ---
@@ -386,6 +389,7 @@ In addition to examining the original scatterplot to detect the presence of non-
 ggplot(quad, aes(x, y)) +
   geom_point() +
   geom_smooth(method=lm, formula= y ~ poly(x,3), se=F) +
+  theme_minimal(base_size = 16) +
   theme(axis.title.x = element_blank(), axis.title.y = element_blank(), axis.text.y = element_blank())
 
 ```
@@ -408,6 +412,7 @@ ggplot(quad, aes(x = predict, y = resid)) +
          geom_point() +
   geom_hline(yintercept = 0, color = "red", linetype="dashed") +
   ylab("Residuals") + xlab("Fitted values") +
+  theme_minimal(base_size = 16) +
   theme(axis.text.y = element_blank())
 ```
 ---
@@ -426,6 +431,7 @@ ggplot(quad, aes(x = predict, y = resid)) +
   annotate('rect', xmin = -400000, xmax = -5000, ymin = -600000, ymax = -150000, alpha = 0.3, fill = "purple") +
   annotate('rect', xmin = 1000, xmax = 350000, ymin = 230000, ymax = 850000, alpha = 0.3, fill = "purple") +
   ylab("Residuals") + xlab("Fitted values") +
+  theme_minimal(base_size = 16) +
   theme(axis.text.y = element_blank())
 ```
 ---
@@ -436,7 +442,8 @@ Let's look at this for our estimates of disordered eating:
 ggplot(do, aes(x = predict, y = resid)) + 
          geom_point() +
   geom_hline(yintercept = 0, color = "red", linetype="dashed") +
-  ylab("Raw Residuals") + xlab("Fitted values") 
+  ylab("Raw Residuals") + xlab("Fitted values") +
+  theme_minimal(base_size = 16)
 ```
 
 .red-pink[**What evidence do you observe of linearity or non-linearity in the residuals for our disordered eating sample?**]
@@ -458,6 +465,7 @@ het <- het %>% mutate(y2 = case_when(x<=-90 ~ y/4 - 200,
 ggplot(het, aes(x, y2)) +
   geom_point() +
   geom_smooth(method=lm, se=F) +
+  theme_minimal(base_size = 16) +
   theme(axis.title.x = element_blank(), axis.title.y = element_blank())
 ```
 ---
@@ -471,6 +479,7 @@ ggplot(het, aes(x, y2)) +
   geom_smooth(method=lm, se=F) +
   geom_quantile(quantiles=0.99, col="gray") +
   geom_quantile(quantiles=0.001, col="gray") +
+  theme_minimal(base_size = 16) +
   theme(axis.title.x = element_blank(), axis.title.y = element_blank())
 ```
 ---
@@ -479,7 +488,8 @@ ggplot(het, aes(x, y2)) +
 ggplot(do, aes(x = predict, y = resid)) + 
          geom_point() +
   geom_hline(yintercept = 0, color = "red", linetype="dashed") +
-  ylab("Raw Residuals") + xlab("Fitted values") 
+  ylab("Raw Residuals") + xlab("Fitted values") +
+  theme_minimal(base_size = 16)
 ```
 
 .blue[**What evidence do you observe of homoscedasticity or heteroscedastictiy in the residuals for our disordered eating sample?**]
@@ -487,7 +497,7 @@ ggplot(do, aes(x = predict, y = resid)) +
 ---
 # Solutions to heteroscedasticity
 
-Heteroscedasticity biases our standard errors. The standard deviation of the estimator $\hat{beta_{1}}$ is inconsistent for the true value of $\sigma^2_{\hat{\beta_{1}}}$ when there is heteroscedasticity. The sample-based statistic do not follow a standard normal distribution (following the CLT). This would invalidate our inferencing.
+Heteroscedasticity biases our standard errors. The standard deviation of the estimator $\hat{\beta_{1}}$ is inconsistent for the true value of $\sigma^2_{\hat{\beta_{1}}}$ when there is heteroscedasticity. The sample-based statistic do not follow a standard normal distribution (following the CLT). This would invalidate our inferencing.
 
 However, we generally can correct for the presence of heteroscedasticity by the computation of .red[heteroscedasticity-robust standard errors]. There are several approaches that rely on the variance-covariance matrix of the errors and a good deal of matrix algebra. 
 
@@ -499,6 +509,7 @@ We won't spend time on these now, but know that if you are concerned about the p
 ```{r, echo=T, highlight.output=c(5)}
 tidy(lm(BMI ~ EDEQ_restraint, data=do))
 ```
+
 ```{r, echo=T, highlight.output=c(3)}
 tidy(estimatr::lm_robust(BMI ~ EDEQ_restraint, se_type="HC1", data=do))
 ```
@@ -523,7 +534,9 @@ For the standard errors (and associated inference tests) that we conduct in the 
 
 ```{r, echo=F, fig.height=4.5}
 ggplot(do, aes(x = resid)) + 
-  geom_histogram(binwidth = 1)
+  geom_histogram(binwidth = 1) +
+  theme_minimal(base_size = 16)
+
 ```
 
 --
@@ -542,7 +555,8 @@ For the standard errors (and associated inference tests) that we conduct in the 
 ggplot(do, aes(x = predict, y = stu_resid)) + 
          geom_point() +
   geom_hline(yintercept = 0, color = "red", linetype="dashed") +
-  ylab("Studentized Residuals") + xlab("Fitted values") 
+  ylab("Studentized Residuals") + xlab("Fitted values") +
+  theme_minimal(base_size = 16)
 ```
 
 <span style="color:blue"> What would you be looking for here to assess for **normality**? <span>
@@ -555,7 +569,8 @@ For the standard errors (and associated inference tests) that we conduct in the 
 ```{r, echo=F, fig.height=4.5}
 ggplot(do) + 
   stat_qq(aes(sample=stu_resid)) +
-  geom_abline(color=blue)
+  geom_abline(color=blue) +
+  theme_minimal(base_size = 16)
 ```
 ---
 # Residual independence
@@ -574,7 +589,8 @@ do <- do %>% mutate(city = case_when(predict<=25 & stu_resid>0 ~ "San Francisco"
 
 lm_plot_city <- ggplot(do, aes(x=EDEQ_restraint, y=BMI, col=city)) + 
   geom_jitter() +
-  xlab("Dietary restraint index")
+  xlab("Dietary restraint index") +
+  theme_minimal(base_size = 16)
 
 lm_plot_city
 ```
@@ -585,7 +601,8 @@ lm_plot_city
 ggplot(do, aes(x = predict, y = stu_resid, col=city)) + 
          geom_point() +
   geom_hline(yintercept = 0, color = "red", linetype="dashed") +
-  ylab("Studentized Residuals") + xlab("Fitted values") 
+  ylab("Studentized Residuals") + xlab("Fitted values") +
+  theme_minimal(base_size = 16)
 
 ```
 
@@ -626,7 +643,8 @@ outlier <- ggplot(do, aes(x = EDEQ_restraint, y = BMI)) +
                       color = 'red',
                       size = 3) +
     annotate('text', label = "#11 (0, 57.2)", x = 0.5, y = 57, color = "red", size = 5) +
-    xlab("Dietary restraint index")
+    xlab("Dietary restraint index") +
+  theme_minimal(base_size = 16)
 outlier
 ```
 
