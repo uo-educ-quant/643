@@ -499,6 +499,7 @@ We won't spend time on these now, but know that if you are concerned about the p
 ```{r, echo=T, highlight.output=c(5)}
 tidy(lm(BMI ~ EDEQ_restraint, data=do))
 ```
+
 ```{r, echo=T, highlight.output=c(3)}
 tidy(estimatr::lm_robust(BMI ~ EDEQ_restraint, se_type="HC1", data=do))
 ```
