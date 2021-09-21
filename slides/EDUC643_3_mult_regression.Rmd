@@ -16,7 +16,7 @@ output:
 
 ```{R, setup, include = F}
 library(pacman)
-p_load(here, tidyverse, ggplot2, xaringan, knitr, kableExtra, foreign, broom, xaringanthemer)
+p_load(here, tidyverse, ggplot2, xaringan, knitr, kableExtra, foreign, broom, xaringanthemer, reshape2)
 
 i_am("slides/EDUC643_3_mult_regression.rmd")
 
@@ -66,7 +66,7 @@ do <- read.spss(here::here("data/male_do_eating.sav"), to.data.frame=T) %>%
   drop_na()
 do <- rownames_to_column(do, "id")
 do <- select(do, -c(Study_ID))
-str(do)
+
 ```
 ---
 # Bivariate relationship
@@ -74,7 +74,8 @@ str(do)
 lm_plot <- ggplot(do, aes(x=EDEQ_restraint, y=BMI)) + 
   geom_point() +
   geom_smooth(method = "lm", se=F) +
-  xlab("Dietary restraint index")
+  xlab("Dietary restraint index") +
+  theme_minimal()
 
 lm_plot
 ```
@@ -99,7 +100,7 @@ summary(fit)
 - Estimate the parameters of a multiple regression model
 - Visually display the results of multiple regresion models
 - State the main effects assumption and what the implication would be if it is violated
-- Conduct statistical inference tests of single predictors ($t$-test) and full model ($F$-test) in multiple regression
+- Conduct statistical inference tests of single predictors ( $t$-test) and full model ( $F$-test) in multiple regression
 - Decompose the total variance into its component parts (model and residual) and use the $R^{2}$ statistic to describe this decomposition
 - Describe problems for regression associated with the phenomenon of multicollinearity
 - Use visual schema (e.g., Venn diagrams) to assess regression models for the potential of multicollinearity
@@ -152,18 +153,210 @@ class: middle, inverse
 # Multi-collinearity
 
 ---
+# Power of multiple regression
+
+Multiple regression can be a powerful tool to adjust for sample differences that depend on a variable other than the one in which we are interested and focus on the key question we have.
+
+Take this example of a theoretical relationship between height and reading ability:
+```{r, echo=F, fig.height=5}
+set.seed(1234)
+h <- rep(40, 1000)
+g <- c("2nd", "3rd", "4th", "5th")    
+grade <- rep(g, 250)
+reading <- cbind.data.frame(grade, h)
+
+reading <- reading %>% mutate(height = case_when(grade=="2nd" ~ h,
+                                                        grade=="3rd" ~ h + 3,
+                                                        grade=="4th" ~ h + 5,
+                                                        grade=="5th" ~ h + 7))
+
+reading <- reading %>% mutate(height = height + rnorm(length(height), 0, 4.5))
+
+reading <- reading %>% mutate(read = rnorm(length(h)))
+
+reading <- reading %>% mutate(read = case_when(grade=="2nd" ~ read,
+                                               grade=="3rd" ~ read + .5,
+                                               grade=="4th" ~ read + .8,
+                                               grade=="5th" ~ read + 1.1))
+
+reading <- reading %>% group_by(grade) %>% mutate(read = read + rnorm(length(read)))
+
+rdplot <- ggplot(data=reading, aes(height, read)) + 
+              geom_point() +
+              theme_minimal()
+
+rdplot  
+
+```
+---
+# Power of multiple regression
+
+Multiple regression can be a powerful tool to adjust for sample differences that depend on a variable other than the one in which we are interested and focus on the key question we have.
+
+Take this example of a theoretical relationship between height and reading ability:
+```{r, echo=F, fig.height=5}
+rdplot +
+  geom_smooth(method='lm', se=F) +
+  annotate('text', label = "slope = 0.05 (0.01)", x = 28, y = 0.3, color = "blue", size = 4) +
+  theme_minimal()
+
+```
+
+--
+
+.blue[*Do we really believe this or are there statistical adjustments we can make to reveal the true nature of the relationship?*]
+
+---
+# Power of multiple regression
+Multiple regression can be a powerful tool to adjust for sample differences that depend on a variable other than the one in which we are interested and focus on the key question we have.
+
+Take this example of a theoretical relationship between height and reading ability:
+```{r, echo=F, fig.height=5}
+ggplot(data=reading, aes(height, read, col=grade)) + 
+  geom_point() +
+  geom_smooth(method='lm', se=F) +
+  theme_minimal()
+```
+---
+# Power of multiple regression
+Formally testing this:
+
+```{r, echo=T}
+summary(lm(read ~ height + grade, data=reading))
+```
+---
+# Limits of multiple regression
+
+However, sometimes, multiple regression cannot solve the problem if predictors are "too highly" correlated. For example, if women and men have unequal access to jobs of different status, adjusting for job status will not recover the relationship between gender and wages.<sup>[1]</sup>
+
+```{r, echo=F, fig.height=4.5}
+w <- seq(50001, 100000)
+g <- c("Women", "Men")
+gend <- rep(g, 25000)
+s <- c(1, 2, 3, 4, 5, 6, 7, 8, 9, 10)
+stat <- rep(s, 5000)
+
+gender <- as.data.frame(gend)
+wages <- as.data.frame(w)
+status <- as.data.frame(stat)
+
+discr <- arrange(gender, desc(gend)) %>% cbind(., wages)
+discr <- arrange(status, stat) %>% cbind(., discr)
+
+discr <- discr %>% group_by(stat) %>% mutate(wage = w + rnorm(length(w), 0, 1000))
+discr <- discr %>% mutate(status = stat + rnorm(length(stat), 0, 0.05))
+
+ggplot(data=discr, aes(status, wage)) +
+  geom_jitter() +
+  theme_minimal()
+```
+.footnote[[1] This was a problem many researchers identified in [Google's efforts] (https://www.npr.org/2019/03/05/700288695/google-pay-study-finds-its-underpaying-men-for-some-jobs) to document pay disparities in 2019.]
+---
+# Limits of multiple regression
+
+However, sometimes, multiple regression cannot solve the problem if predictors are "too highly" correlated. For example, if women and men have unequal access to jobs of different status, adjusting for job status will not recover the relationship between gender and wages.
+```{r, echo=F, fig.height=4.5}
+ggplot(data=discr, aes(status, wage, col=gend)) +
+  geom_jitter() +
+  theme_minimal()
+```
+
+---
+# Limits of multiple regression
+
+On average, women have lower wages than men:
+```{r, echo=T}
+tidy(lm(wage ~ gend, data=discr))
+```
+
+On average, women are in lower status jobs than men:
+```{r, echo=T}
+tidy(lm(wage ~ status, data=discr))
+```
+---
+# Limits of multiple regression
+
+However, once we adjust for job status, there is no wage differential, on average in the population, between men and women:
+```{r, echo=T}
+tidy(lm(wage ~ gend + status, data=discr))
+```
+
+--
+
+If two predictors are "too highly" correlated, we can't adjust for one to evaluate the effects of the other. This is known as .red[**multicollinearity**].
+
+---
+# Multicollinearity
+
 Multicollinearity occurs when predictor variables are highly related to each other.
 
-This can be a simple relationship, such as when X1 is strongly correlated with X2. This is easy to recognize, interpret, and correct for.
-Sometimes multicollinearity is difficult to detect, such as when X1 is not strongly correlated with X2, X3, or X4, but the combination of the latter three is a strong predictor of X1.
+This can be a simple relationship, such as when two of our predictors are strongly related to one another. This is usually straightforward to recognize, interpret, and correct for.
 
-Multicollinearity increases the standard errors of your slope coefficients.
+Sometimes multicollinearity is difficult to detect, such as when our variable of interest (e.g., $X_{1}$) is not strongly correlated with any one $X_{k}$, but the combination of the $X$s is a strong predictor of $X_{1}$.
 
-Perfect collinearity never happens (except in the instance of a duplicated variable). There are degrees of multicollinearity. More multicollinearity = more problematic model.
+--
 
-Ways to address
-- Increase sample size
-- Remember, with small samples, our estimates can be wildly off. Even if the true relationship between X1 and X2 is small, the sample correlation might be high because of random error.
-- Remove a variable from your model.
-- Composite or factor scores
- +If variables are highly correlated because they index the same underlying construct, why not just use them to create a more precise measure of that construct?
+### Multicollinearity biases our regression estimates and increases the standard errors of our regression coefficients.
+
+
+---
+# Venn diagrams of collinearity
+
+---
+# Estimates of collinearity in R
+
+```{r, echo=F}
+cordat <- do %>% select(EDS_total, OE_frequency, BMI, MBAS_muscularity, MBAS_height, DMS_mean) %>%
+  rename(EDS_tot = EDS_total,
+         OE_freq = OE_frequency,
+         MBAS_musc = MBAS_muscularity)
+```
+```{r, echo=T}
+cormat <- round(cor(cordat),3)
+cormat[lower.tri(cormat)] <- NA
+print(cormat)
+```
+
+---
+# Visual heatmap
+
+```{r, echo=F}
+melt_corm <- melt(cormat, na.rm=T)
+ggplot(data = melt_corm, aes(Var2, Var1, fill = value))+
+ geom_tile(color = "white")+
+ scale_fill_gradient2(low = "blue", high = "red", mid = "white", 
+   midpoint = 0, limit = c(-1,1), space = "Lab", 
+   name="Pearson\nCorrelation") +
+  theme_minimal()
+
+```
+---
+# Correlation and collinearity
+
+Perfect collinearity never happens (except in the instance of a duplicated variable). There are degrees of multicollinearity. 
+
+### More multicollinearity = more problematic model.
+
+--
+
+In practice, when we detect problems with collinearity, what we are really detecting is strongly correlated predictors. 
+
+Note that in the example of height and grade, once we partial out grade, there is no relationship between height and reading. However, after partialling out height, there is still a relationship between grade and reading. This is because there is still variation in grade at each value of height.  
+
+.red[**Don't abuse the term collinear!**]
+
+---
+# Putting multicollinearity together
+
+1. **Statistical adjustments can help recover the "true" relationship in your data that is obscured by confounding variables.**
+2. **When two variables are highly correlated, it may be impossible to adjust for one**
+ - This is known as the problem of .red[**multicollinearity**] (*though the term is not quite right!*)
+3. **Graphical representations (such as Venn diagrams) can help you conceptualize the potential for multicollinearity**
+4. **Use correlation matrices to detect for the phenomenon of highly correlated variables**
+ - Consider visual representations to detect patterns more easily
+5. **Solutions to multicollinearity**:
+ - Increase sample size, remove a variable, create a composite or factor score (more to come in EDUC 645!)
+ 
+---
+class: middle, inverse
+# Synthesis and wrap-up
