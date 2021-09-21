@@ -193,18 +193,18 @@ summary(lm(BMI ~ EDEQ_noise, data=do))
 #&gt; 
 #&gt; Residuals:
 #&gt;     Min      1Q  Median      3Q     Max 
-#&gt; -18.483  -3.840  -0.986   2.735  33.076 
+#&gt; -18.313  -4.020  -0.997   2.769  32.431 
 #&gt; 
 #&gt; Coefficients:
 #&gt;             Estimate Std. Error t value Pr(&gt;|t|)    
-#&gt; (Intercept)  24.2172     0.2510  96.481  &lt; 2e-16 ***
-*#&gt; EDEQ_noise    0.8611     0.1262   6.823 1.47e-11 ***
+#&gt; (Intercept)  24.1307     0.2543  94.879  &lt; 2e-16 ***
+*#&gt; EDEQ_noise    0.8836     0.1242   7.113 2.04e-12 ***
 #&gt; ---
 #&gt; Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
 #&gt; 
-*#&gt; Residual standard error: 6.113 on 1092 degrees of freedom
-#&gt; Multiple R-squared:  0.04089,	Adjusted R-squared:  0.04001 
-#&gt; F-statistic: 46.56 on 1 and 1092 DF,  p-value: 1.472e-11
+*#&gt; Residual standard error: 6.102 on 1092 degrees of freedom
+#&gt; Multiple R-squared:  0.04429,	Adjusted R-squared:  0.04341 
+#&gt; F-statistic:  50.6 on 1 and 1092 DF,  p-value: 2.044e-12
 ```
 ---
 # Addressing measurement error
@@ -330,7 +330,7 @@ summary(do$std_resid)
 ```
 
 - Compare to the standardized residuals. *How similar are they?*&lt;sup&gt;1&lt;/sup&gt;
-- Note the minima and maxima values. .blue[*Given a sample of ~1100 individuals, what does this make you think?*]
+- Note the minima and maxima values. .blue[*Given a sample of ~800 individuals, what does this make you think?*]
 
 .footnote[[1] Our standardized and studentized residuals have means *close to* zero, but not quite because of "leverage" corrections (see slide 18)
 ]

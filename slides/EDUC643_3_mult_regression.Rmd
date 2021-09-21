@@ -75,7 +75,7 @@ lm_plot <- ggplot(do, aes(x=EDEQ_restraint, y=BMI)) +
   geom_point() +
   geom_smooth(method = "lm", se=F) +
   xlab("Dietary restraint index") +
-  theme_minimal()
+  theme_minimal(base_size = 16)
 
 lm_plot
 ```
@@ -183,7 +183,7 @@ reading <- reading %>% group_by(grade) %>% mutate(read = read + rnorm(length(rea
 
 rdplot <- ggplot(data=reading, aes(height, read)) + 
               geom_point() +
-              theme_minimal()
+              theme_minimal(base_size = 16)
 
 rdplot  
 
@@ -198,7 +198,7 @@ Take this example of a theoretical relationship between height and reading abili
 rdplot +
   geom_smooth(method='lm', se=F) +
   annotate('text', label = "slope = 0.05 (0.01)", x = 28, y = 0.3, color = "blue", size = 4) +
-  theme_minimal()
+  theme_minimal(base_size = 16)
 
 ```
 
@@ -215,7 +215,7 @@ Take this example of a theoretical relationship between height and reading abili
 ggplot(data=reading, aes(height, read, col=grade)) + 
   geom_point() +
   geom_smooth(method='lm', se=F) +
-  theme_minimal()
+  theme_minimal(base_size = 16)
 ```
 ---
 # Power of multiple regression
@@ -248,9 +248,9 @@ discr <- discr %>% mutate(status = stat + rnorm(length(stat), 0, 0.05))
 
 ggplot(data=discr, aes(status, wage)) +
   geom_jitter() +
-  theme_minimal()
+  theme_minimal(base_size = 16)
 ```
-.footnote[[1] This was a problem many researchers identified in [Google's efforts] (https://www.npr.org/2019/03/05/700288695/google-pay-study-finds-its-underpaying-men-for-some-jobs) to document pay disparities in 2019.]
+.footnote[[1] This was a problem many researchers identified in Google's efforts to document pay disparities in 2019: (https://www.npr.org/2019/03/05/700288695/google-pay-study-finds-its-underpaying-men-for-some-jobs).]
 ---
 # Limits of multiple regression
 
@@ -327,7 +327,7 @@ ggplot(data = melt_corm, aes(Var2, Var1, fill = value))+
  scale_fill_gradient2(low = "blue", high = "red", mid = "white", 
    midpoint = 0, limit = c(-1,1), space = "Lab", 
    name="Pearson\nCorrelation") +
-  theme_minimal()
+  theme_minimal(base_size = 16)
 
 ```
 ---
