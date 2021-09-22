@@ -3,57 +3,116 @@ title: "EDUC 643 Syllabus"
 site: distill::distill_website
 output:
   html_document:
-    toc: true
-    toc_float: true
-    css: educquant.css
+    toc: TRUE
+    toc_depth: 3
+    toc_float: TRUE
+    theme: cosmo
 ---
 
 ```{r setup, include=FALSE}
 knitr::opts_chunk$set(echo = TRUE)
+library(tidyverse)
 ```
 
-### General Course Information
+# Course Overview
+
+How closely linked are students' scores on standardized tests to their socio-economic status? Do individuals with disordered eating behaviors have lower self esteem? Applied data analysis can answer these and other sorts of questions in educational, social and behavior research. This course is the second in a three course sequence intended to provide a toolkit of statistical concepts, methods and their implementation to producers of applied research in education and other social sciences. The course is organized around the principle that research design depends in part on researchers' substantive questions and their quantitative data available to answer these question. In this intermediate course, we will focus on applying the General Linear Model to Ordinary Least Squares regression analysis. Students will progress from bivariate to multiple regression, developing an understanding of the associated assumptions of these models and tools to solve instances in which those assumptions are unmet. The course seeks to blend a conceptual, mathematical and applied understanding of basic statistical concepts. At the core of our pedagogical approach is the belief that students learn statistical analysis by **doing** statistical analysis. *EDUC 641 (or a similar introductory statistics course) is a pre-requisite as is a basic familiarity with a statistical programming language (preferably R). This course (or substitute) is a pre-requisite for EDUC 645*.
+
+# Meeting Time and Location
+
+# Instructors
+
+# Student Learning Outcomes
+By the end of this term, it is expected that students will be able to:
+
+1. 
+6. Use the R programming language to conduct all such analyses
 
 
-### Course Overview
+# Textbooks and Reading Materials
+
+## Textbook
+We will primarily be referring to chapters in [Learning Statistics with R](https://learningstatisticswithr-bookdown.netlify.com/index.html) (**LSWR**) by Danielle Navarro. This textbook is available for free online. You may choose to purchase a paper copy if you wish, but it is not required. 
 
 
-### Student Learning Outcomes
+### Other text resources
+There are literally dozens of high-quality introductory statistics textbooks. We have particularly found...
+
+## R and RStudio
+
+Students must have the latest version of R, which can be downloaded [here](https://ftp.osuosl.org/pub/cran/). It is strongly recommended that students also download the RStudio GUI, available [here](https://www.rstudio.com/products/rstudio/download/#download). Both softwares are free. We will provide tutorials on R/RStudio installation and they are also accessible [here](.slides/tutorial.html).
+
+### Resources for R and RStudio
+
+While we will teach you how to effectively use R and RStudio to conduct analyses, one of the key skills required to use R is the ability to find answers on your own. Many common questions or problems are either available on blogs or have been asked and answered in discussion forums already. Finding and deciphering those answers is an important skill you should seek to hone. *You will never remember all of the programming commands!*
+
+Here are some sites where you can find the answers to many R questions and learn new tricks:
+
+ - [_YaRrr, the Pirate's Guide to R_](https://bookdown.org/ndphillips/YaRrr/) by Nathaniel Phillips
+ - [_R for Data Science_](https://r4ds.had.co.nz/) by Hadley Wickham
+ - [_R Cookbook_](http://www.cookbook-r.com/) by Winston Chang
+ - [_An Introduction to Statistical Learning_](http://www-bcf.usc.edu/~gareth/ISL) by Gareth James, Daniela Witten, Trevor Hastie and Robert Tibshirani
+ - [Cheat Sheets](https://www.rstudio.com/resources/cheatsheets) 
+ - [Quick-R](https://www.statmethods.net) 
+ - [StackOverflow](https://stackoverflow.com/questions/tagged/r)
+ - [Stack Exchange](https://stats.stackexchange.com)
 
 
-### Textbooks and Reading Materials
+# Schedule
+
+For more details, see [here](./schedule.html). 
+
+```{r, echo=FALSE, results='asis'}
+d <- readxl::read_xlsx(here::here("./data", "syllabus643.xlsx"))
+d %>% 
+  knitr::kable()
+```
 
 
-### [Schedule](./schedule.html) 
+# Grading Components and Criteria 
+Final grades will be based on the following components:
+
+- Quizzes: X%
+- Assignments: Y%
+- Final: Z%
+
+## Quizzes
+Five classes will begin with a very short multiple-choice quiz that is designed to test your knowledge of the theoretical principles underlying the statistics we are studying for the week. While some may feel that this is overly paternalistic, research evidence shows that frequent quizzing increases learning (see a summary of [one study](https://www.nytimes.com/2013/11/21/education/frequent-tests-can-enhance-college-learning-study-finds.html) from the University of Texas). Quizzes will be open book and notes (but not laptop/computer).
+
+## Assignments
 
 
+## Final
 
-### Grading Components and Criteria 
+# Student Engagement Inventory
+Graduate students are expected to perform work of high quality and quantity, typically with forty hours of student engagement for each student credit hour. For this course, the following table shows the number of hours a typical student would expect to spend in each of the following activities:
 
-
-### Role of the GEs  
-
-
-### Student Engagement Inventory
-
-
-### Attendance and Absence Guidelines  
-
-
-### Expected Classroom Behavior
+| Educational activity     | Hours         |    Explanatory comments
+|--------------------------|---------------|---------------------------------
+| Class attendance         | 30            | TBD frequency
+| Class reading and prep   | 20            | Includes reading and review of slides
+| Homework Assignments     | 40            | Homework assignments will take 10 hours each (on avg.)
+| Final                    | 30            | Includes familiarization with data, data analysis, preparation of displays and writing
+| **Total hours**          | **120**       | **These are approximations.** Reading and *especially* analytic time will vary per individual
 
 
-### Diversity, Equity, and Inclusion  
-
-### Indigenous Recognition Statement  
-
-### Using Pronouns and Personal Preference  
-
-### Your Well-being
-
-### Reporting Obligations  
-
-### More per university requirements...
+## Indigenous Recognition Statement
+## Role of the GEs  
+## Attendance and Absence Guidelines  
+## Diversity, Equity, and Inclusion  
+## Using Pronouns and Personal Preference  
+## Accessible Education
+## Reporting Title IX Experiences
+## Reporting Obligations
+## Academic Misconduct
+## Inclement Weather
+## Mental Health and Wellness
+## Basic Needs
+## Accommodation for Religious Observances
+## Conflict Resolution
+## Grievance Policy
+## Course Incomplete Policy
+## More per university requirements...
 
 
 

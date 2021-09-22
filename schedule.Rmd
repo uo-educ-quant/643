@@ -3,75 +3,164 @@ title: "EDUC 643 Schedule"
 site: distill::distill_website
 output:
   html_document:
-    toc: true
-    toc_float: true
+    toc: TRUE
+    toc_depth: 2
+    toc_float: TRUE
+    theme: cosmo
 ---
 
 ```{r setup, include=FALSE}
 knitr::opts_chunk$set(echo = TRUE)
 ```
 
-### Week 1
 
-Topic: 
+## Unit 1: GLM and regression
 
-Readings: TBD
+**Topic: Introduction to the General Linear Model and bivariate regression refresher**
 
-Lecture:
+Objectives:
 
-* Lecture slides: [html file](./slides/EDUC643_1_intro.html)
+- 
 
-Assignment:
+Readings: 
 
-R Tutorial slides/activity assignment: [html file](./slides/tutorial2.html)
+- [LSWR Chapter 13](https://learningstatisticswithr.com/lsr-0.6.pdf) 
 
-### Week 2 
+Lectures:
 
-Date: TBD
+- Slides: [html](./slides/EDUC643_1_intro.html)
 
-Topic: 
+Assignment 1:
 
-Readings: TBD
+- R Tutorial slides/activity assignment: [html](./slides/tutorial2.html)
 
-Lecture: 
+## Unit 2: Assumptions & diagnostics
 
- * Slides: [html file](./slides/EDUC643_2_assumptions.html)
- * Data: 
- * R script: 
- 
-### Week 3 
+**Topic: Regression assumptions and diagnostics**
 
-Date: TBD
+Objectives:
 
-Topic: 
+- Articulate the assumptions of the General Linear Model broadly and least squares estimation and inference particularly
+- Describe sources of assumption violation in the regression model including: measurement error, non-linearity, heteroscedasticity, non-normally distributed residuals, correlated errors, and outliers.
+- Articulate properties of residuals and describe their centrality in understanding the regression model assumptions
+- Conduct diagnostic tests on regression model assumption violations
+- Implement a consistent screening protocol to identify regression model assumption violations
+- Implement solutions to regression model assumption violations, when appropriate
 
-Readings: TBD
-
-Lecture: 
-
- * Slides: [html file](./slides/EDUC643_3_mult_regression.html)
- * Data: 
- * R script: 
- 
-Assignment 1: 
-
- * Due TBD; 
- * [html file](./assignments/assignment01.html)
- * [workwage.csv dataset](./data/workwage.csv)
- 
-### Week 4
-
-Date: TBD
-
-Topic: 
-
-Readings: TBD
+Readings:
+- [LSWR Chapter]
 
 Lecture: 
 
- * Slides: [html file](./slides/EDUC643_4_ANOVA.html)
- * Data: 
- * R script: 
- 
+- Slides: [html](./slides/EDUC643_2_assumptions.html) | pdf
+- Data: [sav](./data/male_do_eating.sav)
+- R script: 
 
+Assignment 2:
+
+- [assignment](./assignments/assignment02.html)
+- Data:
+
+ 
+## Unit 3: Multiple regression
+
+**Topic: Multiple Regression**
+
+Objectives:
+
+- Articulate the concepts of multiple regression and "statistical adjustment"
+- Distinguish between the substantive implications of the terms "statistical control" and "statistical adjustment"
+- Estimate the parameters of a multiple regression model
+- Visually display the results of multiple regresion models
+- State the main effects assumption and what the implication would be if it is violated
+- Conduct statistical inference tests of single predictors ( $t$-test) and full model ( $F$-test) in multiple regression
+- Decompose the total variance into its component parts (model and residual) and use the $R^2$ statistic to describe this decomposition
+- Describe problems for regression associated with the phenomenon of multicollinearity
+- Use visual schema (e.g., Venn diagrams) to assess regression models for the potential of multicollinearity
+- Use statistical results (e.g., correlation matrices or heat maps) to assess regression models for the potential of multicollinearity
+- Describe and implement some solutions to multi-collinearity
+
+Readings: 
+
+- [LSWR Chapter]
+
+Lecture: 
+
+- Slides: [html](./slides/EDUC643_3_mult_regression.html) | pdf
+- Data: [sav](./data/male_do_eating.sav)
+- R script: 
+ 
+Assignment 3: 
+
+- [assignment](./assignments/assignment03.html)
+- Data: 
+
+ 
+## Unit 4: Categorical predictors
+
+**Topic: Categorical predictors and ANOVA**
+
+Objectives
+
+- 
+
+Readings: 
+
+- [LSWR Chapter]
+
+Lecture: 
+
+- Slides: [html](./slides/EDUC643_4_ANOVA.html)
+- Data: 
+- R script: 
+
+Assignment 4:
+
+- [assignment](./assignments/assignment04.html)
+- Data: 
+
+
+## Unit 5: Interactions and non-linearity
+ 
+**Topic: Interactions and non-linearity**
+
+
+Objectives
+
+- 
+
+Readings: 
+
+- [LSWR Chapter]
+
+Lecture: 
+
+- Slides: [html](./slides/EDUC643_5_interactions.html)
+- Data: 
+- R script: 
+
+Assignment 5:
+
+- [assignment](./assignments/assignment05.html)
+- Data: 
+
+
+## Unit 6: Model building
+ 
+**Topic: Model building**
+
+
+Objectives
+
+- 
+
+Readings: 
+
+- [LSWR Chapter]
+
+Lecture: 
+
+- Slides: [html](./slides/EDUC643_5_modeling.html)
+- Data: 
+- R script: 
 

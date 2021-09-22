@@ -190,7 +190,7 @@ summary(lm(read ~ height + grade, data=reading))
 However, sometimes, multiple regression cannot solve the problem if predictors are "too highly" correlated. For example, if women and men have unequal access to jobs of different status, adjusting for job status will not recover the relationship between gender and wages.&lt;sup&gt;[1]&lt;/sup&gt;
 
 &lt;img src="EDUC643_3_mult_regression_files/figure-html/unnamed-chunk-9-1.svg" style="display: block; margin: auto;" /&gt;
-.footnote[[1] This was a problem many researchers identified in [Google's efforts] (https://www.npr.org/2019/03/05/700288695/google-pay-study-finds-its-underpaying-men-for-some-jobs) to document pay disparities in 2019.]
+.footnote[[1] This was a problem many researchers identified in Google's efforts to document pay disparities in 2019: (https://www.npr.org/2019/03/05/700288695/google-pay-study-finds-its-underpaying-men-for-some-jobs).]
 ---
 # Limits of multiple regression
 
@@ -210,22 +210,22 @@ tidy(lm(wage ~ gend, data=discr))
 #&gt; # A tibble: 2 x 5
 #&gt;   term        estimate std.error statistic p.value
 #&gt;   &lt;chr&gt;          &lt;dbl&gt;     &lt;dbl&gt;     &lt;dbl&gt;   &lt;dbl&gt;
-#&gt; 1 (Intercept)   87508.      46.1     1900.       0
-#&gt; 2 gendWomen    -25009.      65.1     -384.       0
+#&gt; 1 (Intercept)   57502.      20.5     2809.       0
+#&gt; 2 gendWomen     -5001.      29.0     -173.       0
 ```
 
 On average, women are in lower status jobs than men:
 
 ```r
-tidy(lm(wage ~ status, data=discr))
+tidy(lm(status ~ gend, data=discr))
 ```
 
 ```
 #&gt; # A tibble: 2 x 5
 #&gt;   term        estimate std.error statistic p.value
 #&gt;   &lt;chr&gt;          &lt;dbl&gt;     &lt;dbl&gt;     &lt;dbl&gt;   &lt;dbl&gt;
-#&gt; 1 (Intercept)   47513.     17.1      2774.       0
-#&gt; 2 status         4998.      2.76     1811.       0
+#&gt; 1 (Intercept)     8.00    0.0200      400.       0
+#&gt; 2 gendWomen      -5.00    0.0283     -177.       0
 ```
 ---
 # Limits of multiple regression
@@ -240,9 +240,9 @@ tidy(lm(wage ~ gend + status, data=discr))
 #&gt; # A tibble: 3 x 5
 #&gt;   term        estimate std.error statistic p.value
 #&gt;   &lt;chr&gt;          &lt;dbl&gt;     &lt;dbl&gt;     &lt;dbl&gt;   &lt;dbl&gt;
-#&gt; 1 (Intercept)  47583.      46.2    1030.    0     
-#&gt; 2 gendWomen      -53.0     32.2      -1.65  0.0996
-#&gt; 3 status        4990.       5.60    890.    0
+#&gt; 1 (Intercept) 49507.       17.9   2772.      0    
+#&gt; 2 gendWomen      -2.62     12.4     -0.211   0.833
+#&gt; 3 status        999.        2.17   461.      0
 ```
 
 --

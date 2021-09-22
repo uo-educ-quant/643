@@ -230,11 +230,11 @@ summary(lm(read ~ height + grade, data=reading))
 However, sometimes, multiple regression cannot solve the problem if predictors are "too highly" correlated. For example, if women and men have unequal access to jobs of different status, adjusting for job status will not recover the relationship between gender and wages.<sup>[1]</sup>
 
 ```{r, echo=F, fig.height=4.5}
-w <- seq(50001, 100000)
+w <- seq(50001, 60000)
 g <- c("Women", "Men")
-gend <- rep(g, 25000)
+gend <- rep(g, 5000)
 s <- c(1, 2, 3, 4, 5, 6, 7, 8, 9, 10)
-stat <- rep(s, 5000)
+stat <- rep(s, 1000)
 
 gender <- as.data.frame(gend)
 wages <- as.data.frame(w)
@@ -243,7 +243,7 @@ status <- as.data.frame(stat)
 discr <- arrange(gender, desc(gend)) %>% cbind(., wages)
 discr <- arrange(status, stat) %>% cbind(., discr)
 
-discr <- discr %>% group_by(stat) %>% mutate(wage = w + rnorm(length(w), 0, 1000))
+discr <- discr %>% group_by(stat) %>% mutate(wage = w + rnorm(length(w), 0, 100))
 discr <- discr %>% mutate(status = stat + rnorm(length(stat), 0, 0.05))
 
 ggplot(data=discr, aes(status, wage)) +
@@ -271,7 +271,7 @@ tidy(lm(wage ~ gend, data=discr))
 
 On average, women are in lower status jobs than men:
 ```{r, echo=T}
-tidy(lm(wage ~ status, data=discr))
+tidy(lm(status ~ gend, data=discr))
 ```
 ---
 # Limits of multiple regression

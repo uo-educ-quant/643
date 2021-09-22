@@ -1,15 +1,36 @@
 name: EDUC 643
-output_dir: "docs"
+output_dir: "."
 navbar:
-  title: EDUC 643
+  title: "EDUC 643"
+  
   left:
   - text: Syllabus
     href: syllabus.html
   - text: Schedule
     href: schedule.html
+  - text: Lectures
+    menu: 
+      - text: "Unit 1: GLM and Regression Refresher"
+        href: ./slides/EDUC43_1_intro.html
+      - text: "Unit 2: Regression Assumptions & Diagnostics"
+        href: ./slides/EDUC643_2_assumptions.html
+      - text: "Unit 3: Multiple Regression"
+        href: ./slides/EDUC643_3_mult_regression.html
+      - text: "Unit 4: Categorical Predictors"
+        href: ./slides/EDUC643_4_ANOVA.html
+      - text: "Unit 5: Interactions & Non-linearity"
+        href: ./slides/EDUC643_5_interactions.html
+      - text: "Unit 6: Model Building"
+        href: ./slides/EDUC643_6_modeling.html
+
+
   right:
   - text: Assignments
     href: assignments.html
-  - text: Course repo
+  - icon: fa-github
     href: https://github.com/uo-educ-quant/643
-theme: educquant.css
+
+output:
+  html_document:
+   lib_dir: site_libs
+   self_contained: no
