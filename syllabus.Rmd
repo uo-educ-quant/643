@@ -25,8 +25,13 @@ How closely linked are students' scores on standardized tests to their socio-eco
 # Student Learning Outcomes
 By the end of this term, it is expected that students will be able to:
 
-1. 
-6. Use the R programming language to conduct all such analyses
+1. Articulate the framework of the General Linear Model as a method to describe relationships
+2. Distinguish between research designs and analyses that permit causal and statistical inferences and those that do not
+3. Conduct and interpret (orally and in writing) least-squares regression analyses with continuous outcomes and predictors 
+4. Describe the assumptions of least-squares regression analysis and test analytic models for the extent to which they satisfy these assumptions
+5. Generalize the least-squares regression model (conceptually and in practice) to predictors that are categorical, interacted and non-linear
+6. Build taxonomies of sensible regression models in response to independently developed research questions
+7. Use the R programming language to conduct all such analyses
 
 
 # Textbooks and Reading Materials
@@ -90,9 +95,9 @@ Graduate students are expected to perform work of high quality and quantity, typ
 | Educational activity     | Hours         |    Explanatory comments
 |--------------------------|---------------|---------------------------------
 | Class attendance         | 30            | TBD frequency
-| Class reading and prep   | 20            | Includes reading and review of slides
-| Homework Assignments     | 40            | Homework assignments will take 10 hours each (on avg.)
-| Final                    | 30            | Includes familiarization with data, data analysis, preparation of displays and writing
+| Class reading and prep   | 15            | Includes reading and review of slides
+| Homework Assignments     | 50            | Homework assignments will take 10 hours each (on avg.)
+| Final                    | 25            | Includes familiarization with data, data analysis, preparation of displays and writing
 | **Total hours**          | **120**       | **These are approximations.** Reading and *especially* analytic time will vary per individual
 
 
