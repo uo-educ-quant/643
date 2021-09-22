@@ -1067,6 +1067,51 @@ Lectures
 <h4>3.6. Final Project</h4>
 </div>
 </div>
+<div id="data-sets" class="section level3">
+<h3>4. Data Sets</h3>
+<div id="teacher-professional-development-study-pds" class="section level4">
+<h4>4.1. Teacher Professional Development Study (PDS)</h4>
+<p>The data set we’ll be using in assignments 1-5 was drawn from the NCRECE <a href="https://www.icpsr.umich.edu/web/ICPSR/studies/34848">Teacher Professional Development Study (PDS)</a> data. This study was a randomized controlled evaluation of two forms of professional development (PD) - coursework (phase 1) and consultancy (phase 2) - delivered to about 490 early childhood education teachers across the nation. These PD supports aimed to improve teachers’ implementation of language/literacy activities and interactions with children, as well as promote gains in children’s social and academic development.</p>
+<p><strong>Analytic Sample</strong>. Our data set is student-level data for 440 preschool students. Since PDS student outcome data has not been collected during phase 1, we focus on phase 2 intervention. Specifically, the sample students were in phase 1 treatment group and in either the treatment or control group during phase 2. Observations with missing values on any of the key variables were deleted for simplification reasons.</p>
+<p><strong>Key variables</strong>. The data set contains 11 variables, detailed below.</p>
+<ul>
+<li><em>childid</em>, unique identification number for the student</li>
+<li><em>tchid</em>, unique identification number for the student’s teacher</li>
+<li><em>schid</em>, unique identification number for the student’s school</li>
+<li><em>cohort</em>, coded 1 for cohort 1 students (who started the experiment in spring 08) and 2 for cohort 2 students (who started the experiment in spring 09)</li>
+<li><em>treat</em>, coded 1 for students in phase 2 treatment group and 0 for those in phase 2 control group</li>
+<li><em>vocabulary</em>, the student’s post phase 2 score on a receptive vocabulary test (Peabody Picture Vocabulary Test-3rd edition)</li>
+<li><em>female</em>, coded 1 for female students and 0 for male students</li>
+<li><em>language_eng</em>, coded 1 for students whose primary language is English and 0 otherwise</li>
+<li><em>disability</em>, coded 1 for students with a disability and 0 otherwise</li>
+<li><em>ethnicity</em>, eight-category variable documenting the student’s ethnicity</li>
+<li><em>mother_edu</em>, the student’s mother’s total years of education</li>
+</ul>
+<p><strong>Download the <a href="./data/pd_stu.csv">pd_stu.csv data set</a></strong></p>
+</div>
+<div id="stanford-education-data-archive-seda" class="section level4">
+<h4>4.2. Stanford Education Data Archive (SEDA)</h4>
+<p>The data set we’ll be using in our final project was drawn from the Stanford Education Data Archive (<a href="https://edopportunity.org">SEDA</a>) version 4.1. SEDA was launched in 2016 to provide nationally comparable, publicly available test score data for U.S. public school districts, allowing scientific inquiries on the relationships between educational conditions, contexts, and outcomes (especially student math/ELA achievements) at the district-level across the nation. It contains rich variables including measures of academic achievement and achievement gaps for school districts and counties, as well as district-level measures of racial and socioeconomic composition, racial and socioeconomic segregation patterns, and other features of the schooling system. Some descriptive findings can be found <a href="https://edopportunity.org/discoveries/">here</a>.</p>
+<p><strong>Analytic Sample</strong>. Due to the large size of SEDA full data set, we focus on the school year 2017-18 data for the state of Oregon. Specifically, our data set is district-level data for 103 Oregon school districts. Observations with missing values on any of the key variables were deleted for simplification reasons.</p>
+<p><strong>Key variables</strong>. The data set contains 13 variables, detailed below.</p>
+<ul>
+<li><em>district</em>, name of the district</li>
+<li><em>subject</em>, coded “mth” fo Mathematics and “rla” for English/Language Arts</li>
+<li><em>grade</em>, coded 3, 4, 5, 6 for grades 3-6</li>
+<li><em>achievement</em>, grade-level average achievement test score</li>
+<li><em>gap_gender</em>, grade-level male-female gender gap on achievement test</li>
+<li><em>percent_ell</em>, district-level percentage of ELL students</li>
+<li><em>percent_sped</em>, district-level percentage of students in special education program</li>
+<li><em>percent_frl</em>, district-level percentage of students eligible for free or reduced school lunch</li>
+<li><em>percent_native</em>, district-level percentage of Native American students</li>
+<li><em>percent_asian</em>, district-level percentage of Asian students</li>
+<li><em>percent_hispanic</em>, district-level percentage of Hispanic students</li>
+<li><em>percent_black</em>, district-level percentage of African American students</li>
+<li><em>percent_white</em>, district-level percentage of white students</li>
+</ul>
+<p><strong>Download the <a href="./data/seda_or.csv">seda_or.csv data set</a></strong></p>
+</div>
+</div>
 
 <!--radix_placeholder_site_after_body-->
 <!--/radix_placeholder_site_after_body-->

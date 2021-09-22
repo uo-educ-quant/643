@@ -4,9 +4,12 @@
     <title>Intro and regression refresher</title>
     <meta charset="utf-8" />
     <meta name="author" content="TBD" />
-    <script src="EDUC643_1_intro_files/header-attrs-2.8/header-attrs.js"></script>
+    <script src="EDUC643_1_intro_files/header-attrs-2.11/header-attrs.js"></script>
     <link href="EDUC643_1_intro_files/remark-css-0.0.1/default.css" rel="stylesheet" />
-    <link rel="stylesheet" href="new.css" type="text/css" />
+    <link href="EDUC643_1_intro_files/remark-css-0.0.1/uo.css" rel="stylesheet" />
+    <link href="EDUC643_1_intro_files/remark-css-0.0.1/ki-fonts.css" rel="stylesheet" />
+    <link rel="stylesheet" href="my_custom.css" type="text/css" />
+    <link rel="stylesheet" href="xaringanthemer.css" type="text/css" />
   </head>
   <body>
     <textarea id="source">
@@ -21,40 +24,8 @@ class: center, middle, inverse, title-slide
 
 
 # Roadmap
-&lt;font size = "3"&gt;
-.pull-left[
-1. A refresher on foundations of the General Linear Model
- - Review of bivariate regression
- - Coefficient and model-level inference
- - Correlation and causality
- 
-2. Assumptions and diagnostics
- - Residuals, studentized, standardized
- - Normality of residuals, homoscedasticity, linearity and independence
- - Diagnostics
 
-3. Multiple regression
- - Concept of statistical adjustment (control)
- - Variance decomposition in MR
- - Measuring effect size in MR
- - Multi-collinearity
-]
-
-.pull-right[
-4. Categorical predictors
- - Coding dummy variables
- - ANOVA as a special regression model with one categorical predictor
- - Adding a continuous predictor, ANCOVA as a special regression model with a categorical predictor and one or many continuous predictors
- - Variance decomposition when categorical predictors are in the model
-
-5. Interactions and non-linearity
- - Intro to the concept of interaction in MR models
- - Interpreting the interaction between a categorical predictor and continuous predictor
- - Interpreting the interaction between two continuous predictors
-
-6. Model building
-]
-&lt;/font&gt;
+&lt;img src="Roadmap1.jpg" width="90%" style="display: block; margin: auto;" /&gt;
 
 ---
 class: middle, inverse
@@ -96,10 +67,10 @@ summary(do$BMI)
 We are interested in the *relationship* between dietary restraint and BMI. Statistically, the relationship is the same regardless of which variable is the outcome.
 
 .pull-left[
-&lt;img src="EDUC643_1_intro_files/figure-html/unnamed-chunk-2-1.png" style="display: block; margin: auto;" /&gt;
+&lt;img src="EDUC643_1_intro_files/figure-html/unnamed-chunk-3-1.png" style="display: block; margin: auto;" /&gt;
 ]
 .pull-right[
-&lt;img src="EDUC643_1_intro_files/figure-html/unnamed-chunk-3-1.png" style="display: block; margin: auto;" /&gt;
+&lt;img src="EDUC643_1_intro_files/figure-html/unnamed-chunk-4-1.png" style="display: block; margin: auto;" /&gt;
 ]
 
 ---
@@ -107,7 +78,7 @@ We are interested in the *relationship* between dietary restraint and BMI. Stati
 
 For theoretical reasons, we are choosing to regress BMI (DV) on dietary restraint (IV). 
 
-&lt;img src="EDUC643_1_intro_files/figure-html/unnamed-chunk-4-1.png" style="display: block; margin: auto;" /&gt;
+&lt;img src="EDUC643_1_intro_files/figure-html/unnamed-chunk-5-1.png" style="display: block; margin: auto;" /&gt;
 
 A linear regression equation borrows the mathematical framework for a line to summarize this relationship.
 `$$\text{BMI} = \beta_0 + \beta_1(\text{Dietary_Restraint})$$`
@@ -175,7 +146,7 @@ So, modelling requires us to find the best intercept `\((\beta_0)\)` and slope `
 ## Error/Residual Term
 "No model is perfect, but some are useful." - George Box
 
-&lt;img src="EDUC643_1_intro_files/figure-html/unnamed-chunk-6-1.png" style="display: block; margin: auto;" /&gt;
+&lt;img src="EDUC643_1_intro_files/figure-html/unnamed-chunk-7-1.png" style="display: block; margin: auto;" /&gt;
 
 Is Dietary Restraint a perfect predictor of BMI?
 
@@ -183,7 +154,7 @@ Is Dietary Restraint a perfect predictor of BMI?
 ## Error/Residual Term
 "No model is perfect, but some are useful." - George Box
 
-&lt;img src="EDUC643_1_intro_files/figure-html/unnamed-chunk-7-1.png" style="display: block; margin: auto;" /&gt;
+&lt;img src="EDUC643_1_intro_files/figure-html/unnamed-chunk-8-1.png" style="display: block; margin: auto;" /&gt;
 
 Is Dietary Restraint a perfect predictor of BMI? - NO! 
 
@@ -199,7 +170,7 @@ Many of these might not even be measurable!
 
 In a regression model, all the variability that we couldn't explain with our predictor is condensed into a &lt;span style="color:green"&gt; residual term `\((e_1)\)` &lt;/span&gt;.
 
-&lt;img src="EDUC643_1_intro_files/figure-html/unnamed-chunk-8-1.png" style="display: block; margin: auto;" /&gt;
+&lt;img src="EDUC643_1_intro_files/figure-html/unnamed-chunk-9-1.png" style="display: block; margin: auto;" /&gt;
 
 `$$BMI = \beta_0 + \beta_1(\text{Dietary Restraint}) + \color{green}{e_1}$$`
 ---
@@ -235,11 +206,11 @@ The **sum of squares** is the sum of all our squared residuals:
 An OLS-fitted regression finds the best intercept and slope values to minimize the sum of squared residuals.
 
 .pull-left[
-&lt;img src="EDUC643_1_intro_files/figure-html/unnamed-chunk-10-1.png" style="display: block; margin: auto;" /&gt;
+&lt;img src="EDUC643_1_intro_files/figure-html/unnamed-chunk-11-1.png" style="display: block; margin: auto;" /&gt;
 ]
 
 .pull-right[
-&lt;img src="EDUC643_1_intro_files/figure-html/unnamed-chunk-11-1.png" style="display: block; margin: auto;" /&gt;
+&lt;img src="EDUC643_1_intro_files/figure-html/unnamed-chunk-12-1.png" style="display: block; margin: auto;" /&gt;
 
 ]
 
@@ -251,13 +222,13 @@ Which regression line appears to be a better fit?
 An OLS-fitted regression finds the best intercept and slope values to minimize the sum of squared residuals.
 
 .pull-left[
-&lt;img src="EDUC643_1_intro_files/figure-html/unnamed-chunk-12-1.png" style="display: block; margin: auto;" /&gt;
+&lt;img src="EDUC643_1_intro_files/figure-html/unnamed-chunk-13-1.png" style="display: block; margin: auto;" /&gt;
 `\(\bf{\Sigma(e_i)^2 = 67314.93}\)`
 
 ]
 
 .pull-right[
-&lt;img src="EDUC643_1_intro_files/figure-html/unnamed-chunk-13-1.png" style="display: block; margin: auto;" /&gt;
+&lt;img src="EDUC643_1_intro_files/figure-html/unnamed-chunk-14-1.png" style="display: block; margin: auto;" /&gt;
 `\(\Sigma(e_i)^2 = 100859.80\)`
 ]
 
@@ -273,7 +244,7 @@ SSR is a grander concept than just model predictions. It is a way of thinking ab
 Our outcome's variability is simply the sum of squared deviations from its mean.
 
 `$$SSR_\text{BMI} = \sum{(Y_i - \bar{Y})^2}$$`
-&lt;img src="EDUC643_1_intro_files/figure-html/unnamed-chunk-14-1.png" style="display: block; margin: auto;" /&gt;
+&lt;img src="EDUC643_1_intro_files/figure-html/unnamed-chunk-15-1.png" style="display: block; margin: auto;" /&gt;
 ---
 ## Partitioning Variance
 
@@ -295,7 +266,7 @@ Remember our goal with OLS regression is to find the model coefficients that min
 
 `\(\color{purple}{SS_\text{Model}}\)` is the sum of squared deviations between the model predicted values `\((\hat{Y})\)` and the mean `\((\bar{Y})\)`.
 
-&lt;img src="EDUC643_1_intro_files/figure-html/unnamed-chunk-15-1.png" style="display: block; margin: auto;" /&gt;
+&lt;img src="EDUC643_1_intro_files/figure-html/unnamed-chunk-16-1.png" style="display: block; margin: auto;" /&gt;
 `$$\color{purple}{SS_\text{Model} = \sum{(\hat{Y} - \bar{Y})^2}}$$`
 ---
 # Partitioning Variance
@@ -303,7 +274,7 @@ Remember our goal with OLS regression is to find the model coefficients that min
 
 `\(\color{green}{SS_\text{Residual}}\)` is the sum of squared deviations between the model predicted values `\((\hat{Y})\)` and the observed values `\((Y)\)`.
 
-&lt;img src="EDUC643_1_intro_files/figure-html/unnamed-chunk-16-1.png" style="display: block; margin: auto;" /&gt;
+&lt;img src="EDUC643_1_intro_files/figure-html/unnamed-chunk-17-1.png" style="display: block; margin: auto;" /&gt;
 `$$\color{green}{SS_\text{Model} = \sum{(Y - \hat{Y})^2}}$$`
 
 ---
@@ -576,7 +547,7 @@ Under the null hypothesis, it is extremely unlikely to obtain a Dietary Restrain
 
 In a simple regression model, we are testing for a linear relationship between a predictor and the outcome.
 
-&lt;img src="EDUC643_1_intro_files/figure-html/unnamed-chunk-26-1.png" style="display: block; margin: auto;" /&gt;
+&lt;img src="EDUC643_1_intro_files/figure-html/unnamed-chunk-27-1.png" style="display: block; margin: auto;" /&gt;
 
 It is important to inspect the data to make sure we are modelling correctly. Otherwise, we'd miss this non-linear relationship!
 ---
@@ -646,7 +617,7 @@ Does U.S. beef consumption cause more "beefs" between Oregonians and their spous
 * What is the relationship between Oregon's per capita divorce rate and U.S. per capita beef consumption? 
 
 --
-&lt;img src="EDUC643_1_intro_files/figure-html/unnamed-chunk-28-1.png" style="display: block; margin: auto;" /&gt;
+&lt;img src="EDUC643_1_intro_files/figure-html/unnamed-chunk-29-1.png" style="display: block; margin: auto;" /&gt;
 
 There certainly seems to be a relationship! Let's run a simple regression model.
 ---
