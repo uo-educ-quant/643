@@ -24,7 +24,7 @@ Objectives:
 
 Readings: 
 
-- [LSWR Chapter 13](https://learningstatisticswithr.com/lsr-0.6.pdf) 
+- [LSWR Chapter 15.1-15.2 and 15.4-15.7](https://learningstatisticswithr.com/lsr-0.6.pdf) 
 
 Lectures:
 
@@ -48,7 +48,7 @@ Objectives:
 - Implement solutions to regression model assumption violations, when appropriate
 
 Readings:
-- [LSWR Chapter]
+- [LSWR Chapter 15.8-15.9](https://learningstatisticswithr.com/lsr-0.6.pdf) 
 
 Lecture: 
 
@@ -82,7 +82,7 @@ Objectives:
 
 Readings: 
 
-- [LSWR Chapter]
+- [LSWR Chapter 15.3](https://learningstatisticswithr.com/lsr-0.6.pdf) 
 
 Lecture: 
 
@@ -106,7 +106,7 @@ Objectives
 
 Readings: 
 
-- [LSWR Chapter]
+- [LSWR Chapter 14 and 16.6](https://learningstatisticswithr.com/lsr-0.6.pdf) 
 
 Lecture: 
 
@@ -131,7 +131,7 @@ Objectives
 
 Readings: 
 
-- [LSWR Chapter]
+- [LSWR Chapter 16.2](https://learningstatisticswithr.com/lsr-0.6.pdf) 
 
 Lecture: 
 
@@ -156,7 +156,7 @@ Objectives
 
 Readings: 
 
-- [LSWR Chapter]
+- [LSWR Chapter 15.10-15.11](https://learningstatisticswithr.com/lsr-0.6.pdf) 
 
 Lecture: 
 
