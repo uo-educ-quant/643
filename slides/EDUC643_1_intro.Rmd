@@ -18,7 +18,9 @@ editor_options:
 
 ```{R, setup, include = F}
 library(pacman)
-p_load(here, tidyverse, ggplot2, xaringan, knitr, kableExtra, foreign, broom, xaringanthemer)
+
+p_load(here, MASS, tidyverse, ggplot2, xaringan, knitr, kableExtra, foreign, broom, xaringanthemer)
+
 
 i_am("slides/EDUC643_1_intro.rmd")
 
@@ -96,6 +98,7 @@ Using real-world data about the dietary habits, health, and self-appraisals of y
 do <- read.spss(here::here("data/male_do_eating.sav"), to.data.frame=T) %>% 
   select(Study_ID, EDEQ_restraint, BMI) %>% 
   drop_na()
+
 summary(do$EDEQ_restraint)
 summary(do$BMI)
 ```
@@ -435,7 +438,7 @@ summary(fit)
 
 Here we can find our intercept and slope coefficients for our linear regression.
 
-```{r, highlight.output = c(4,5 ), echo = F, output.lines = -(1:8), comment = NA}
+```{r, highlight.output = c(4,5), echo = F, output.lines = -(1:8), comment = NA}
 summary(fit)
 
 ```
@@ -622,6 +625,48 @@ class: middle, inverse
 # Correlation and causality
 
 ---
+## Correlations
+
+* Correlation coefficients $(r)$ describe the strength of a linear relationship between two variables. 
+
+* Values range from -1 to 1
+  + Positive Values - Y increases as X increases
+  - Negative Values - Y decreases as X increases
+
+* Summarizes the degree to which y increases (or decreases) as x increases.
+
+```{r, echo = F, fig.width = 6, fig.height = 4}
+set.seed(5)
+# create the variance covariance matrix
+sigma<-rbind(c(1,-0.2,-0.9), c(-0.2,1, 0.6), c(-0.9,0.6,1))
+# create the mean vector
+mu<-c(10, 5, 2) 
+# generate the multivariate normal distribution
+df<-as.data.frame(mvrnorm(n=100, mu=mu, Sigma=sigma))
+
+small <- ggplot(df, aes(x = V1, y = V2)) +
+  geom_point() +
+  geom_smooth(method = "lm", se = F) +
+  theme_minimal() +
+  ggtitle("Correlation = -.2")
+
+medium <- ggplot(df, aes(x = V2, y = V3)) +
+  geom_point() +
+  geom_smooth(method = "lm", se = F) +
+  theme_minimal() +
+  ggtitle("Correlation = .6")
+
+large <- ggplot(df, aes(x = V1, y = V3)) +
+  geom_point() +
+  geom_smooth(method = "lm", se = F) +
+  theme_minimal() +
+  ggtitle("Correlation = -.9")
+
+gridExtra::grid.arrange(small, medium, large, nrow = 1)
+
+```
+
+---
 ## Oregon Divorces and Beef Consumption
 
 Does U.S. beef consumption cause more "beefs" between Oregonians and their spouses?
@@ -661,7 +706,7 @@ m_beef <- lm(beef_consumption ~ divorce_rate, beef)
 summary(m_beef)
 ```
 
-Oregon's divorce rate accounts for 50% of the variance in U.S. beef consumption?
+Oregon's divorce rate accounts for 50% of the variance in U.S. beef consumption!
 ---
 ## Regression Models -  Divorce and Beef
 

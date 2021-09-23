@@ -4,7 +4,7 @@
     <title>Intro and regression refresher</title>
     <meta charset="utf-8" />
     <meta name="author" content="TBD" />
-    <script src="EDUC643_1_intro_files/header-attrs-2.11/header-attrs.js"></script>
+    <script src="EDUC643_1_intro_files/header-attrs-2.8/header-attrs.js"></script>
     <link href="EDUC643_1_intro_files/remark-css-0.0.1/default.css" rel="stylesheet" />
     <link href="EDUC643_1_intro_files/remark-css-0.0.1/uo.css" rel="stylesheet" />
     <link href="EDUC643_1_intro_files/remark-css-0.0.1/ki-fonts.css" rel="stylesheet" />
@@ -44,6 +44,7 @@ Using real-world data about the dietary habits, health, and self-appraisals of y
 do &lt;- read.spss(here::here("data/male_do_eating.sav"), to.data.frame=T) %&gt;% 
   select(Study_ID, EDEQ_restraint, BMI) %&gt;% 
   drop_na()
+
 summary(do$EDEQ_restraint)
 ```
 
@@ -611,13 +612,26 @@ class: middle, inverse
 # Correlation and causality
 
 ---
+## Correlations
+
+* Correlation coefficients `\((r)\)` describe the strength of a linear relationship between two variables. 
+
+* Values range from -1 to 1
+  + Positive Values - Y increases as X increases
+  - Negative Values - Y decreases as X increases
+
+* Summarizes the degree to which y increases (or decreases) as x increases.
+
+&lt;img src="EDUC643_1_intro_files/figure-html/unnamed-chunk-29-1.png" style="display: block; margin: auto;" /&gt;
+
+---
 ## Oregon Divorces and Beef Consumption
 
 Does U.S. beef consumption cause more "beefs" between Oregonians and their spouses?
 * What is the relationship between Oregon's per capita divorce rate and U.S. per capita beef consumption? 
 
 --
-&lt;img src="EDUC643_1_intro_files/figure-html/unnamed-chunk-29-1.png" style="display: block; margin: auto;" /&gt;
+&lt;img src="EDUC643_1_intro_files/figure-html/unnamed-chunk-30-1.png" style="display: block; margin: auto;" /&gt;
 
 There certainly seems to be a relationship! Let's run a simple regression model.
 ---
@@ -664,7 +678,7 @@ F-statistic: 8.119 on 1 and 8 DF,  p-value: 0.0215
 ...
 ```
 
-Oregon's divorce rate accounts for 50% of the variance in U.S. beef consumption?
+Oregon's divorce rate accounts for 50% of the variance in U.S. beef consumption!
 ---
 ## Regression Models -  Divorce and Beef
 
