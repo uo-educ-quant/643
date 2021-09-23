@@ -471,11 +471,11 @@ Our F-statistic is 1.125. Now that we see how it is calculated, let's run an ANO
 
 Because ANOVA is just a particular method of analyzing variance in GLMs, we can wrap `anova` around our `lm` model.
 
-```{r, highlight.output = 5}
+```{r, highlight.output = 6}
 m1 <- lm(BMI ~ marital_status, do2)
 car::Anova(m1, type = 3)
 ```
-Here we can see all the information we just calculated earlier. Only the p-value is new!
+Here we can see all the information for the residual and marital status we calculated earlier. Only the p-value is new!
 
 --
 
@@ -502,7 +502,7 @@ Sample Research Question: What is the difference in BMI among different marital 
 Research Question: What is the difference in BMI among different marital status groups, **after controlling for age?**
 
 
-In a regression equation, categorical variables would still be represented as a dummy-coded variable. We are just adding an additional $\Beta$ for our covariate.
+In a regression equation, categorical variables would still be represented as a dummy-coded variable. We are just adding an additional $\beta$ for our covariate.
 
 --
 
@@ -515,7 +515,7 @@ $$BMI_i = \beta_0 + \beta_1\text{Single_Commited}_i + \beta_2\text{Engaged}_i + 
 
 Now we have to remember to qualify our interpretations given our covariates, or control variables.
 
-$\Beta_3$: The predicted difference in BMI between a single male and a married male, after controlling for age.
+$\beta_3$: The predicted difference in BMI between a single male and a married male, after controlling for age.
 
 ---
 ## ANCOVA

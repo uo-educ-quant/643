@@ -421,13 +421,13 @@ car::Anova(m1, type = 3)
 #&gt; 
 #&gt; Response: BMI
 #&gt;                Sum Sq   Df  F value Pr(&gt;F)    
-*#&gt; (Intercept)     10573    1 284.8168 &lt;2e-16 ***
-#&gt; marital_status    125    3   1.1248 0.3379    
+#&gt; (Intercept)     10573    1 284.8168 &lt;2e-16 ***
+*#&gt; marital_status    125    3   1.1248 0.3379    
 #&gt; Residuals       39907 1075                    
 #&gt; ---
 #&gt; Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
 ```
-Here we can see all the information we just calculated earlier. Only the p-value is new!
+Here we can see all the information for the residual and marital status we calculated earlier. Only the p-value is new!
 
 --
 
@@ -454,7 +454,7 @@ Sample Research Question: What is the difference in BMI among different marital 
 Research Question: What is the difference in BMI among different marital status groups, **after controlling for age?**
 
 
-In a regression equation, categorical variables would still be represented as a dummy-coded variable. We are just adding an additional `\(\Beta\)` for our covariate.
+In a regression equation, categorical variables would still be represented as a dummy-coded variable. We are just adding an additional `\(\beta\)` for our covariate.
 
 --
 
@@ -467,7 +467,7 @@ In a regression equation, categorical variables would still be represented as a 
 
 Now we have to remember to qualify our interpretations given our covariates, or control variables.
 
-`\(\Beta_3\)`: The predicted difference in BMI between a single male and a married male, after controlling for age.
+`\(\beta_3\)`: The predicted difference in BMI between a single male and a married male, after controlling for age.
 
 ---
 ## ANCOVA
