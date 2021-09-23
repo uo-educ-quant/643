@@ -48,6 +48,7 @@ Objectives:
 - Implement solutions to regression model assumption violations, when appropriate
 
 Readings:
+
 - [LSWR Chapter 15.8-15.9](https://learningstatisticswithr.com/lsr-0.6.pdf) 
 
 Lecture: 
