@@ -1,11 +1,11 @@
 ---
-title: "Categorical predictors and ANOVA"
+title: "Categorical Predicators and ANOVA"
 subtitle: "EDUC 643: General Linear Model I"
 author: "TBD"
 #date: "`r format(Sys.time(), '%d %B %Y')`"
 output:
   xaringan::moon_reader:
-    css: ['default','new.css']
+    css: ['default', 'uo', 'ki-fonts', 'my_custom.css', 'xaringanthemer.css']
     # self_contained: true
     nature:
       highlightStyle: github
@@ -16,23 +16,22 @@ output:
 
 ```{R, setup, include = F}
 library(pacman)
-p_load(here, tidyverse, ggplot2, xaringan, knitr, kableExtra, foreign)
+p_load(here, tidyverse, ggplot2, xaringan, knitr, kableExtra, foreign, broom, xaringanthemer, reshape2, car)
 
 i_am("slides/EDUC643_4_ANOVA.rmd")
 
-# Define color
-red_pink <- "#e64173"
-turquoise <- "#20B2AA"
-orange <- "#FFA500"
-red <- "#fb6107"
-blue <- "#3b3b9a"
-green <- "#8bb174"
-grey_light <- "grey70"
-grey_mid <- "grey50"
-grey_dark <- "grey20"
-purple <- "#6A5ACD"
-slate <- "#314f4f"
-# Dark slate grey: #314f4f
+
+extra_css <- list(
+  ".red"   = list(color = "red"),
+  ".blue"  =list(color = "blue"),
+  ".green" = list(color = "#8bb174"),
+  ".purple" = list(color = "#6A5ACD"),
+  ".red-pink" = list(color= "#e64173"),
+  ".grey-light" = list(color= "grey70"),
+  ".slate" = list(color="#314f4f"),
+  ".small" = list("font-size" = "90%"))
+
+write_extra_css(css = extra_css, outfile = "my_custom.css")
 
 # Knitr options
 opts_chunk$set(
@@ -71,7 +70,10 @@ knit_hooks$set(output = function(x, options) {
   hook_output(x, options)
 })
 
+
 ```
+
+
 
 ```{r, data import, echo = F}
 do <- read.spss(here::here("data/male_do_eating.sav"), to.data.frame=T) %>% 
@@ -85,8 +87,12 @@ do <- read.spss(here::here("data/male_do_eating.sav"), to.data.frame=T) %>%
   drop_na()
 
 ```
-# Roadmap
 
+---
+# Roadmap
+```{r, echo=F, out.width="90%"}
+include_graphics("Roadmap4.jpg")
+```
 ---
 class: middle, inverse
 
