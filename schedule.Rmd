@@ -37,7 +37,7 @@ Readings:
 
 Lectures:
 
-- Slides: [html](./slides/EDUC643_1_intro.html)
+- Slides: [html](./slides/EDUC643_1_intro.html) | pdf
 
 Assignment 1:
 

@@ -10,7 +10,7 @@ navbar:
     href: schedule.html
   - text: Lectures
     menu: 
-      - text: "Unit 1: GLM and Regression Refresher"
+      - text: "Unit 1: Intro to Regression and GLM"
         href: ./slides/EDUC643_1_intro.html
       - text: "Unit 2: Regression Assumptions & Diagnostics"
         href: ./slides/EDUC643_2_assumptions.html
