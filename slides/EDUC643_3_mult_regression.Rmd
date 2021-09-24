@@ -62,8 +62,11 @@ Using real-world data about the dietary habits, health, and self-appraisals of y
 - .blue[**Does dietary restraint predict BMI among younger adult males?**]
 
 ```{r, echo=F}
-do <- read.spss(here::here("data/male_do_eating.sav"), to.data.frame=T) %>% 
-  drop_na()
+do <- read.spss(here("data/male_do_eating.sav"), to.data.frame=T) %>% 
+    select(Study_ID, BMI, age_year, income_group, OE_frequency, 
+         EDEQ_restraint, DERS_total, DMS_mean, EDS_total,  MBAS_muscularity, MBAS_height,
+         SATAQ_total) %>%
+        drop_na()
 do <- rownames_to_column(do, "id")
 do <- select(do, -c(Study_ID))
 

@@ -49,18 +49,18 @@ Using real-world data about the dietary habits, health, and self-appraisals of y
 #&gt; 
 #&gt; Residuals:
 #&gt;     Min      1Q  Median      3Q     Max 
-#&gt; -16.463  -3.884  -1.013   2.494  28.941 
+#&gt; -19.059  -3.971  -0.931   2.697  33.263 
 #&gt; 
 #&gt; Coefficients:
 #&gt;                Estimate Std. Error t value Pr(&gt;|t|)    
-#&gt; (Intercept)     24.1907     0.2954  81.884  &lt; 2e-16 ***
-#&gt; EDEQ_restraint   0.8143     0.1586   5.134 3.59e-07 ***
+#&gt; (Intercept)     23.9414     0.2635  90.857  &lt; 2e-16 ***
+#&gt; EDEQ_restraint   1.0349     0.1360   7.612 5.82e-14 ***
 #&gt; ---
 #&gt; Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
 #&gt; 
-#&gt; Residual standard error: 5.769 on 769 degrees of freedom
-#&gt; Multiple R-squared:  0.03314,	Adjusted R-squared:  0.03188 
-#&gt; F-statistic: 26.36 on 1 and 769 DF,  p-value: 3.593e-07
+#&gt; Residual standard error: 6.086 on 1090 degrees of freedom
+#&gt; Multiple R-squared:  0.05048,	Adjusted R-squared:  0.04961 
+#&gt; F-statistic: 57.94 on 1 and 1090 DF,  p-value: 5.821e-14
 ```
 
 --
@@ -279,11 +279,11 @@ print(cormat)
 
 ```
 #&gt;             EDS_tot OE_freq    BMI MBAS_musc MBAS_height DMS_mean
-#&gt; EDS_tot           1   0.144 -0.053     0.298       0.398    0.211
-#&gt; OE_freq          NA   1.000  0.079     0.086       0.005   -0.002
-#&gt; BMI              NA      NA  1.000    -0.002      -0.007   -0.082
-#&gt; MBAS_musc        NA      NA     NA     1.000       0.663    0.391
-#&gt; MBAS_height      NA      NA     NA        NA       1.000    0.483
+#&gt; EDS_tot           1   0.171 -0.024     0.277       0.369    0.187
+#&gt; OE_freq          NA   1.000  0.086     0.117       0.027    0.015
+#&gt; BMI              NA      NA  1.000     0.012       0.005   -0.047
+#&gt; MBAS_musc        NA      NA     NA     1.000       0.631    0.313
+#&gt; MBAS_height      NA      NA     NA        NA       1.000    0.374
 #&gt; DMS_mean         NA      NA     NA        NA          NA    1.000
 ```
 

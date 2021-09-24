@@ -135,7 +135,7 @@ However, before answering this question, we are going to explore **the relations
 do <- read.spss(here("data/male_do_eating.sav"), to.data.frame=T) %>% 
     select(Study_ID, BMI, age_year, income_group, OE_frequency, 
          EDEQ_restraint, DERS_total, DMS_mean, EDS_total, 
-         SATAQ_total) %>%
+          MBAS_muscularity, MBAS_height, SATAQ_total) %>%
         drop_na()
 # note: we are focusing only on those cases that had complete records  
 #       for all these variables
@@ -1343,33 +1343,38 @@ We tested for a linear relationship. There is a significant linear relationship 
 ---
 # Why correlation $\neq$ causation?
 
-```{r, echo=F, fig.height=5.5}
-dag <- ggdag::dagify(Beef ~ Divorce,
-                       Divorce ~ Beef)
-ggdag::ggdag(dag, layout="circle") +
-  theme_void(base_line_size = 16)
+```{r, echo=F, fig.height=5}
+dag <- ggdag::dagify(x ~ y,
+                       y ~ x,
+              labels = c("x" = "Beef",
+                         "y" = "Divorce"))
+ggdag::ggdag(dag, layout="circle", use_labels = "label", text_size = 8) +
+  theme_void()
 ```
+
 ---
 # Spurious correlation
 
-```{r, echo=F, fig.height=5.5}
-dag <- ggdag::dagify(Beef ~ Divorce,
-                       Divorce ~ Beef,
-                       Beef ~ Winter,
-                       Divorce ~ Winter)
-ggdag::ggdag(dag, layout="circle") +
-  theme_void(base_line_size = 16)
+```{r, echo=F, fig.height=4}
+dag <- ggdag::dagify(x ~ y,
+                       y ~ z,
+                       x ~ z,
+                       y ~ z,
+                     labels = c("x" = "Beef",
+                         "y" = "Divorce",
+                         "z" = "Winter"))
+ggdag::ggdag(dag, layout="circle", use_labels = "label", text_size = 8) +
+  theme_void()
 ```
 
-There's a third variable that causes changes in X and also in Y. Sometimes also called a .red[*confounder*].
+A third variable causes changes in X and also in Y. Sometimes called a .red[*confounder*].
 
-> It is easy to prove that the wearing of tall hats and the carrying of umbrellas enlarges the chest, prolongs life, and confers comparative immunity from disease... A university degree, a daily bath, the owning of thirty pairs of trousers, a knowledge of Wagner’s music, a pew in church, anything, in short, that implies more means and better nurture…can be statistically palmed off as a magic spell conferring all sorts of privileges... The mathematician whose correlations would fill a Newton with admiration, may, in collecting and accepting data and drawing conclusions from them, fall into quite crude errors by just such popular oversights. --George Bernard Shaw (1906)
+> .small[It is easy to prove that the wearing of tall hats and the carrying of umbrellas enlarges the chest, prolongs life, and confers comparative immunity from disease...A university degree, a daily bath, the owning of thirty pairs of trousers, a knowledge of Wagner’s music, a pew in church, anything, in short, that implies more means and better nurture…can be statistically palmed off as a magic spell conferring all sorts of privileges...The mathematician whose correlations would fill a Newton with admiration, may, in collecting and accepting data and drawing conclusions from them, fall into quite crude errors by just such popular oversights. -George Bernard Shaw (1906)]
 
 ---
 # Why correlation $\neq$ causation?
 
 Other common problems include:
-
 - [Colliders](http://www.the100.ci/2017/03/14/that-one-weird-third-variable-problem-nobody-ever-mentions-conditioning-on-a-collider/): a third variable that is caused by both the predictor and outcome; controlling for this can make a true causal relationship disappear!
 - Reverse causation: X may cause Y **or** Y may cause X
 - Simpson's Paradox: a third variable may reverse the correlation
@@ -1379,6 +1384,9 @@ Other common problems include:
 include_graphics("causalinf.jpg")
 ```
 h/t [@causalinf](https://twitter.com/causalinf)
+
+
+
 ---
 # From correlation to causality
 

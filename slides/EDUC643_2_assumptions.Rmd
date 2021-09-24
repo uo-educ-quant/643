@@ -69,14 +69,21 @@ include_graphics("Roadmap2.jpg")
 ---
 # A motivating question
 
-Using real-world data about the dietary habits, health, and self-appraisals of younger males, we aim to answer the following RQ:
+### Reminder: 
 
-- .blue[**Does dietary restraint predict BMI among younger adult males?**]
+[Nichole Kelly, Elizabeth Cotter and Claire Guidinger (2018)](https://doi.org/10.1016/j.eatbeh.2018.07.003) set out to understand the extent to which young men who exhibit overeating behaviors have weight-related medical and psychological challenges.
+
+
+Using real-world data (generously provided by Nichole Kelly) about the dietary habits, health, and self-appraisals of males 18-30, we are going to attempt to answer a similar question. 
+
+However, before answering this question, we are going to explore **the relationship between dietary restraint behaviors** (self-reports on the extent to which participants consciously restricted/controlled their food intake) **and body-mass index (BMI).**
 
 ```{r, echo=F}
-do <- read.spss(here::here("data/male_do_eating.sav"), to.data.frame=T) %>% 
-  select(Study_ID, EDEQ_restraint, BMI) %>% 
-  drop_na()
+do <- read.spss(here("data/male_do_eating.sav"), to.data.frame=T) %>% 
+    select(Study_ID, BMI, age_year, income_group, OE_frequency, 
+         EDEQ_restraint, DERS_total, DMS_mean, EDS_total, MBAS_muscularity, MBAS_height,
+         SATAQ_total) %>%
+        drop_na()
 do <- rownames_to_column(do, "id")
 do <- select(do, -c(Study_ID))
 
@@ -86,7 +93,7 @@ do <- select(do, -c(Study_ID))
 ```{r, echo=F}
 lm_plot <- ggplot(do, aes(x=EDEQ_restraint, y=BMI)) + 
   geom_point() +
-  geom_smooth(method = "lm", se=F) +
+  geom_smooth(method = "lm") +
   xlab("Dietary restraint index") + 
   theme_minimal(base_size = 16)
 
@@ -96,14 +103,15 @@ lm_plot
 ---
 # Regression results
 
+(from last Unit)
 
-```{r, echo=T}
+```{r, echo = T, }
 fit <- lm(BMI ~ EDEQ_restraint, data=do)
-tidy(fit)
+  tidy(fit)
 ```
 
 
-- Each 1 unit difference in dietary restraint behaviors (*EDEQ_RESTRAINT*) is associated with a 1.04 unit difference in Body Mass Index (*BMI*).
+- Each 1 unit difference in dietary restraint behaviors (*EDEQ_RESTRAINT*) is associated with a 1.03 unit difference in Body Mass Index (*BMI*).
  + This represents 1/6th of a standard deviation of the outcome (*BMI*), or a relatively large effect
 - Effect is statistically significant
  + Unlikely that in the population of 18-30 yo males that there is no relationship between dietary restraint behaviors and BMI.
@@ -204,7 +212,7 @@ summary(lm(BMI ~ EDEQ_restraint, data=do))
 ---
 # Addding measurement error
 
-Classical measurement error (our predictor variable is measured imprecisely) will bias our results to zero and increase residual standard error.
+Classical measurement error (our predictor variable is measured imprecisely) will bias our results to zero and increase residual standard error (aka, RMSE).
 
 ```{r, echo=T, highlight.output=c(12,16)}
 do$EDEQ_noise <- jitter(do$EDEQ_restraint, factor = 5, amount = 1)
@@ -244,13 +252,13 @@ do$resid <- residuals(fit)
 do1089 <- filter(do, id==1089)
  resid_c <- ggplot(do, aes(x = EDEQ_restraint, y = BMI)) + 
    geom_point() + 
-   geom_smooth(method=lm, se=F, data=do) +
+   geom_smooth(method=lm, data=do) +
    geom_point(aes(x = EDEQ_restraint, y = predict), data=do1089, col = "red", alpha=0.3) +
    geom_point(data = do1089, aes(x = EDEQ_restraint, y = BMI),
                      color = 'red',
                      size = 3) +
    geom_segment(aes(xend = EDEQ_restraint, yend=predict), col = "red", alpha = 0.8, data= do1089) +
-   annotate('text', label = "#1089", x = 3.3, y = 36, color = "red", size = 5) +
+   annotate('text', label = "#1089", x = 5.7, y = 23, color = "red", size = 5) +
    xlab("Dietary restraint index") +
    theme_minimal(base_size = 16)
 resid_c
@@ -289,7 +297,7 @@ $$stdr_{i} = \frac{r_{i}}{\sqrt{MSE}}$$
 
 - **Studentized residuals**: Raw residuals come from models that may be influenced by individual data points (esp. in small samples). To avoid this problem, it is helpful to estimate residuals that come from a model based on all data *except the case at hand (i)*. Here, $MSE_{i}$ is based on a regression fit without observation $i$. 
 
-$$stur_{i} = \frac{r_{i}}{\sqrt{MSE_{i}}}$$
+$$stur_{i} = \frac{r_{i}}{\sqrt{MSE_{-(i)}}}$$
 
 .footnote[[1] Technically, this is an oversimplification as we usually calculate standardized and studentized residuals by also accounting for the "leverage" of observation *i* (how much does it influence the regression statistics).]
 
@@ -331,7 +339,7 @@ summary(do$resid)
 ```
 
 - Sample mean of the residuals is *always* exactly zero
-- On a scale ranging from about 5 to 60, most of our residuals are within 5 BMI units. However, we've done a poor job of predicting BMI for some participants.
+- On a scale ranging from about 5 to 60, most of our residuals are within 6 BMI units. However, we've done a poor job of predicting BMI for some participants.
 
 --
 
@@ -341,9 +349,9 @@ summary(do$std_resid)
 ```
 
 - Compare to the standardized residuals. *How similar are they?*<sup>1</sup>
-- Note the minima and maxima values. .blue[*Given a sample of ~800 individuals, what does this make you think?*]
+- Note the minima and maxima values. .blue[*Given a sample of ~1100 individuals, what does this make you think?*]
 
-.footnote[[1] Our standardized and studentized residuals have means *close to* zero, but not quite because of "leverage" corrections (see slide 18)
+.footnote[[1] Our standardized and studentized residuals have means *close to* zero, but not quite because of "leverage" corrections (see slide 19)
 ]
 
 ---
@@ -559,12 +567,12 @@ ggplot(do, aes(x = predict, y = stu_resid)) +
   theme_minimal(base_size = 16)
 ```
 
-<span style="color:blue"> What would you be looking for here to assess for **normality**? <span>
+.blue[What would you be looking for here to assess for **normality**?]
 
 ---
-# Residual normality: QQ plot
+# Residual normality: Q-Q plot
 
-For the standard errors (and associated inference tests) that we conduct in the regression analysis to be correct, the residuals **must be normally distributed**
+For the standard errors (and associated inference tests) that we conduct in the regression analysis to be correct, the residuals **must be normally distributed**. A .red-pink[**quantile-quantile (Q-Q) plot**] compares where observed values in the sample--at specified percentiles of the distribution--fall in relation to where those same percentile values would fall in a normal distribution. A straight line indicates what a precisely normal distribution would look like.
 
 ```{r, echo=F, fig.height=4.5}
 ggplot(do) + 
@@ -572,6 +580,11 @@ ggplot(do) +
   geom_abline(color=blue) +
   theme_minimal(base_size = 16)
 ```
+
+--
+
+.blue[How are we doing?]
+
 ---
 # Residual independence
 
@@ -613,14 +626,16 @@ ggplot(do, aes(x = predict, y = stu_resid, col=city)) +
 ---
 # Outliers
 
-#### Broadly defined as highly atypical and/or influential data point(s). These could be a result of:
+### Broadly defined as highly atypical and/or influential data point(s). 
+
+These could be a result of:
  + Coding (recording) error
  + Accurate observations of a rare case
  + Observation of an individual from a different population
  
 --
 
-#### We can characterize outliers on three dimensions:
+### We can characterize outliers on three dimensions:
 1. Leverage
  + How unusual is the case in the 'X' direction?
 2. Distance
@@ -689,6 +704,7 @@ There are various tests and common "rules of thumb" you may hear to assess each 
  - Graph residuals by predicted value. Check for linearity and heteroscedasticity
  - Graph residuals by a few other variable to think about independence
  - Plot residual distribution and Q-Q plot to check for normality
+ - Do not throw out data simply because it is a set number of SD away from mean
 
 ---
 # Putting it all together

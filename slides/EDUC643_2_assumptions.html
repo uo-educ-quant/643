@@ -29,9 +29,14 @@ class: center, middle, inverse, title-slide
 ---
 # A motivating question
 
-Using real-world data about the dietary habits, health, and self-appraisals of younger males, we aim to answer the following RQ:
+### Reminder: 
 
-- .blue[**Does dietary restraint predict BMI among younger adult males?**]
+[Nichole Kelly, Elizabeth Cotter and Claire Guidinger (2018)](https://doi.org/10.1016/j.eatbeh.2018.07.003) set out to understand the extent to which young men who exhibit overeating behaviors have weight-related medical and psychological challenges.
+
+
+Using real-world data (generously provided by Nichole Kelly) about the dietary habits, health, and self-appraisals of males 18-30, we are going to attempt to answer a similar question. 
+
+However, before answering this question, we are going to explore **the relationship between dietary restraint behaviors** (self-reports on the extent to which participants consciously restricted/controlled their food intake) **and body-mass index (BMI).**
 
 
 ---
@@ -41,23 +46,24 @@ Using real-world data about the dietary habits, health, and self-appraisals of y
 ---
 # Regression results
 
+(from last Unit)
 
 
 ```r
 fit &lt;- lm(BMI ~ EDEQ_restraint, data=do)
-tidy(fit)
+  tidy(fit)
 ```
 
 ```
 #&gt; # A tibble: 2 x 5
 #&gt;   term           estimate std.error statistic  p.value
 #&gt;   &lt;chr&gt;             &lt;dbl&gt;     &lt;dbl&gt;     &lt;dbl&gt;    &lt;dbl&gt;
-#&gt; 1 (Intercept)       23.9      0.263     91.0  0       
-#&gt; 2 EDEQ_restraint     1.04     0.136      7.64 4.80e-14
+#&gt; 1 (Intercept)       23.9      0.264     90.9  0       
+#&gt; 2 EDEQ_restraint     1.03     0.136      7.61 5.82e-14
 ```
 
 
-- Each 1 unit difference in dietary restraint behaviors (*EDEQ_RESTRAINT*) is associated with a 1.04 unit difference in Body Mass Index (*BMI*).
+- Each 1 unit difference in dietary restraint behaviors (*EDEQ_RESTRAINT*) is associated with a 1.03 unit difference in Body Mass Index (*BMI*).
  + This represents 1/6th of a standard deviation of the outcome (*BMI*), or a relatively large effect
 - Effect is statistically significant
  + Unlikely that in the population of 18-30 yo males that there is no relationship between dietary restraint behaviors and BMI.
@@ -162,23 +168,23 @@ summary(lm(BMI ~ EDEQ_restraint, data=do))
 #&gt; 
 #&gt; Residuals:
 #&gt;     Min      1Q  Median      3Q     Max 
-#&gt; -19.064  -3.962  -0.928   2.685  33.266 
+#&gt; -19.059  -3.971  -0.931   2.697  33.263 
 #&gt; 
 #&gt; Coefficients:
 #&gt;                Estimate Std. Error t value Pr(&gt;|t|)    
-#&gt; (Intercept)     23.9383     0.2631  90.973  &lt; 2e-16 ***
-*#&gt; EDEQ_restraint   1.0369     0.1358   7.638  4.8e-14 ***
+#&gt; (Intercept)     23.9414     0.2635  90.857  &lt; 2e-16 ***
+*#&gt; EDEQ_restraint   1.0349     0.1360   7.612 5.82e-14 ***
 #&gt; ---
 #&gt; Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
 #&gt; 
-*#&gt; Residual standard error: 6.081 on 1092 degrees of freedom
-#&gt; Multiple R-squared:  0.05072,	Adjusted R-squared:  0.04985 
-#&gt; F-statistic: 58.34 on 1 and 1092 DF,  p-value: 4.799e-14
+*#&gt; Residual standard error: 6.086 on 1090 degrees of freedom
+#&gt; Multiple R-squared:  0.05048,	Adjusted R-squared:  0.04961 
+#&gt; F-statistic: 57.94 on 1 and 1090 DF,  p-value: 5.821e-14
 ```
 ---
 # Addding measurement error
 
-Classical measurement error (our predictor variable is measured imprecisely) will bias our results to zero and increase residual standard error.
+Classical measurement error (our predictor variable is measured imprecisely) will bias our results to zero and increase residual standard error (aka, RMSE).
 
 
 ```r
@@ -193,18 +199,18 @@ summary(lm(BMI ~ EDEQ_noise, data=do))
 #&gt; 
 #&gt; Residuals:
 #&gt;     Min      1Q  Median      3Q     Max 
-#&gt; -18.313  -4.020  -0.997   2.769  32.431 
+#&gt; -18.571  -3.961  -0.963   2.909  32.725 
 #&gt; 
 #&gt; Coefficients:
 #&gt;             Estimate Std. Error t value Pr(&gt;|t|)    
-#&gt; (Intercept)  24.1307     0.2543  94.879  &lt; 2e-16 ***
-*#&gt; EDEQ_noise    0.8836     0.1242   7.113 2.04e-12 ***
+#&gt; (Intercept)  24.2390     0.2550  95.048  &lt; 2e-16 ***
+*#&gt; EDEQ_noise    0.8137     0.1253   6.495 1.26e-10 ***
 #&gt; ---
 #&gt; Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
 #&gt; 
-*#&gt; Residual standard error: 6.102 on 1092 degrees of freedom
-#&gt; Multiple R-squared:  0.04429,	Adjusted R-squared:  0.04341 
-#&gt; F-statistic:  50.6 on 1 and 1092 DF,  p-value: 2.044e-12
+*#&gt; Residual standard error: 6.128 on 1090 degrees of freedom
+#&gt; Multiple R-squared:  0.03726,	Adjusted R-squared:  0.03637 
+#&gt; F-statistic: 42.18 on 1 and 1090 DF,  p-value: 1.261e-10
 ```
 ---
 # Addressing measurement error
@@ -265,7 +271,7 @@ Raw residuals give us information on how far each observed value is from its pre
 
 - **Studentized residuals**: Raw residuals come from models that may be influenced by individual data points (esp. in small samples). To avoid this problem, it is helpful to estimate residuals that come from a model based on all data *except the case at hand (i)*. Here, `\(MSE_{i}\)` is based on a regression fit without observation `\(i\)`. 
 
-`$$stur_{i} = \frac{r_{i}}{\sqrt{MSE_{i}}}$$`
+`$$stur_{i} = \frac{r_{i}}{\sqrt{MSE_{-(i)}}}$$`
 
 .footnote[[1] Technically, this is an oversimplification as we usually calculate standardized and studentized residuals by also accounting for the "leverage" of observation *i* (how much does it influence the regression statistics).]
 
@@ -310,11 +316,11 @@ summary(do$resid)
 
 ```
 #&gt;    Min. 1st Qu.  Median    Mean 3rd Qu.    Max. 
-#&gt; -19.064  -3.962  -0.928   0.000   2.685  33.266
+#&gt; -19.059  -3.971  -0.931   0.000   2.697  33.263
 ```
 
 - Sample mean of the residuals is *always* exactly zero
-- On a scale ranging from about 5 to 60, most of our residuals are within 5 BMI units. However, we've done a poor job of predicting BMI for some participants.
+- On a scale ranging from about 5 to 60, most of our residuals are within 6 BMI units. However, we've done a poor job of predicting BMI for some participants.
 
 --
 
@@ -326,13 +332,13 @@ summary(do$std_resid)
 
 ```
 #&gt;      Min.   1st Qu.    Median      Mean   3rd Qu.      Max. 
-#&gt; -3.140908 -0.651970 -0.152739  0.000022  0.441871  5.475401
+#&gt; -3.137569 -0.652954 -0.153118  0.000022  0.443452  5.470363
 ```
 
 - Compare to the standardized residuals. *How similar are they?*&lt;sup&gt;1&lt;/sup&gt;
-- Note the minima and maxima values. .blue[*Given a sample of ~800 individuals, what does this make you think?*]
+- Note the minima and maxima values. .blue[*Given a sample of ~1100 individuals, what does this make you think?*]
 
-.footnote[[1] Our standardized and studentized residuals have means *close to* zero, but not quite because of "leverage" corrections (see slide 18)
+.footnote[[1] Our standardized and studentized residuals have means *close to* zero, but not quite because of "leverage" corrections (see slide 19)
 ]
 
 ---
@@ -346,7 +352,7 @@ sd(do$resid)
 ```
 
 ```
-#&gt; [1] 6.07839
+#&gt; [1] 6.083427
 ```
 
 --
@@ -359,7 +365,7 @@ sd(do$std_resid)
 ```
 
 ```
-#&gt; [1] 1.000621
+#&gt; [1] 1.000622
 ```
 
 ---
@@ -438,8 +444,8 @@ tidy(lm(BMI ~ EDEQ_restraint, data=do))
 #&gt; # A tibble: 2 x 5
 #&gt;   term           estimate std.error statistic  p.value
 #&gt;   &lt;chr&gt;             &lt;dbl&gt;     &lt;dbl&gt;     &lt;dbl&gt;    &lt;dbl&gt;
-#&gt; 1 (Intercept)       23.9      0.263     91.0  0       
-*#&gt; 2 EDEQ_restraint     1.04     0.136      7.64 4.80e-14
+#&gt; 1 (Intercept)       23.9      0.264     90.9  0       
+*#&gt; 2 EDEQ_restraint     1.03     0.136      7.61 5.82e-14
 ```
 
 
@@ -449,11 +455,11 @@ tidy(estimatr::lm_robust(BMI ~ EDEQ_restraint, se_type="HC1", data=do))
 
 ```
 #&gt;             term  estimate std.error statistic      p.value   conf.low
-#&gt; 1    (Intercept) 23.938280 0.2556127 93.650586 0.000000e+00 23.4367326
-*#&gt; 2 EDEQ_restraint  1.036911 0.1578113  6.570577 7.743309e-11  0.7272636
+#&gt; 1    (Intercept) 23.941352 0.2558854  93.56281 0.000000e+00 23.4392688
+*#&gt; 2 EDEQ_restraint  1.034909 0.1580368   6.54853 8.933629e-11  0.7248179
 #&gt;   conf.high   df outcome
-#&gt; 1 24.439828 1092     BMI
-#&gt; 2  1.346559 1092     BMI
+#&gt; 1 24.443436 1090     BMI
+#&gt; 2  1.344999 1090     BMI
 ```
 
 ---
@@ -493,14 +499,19 @@ All in all, though, these seem roughly normally distributed.
 For the standard errors (and associated inference tests) that we conduct in the regression analysis to be correct, the residuals **must be normally distributed**
 &lt;img src="EDUC643_2_assumptions_files/figure-html/unnamed-chunk-27-1.svg" style="display: block; margin: auto;" /&gt;
 
-&lt;span style="color:blue"&gt; What would you be looking for here to assess for **normality**? &lt;span&gt;
+.blue[What would you be looking for here to assess for **normality**?]
 
 ---
-# Residual normality: QQ plot
+# Residual normality: Q-Q plot
 
-For the standard errors (and associated inference tests) that we conduct in the regression analysis to be correct, the residuals **must be normally distributed**
+For the standard errors (and associated inference tests) that we conduct in the regression analysis to be correct, the residuals **must be normally distributed**. A .red-pink[**quantile-quantile (Q-Q) plot**] compares where observed values in the sample--at specified percentiles of the distribution--fall in relation to where those same percentile values would fall in a normal distribution. A straight line indicates what a precisely normal distribution would look like.
 
 &lt;img src="EDUC643_2_assumptions_files/figure-html/unnamed-chunk-28-1.svg" style="display: block; margin: auto;" /&gt;
+
+--
+
+.blue[How are we doing?]
+
 ---
 # Residual independence
 
@@ -521,14 +532,16 @@ Imagine that most of the young men in our disordered eating sample lived in one 
 ---
 # Outliers
 
-#### Broadly defined as highly atypical and/or influential data point(s). These could be a result of:
+### Broadly defined as highly atypical and/or influential data point(s). 
+
+These could be a result of:
  + Coding (recording) error
  + Accurate observations of a rare case
  + Observation of an individual from a different population
  
 --
 
-#### We can characterize outliers on three dimensions:
+### We can characterize outliers on three dimensions:
 1. Leverage
  + How unusual is the case in the 'X' direction?
 2. Distance
@@ -558,8 +571,8 @@ tidy(lm(BMI ~ EDEQ_restraint, data=do))
 #&gt; # A tibble: 2 x 5
 #&gt;   term           estimate std.error statistic  p.value
 #&gt;   &lt;chr&gt;             &lt;dbl&gt;     &lt;dbl&gt;     &lt;dbl&gt;    &lt;dbl&gt;
-*#&gt; 1 (Intercept)       23.9      0.263     91.0  0       
-*#&gt; 2 EDEQ_restraint     1.04     0.136      7.64 4.80e-14
+*#&gt; 1 (Intercept)       23.9      0.264     90.9  0       
+*#&gt; 2 EDEQ_restraint     1.03     0.136      7.61 5.82e-14
 ```
 
 ```r
@@ -570,8 +583,8 @@ tidy(lm(BMI ~ EDEQ_restraint, data=do_out))
 #&gt; # A tibble: 2 x 5
 #&gt;   term           estimate std.error statistic  p.value
 #&gt;   &lt;chr&gt;             &lt;dbl&gt;     &lt;dbl&gt;     &lt;dbl&gt;    &lt;dbl&gt;
-*#&gt; 1 (Intercept)       23.9      0.260     91.9  0       
-*#&gt; 2 EDEQ_restraint     1.06     0.134      7.91 6.29e-15
+*#&gt; 1 (Intercept)       23.9      0.260     91.8  0       
+*#&gt; 2 EDEQ_restraint     1.06     0.134      7.88 7.70e-15
 ```
 
 --
@@ -603,6 +616,7 @@ There are various tests and common "rules of thumb" you may hear to assess each 
  - Graph residuals by predicted value. Check for linearity and heteroscedasticity
  - Graph residuals by a few other variable to think about independence
  - Plot residual distribution and Q-Q plot to check for normality
+ - Do not throw out data simply because it is a set number of SD away from mean
 
 ---
 # Putting it all together
