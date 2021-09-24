@@ -1180,14 +1180,14 @@ We tested for a linear relationship. There is a significant linear relationship 
 
 There's a third variable that causes changes in X and also in Y. Sometimes also called a .red[*confounder*].
 
-&gt; It is easy to prove that the wearing of tall hats and the carrying of umbrellas enlarges the chest, prolongs life, and confers comparative immunity from disease… A university degree, a daily bath, the owning of thirty pairs of trousers, a knowledge of Wagner’s music, a pew in church, anything, in short, that implies more means and better nurture…can be statistically palmed off as a magic spell conferring all sorts of privileges…The mathematician whose correlations would fill a Newton with admiration, may, in collecting and accepting data and drawing conclusions from them, fall into quite crude errors by just such popular oversights. --George Bernard Shaw (1906)
+&gt; It is easy to prove that the wearing of tall hats and the carrying of umbrellas enlarges the chest, prolongs life, and confers comparative immunity from disease... A university degree, a daily bath, the owning of thirty pairs of trousers, a knowledge of Wagner’s music, a pew in church, anything, in short, that implies more means and better nurture…can be statistically palmed off as a magic spell conferring all sorts of privileges... The mathematician whose correlations would fill a Newton with admiration, may, in collecting and accepting data and drawing conclusions from them, fall into quite crude errors by just such popular oversights. --George Bernard Shaw (1906)
 
 ---
 # Why correlation `\(\neq\)` causation?
 
 Other common problems include:
 
-- Collider: a third variable that is caused by both the predictor and outcome; controlling for this can make a true causal relationship disappear!
+- [Colliders](http://www.the100.ci/2017/03/14/that-one-weird-third-variable-problem-nobody-ever-mentions-conditioning-on-a-collider/): a third variable that is caused by both the predictor and outcome; controlling for this can make a true causal relationship disappear!
 - Reverse causation: X may cause Y **or** Y may cause X
 - Simpson's Paradox: a third variable may reverse the correlation
 - Also, **lack** of correlation `\(\neq\)` **lack** of causality
@@ -1209,7 +1209,7 @@ Highest priority is establishing .red[**exogeneous variation**] in exposure to s
 
 --
 
-Research design is critical. We have whole classes dedicated to just this topic (EDLD 650, EDLD 679)
+Research design is critical. So too can be [Directed Acyclical Graphs (DAGs)](https://journals.sagepub.com/doi/pdf/10.1177/2515245917745629). We have whole classes dedicated to just this topic (EDLD 650, EDLD 679).
 
 .footnote[[1] Derived from [Shadish, Cook and Cambpell (2002)](https://books.google.com/books/about/Experimental_and_Quasi_experimental_Desi.html?id=o7jaAAAAMAAJ) and John Stuart Mill.]
 
