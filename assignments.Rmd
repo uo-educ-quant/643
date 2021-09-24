@@ -24,11 +24,8 @@ The goal of the assignments is to practice the concepts and vocabulary we have b
 
 Please upload below two files on Canvas before TBD time:  
 
- * An .html or .pdf file that includes both - 
-   + your typed responses (in your own words and not identical to anybody else's), tables, and/or figures to the problems  
-   + and the R code chunks that generated your answers (hint: if you choose to compose your answers in markdown, simply set up echo = TRUE, include = TRUE in you .Rmd file)  
-   
- * The .Rmd or .R file that you used to render the tables and figures in the above html/pdf. 
+ * An .html. doc/x, or .pdf file that includes your typed responses (in your own words and not identical to anybody else's), tables, and/or figures to the problems  
+ * The .Rmd or .R file that you used to render the tables and figures in the above html/doc/pdf. 
 
 ### 3. Details about Assignments
 
