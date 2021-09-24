@@ -51,6 +51,20 @@ options(knitr.table.format = "html")
 
 ```
 # Roadmap
+```{r, echo=F, out.width="90%"}
+include_graphics("Roadmap6.jpg")
+```
+---
+# Unit goals
+
+
+- Translate research questions into question predictors, covariates, outcomes and rival hypothesis predictors
+- Develop work processes to address real life data which contain large number of predictors
+- Build a logical and sequential taxonomy of fitted regression models
+- Distinguish between model building and reporting, including best practices for research transparency, replicability and integrity
+- Present results in publication-ready tables and figures
+- Write compelling and scientifically accurate interpretation of results
+- Describe power and limits of quantitative research
 
 ---
 class: middle, inverse

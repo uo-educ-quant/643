@@ -81,7 +81,7 @@ Objectives:
 - Articulate the concepts of multiple regression and "statistical adjustment"
 - Distinguish between the substantive implications of the terms "statistical control" and "statistical adjustment"
 - Estimate the parameters of a multiple regression model
-- Visually display the results of multiple regresion models
+- Visually display the results of multiple regression models
 - State the main effects assumption and what the implication would be if it is violated
 - Conduct statistical inference tests of single predictors ( $t$-test) and full model ( $F$-test) in multiple regression
 - Decompose the total variance into its component parts (model and residual) and use the $R^2$ statistic to describe this decomposition
@@ -112,7 +112,16 @@ Assignment 3:
 
 Objectives
 
-- 
+- Describe the relationship between dichotomous and polychotomous variables and convert variables between these forms, as necessary
+- Conduct a two-sample $t$-test
+- Describe the relationship between a two-sample $t$-test and regressing a continuous outcome on a dichotomous predictor
+- Estimate a regression with one dummy variable as a predictor and interpret the results (including when the reference category changes)
+- Estimate a multiple regression model with several continuous and dummy variables and interpret the results
+- Estimate an ANOVA model and interpret the within- and between-group variance
+ + Do the same for an ANCOVA model, adjusting for additional continuous predictors
+- Describe the similarities and differences of Ordinary-Least Squares regression analysis and ANOVA/ANCOVA, and when one would prefer one approach to another
+- Describe potential Type I error problems that arise from multiple group comparisons and potential solutions to these problems, including theory, pre-registration, ANOVA and *post-hoc* corrections
+- Describe the relationship between different modeling approaches with the General Linear Model family
 
 Readings: 
 
@@ -137,7 +146,14 @@ Assignment 4:
 
 Objectives
 
-- 
+- Describe in writing and verbally the assumptions we violate when we fit a non-linear relationship in a linear model
+- Transform non-linear relationships into linear ones by using logarithmic scales 
+- Estimate regression models using logarithmic scales and interpret the results
+- Describe in writing and verbally the concept of statistical interaction
+- Estimate and interpret regression models with interactions between categorical and continuous predictors
+- Visualize interaction effects graphically
+- Describe statistical power and Type II error challenges resulting from interactions
+- Estimate models with quadratic and higher-order polynomial terms
 
 Readings: 
 
@@ -162,7 +178,13 @@ Assignment 5:
 
 Objectives
 
-- 
+- Translate research questions into question predictors, covariates, outcomes and rival hypothesis predictors
+- Develop work processes to address real life data which contain large number of predictors
+- Build a logical and sequential taxonomy of fitted regression models
+- Distinguish between model building and reporting, including best practices for research transparency, replicability and integrity
+- Present results in publication-ready tables and figures
+- Write compelling and scientifically accurate interpretation of results
+- Describe power and limits of quantitative research
 
 Readings: 
 

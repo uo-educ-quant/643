@@ -1,5 +1,5 @@
 ---
-title: "Categorical Predicators and ANOVA"
+title: "Categorical predictors and ANOVA"
 subtitle: "EDUC 643: General Linear Model I"
 author: "TBD"
 #date: "`r format(Sys.time(), '%d %B %Y')`"
@@ -93,6 +93,20 @@ do <- read.spss(here::here("data/male_do_eating.sav"), to.data.frame=T) %>%
 ```{r, echo=F, out.width="90%"}
 include_graphics("Roadmap4.jpg")
 ```
+---
+# Unit goals
+
+- Describe the relationship between dichotomous and polychotomous variables and convert variables between these forms, as necessary
+- Conduct a two-sample $t$-test
+- Describe the relationship between a two-sample $t$-test and regressing a continuous outcome on a dichotomous predictor
+- Estimate a regression with one dummy variable as a predictor and interpret the results (including when the reference category changes)
+- Estimate a multiple regression model with several continuous and dummy variables and interpret the results
+- Estimate an ANOVA model and interpret the within- and between-group variance
+ + Do the same for an ANCOVA model, adjusting for additional continuous predictors
+- Describe the similarities and differences of Ordinary-Least Squares regression analysis and ANOVA/ANCOVA, and when one would prefer one approach to another
+- Describe potential Type I error problems that arise from multiple group comparisons and potential solutions to these problems, including theory, pre-registration, ANOVA and *post-hoc* corrections
+- Describe the relationship between different modeling approaches with the General Linear Model family
+
 ---
 class: middle, inverse
 
