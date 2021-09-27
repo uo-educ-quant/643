@@ -77,17 +77,18 @@ d %>%
 # Grading Components and Criteria 
 Final grades will be based on the following components:
 
-- Quizzes: X%
-- Assignments: Y%
-- Final: Z%
+- Quizzes: 10% (5 quizzes of 2% each)
+- Assignments: 60% (5 assignments of 12% each)
+- Final: 30%
 
 ## Quizzes
 Five classes will begin with a very short multiple-choice quiz that is designed to test your knowledge of the theoretical principles underlying the statistics we are studying for the week. While some may feel that this is overly paternalistic, research evidence shows that frequent quizzing increases learning (see a summary of [one study](https://www.nytimes.com/2013/11/21/education/frequent-tests-can-enhance-college-learning-study-finds.html) from the University of Texas). Quizzes will be open book and notes (but not laptop/computer).
 
 ## Assignments
-
+The goal of the assignments is to practice the concepts and vocabulary we have been modeling in class and implement some of the techniques we have learned. Each assignment has an associated data source, short codebook and detailed instructions for the required data and analytic tasks. You may work on your own or collaborate with one (1) partner. Please make sure that you engage in a a full, fair and mutually-agreeable collaboration if you do choose to collaborate. If you do collaborate, you should plan, execute and write-up your analyses together, not simply divide the work. Please make sure to indicate clearly when your work is joint and any other individual or resource (outside of class material) you consulted in your response. Further assignment details are available [here](./assignments.html).
 
 ## Final
+The final assignment involves a more extended application and synthesis of the concepts of descriptive and relational applied data analysis covered in this course. For the final assignment, you will receive a compact dataset which has several potential outcomes, predictors and covariates. It will be your task to construct a research question, identify the relevant measures for inclusion in your analysis, develop a sensible analytic plan, and write up your results for dissemination.
 
 # Student Engagement Inventory
 Graduate students are expected to perform work of high quality and quantity, typically with forty hours of student engagement for each student credit hour. For this course, the following table shows the number of hours a typical student would expect to spend in each of the following activities:
