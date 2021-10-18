@@ -251,29 +251,31 @@ Multiple regression helps us as follows:
 ```{r, echo=F}
 library(plotly)
 library(reshape2)
-my_df <- iris
+my_df <- mtcars
 
-petal_lm <- lm(Petal.Length ~ Sepal.Length, data = my_df)
+cars_lm <- lm(mpg ~ hp, data = my_df)
 
 graph_reso <- 0.05
+graph_reso2 <- 1
 
 #Setup Axis
-axis_x <- seq(min(my_df$Sepal.Length), max(my_df$Sepal.Length), by = graph_reso)
-axis_y <- seq(min(my_df$Sepal.Width), max(my_df$Sepal.Width), by = graph_reso)
+axis_x <- seq(min(my_df$hp), max(my_df$hp), by = graph_reso2)
+axis_y <- seq(min(my_df$wt), max(my_df$wt), by = graph_reso)
 
 #Sample points
-petal_lm_surface <- expand.grid(Sepal.Length = axis_x, 
-                                Sepal.Width = axis_y, 
+cars_lm_surface <- expand.grid(hp = axis_x, 
+                                wt = axis_y, 
                                 KEEP.OUT.ATTRS = F)
 
-petal_lm_surface$Petal.Length <- predict.lm(petal_lm, newdata = petal_lm_surface)
+cars_lm_surface$mpg <- predict.lm(cars_lm, newdata = cars_lm_surface)
 
-petal_lm_surface <- acast(petal_lm_surface, 
-                          Sepal.Width ~ Sepal.Length, 
-                          value.var = "Petal.Length")
+
+cars_lm_surface <- acast(cars_lm_surface, 
+                          wt ~ hp, 
+                          value.var = "mpg")
 
 my_df_2 <- my_df %>% 
-  mutate(Petal.Length = predict(petal_lm, newdata = ),
+  mutate(mpg = predict(cars_lm, newdata = ),
          predict = 1)
 
 my_df <- my_df %>% 
@@ -282,16 +284,16 @@ my_df <- my_df %>%
 my_df <- rbind(my_df, my_df_2) %>% 
   mutate(predict = as.numeric(predict))
 
-iris_plot <- plot_ly(my_df, 
-                     x = ~Sepal.Length, 
-                     y = ~Sepal.Width, 
-                     z = ~Petal.Length,
+cars_plot <- plot_ly(my_df, 
+                     x = ~hp, 
+                     y = ~wt, 
+                     z = ~mpg,
                      frame = ~predict) %>% 
   animation_opts(1000, transition = 500, easing = "elastic", redraw = T)
 
-fig <- iris_plot %>% 
+fig <- cars_plot %>% 
   add_markers(size = 5) %>% 
-  add_surface(z = petal_lm_surface,
+  add_surface(z = cars_lm_surface,
               x = axis_x,
               y = axis_y,
               opacity = 0.5)
