@@ -4,30 +4,30 @@
 .red {
   color: red;
 }
-.small {
-  font-size: 90%;
+.blue {
+  color: blue;
 }
-
-
-/* Extra CSS */
-.red {
-  color: red;
+.red-pink {
+  color: red_pink;
 }
-.small {
-  font-size: 90%;
+.grey-light {
+  color: grey_light;
 }
-
-
-/* Extra CSS */
-.red {
-  color: red;
+.purple {
+  color: purple;
 }
-.blue {
-  color: blue;
+.large {
+  font-size: 120%;
 }
 .small {
   font-size: 90%;
 }
+.tiny {
+  font-size: 70%;
+}
+.tiny2 {
+  font-size: 50%;
+}
 
 
 /* Extra CSS */
@@ -37,20 +37,26 @@
 .blue {
   color: blue;
 }
-.small {
-  font-size: 90%;
+.red-pink {
+  color: red_pink;
 }
-
-
-/* Extra CSS */
-.red {
-  color: red;
+.grey-light {
+  color: grey_light;
 }
-.blue {
-  color: blue;
+.purple {
+  color: purple;
+}
+.large {
+  font-size: 120%;
 }
 .small {
   font-size: 90%;
+}
+.tiny {
+  font-size: 70%;
+}
+.tiny2 {
+  font-size: 50%;
 }
 
 
@@ -61,21 +67,27 @@
 .blue {
   color: blue;
 }
-.small {
-  font-size: 90%;
+.red-pink {
+  color: red_pink;
 }
-
-
-/* Extra CSS */
-.red {
-  color: red;
+.grey-light {
+  color: grey_light;
 }
-.blue {
-  color: blue;
+.purple {
+  color: purple;
+}
+.large {
+  font-size: 120%;
 }
 .small {
   font-size: 90%;
 }
+.tiny {
+  font-size: 70%;
+}
+.tiny2 {
+  font-size: 50%;
+}
 
 
 /* Extra CSS */
@@ -85,32 +97,26 @@
 .blue {
   color: blue;
 }
-.small {
-  font-size: 90%;
+.red-pink {
+  color: red_pink;
 }
-
-
-/* Extra CSS */
-.red {
-  color: red;
+.grey-light {
+  color: grey_light;
 }
-.blue {
-  color: blue;
+.purple {
+  color: purple;
 }
 .small {
   font-size: 90%;
 }
-
-
-/* Extra CSS */
-.red {
-  color: red;
+.large {
+  font-size: 120%;
 }
-.blue {
-  color: blue;
+.tiny {
+  font-size: 70%;
 }
-.small {
-  font-size: 90%;
+.tiny2 {
+  font-size: 50%;
 }
 
 
@@ -121,20 +127,26 @@
 .blue {
   color: blue;
 }
-.small {
-  font-size: 90%;
+.red-pink {
+  color: red_pink;
 }
-
-
-/* Extra CSS */
-.red {
-  color: red;
+.grey-light {
+  color: grey_light;
 }
-.blue {
-  color: blue;
+.purple {
+  color: purple;
 }
 .small {
   font-size: 90%;
+}
+.large {
+  font-size: 120%;
+}
+.tiny {
+  font-size: 70%;
+}
+.tiny2 {
+  font-size: 50%;
 }
 
 
@@ -145,10 +157,10 @@
 .blue {
   color: blue;
 }
-.red_pink {
+.red-pink {
   color: red_pink;
 }
-.grey_light {
+.gray {
   color: grey_light;
 }
 .purple {
@@ -156,6 +168,15 @@
 }
 .small {
   font-size: 90%;
+}
+.large {
+  font-size: 120%;
+}
+.tiny {
+  font-size: 70%;
+}
+.tiny2 {
+  font-size: 50%;
 }
 
 
@@ -166,10 +187,10 @@
 .blue {
   color: blue;
 }
-.red_pink {
+.red-pink {
   color: red_pink;
 }
-.grey_light {
+.gray {
   color: grey_light;
 }
 .purple {
@@ -177,6 +198,15 @@
 }
 .small {
   font-size: 90%;
+}
+.large {
+  font-size: 120%;
+}
+.tiny {
+  font-size: 70%;
+}
+.tiny2 {
+  font-size: 50%;
 }
 
 
@@ -187,10 +217,10 @@
 .blue {
   color: blue;
 }
-.red_pink {
+.red-pink {
   color: red_pink;
 }
-.grey_light {
+.gray {
   color: grey_light;
 }
 .purple {
@@ -198,6 +228,15 @@
 }
 .small {
   font-size: 90%;
+}
+.large {
+  font-size: 120%;
+}
+.tiny {
+  font-size: 70%;
+}
+.tiny2 {
+  font-size: 50%;
 }
 
 
@@ -208,18 +247,27 @@
 .blue {
   color: blue;
 }
-.red_pink {
+.red-pink {
   color: red_pink;
 }
-.grey_light {
-  color: grey_light;
+.gray {
+  color: #B3B3B3;
 }
 .purple {
   color: purple;
 }
 .small {
   font-size: 90%;
+}
+.large {
+  font-size: 120%;
+}
+.tiny {
+  font-size: 70%;
 }
+.tiny2 {
+  font-size: 50%;
+}
 
 
 /* Extra CSS */
@@ -229,18 +277,27 @@
 .blue {
   color: blue;
 }
-.red_pink {
+.red-pink {
   color: red_pink;
 }
-.grey_light {
-  color: grey_light;
+.gray {
+  color: #B3B3B3;
 }
 .purple {
   color: purple;
 }
 .small {
   font-size: 90%;
+}
+.large {
+  font-size: 120%;
 }
+.tiny {
+  font-size: 70%;
+}
+.tiny2 {
+  font-size: 50%;
+}
 
 
 /* Extra CSS */
@@ -250,11 +307,11 @@
 .blue {
   color: blue;
 }
-.red_pink {
+.red-pink {
   color: red_pink;
 }
-.grey_light {
-  color: grey_light;
+.gray {
+  color: #B3B3B3;
 }
 .purple {
   color: purple;
@@ -262,6 +319,15 @@
 .small {
   font-size: 90%;
 }
+.large {
+  font-size: 120%;
+}
+.tiny {
+  font-size: 70%;
+}
+.tiny2 {
+  font-size: 50%;
+}
 
 
 /* Extra CSS */
@@ -271,17 +337,26 @@
 .blue {
   color: blue;
 }
-.red_pink {
+.red-pink {
   color: red_pink;
 }
-.grey_light {
-  color: grey_light;
+.gray {
+  color: #B3B3B3;
 }
 .purple {
   color: purple;
 }
 .small {
   font-size: 90%;
+}
+.large {
+  font-size: 120%;
+}
+.tiny {
+  font-size: 70%;
+}
+.tiny2 {
+  font-size: 50%;
 }
 
 
@@ -292,18 +367,27 @@
 .blue {
   color: blue;
 }
-.red_pink {
+.red-pink {
   color: red_pink;
 }
-.grey_light {
-  color: grey_light;
+.gray {
+  color: #B3B3B3;
 }
 .purple {
   color: purple;
 }
 .small {
   font-size: 90%;
+}
+.large {
+  font-size: 120%;
+}
+.tiny {
+  font-size: 70%;
 }
+.tiny2 {
+  font-size: 50%;
+}
 
 
 /* Extra CSS */
@@ -313,18 +397,27 @@
 .blue {
   color: blue;
 }
-.red_pink {
+.red-pink {
   color: red_pink;
 }
-.grey_light {
-  color: grey_light;
+.gray {
+  color: #B3B3B3;
 }
 .purple {
   color: purple;
 }
 .small {
   font-size: 90%;
+}
+.large {
+  font-size: 120%;
 }
+.tiny {
+  font-size: 70%;
+}
+.tiny2 {
+  font-size: 50%;
+}
 
 
 /* Extra CSS */
@@ -334,11 +427,11 @@
 .blue {
   color: blue;
 }
-.red_pink {
+.red-pink {
   color: red_pink;
 }
-.grey_light {
-  color: grey_light;
+.gray {
+  color: #B3B3B3;
 }
 .purple {
   color: purple;
@@ -346,6 +439,15 @@
 .small {
   font-size: 90%;
 }
+.large {
+  font-size: 120%;
+}
+.tiny {
+  font-size: 70%;
+}
+.tiny2 {
+  font-size: 50%;
+}
 
 
 /* Extra CSS */
@@ -355,17 +457,26 @@
 .blue {
   color: blue;
 }
-.red_pink {
+.red-pink {
   color: red_pink;
 }
-.grey_light {
-  color: grey_light;
+.gray {
+  color: #B3B3B3;
 }
 .purple {
   color: purple;
 }
 .small {
   font-size: 90%;
+}
+.large {
+  font-size: 120%;
+}
+.tiny {
+  font-size: 70%;
+}
+.tiny2 {
+  font-size: 50%;
 }
 
 
@@ -379,15 +490,24 @@
 .red-pink {
   color: red_pink;
 }
-.grey-light {
-  color: grey_light;
+.gray {
+  color: #B3B3B3;
 }
 .purple {
   color: purple;
 }
 .small {
   font-size: 90%;
+}
+.large {
+  font-size: 120%;
+}
+.tiny {
+  font-size: 70%;
 }
+.tiny2 {
+  font-size: 50%;
+}
 
 
 /* Extra CSS */
@@ -400,15 +520,24 @@
 .red-pink {
   color: red_pink;
 }
-.grey-light {
-  color: grey_light;
+.gray {
+  color: #B3B3B3;
 }
 .purple {
   color: purple;
 }
 .small {
   font-size: 90%;
+}
+.large {
+  font-size: 120%;
 }
+.tiny {
+  font-size: 70%;
+}
+.tiny2 {
+  font-size: 50%;
+}
 
 
 /* Extra CSS */
@@ -421,8 +550,8 @@
 .red-pink {
   color: red_pink;
 }
-.grey-light {
-  color: grey_light;
+.gray {
+  color: #B3B3B3;
 }
 .purple {
   color: purple;
@@ -430,6 +559,15 @@
 .small {
   font-size: 90%;
 }
+.large {
+  font-size: 120%;
+}
+.tiny {
+  font-size: 70%;
+}
+.tiny2 {
+  font-size: 50%;
+}
 
 
 /* Extra CSS */
@@ -442,14 +580,23 @@
 .red-pink {
   color: red_pink;
 }
-.grey-light {
-  color: grey_light;
+.gray {
+  color: #B3B3B3;
 }
 .purple {
   color: purple;
 }
 .small {
   font-size: 90%;
+}
+.large {
+  font-size: 120%;
+}
+.tiny {
+  font-size: 70%;
+}
+.tiny2 {
+  font-size: 50%;
 }
 
 
@@ -463,15 +610,24 @@
 .red-pink {
   color: red_pink;
 }
-.grey-light {
-  color: grey_light;
+.gray {
+  color: #B3B3B3;
 }
 .purple {
   color: purple;
 }
 .small {
   font-size: 90%;
+}
+.large {
+  font-size: 120%;
+}
+.tiny {
+  font-size: 70%;
 }
+.tiny2 {
+  font-size: 50%;
+}
 
 
 /* Extra CSS */
@@ -484,15 +640,24 @@
 .red-pink {
   color: red_pink;
 }
-.grey-light {
-  color: grey_light;
+.gray {
+  color: #B3B3B3;
 }
 .purple {
   color: purple;
 }
 .small {
   font-size: 90%;
+}
+.large {
+  font-size: 120%;
 }
+.tiny {
+  font-size: 70%;
+}
+.tiny2 {
+  font-size: 50%;
+}
 
 
 /* Extra CSS */
@@ -505,8 +670,8 @@
 .red-pink {
   color: red_pink;
 }
-.grey-light {
-  color: grey_light;
+.gray {
+  color: #B3B3B3;
 }
 .purple {
   color: purple;
@@ -514,6 +679,15 @@
 .small {
   font-size: 90%;
 }
+.large {
+  font-size: 120%;
+}
+.tiny {
+  font-size: 70%;
+}
+.tiny2 {
+  font-size: 50%;
+}
 
 
 /* Extra CSS */
@@ -526,14 +700,23 @@
 .red-pink {
   color: red_pink;
 }
-.grey-light {
-  color: grey_light;
+.gray {
+  color: #B3B3B3;
 }
 .purple {
   color: purple;
 }
 .small {
   font-size: 90%;
+}
+.large {
+  font-size: 120%;
+}
+.tiny {
+  font-size: 70%;
+}
+.tiny2 {
+  font-size: 50%;
 }
 
 
@@ -547,15 +730,24 @@
 .red-pink {
   color: red_pink;
 }
-.grey-light {
-  color: grey_light;
+.gray {
+  color: #B3B3B3;
 }
 .purple {
   color: purple;
 }
 .small {
   font-size: 90%;
+}
+.large {
+  font-size: 120%;
+}
+.tiny {
+  font-size: 70%;
 }
+.tiny2 {
+  font-size: 50%;
+}
 
 
 /* Extra CSS */
@@ -568,15 +760,24 @@
 .red-pink {
   color: red_pink;
 }
-.grey-light {
-  color: grey_light;
+.gray {
+  color: #B3B3B3;
 }
 .purple {
   color: purple;
 }
 .small {
   font-size: 90%;
+}
+.large {
+  font-size: 120%;
 }
+.tiny {
+  font-size: 70%;
+}
+.tiny2 {
+  font-size: 50%;
+}
 
 
 /* Extra CSS */
@@ -589,8 +790,8 @@
 .red-pink {
   color: red_pink;
 }
-.grey-light {
-  color: grey_light;
+.gray {
+  color: #B3B3B3;
 }
 .purple {
   color: purple;
@@ -598,6 +799,15 @@
 .small {
   font-size: 90%;
 }
+.large {
+  font-size: 120%;
+}
+.tiny {
+  font-size: 70%;
+}
+.tiny2 {
+  font-size: 50%;
+}
 
 
 /* Extra CSS */
@@ -610,14 +820,23 @@
 .red-pink {
   color: red_pink;
 }
-.grey-light {
-  color: grey_light;
+.gray {
+  color: #B3B3B3;
 }
 .purple {
   color: purple;
 }
 .small {
   font-size: 90%;
+}
+.large {
+  font-size: 120%;
+}
+.tiny {
+  font-size: 70%;
+}
+.tiny2 {
+  font-size: 50%;
 }
 
 
@@ -631,15 +850,24 @@
 .red-pink {
   color: red_pink;
 }
-.grey-light {
-  color: grey_light;
+.gray {
+  color: #B3B3B3;
 }
 .purple {
   color: purple;
 }
 .small {
   font-size: 90%;
+}
+.large {
+  font-size: 120%;
+}
+.tiny {
+  font-size: 70%;
 }
+.tiny2 {
+  font-size: 50%;
+}
 
 
 /* Extra CSS */
@@ -673,15 +901,24 @@
 .red-pink {
   color: red_pink;
 }
-.grey-light {
-  color: grey_light;
+.gray {
+  color: #B3B3B3;
 }
 .purple {
   color: purple;
 }
 .small {
   font-size: 90%;
+}
+.large {
+  font-size: 120%;
 }
+.tiny {
+  font-size: 70%;
+}
+.tiny2 {
+  font-size: 50%;
+}
 
 
 /* Extra CSS */
@@ -694,8 +931,8 @@
 .red-pink {
   color: red_pink;
 }
-.grey-light {
-  color: grey_light;
+.gray {
+  color: #B3B3B3;
 }
 .purple {
   color: purple;
@@ -703,6 +940,15 @@
 .small {
   font-size: 90%;
 }
+.large {
+  font-size: 120%;
+}
+.tiny {
+  font-size: 70%;
+}
+.tiny2 {
+  font-size: 50%;
+}
 
 
 /* Extra CSS */
@@ -715,14 +961,23 @@
 .red-pink {
   color: red_pink;
 }
-.grey-light {
-  color: grey_light;
+.gray {
+  color: #B3B3B3;
 }
 .purple {
   color: purple;
 }
 .small {
   font-size: 90%;
+}
+.large {
+  font-size: 120%;
+}
+.tiny {
+  font-size: 70%;
+}
+.tiny2 {
+  font-size: 50%;
 }
 
 
@@ -736,15 +991,24 @@
 .red-pink {
   color: red_pink;
 }
-.grey-light {
-  color: grey_light;
+.gray {
+  color: #B3B3B3;
 }
 .purple {
   color: purple;
 }
 .small {
   font-size: 90%;
+}
+.large {
+  font-size: 120%;
+}
+.tiny {
+  font-size: 70%;
 }
+.tiny2 {
+  font-size: 50%;
+}
 
 
 /* Extra CSS */
@@ -757,15 +1021,24 @@
 .red-pink {
   color: red_pink;
 }
-.grey-light {
-  color: grey_light;
+.gray {
+  color: #B3B3B3;
 }
 .purple {
   color: purple;
 }
 .small {
   font-size: 90%;
+}
+.large {
+  font-size: 120%;
 }
+.tiny {
+  font-size: 70%;
+}
+.tiny2 {
+  font-size: 50%;
+}
 
 
 /* Extra CSS */
@@ -778,8 +1051,8 @@
 .red-pink {
   color: red_pink;
 }
-.grey-light {
-  color: grey_light;
+.gray {
+  color: #B3B3B3;
 }
 .purple {
   color: purple;
@@ -787,6 +1060,15 @@
 .small {
   font-size: 90%;
 }
+.large {
+  font-size: 120%;
+}
+.tiny {
+  font-size: 70%;
+}
+.tiny2 {
+  font-size: 50%;
+}
 
 
 /* Extra CSS */
@@ -799,15 +1081,24 @@
 .red-pink {
   color: red_pink;
 }
-.grey-light {
-  color: grey_light;
+.gray {
+  color: #B3B3B3;
 }
 .purple {
   color: purple;
 }
 .small {
   font-size: 90%;
+}
+.large {
+  font-size: 120%;
 }
+.tiny {
+  font-size: 70%;
+}
+.tiny2 {
+  font-size: 50%;
+}
 
 
 /* Extra CSS */
@@ -820,35 +1111,23 @@
 .red-pink {
   color: red_pink;
 }
-.grey-light {
-  color: grey_light;
+.gray {
+  color: #B3B3B3;
 }
 .purple {
   color: purple;
 }
 .small {
   font-size: 90%;
-}
-
-
-/* Extra CSS */
-.red {
-  color: red;
-}
-.blue {
-  color: blue;
-}
-.red-pink {
-  color: red_pink;
 }
-.grey-light {
-  color: grey_light;
+.large {
+  font-size: 120%;
 }
-.purple {
-  color: purple;
+.tiny {
+  font-size: 70%;
 }
-.small {
-  font-size: 90%;
+.tiny2 {
+  font-size: 50%;
 }
 
 
@@ -862,35 +1141,23 @@
 .red-pink {
   color: red_pink;
 }
-.grey-light {
-  color: grey_light;
+.gray {
+  color: #B3B3B3;
 }
 .purple {
   color: purple;
 }
 .small {
   font-size: 90%;
-}
-
-
-/* Extra CSS */
-.red {
-  color: red;
-}
-.blue {
-  color: blue;
-}
-.red-pink {
-  color: red_pink;
 }
-.grey-light {
-  color: grey_light;
+.large {
+  font-size: 120%;
 }
-.purple {
-  color: purple;
+.tiny {
+  font-size: 70%;
 }
-.small {
-  font-size: 90%;
+.tiny2 {
+  font-size: 50%;
 }
 
 
@@ -904,35 +1171,23 @@
 .red-pink {
   color: red_pink;
 }
-.grey-light {
-  color: grey_light;
+.gray {
+  color: #B3B3B3;
 }
 .purple {
   color: purple;
 }
 .small {
   font-size: 90%;
-}
-
-
-/* Extra CSS */
-.red {
-  color: red;
-}
-.blue {
-  color: blue;
-}
-.red-pink {
-  color: red_pink;
 }
-.grey-light {
-  color: grey_light;
+.large {
+  font-size: 120%;
 }
-.purple {
-  color: purple;
+.tiny {
+  font-size: 70%;
 }
-.small {
-  font-size: 90%;
+.tiny2 {
+  font-size: 50%;
 }
 
 
@@ -946,35 +1201,23 @@
 .red-pink {
   color: red_pink;
 }
-.grey-light {
-  color: grey_light;
+.gray {
+  color: #B3B3B3;
 }
 .purple {
   color: purple;
 }
 .small {
   font-size: 90%;
-}
-
-
-/* Extra CSS */
-.red {
-  color: red;
-}
-.blue {
-  color: blue;
-}
-.red-pink {
-  color: red_pink;
 }
-.grey-light {
-  color: grey_light;
+.large {
+  font-size: 120%;
 }
-.purple {
-  color: purple;
+.tiny {
+  font-size: 70%;
 }
-.small {
-  font-size: 90%;
+.tiny2 {
+  font-size: 50%;
 }
 
 
@@ -988,35 +1231,23 @@
 .red-pink {
   color: red_pink;
 }
-.grey-light {
-  color: grey_light;
+.gray {
+  color: #B3B3B3;
 }
 .purple {
   color: purple;
 }
 .small {
   font-size: 90%;
-}
-
-
-/* Extra CSS */
-.red {
-  color: red;
-}
-.blue {
-  color: blue;
-}
-.red-pink {
-  color: red_pink;
 }
-.grey-light {
-  color: grey_light;
+.large {
+  font-size: 120%;
 }
-.purple {
-  color: purple;
+.tiny {
+  font-size: 70%;
 }
-.small {
-  font-size: 90%;
+.tiny2 {
+  font-size: 50%;
 }
 
 
@@ -1030,35 +1261,23 @@
 .red-pink {
   color: red_pink;
 }
-.grey-light {
-  color: grey_light;
+.gray {
+  color: #B3B3B3;
 }
 .purple {
   color: purple;
 }
 .small {
   font-size: 90%;
-}
-
-
-/* Extra CSS */
-.red {
-  color: red;
-}
-.blue {
-  color: blue;
-}
-.red-pink {
-  color: red_pink;
 }
-.grey-light {
-  color: grey_light;
+.large {
+  font-size: 120%;
 }
-.purple {
-  color: purple;
+.tiny {
+  font-size: 70%;
 }
-.small {
-  font-size: 90%;
+.tiny2 {
+  font-size: 50%;
 }
 
 
@@ -1072,35 +1291,23 @@
 .red-pink {
   color: red_pink;
 }
-.grey-light {
-  color: grey_light;
+.gray {
+  color: #B3B3B3;
 }
 .purple {
   color: purple;
 }
 .small {
   font-size: 90%;
-}
-
-
-/* Extra CSS */
-.red {
-  color: red;
-}
-.blue {
-  color: blue;
-}
-.red-pink {
-  color: red_pink;
 }
-.grey-light {
-  color: grey_light;
+.large {
+  font-size: 120%;
 }
-.purple {
-  color: purple;
+.tiny {
+  font-size: 70%;
 }
-.small {
-  font-size: 90%;
+.tiny2 {
+  font-size: 50%;
 }
 
 
@@ -1114,35 +1321,23 @@
 .red-pink {
   color: red_pink;
 }
-.grey-light {
-  color: grey_light;
+.gray {
+  color: #B3B3B3;
 }
 .purple {
   color: purple;
 }
 .small {
   font-size: 90%;
-}
-
-
-/* Extra CSS */
-.red {
-  color: red;
-}
-.blue {
-  color: blue;
-}
-.red-pink {
-  color: red_pink;
 }
-.grey-light {
-  color: grey_light;
+.large {
+  font-size: 120%;
 }
-.purple {
-  color: purple;
+.tiny {
+  font-size: 70%;
 }
-.small {
-  font-size: 90%;
+.tiny2 {
+  font-size: 50%;
 }
 
 
@@ -1156,35 +1351,23 @@
 .red-pink {
   color: red_pink;
 }
-.grey-light {
-  color: grey_light;
+.gray {
+  color: #B3B3B3;
 }
 .purple {
   color: purple;
 }
 .small {
   font-size: 90%;
-}
-
-
-/* Extra CSS */
-.red {
-  color: red;
-}
-.blue {
-  color: blue;
-}
-.red-pink {
-  color: red_pink;
 }
-.grey-light {
-  color: grey_light;
+.large {
+  font-size: 120%;
 }
-.purple {
-  color: purple;
+.tiny {
+  font-size: 70%;
 }
-.small {
-  font-size: 90%;
+.tiny2 {
+  font-size: 50%;
 }
 
 
@@ -1198,14 +1381,23 @@
 .red-pink {
   color: red_pink;
 }
-.grey-light {
-  color: grey_light;
+.gray {
+  color: #B3B3B3;
 }
 .purple {
   color: purple;
 }
 .small {
   font-size: 90%;
+}
+.large {
+  font-size: 120%;
+}
+.tiny {
+  font-size: 70%;
+}
+.tiny2 {
+  font-size: 50%;
 }
 
 
@@ -1219,15 +1411,24 @@
 .red-pink {
   color: red_pink;
 }
-.grey-light {
-  color: grey_light;
+.gray {
+  color: #B3B3B3;
 }
 .purple {
   color: purple;
 }
 .small {
   font-size: 90%;
+}
+.large {
+  font-size: 120%;
+}
+.tiny {
+  font-size: 70%;
 }
+.tiny2 {
+  font-size: 50%;
+}
 
 
 /* Extra CSS */
@@ -1240,15 +1441,24 @@
 .red-pink {
   color: red_pink;
 }
-.grey-light {
-  color: grey_light;
+.gray {
+  color: #B3B3B3;
 }
 .purple {
   color: purple;
 }
 .small {
   font-size: 90%;
+}
+.large {
+  font-size: 120%;
 }
+.tiny {
+  font-size: 70%;
+}
+.tiny2 {
+  font-size: 50%;
+}
 
 
 /* Extra CSS */
@@ -1261,8 +1471,8 @@
 .red-pink {
   color: red_pink;
 }
-.grey-light {
-  color: grey_light;
+.gray {
+  color: #B3B3B3;
 }
 .purple {
   color: purple;
@@ -1270,6 +1480,15 @@
 .small {
   font-size: 90%;
 }
+.large {
+  font-size: 120%;
+}
+.tiny {
+  font-size: 70%;
+}
+.tiny2 {
+  font-size: 50%;
+}
 
 
 /* Extra CSS */
@@ -1282,14 +1501,23 @@
 .red-pink {
   color: red_pink;
 }
-.grey-light {
-  color: grey_light;
+.gray {
+  color: #B3B3B3;
 }
 .purple {
   color: purple;
 }
 .small {
   font-size: 90%;
+}
+.large {
+  font-size: 120%;
+}
+.tiny {
+  font-size: 70%;
+}
+.tiny2 {
+  font-size: 50%;
 }
 
 
@@ -1303,15 +1531,24 @@
 .red-pink {
   color: red_pink;
 }
-.grey-light {
-  color: grey_light;
+.gray {
+  color: #B3B3B3;
 }
 .purple {
   color: purple;
 }
 .small {
   font-size: 90%;
+}
+.large {
+  font-size: 120%;
+}
+.tiny {
+  font-size: 70%;
 }
+.tiny2 {
+  font-size: 50%;
+}
 
 
 /* Extra CSS */
@@ -1324,15 +1561,24 @@
 .red-pink {
   color: red_pink;
 }
-.grey-light {
-  color: grey_light;
+.gray {
+  color: #B3B3B3;
 }
 .purple {
   color: purple;
 }
 .small {
   font-size: 90%;
+}
+.large {
+  font-size: 120%;
 }
+.tiny {
+  font-size: 70%;
+}
+.tiny2 {
+  font-size: 50%;
+}
 
 
 /* Extra CSS */
@@ -1345,8 +1591,8 @@
 .red-pink {
   color: red_pink;
 }
-.grey-light {
-  color: grey_light;
+.gray {
+  color: #B3B3B3;
 }
 .purple {
   color: purple;
@@ -1354,6 +1600,15 @@
 .small {
   font-size: 90%;
 }
+.large {
+  font-size: 120%;
+}
+.tiny {
+  font-size: 70%;
+}
+.tiny2 {
+  font-size: 50%;
+}
 
 
 /* Extra CSS */
@@ -1366,14 +1621,23 @@
 .red-pink {
   color: red_pink;
 }
-.grey-light {
-  color: grey_light;
+.gray {
+  color: #B3B3B3;
 }
 .purple {
   color: purple;
 }
 .small {
   font-size: 90%;
+}
+.large {
+  font-size: 120%;
+}
+.tiny {
+  font-size: 70%;
+}
+.tiny2 {
+  font-size: 50%;
 }
 
 
@@ -1387,15 +1651,24 @@
 .red-pink {
   color: red_pink;
 }
-.grey-light {
-  color: grey_light;
+.gray {
+  color: #B3B3B3;
 }
 .purple {
   color: purple;
 }
 .small {
   font-size: 90%;
+}
+.large {
+  font-size: 120%;
+}
+.tiny {
+  font-size: 70%;
 }
+.tiny2 {
+  font-size: 50%;
+}
 
 
 /* Extra CSS */
@@ -1406,43 +1679,25 @@
   color: blue;
 }
 .red-pink {
-  color: #e64173;
+  color: red_pink;
 }
-.grey-light {
-  color: grey_light;
+.gray {
+  color: #B3B3B3;
 }
 .purple {
   color: purple;
 }
 .small {
   font-size: 90%;
-}
-
-
-/* Extra CSS */
-.red {
-  color: red;
-}
-.blue {
-  color: blue;
-}
-.green {
-  color: #8bb174;
-}
-.purple {
-  color: #6A5ACD;
 }
-.red-pink {
-  color: #e64173;
-}
-.grey-light {
-  color: grey70;
+.large {
+  font-size: 120%;
 }
-.slate {
-  color: #314f4f;
+.tiny {
+  font-size: 70%;
 }
-.small {
-  font-size: 90%;
+.tiny2 {
+  font-size: 50%;
 }
 
 
@@ -1452,6007 +1707,25 @@
 }
 .blue {
   color: blue;
-}
-.green {
-  color: #8bb174;
-}
-.purple {
-  color: #6A5ACD;
 }
 .red-pink {
-  color: #e64173;
+  color: red_pink;
 }
-.grey-light {
-  color: grey70;
+.gray {
+  color: #B3B3B3;
 }
-.slate {
-  color: #314f4f;
+.purple {
+  color: purple;
 }
 .small {
   font-size: 90%;
 }
-
-
-/* Extra CSS */
-.red {
-  color: red;
-}
-.blue {
-  color: blue;
-}
-.red-pink {
-  color: red_pink;
-}
-.grey-light {
-  color: grey_light;
-}
-.purple {
-  color: purple;
-}
-.small {
-  font-size: 90%;
-}
-
-
-/* Extra CSS */
-.red {
-  color: red;
-}
-.blue {
-  color: blue;
-}
-.red-pink {
-  color: red_pink;
-}
-.grey-light {
-  color: grey_light;
-}
-.purple {
-  color: purple;
-}
-.small {
-  font-size: 90%;
-}
-
-
-/* Extra CSS */
-.red {
-  color: red;
-}
-.blue {
-  color: blue;
-}
-.green {
-  color: #8bb174;
-}
-.purple {
-  color: #6A5ACD;
-}
-.red-pink {
-  color: #e64173;
-}
-.grey-light {
-  color: grey70;
-}
-.slate {
-  color: #314f4f;
-}
-.small {
-  font-size: 90%;
-}
-
-
-/* Extra CSS */
-.red {
-  color: red;
-}
-.blue {
-  color: blue;
-}
-.red-pink {
-  color: red_pink;
-}
-.grey-light {
-  color: grey_light;
-}
-.purple {
-  color: purple;
-}
-.small {
-  font-size: 90%;
-}
-
-
-/* Extra CSS */
-.red {
-  color: red;
-}
-.blue {
-  color: blue;
-}
-.red-pink {
-  color: red_pink;
-}
-.grey-light {
-  color: grey_light;
-}
-.purple {
-  color: purple;
-}
-.small {
-  font-size: 90%;
-}
-
-
-/* Extra CSS */
-.red {
-  color: red;
-}
-.blue {
-  color: blue;
-}
-.red-pink {
-  color: red_pink;
-}
-.grey-light {
-  color: grey_light;
-}
-.purple {
-  color: purple;
-}
-.small {
-  font-size: 90%;
-}
-
-
-/* Extra CSS */
-.red {
-  color: red;
-}
-.blue {
-  color: blue;
-}
-.red-pink {
-  color: red_pink;
-}
-.grey-light {
-  color: grey_light;
-}
-.purple {
-  color: purple;
-}
-.small {
-  font-size: 90%;
-}
-
-
-/* Extra CSS */
-.red {
-  color: red;
-}
-.blue {
-  color: blue;
-}
-.green {
-  color: #8bb174;
-}
-.purple {
-  color: #6A5ACD;
-}
-.red-pink {
-  color: #e64173;
-}
-.grey-light {
-  color: grey70;
-}
-.slate {
-  color: #314f4f;
-}
-.small {
-  font-size: 90%;
-}
-
-
-/* Extra CSS */
-.red {
-  color: red;
-}
-.blue {
-  color: blue;
-}
-.green {
-  color: #8bb174;
-}
-.purple {
-  color: #6A5ACD;
-}
-.red-pink {
-  color: #e64173;
-}
-.grey-light {
-  color: grey70;
-}
-.slate {
-  color: #314f4f;
-}
-.small {
-  font-size: 90%;
-}
-
-
-/* Extra CSS */
-.red {
-  color: red;
-}
-.blue {
-  color: blue;
-}
-.green {
-  color: #8bb174;
-}
-.purple {
-  color: #6A5ACD;
-}
-.red-pink {
-  color: #e64173;
-}
-.grey-light {
-  color: grey70;
-}
-.slate {
-  color: #314f4f;
-}
-.small {
-  font-size: 90%;
-}
-
-
-/* Extra CSS */
-.red {
-  color: red;
-}
-.blue {
-  color: blue;
-}
-.green {
-  color: #8bb174;
-}
-.purple {
-  color: #6A5ACD;
-}
-.red-pink {
-  color: #e64173;
-}
-.grey-light {
-  color: grey70;
-}
-.slate {
-  color: #314f4f;
-}
-.small {
-  font-size: 90%;
-}
-
-
-/* Extra CSS */
-.red {
-  color: red;
-}
-.blue {
-  color: blue;
-}
-.green {
-  color: #8bb174;
-}
-.purple {
-  color: #6A5ACD;
-}
-.red-pink {
-  color: #e64173;
-}
-.grey-light {
-  color: grey70;
-}
-.slate {
-  color: #314f4f;
-}
-.small {
-  font-size: 90%;
-}
-
-
-/* Extra CSS */
-.red {
-  color: red;
-}
-.blue {
-  color: blue;
-}
-.green {
-  color: #8bb174;
-}
-.purple {
-  color: #6A5ACD;
-}
-.red-pink {
-  color: #e64173;
-}
-.grey-light {
-  color: grey70;
-}
-.slate {
-  color: #314f4f;
-}
-.small {
-  font-size: 90%;
-}
-
-
-/* Extra CSS */
-.red {
-  color: red;
-}
-.blue {
-  color: blue;
-}
-.green {
-  color: #8bb174;
-}
-.purple {
-  color: #6A5ACD;
-}
-.red-pink {
-  color: #e64173;
-}
-.grey-light {
-  color: grey70;
-}
-.slate {
-  color: #314f4f;
-}
-.small {
-  font-size: 90%;
-}
-
-
-/* Extra CSS */
-.red {
-  color: red;
-}
-.blue {
-  color: blue;
-}
-.green {
-  color: #8bb174;
-}
-.purple {
-  color: #6A5ACD;
-}
-.red-pink {
-  color: #e64173;
-}
-.grey-light {
-  color: grey70;
-}
-.slate {
-  color: #314f4f;
-}
-.small {
-  font-size: 90%;
-}
-
-
-/* Extra CSS */
-.red {
-  color: red;
-}
-.blue {
-  color: blue;
-}
-.green {
-  color: #8bb174;
-}
-.purple {
-  color: #6A5ACD;
-}
-.red-pink {
-  color: #e64173;
-}
-.grey-light {
-  color: grey70;
-}
-.slate {
-  color: #314f4f;
-}
-.small {
-  font-size: 90%;
-}
-
-
-/* Extra CSS */
-.red {
-  color: red;
-}
-.blue {
-  color: blue;
-}
-.green {
-  color: #8bb174;
-}
-.purple {
-  color: #6A5ACD;
-}
-.red-pink {
-  color: #e64173;
-}
-.grey-light {
-  color: grey70;
-}
-.slate {
-  color: #314f4f;
-}
-.small {
-  font-size: 90%;
-}
-
-
-/* Extra CSS */
-.red {
-  color: red;
-}
-.blue {
-  color: blue;
-}
-.green {
-  color: #8bb174;
-}
-.purple {
-  color: #6A5ACD;
-}
-.red-pink {
-  color: #e64173;
-}
-.grey-light {
-  color: grey70;
-}
-.slate {
-  color: #314f4f;
-}
-.small {
-  font-size: 90%;
-}
-
-
-/* Extra CSS */
-.red {
-  color: red;
-}
-.blue {
-  color: blue;
-}
-.green {
-  color: #8bb174;
-}
-.purple {
-  color: #6A5ACD;
-}
-.red-pink {
-  color: #e64173;
-}
-.grey-light {
-  color: grey70;
-}
-.slate {
-  color: #314f4f;
-}
-.small {
-  font-size: 90%;
-}
-
-
-/* Extra CSS */
-.red {
-  color: red;
-}
-.blue {
-  color: blue;
-}
-.green {
-  color: #8bb174;
-}
-.purple {
-  color: #6A5ACD;
-}
-.red-pink {
-  color: #e64173;
-}
-.grey-light {
-  color: grey70;
-}
-.slate {
-  color: #314f4f;
-}
-.small {
-  font-size: 90%;
-}
-
-
-/* Extra CSS */
-.red {
-  color: red;
-}
-.blue {
-  color: blue;
-}
-.green {
-  color: #8bb174;
-}
-.purple {
-  color: #6A5ACD;
-}
-.red-pink {
-  color: #e64173;
-}
-.grey-light {
-  color: grey70;
-}
-.slate {
-  color: #314f4f;
-}
-.small {
-  font-size: 90%;
-}
-
-
-/* Extra CSS */
-.red {
-  color: red;
-}
-.blue {
-  color: blue;
-}
-.green {
-  color: #8bb174;
-}
-.purple {
-  color: #6A5ACD;
-}
-.red-pink {
-  color: #e64173;
-}
-.grey-light {
-  color: grey70;
-}
-.slate {
-  color: #314f4f;
-}
-.small {
-  font-size: 90%;
-}
-
-
-/* Extra CSS */
-.red {
-  color: red;
-}
-.blue {
-  color: blue;
-}
-.green {
-  color: #8bb174;
-}
-.purple {
-  color: #6A5ACD;
-}
-.red-pink {
-  color: #e64173;
-}
-.grey-light {
-  color: grey70;
-}
-.slate {
-  color: #314f4f;
-}
-.small {
-  font-size: 90%;
-}
-
-
-/* Extra CSS */
-.red {
-  color: red;
-}
-.blue {
-  color: blue;
-}
-.green {
-  color: #8bb174;
-}
-.purple {
-  color: #6A5ACD;
-}
-.red-pink {
-  color: #e64173;
-}
-.grey-light {
-  color: grey70;
-}
-.slate {
-  color: #314f4f;
-}
-.small {
-  font-size: 90%;
-}
-
-
-/* Extra CSS */
-.red {
-  color: red;
-}
-.blue {
-  color: blue;
-}
-.green {
-  color: #8bb174;
-}
-.purple {
-  color: #6A5ACD;
-}
-.red-pink {
-  color: #e64173;
-}
-.grey-light {
-  color: grey70;
-}
-.slate {
-  color: #314f4f;
-}
-.small {
-  font-size: 90%;
-}
-
-
-/* Extra CSS */
-.red {
-  color: red;
-}
-.blue {
-  color: blue;
-}
-.green {
-  color: #8bb174;
-}
-.purple {
-  color: #6A5ACD;
-}
-.red-pink {
-  color: #e64173;
-}
-.grey-light {
-  color: grey70;
-}
-.slate {
-  color: #314f4f;
-}
-.small {
-  font-size: 90%;
-}
-
-
-/* Extra CSS */
-.red {
-  color: red;
-}
-.blue {
-  color: blue;
-}
-.green {
-  color: #8bb174;
-}
-.purple {
-  color: #6A5ACD;
-}
-.red-pink {
-  color: #e64173;
-}
-.grey-light {
-  color: grey70;
-}
-.slate {
-  color: #314f4f;
-}
-.small {
-  font-size: 90%;
-}
-
-
-/* Extra CSS */
-.red {
-  color: red;
-}
-.blue {
-  color: blue;
-}
-.green {
-  color: #8bb174;
-}
-.purple {
-  color: #6A5ACD;
-}
-.red-pink {
-  color: #e64173;
-}
-.grey-light {
-  color: grey70;
-}
-.slate {
-  color: #314f4f;
-}
-.small {
-  font-size: 90%;
-}
-
-
-/* Extra CSS */
-.red {
-  color: red;
-}
-.blue {
-  color: blue;
-}
-.green {
-  color: #8bb174;
-}
-.purple {
-  color: #6A5ACD;
-}
-.red-pink {
-  color: #e64173;
-}
-.grey-light {
-  color: grey70;
-}
-.slate {
-  color: #314f4f;
-}
-.small {
-  font-size: 90%;
-}
-
-
-/* Extra CSS */
-.red {
-  color: red;
-}
-.blue {
-  color: blue;
-}
-.green {
-  color: #8bb174;
-}
-.purple {
-  color: #6A5ACD;
-}
-.red-pink {
-  color: #e64173;
-}
-.grey-light {
-  color: grey70;
-}
-.slate {
-  color: #314f4f;
-}
-.small {
-  font-size: 90%;
-}
-
-
-/* Extra CSS */
-.red {
-  color: red;
-}
-.blue {
-  color: blue;
-}
-.green {
-  color: #8bb174;
-}
-.purple {
-  color: #6A5ACD;
-}
-.red-pink {
-  color: #e64173;
-}
-.grey-light {
-  color: grey70;
-}
-.slate {
-  color: #314f4f;
-}
-.small {
-  font-size: 90%;
-}
-
-
-/* Extra CSS */
-.red {
-  color: red;
-}
-.blue {
-  color: blue;
-}
-.green {
-  color: #8bb174;
-}
-.purple {
-  color: #6A5ACD;
-}
-.red-pink {
-  color: #e64173;
-}
-.grey-light {
-  color: grey70;
-}
-.slate {
-  color: #314f4f;
-}
-.small {
-  font-size: 90%;
-}
-
-
-/* Extra CSS */
-.red {
-  color: red;
-}
-.blue {
-  color: blue;
-}
-.green {
-  color: #8bb174;
-}
-.purple {
-  color: #6A5ACD;
-}
-.red-pink {
-  color: #e64173;
-}
-.grey-light {
-  color: grey70;
-}
-.slate {
-  color: #314f4f;
-}
-.small {
-  font-size: 90%;
-}
-
-
-/* Extra CSS */
-.red {
-  color: red;
-}
-.blue {
-  color: blue;
-}
-.green {
-  color: #8bb174;
-}
-.purple {
-  color: #6A5ACD;
-}
-.red-pink {
-  color: #e64173;
-}
-.grey-light {
-  color: grey70;
-}
-.slate {
-  color: #314f4f;
-}
-.small {
-  font-size: 90%;
-}
-
-
-/* Extra CSS */
-.red {
-  color: red;
-}
-.blue {
-  color: blue;
-}
-.green {
-  color: #8bb174;
-}
-.purple {
-  color: #6A5ACD;
-}
-.red-pink {
-  color: #e64173;
-}
-.grey-light {
-  color: grey70;
-}
-.slate {
-  color: #314f4f;
-}
-.small {
-  font-size: 90%;
-}
-
-
-/* Extra CSS */
-.red {
-  color: red;
-}
-.blue {
-  color: blue;
-}
-.green {
-  color: #8bb174;
-}
-.purple {
-  color: #6A5ACD;
-}
-.red-pink {
-  color: #e64173;
-}
-.grey-light {
-  color: grey70;
-}
-.slate {
-  color: #314f4f;
-}
-.small {
-  font-size: 90%;
-}
-
-
-/* Extra CSS */
-.red {
-  color: red;
-}
-.blue {
-  color: blue;
-}
-.green {
-  color: #8bb174;
-}
-.purple {
-  color: #6A5ACD;
-}
-.red-pink {
-  color: #e64173;
-}
-.grey-light {
-  color: grey70;
-}
-.slate {
-  color: #314f4f;
-}
-.small {
-  font-size: 90%;
-}
-
-
-/* Extra CSS */
-.red {
-  color: red;
-}
-.blue {
-  color: blue;
-}
-.green {
-  color: #8bb174;
-}
-.purple {
-  color: #6A5ACD;
-}
-.red-pink {
-  color: #e64173;
-}
-.grey-light {
-  color: grey70;
-}
-.slate {
-  color: #314f4f;
-}
-.small {
-  font-size: 90%;
-}
-
-
-/* Extra CSS */
-.red {
-  color: red;
-}
-.blue {
-  color: blue;
-}
-.green {
-  color: #8bb174;
-}
-.purple {
-  color: #6A5ACD;
-}
-.red-pink {
-  color: #e64173;
-}
-.grey-light {
-  color: grey70;
-}
-.slate {
-  color: #314f4f;
-}
-.small {
-  font-size: 90%;
-}
-
-
-/* Extra CSS */
-.red {
-  color: red;
-}
-.blue {
-  color: blue;
-}
-.green {
-  color: #8bb174;
-}
-.purple {
-  color: #6A5ACD;
-}
-.red-pink {
-  color: #e64173;
-}
-.grey-light {
-  color: grey70;
-}
-.slate {
-  color: #314f4f;
-}
-.small {
-  font-size: 90%;
-}
-
-
-/* Extra CSS */
-.red {
-  color: red;
-}
-.blue {
-  color: blue;
-}
-.green {
-  color: #8bb174;
-}
-.purple {
-  color: #6A5ACD;
-}
-.red-pink {
-  color: #e64173;
-}
-.grey-light {
-  color: grey70;
-}
-.slate {
-  color: #314f4f;
-}
-.small {
-  font-size: 90%;
-}
-
-
-/* Extra CSS */
-.red {
-  color: red;
-}
-.blue {
-  color: blue;
-}
-.green {
-  color: #8bb174;
-}
-.purple {
-  color: #6A5ACD;
-}
-.red-pink {
-  color: #e64173;
-}
-.grey-light {
-  color: grey70;
-}
-.slate {
-  color: #314f4f;
-}
-.small {
-  font-size: 90%;
-}
-
-
-/* Extra CSS */
-.red {
-  color: red;
-}
-.blue {
-  color: blue;
-}
-.green {
-  color: #8bb174;
-}
-.purple {
-  color: #6A5ACD;
-}
-.red-pink {
-  color: #e64173;
-}
-.grey-light {
-  color: grey70;
-}
-.slate {
-  color: #314f4f;
-}
-.small {
-  font-size: 90%;
-}
-
-
-/* Extra CSS */
-.red {
-  color: red;
-}
-.blue {
-  color: blue;
-}
-.green {
-  color: #8bb174;
-}
-.purple {
-  color: #6A5ACD;
-}
-.red-pink {
-  color: #e64173;
-}
-.grey-light {
-  color: grey70;
-}
-.slate {
-  color: #314f4f;
-}
-.small {
-  font-size: 90%;
-}
-
-
-/* Extra CSS */
-.red {
-  color: red;
-}
-.blue {
-  color: blue;
-}
-.green {
-  color: #8bb174;
-}
-.purple {
-  color: #6A5ACD;
-}
-.red-pink {
-  color: #e64173;
-}
-.grey-light {
-  color: grey70;
-}
-.slate {
-  color: #314f4f;
-}
-.small {
-  font-size: 90%;
-}
-
-
-/* Extra CSS */
-.red {
-  color: red;
-}
-.blue {
-  color: blue;
-}
-.green {
-  color: #8bb174;
-}
-.purple {
-  color: #6A5ACD;
-}
-.red-pink {
-  color: #e64173;
-}
-.grey-light {
-  color: grey70;
-}
-.slate {
-  color: #314f4f;
-}
-.small {
-  font-size: 90%;
-}
-
-
-/* Extra CSS */
-.red {
-  color: red;
-}
-.blue {
-  color: blue;
-}
-.green {
-  color: #8bb174;
-}
-.purple {
-  color: #6A5ACD;
-}
-.red-pink {
-  color: #e64173;
-}
-.grey-light {
-  color: grey70;
-}
-.slate {
-  color: #314f4f;
-}
-.small {
-  font-size: 90%;
-}
-
-
-/* Extra CSS */
-.red {
-  color: red;
-}
-.blue {
-  color: blue;
-}
-.green {
-  color: #8bb174;
-}
-.purple {
-  color: #6A5ACD;
-}
-.red-pink {
-  color: #e64173;
-}
-.grey-light {
-  color: grey70;
-}
-.slate {
-  color: #314f4f;
-}
-.small {
-  font-size: 90%;
-}
-
-
-/* Extra CSS */
-.red {
-  color: red;
-}
-.blue {
-  color: blue;
-}
-.green {
-  color: #8bb174;
-}
-.purple {
-  color: #6A5ACD;
-}
-.red-pink {
-  color: #e64173;
-}
-.grey-light {
-  color: grey70;
-}
-.slate {
-  color: #314f4f;
-}
-.small {
-  font-size: 90%;
-}
-
-
-/* Extra CSS */
-.red {
-  color: red;
-}
-.blue {
-  color: blue;
-}
-.green {
-  color: #8bb174;
-}
-.purple {
-  color: #6A5ACD;
-}
-.red-pink {
-  color: #e64173;
-}
-.grey-light {
-  color: grey70;
-}
-.slate {
-  color: #314f4f;
-}
-.small {
-  font-size: 90%;
-}
-
-
-/* Extra CSS */
-.red {
-  color: red;
-}
-.blue {
-  color: blue;
-}
-.green {
-  color: #8bb174;
-}
-.purple {
-  color: #6A5ACD;
-}
-.red-pink {
-  color: #e64173;
-}
-.grey-light {
-  color: grey70;
-}
-.slate {
-  color: #314f4f;
-}
-.small {
-  font-size: 90%;
-}
-
-
-/* Extra CSS */
-.red {
-  color: red;
-}
-.blue {
-  color: blue;
-}
-.green {
-  color: #8bb174;
-}
-.purple {
-  color: #6A5ACD;
-}
-.red-pink {
-  color: #e64173;
-}
-.grey-light {
-  color: grey70;
-}
-.slate {
-  color: #314f4f;
-}
-.small {
-  font-size: 90%;
-}
-
-
-/* Extra CSS */
-.red {
-  color: red;
-}
-.blue {
-  color: blue;
-}
-.green {
-  color: #8bb174;
-}
-.purple {
-  color: #6A5ACD;
-}
-.red-pink {
-  color: #e64173;
-}
-.grey-light {
-  color: grey70;
-}
-.slate {
-  color: #314f4f;
-}
-.small {
-  font-size: 90%;
-}
-
-
-/* Extra CSS */
-.red {
-  color: red;
-}
-.blue {
-  color: blue;
-}
-.green {
-  color: #8bb174;
-}
-.purple {
-  color: #6A5ACD;
-}
-.red-pink {
-  color: #e64173;
-}
-.grey-light {
-  color: grey70;
-}
-.slate {
-  color: #314f4f;
-}
-.small {
-  font-size: 90%;
-}
-
-
-/* Extra CSS */
-.red {
-  color: red;
-}
-.blue {
-  color: blue;
-}
-.green {
-  color: #8bb174;
-}
-.purple {
-  color: #6A5ACD;
-}
-.red-pink {
-  color: #e64173;
-}
-.grey-light {
-  color: grey70;
-}
-.slate {
-  color: #314f4f;
-}
-.small {
-  font-size: 90%;
-}
-
-
-/* Extra CSS */
-.red {
-  color: red;
-}
-.blue {
-  color: blue;
-}
-.green {
-  color: #8bb174;
-}
-.purple {
-  color: #6A5ACD;
-}
-.red-pink {
-  color: #e64173;
-}
-.grey-light {
-  color: grey70;
-}
-.slate {
-  color: #314f4f;
-}
-.small {
-  font-size: 90%;
-}
-
-
-/* Extra CSS */
-.red {
-  color: red;
-}
-.blue {
-  color: blue;
-}
-.red-pink {
-  color: red_pink;
-}
-.grey-light {
-  color: grey_light;
-}
-.purple {
-  color: purple;
-}
-.small {
-  font-size: 90%;
-}
-
-
-/* Extra CSS */
-.red {
-  color: red;
-}
-.blue {
-  color: blue;
-}
-.red-pink {
-  color: red_pink;
-}
-.grey-light {
-  color: grey_light;
-}
-.purple {
-  color: purple;
-}
-.small {
-  font-size: 90%;
-}
-
-
-/* Extra CSS */
-.red {
-  color: red;
-}
-.blue {
-  color: blue;
-}
-.red-pink {
-  color: red_pink;
-}
-.grey-light {
-  color: grey_light;
-}
-.purple {
-  color: purple;
-}
-.small {
-  font-size: 90%;
-}
-
-
-/* Extra CSS */
-.red {
-  color: red;
-}
-.blue {
-  color: blue;
-}
-.red-pink {
-  color: red_pink;
-}
-.grey-light {
-  color: grey_light;
-}
-.purple {
-  color: purple;
-}
-.small {
-  font-size: 90%;
-}
-
-
-/* Extra CSS */
-.red {
-  color: red;
-}
-.blue {
-  color: blue;
-}
-.red-pink {
-  color: red_pink;
-}
-.grey-light {
-  color: grey_light;
-}
-.purple {
-  color: purple;
-}
-.small {
-  font-size: 90%;
-}
-
-
-/* Extra CSS */
-.red {
-  color: red;
-}
-.blue {
-  color: blue;
-}
-.green {
-  color: #8bb174;
-}
-.purple {
-  color: #6A5ACD;
-}
-.red-pink {
-  color: #e64173;
-}
-.grey-light {
-  color: grey70;
-}
-.slate {
-  color: #314f4f;
-}
-.small {
-  font-size: 90%;
-}
-
-
-/* Extra CSS */
-.red {
-  color: red;
-}
-.blue {
-  color: blue;
-}
-.red-pink {
-  color: red_pink;
-}
-.grey-light {
-  color: grey_light;
-}
-.purple {
-  color: purple;
-}
-.small {
-  font-size: 90%;
-}
-
-
-/* Extra CSS */
-.red {
-  color: red;
-}
-.blue {
-  color: blue;
-}
-.red-pink {
-  color: red_pink;
-}
-.grey-light {
-  color: grey_light;
-}
-.purple {
-  color: purple;
-}
-.small {
-  font-size: 90%;
-}
-
-
-/* Extra CSS */
-.red {
-  color: red;
-}
-.blue {
-  color: blue;
-}
-.green {
-  color: #8bb174;
-}
-.purple {
-  color: #6A5ACD;
-}
-.red-pink {
-  color: #e64173;
-}
-.grey-light {
-  color: grey70;
-}
-.slate {
-  color: #314f4f;
-}
-.small {
-  font-size: 90%;
-}
-
-
-/* Extra CSS */
-.red {
-  color: red;
-}
-.blue {
-  color: blue;
-}
-.green {
-  color: #8bb174;
-}
-.purple {
-  color: #6A5ACD;
-}
-.red-pink {
-  color: #e64173;
-}
-.grey-light {
-  color: grey70;
-}
-.slate {
-  color: #314f4f;
-}
-.small {
-  font-size: 90%;
-}
-
-
-/* Extra CSS */
-.red {
-  color: red;
-}
-.blue {
-  color: blue;
-}
-.green {
-  color: #8bb174;
-}
-.purple {
-  color: #6A5ACD;
-}
-.red-pink {
-  color: #e64173;
-}
-.grey-light {
-  color: grey70;
-}
-.slate {
-  color: #314f4f;
-}
-.small {
-  font-size: 90%;
-}
-
-
-/* Extra CSS */
-.red {
-  color: red;
-}
-.blue {
-  color: blue;
-}
-.green {
-  color: #8bb174;
-}
-.purple {
-  color: #6A5ACD;
-}
-.red-pink {
-  color: #e64173;
-}
-.grey-light {
-  color: grey70;
-}
-.slate {
-  color: #314f4f;
-}
-.small {
-  font-size: 90%;
-}
-
-
-/* Extra CSS */
-.red {
-  color: red;
-}
-.blue {
-  color: blue;
-}
-.green {
-  color: #8bb174;
-}
-.purple {
-  color: #6A5ACD;
-}
-.red-pink {
-  color: #e64173;
-}
-.grey-light {
-  color: grey70;
-}
-.slate {
-  color: #314f4f;
-}
-.small {
-  font-size: 90%;
-}
-
-
-/* Extra CSS */
-.red {
-  color: red;
-}
-.blue {
-  color: blue;
-}
-.green {
-  color: #8bb174;
-}
-.purple {
-  color: #6A5ACD;
-}
-.red-pink {
-  color: #e64173;
-}
-.grey-light {
-  color: grey70;
-}
-.slate {
-  color: #314f4f;
-}
-.small {
-  font-size: 90%;
-}
-
-
-/* Extra CSS */
-.red {
-  color: red;
-}
-.blue {
-  color: blue;
-}
-.green {
-  color: #8bb174;
-}
-.purple {
-  color: #6A5ACD;
-}
-.red-pink {
-  color: #e64173;
-}
-.grey-light {
-  color: grey70;
-}
-.slate {
-  color: #314f4f;
-}
-.small {
-  font-size: 90%;
-}
-
-
-/* Extra CSS */
-.red {
-  color: red;
-}
-.blue {
-  color: blue;
-}
-.green {
-  color: #8bb174;
-}
-.purple {
-  color: #6A5ACD;
-}
-.red-pink {
-  color: #e64173;
-}
-.grey-light {
-  color: grey70;
-}
-.slate {
-  color: #314f4f;
-}
-.small {
-  font-size: 90%;
-}
-
-
-/* Extra CSS */
-.red {
-  color: red;
-}
-.blue {
-  color: blue;
-}
-.green {
-  color: #8bb174;
-}
-.purple {
-  color: #6A5ACD;
-}
-.red-pink {
-  color: #e64173;
-}
-.grey-light {
-  color: grey70;
-}
-.slate {
-  color: #314f4f;
-}
-.small {
-  font-size: 90%;
-}
-
-
-/* Extra CSS */
-.red {
-  color: red;
-}
-.blue {
-  color: blue;
-}
-.green {
-  color: #8bb174;
-}
-.purple {
-  color: #6A5ACD;
-}
-.red-pink {
-  color: #e64173;
-}
-.grey-light {
-  color: grey70;
-}
-.slate {
-  color: #314f4f;
-}
-.small {
-  font-size: 90%;
-}
-
-
-/* Extra CSS */
-.red {
-  color: red;
-}
-.blue {
-  color: blue;
-}
-.green {
-  color: #8bb174;
-}
-.purple {
-  color: #6A5ACD;
-}
-.red-pink {
-  color: #e64173;
-}
-.grey-light {
-  color: grey70;
-}
-.slate {
-  color: #314f4f;
-}
-.small {
-  font-size: 90%;
-}
-
-
-/* Extra CSS */
-.red {
-  color: red;
-}
-.blue {
-  color: blue;
-}
-.green {
-  color: #8bb174;
-}
-.purple {
-  color: #6A5ACD;
-}
-.red-pink {
-  color: #e64173;
-}
-.grey-light {
-  color: grey70;
-}
-.slate {
-  color: #314f4f;
-}
-.small {
-  font-size: 90%;
-}
-
-
-/* Extra CSS */
-.red {
-  color: red;
-}
-.blue {
-  color: blue;
-}
-.green {
-  color: #8bb174;
-}
-.purple {
-  color: #6A5ACD;
-}
-.red-pink {
-  color: #e64173;
-}
-.grey-light {
-  color: grey70;
-}
-.slate {
-  color: #314f4f;
-}
-.small {
-  font-size: 90%;
-}
-
-
-/* Extra CSS */
-.red {
-  color: red;
-}
-.blue {
-  color: blue;
-}
-.green {
-  color: #8bb174;
-}
-.purple {
-  color: #6A5ACD;
-}
-.red-pink {
-  color: #e64173;
-}
-.grey-light {
-  color: grey70;
-}
-.slate {
-  color: #314f4f;
-}
-.small {
-  font-size: 90%;
-}
-
-
-/* Extra CSS */
-.red {
-  color: red;
-}
-.blue {
-  color: blue;
-}
-.green {
-  color: #8bb174;
-}
-.purple {
-  color: #6A5ACD;
-}
-.red-pink {
-  color: #e64173;
-}
-.grey-light {
-  color: grey70;
-}
-.slate {
-  color: #314f4f;
-}
-.small {
-  font-size: 90%;
-}
-
-
-/* Extra CSS */
-.red {
-  color: red;
-}
-.blue {
-  color: blue;
-}
-.green {
-  color: #8bb174;
-}
-.purple {
-  color: #6A5ACD;
-}
-.red-pink {
-  color: #e64173;
-}
-.grey-light {
-  color: grey70;
-}
-.slate {
-  color: #314f4f;
-}
-.small {
-  font-size: 90%;
-}
-
-
-/* Extra CSS */
-.red {
-  color: red;
-}
-.blue {
-  color: blue;
-}
-.green {
-  color: #8bb174;
-}
-.purple {
-  color: #6A5ACD;
-}
-.red-pink {
-  color: #e64173;
-}
-.grey-light {
-  color: grey70;
-}
-.slate {
-  color: #314f4f;
-}
-.small {
-  font-size: 90%;
-}
-
-
-/* Extra CSS */
-.red {
-  color: red;
-}
-.blue {
-  color: blue;
-}
-.green {
-  color: #8bb174;
-}
-.purple {
-  color: #6A5ACD;
-}
-.red-pink {
-  color: #e64173;
-}
-.grey-light {
-  color: grey70;
-}
-.slate {
-  color: #314f4f;
-}
-.small {
-  font-size: 90%;
-}
-
-
-/* Extra CSS */
-.red {
-  color: red;
-}
-.blue {
-  color: blue;
-}
-.green {
-  color: #8bb174;
-}
-.purple {
-  color: #6A5ACD;
-}
-.red-pink {
-  color: #e64173;
-}
-.grey-light {
-  color: grey70;
-}
-.slate {
-  color: #314f4f;
-}
-.small {
-  font-size: 90%;
-}
-
-
-/* Extra CSS */
-.red {
-  color: red;
-}
-.blue {
-  color: blue;
-}
-.green {
-  color: #8bb174;
-}
-.purple {
-  color: #6A5ACD;
-}
-.red-pink {
-  color: #e64173;
-}
-.grey-light {
-  color: grey70;
-}
-.slate {
-  color: #314f4f;
-}
-.small {
-  font-size: 90%;
-}
-
-
-/* Extra CSS */
-.red {
-  color: red;
-}
-.blue {
-  color: blue;
-}
-.green {
-  color: #8bb174;
-}
-.purple {
-  color: #6A5ACD;
-}
-.red-pink {
-  color: #e64173;
-}
-.grey-light {
-  color: grey70;
-}
-.slate {
-  color: #314f4f;
-}
-.small {
-  font-size: 90%;
-}
-
-
-/* Extra CSS */
-.red {
-  color: red;
-}
-.blue {
-  color: blue;
-}
-.green {
-  color: #8bb174;
-}
-.purple {
-  color: #6A5ACD;
-}
-.red-pink {
-  color: #e64173;
-}
-.grey-light {
-  color: grey70;
-}
-.slate {
-  color: #314f4f;
-}
-.small {
-  font-size: 90%;
-}
-
-
-/* Extra CSS */
-.red {
-  color: red;
-}
-.blue {
-  color: blue;
-}
-.green {
-  color: #8bb174;
-}
-.purple {
-  color: #6A5ACD;
-}
-.red-pink {
-  color: #e64173;
-}
-.grey-light {
-  color: grey70;
-}
-.slate {
-  color: #314f4f;
-}
-.small {
-  font-size: 90%;
-}
-
-
-/* Extra CSS */
-.red {
-  color: red;
-}
-.blue {
-  color: blue;
-}
-.green {
-  color: #8bb174;
-}
-.purple {
-  color: #6A5ACD;
-}
-.red-pink {
-  color: #e64173;
-}
-.grey-light {
-  color: grey70;
-}
-.slate {
-  color: #314f4f;
-}
-.small {
-  font-size: 90%;
-}
-
-
-/* Extra CSS */
-.red {
-  color: red;
-}
-.blue {
-  color: blue;
-}
-.green {
-  color: #8bb174;
-}
-.purple {
-  color: #6A5ACD;
-}
-.red-pink {
-  color: #e64173;
-}
-.grey-light {
-  color: grey70;
-}
-.slate {
-  color: #314f4f;
-}
-.small {
-  font-size: 90%;
-}
-
-
-/* Extra CSS */
-.red {
-  color: red;
-}
-.blue {
-  color: blue;
-}
-.green {
-  color: #8bb174;
-}
-.purple {
-  color: #6A5ACD;
-}
-.red-pink {
-  color: #e64173;
-}
-.grey-light {
-  color: grey70;
-}
-.slate {
-  color: #314f4f;
-}
-.small {
-  font-size: 90%;
-}
-
-
-/* Extra CSS */
-.red {
-  color: red;
-}
-.blue {
-  color: blue;
-}
-.green {
-  color: #8bb174;
-}
-.purple {
-  color: #6A5ACD;
-}
-.red-pink {
-  color: #e64173;
-}
-.grey-light {
-  color: grey70;
-}
-.slate {
-  color: #314f4f;
-}
-.small {
-  font-size: 90%;
-}
-
-
-/* Extra CSS */
-.red {
-  color: red;
-}
-.blue {
-  color: blue;
-}
-.green {
-  color: #8bb174;
-}
-.purple {
-  color: #6A5ACD;
-}
-.red-pink {
-  color: #e64173;
-}
-.grey-light {
-  color: grey70;
-}
-.slate {
-  color: #314f4f;
-}
-.small {
-  font-size: 90%;
-}
-
-
-/* Extra CSS */
-.red {
-  color: red;
-}
-.blue {
-  color: blue;
-}
-.green {
-  color: #8bb174;
-}
-.purple {
-  color: #6A5ACD;
-}
-.red-pink {
-  color: #e64173;
-}
-.grey-light {
-  color: grey70;
-}
-.slate {
-  color: #314f4f;
-}
-.small {
-  font-size: 90%;
-}
-
-
-/* Extra CSS */
-.red {
-  color: red;
-}
-.blue {
-  color: blue;
-}
-.green {
-  color: #8bb174;
-}
-.purple {
-  color: #6A5ACD;
-}
-.red-pink {
-  color: #e64173;
-}
-.grey-light {
-  color: grey70;
-}
-.slate {
-  color: #314f4f;
-}
-.small {
-  font-size: 90%;
-}
-
-
-/* Extra CSS */
-.red {
-  color: red;
-}
-.blue {
-  color: blue;
-}
-.green {
-  color: #8bb174;
-}
-.purple {
-  color: #6A5ACD;
-}
-.red-pink {
-  color: #e64173;
-}
-.grey-light {
-  color: grey70;
-}
-.slate {
-  color: #314f4f;
-}
-.small {
-  font-size: 90%;
-}
-
-
-/* Extra CSS */
-.red {
-  color: red;
-}
-.blue {
-  color: blue;
-}
-.green {
-  color: #8bb174;
-}
-.purple {
-  color: #6A5ACD;
-}
-.red-pink {
-  color: #e64173;
-}
-.grey-light {
-  color: grey70;
-}
-.slate {
-  color: #314f4f;
-}
-.small {
-  font-size: 90%;
-}
-
-
-/* Extra CSS */
-.red {
-  color: red;
-}
-.blue {
-  color: blue;
-}
-.green {
-  color: #8bb174;
-}
-.purple {
-  color: #6A5ACD;
-}
-.red-pink {
-  color: #e64173;
-}
-.grey-light {
-  color: grey70;
-}
-.slate {
-  color: #314f4f;
-}
-.small {
-  font-size: 90%;
-}
-
-
-/* Extra CSS */
-.red {
-  color: red;
-}
-.blue {
-  color: blue;
-}
-.green {
-  color: #8bb174;
-}
-.purple {
-  color: #6A5ACD;
-}
-.red-pink {
-  color: #e64173;
-}
-.grey-light {
-  color: grey70;
-}
-.slate {
-  color: #314f4f;
-}
-.small {
-  font-size: 90%;
-}
-
-
-/* Extra CSS */
-.red {
-  color: red;
-}
-.blue {
-  color: blue;
-}
-.green {
-  color: #8bb174;
-}
-.purple {
-  color: #6A5ACD;
-}
-.red-pink {
-  color: #e64173;
-}
-.grey-light {
-  color: grey70;
-}
-.slate {
-  color: #314f4f;
-}
-.small {
-  font-size: 90%;
-}
-
-
-/* Extra CSS */
-.red {
-  color: red;
-}
-.blue {
-  color: blue;
-}
-.green {
-  color: #8bb174;
-}
-.purple {
-  color: #6A5ACD;
-}
-.red-pink {
-  color: #e64173;
-}
-.grey-light {
-  color: grey70;
-}
-.slate {
-  color: #314f4f;
-}
-.small {
-  font-size: 90%;
-}
-
-
-/* Extra CSS */
-.red {
-  color: red;
-}
-.blue {
-  color: blue;
-}
-.green {
-  color: #8bb174;
-}
-.purple {
-  color: #6A5ACD;
-}
-.red-pink {
-  color: #e64173;
-}
-.grey-light {
-  color: grey70;
-}
-.slate {
-  color: #314f4f;
-}
-.small {
-  font-size: 90%;
-}
-
-
-/* Extra CSS */
-.red {
-  color: red;
-}
-.blue {
-  color: blue;
-}
-.green {
-  color: #8bb174;
-}
-.purple {
-  color: #6A5ACD;
-}
-.red-pink {
-  color: #e64173;
-}
-.grey-light {
-  color: grey70;
-}
-.slate {
-  color: #314f4f;
-}
-.small {
-  font-size: 90%;
-}
-
-
-/* Extra CSS */
-.red {
-  color: red;
-}
-.blue {
-  color: blue;
-}
-.green {
-  color: #8bb174;
-}
-.purple {
-  color: #6A5ACD;
-}
-.red-pink {
-  color: #e64173;
-}
-.grey-light {
-  color: grey70;
-}
-.slate {
-  color: #314f4f;
-}
-.small {
-  font-size: 90%;
-}
-
-
-/* Extra CSS */
-.red {
-  color: red;
-}
-.blue {
-  color: blue;
-}
-.green {
-  color: #8bb174;
-}
-.purple {
-  color: #6A5ACD;
-}
-.red-pink {
-  color: #e64173;
-}
-.grey-light {
-  color: grey70;
-}
-.slate {
-  color: #314f4f;
-}
-.small {
-  font-size: 90%;
-}
-
-
-/* Extra CSS */
-.red {
-  color: red;
-}
-.blue {
-  color: blue;
-}
-.green {
-  color: #8bb174;
-}
-.purple {
-  color: #6A5ACD;
-}
-.red-pink {
-  color: #e64173;
-}
-.grey-light {
-  color: grey70;
-}
-.slate {
-  color: #314f4f;
-}
-.small {
-  font-size: 90%;
-}
-
-
-/* Extra CSS */
-.red {
-  color: red;
-}
-.blue {
-  color: blue;
-}
-.green {
-  color: #8bb174;
-}
-.purple {
-  color: #6A5ACD;
-}
-.red-pink {
-  color: #e64173;
-}
-.grey-light {
-  color: grey70;
-}
-.slate {
-  color: #314f4f;
-}
-.small {
-  font-size: 90%;
-}
-
-
-/* Extra CSS */
-.red {
-  color: red;
-}
-.blue {
-  color: blue;
-}
-.green {
-  color: #8bb174;
-}
-.purple {
-  color: #6A5ACD;
-}
-.red-pink {
-  color: #e64173;
-}
-.grey-light {
-  color: grey70;
-}
-.slate {
-  color: #314f4f;
-}
-.small {
-  font-size: 90%;
-}
-
-
-/* Extra CSS */
-.red {
-  color: red;
-}
-.blue {
-  color: blue;
-}
-.green {
-  color: #8bb174;
-}
-.purple {
-  color: #6A5ACD;
-}
-.red-pink {
-  color: #e64173;
-}
-.grey-light {
-  color: grey70;
-}
-.slate {
-  color: #314f4f;
-}
-.small {
-  font-size: 90%;
-}
-
-
-/* Extra CSS */
-.red {
-  color: red;
-}
-.blue {
-  color: blue;
-}
-.green {
-  color: #8bb174;
-}
-.purple {
-  color: #6A5ACD;
-}
-.red-pink {
-  color: #e64173;
-}
-.grey-light {
-  color: grey70;
-}
-.slate {
-  color: #314f4f;
-}
-.small {
-  font-size: 90%;
-}
-
-
-/* Extra CSS */
-.red {
-  color: red;
-}
-.blue {
-  color: blue;
-}
-.green {
-  color: #8bb174;
-}
-.purple {
-  color: #6A5ACD;
-}
-.red-pink {
-  color: #e64173;
-}
-.grey-light {
-  color: grey70;
-}
-.slate {
-  color: #314f4f;
-}
-.small {
-  font-size: 90%;
-}
-
-
-/* Extra CSS */
-.red {
-  color: red;
-}
-.blue {
-  color: blue;
-}
-.green {
-  color: #8bb174;
-}
-.purple {
-  color: #6A5ACD;
-}
-.red-pink {
-  color: #e64173;
-}
-.grey-light {
-  color: grey70;
-}
-.slate {
-  color: #314f4f;
-}
-.small {
-  font-size: 90%;
-}
-
-
-/* Extra CSS */
-.red {
-  color: red;
-}
-.blue {
-  color: blue;
-}
-.green {
-  color: #8bb174;
-}
-.purple {
-  color: #6A5ACD;
-}
-.red-pink {
-  color: #e64173;
-}
-.grey-light {
-  color: grey70;
-}
-.slate {
-  color: #314f4f;
-}
-.small {
-  font-size: 90%;
-}
-
-
-/* Extra CSS */
-.red {
-  color: red;
-}
-.blue {
-  color: blue;
-}
-.green {
-  color: #8bb174;
-}
-.purple {
-  color: #6A5ACD;
-}
-.red-pink {
-  color: #e64173;
-}
-.grey-light {
-  color: grey70;
-}
-.slate {
-  color: #314f4f;
-}
-.small {
-  font-size: 90%;
-}
-
-
-/* Extra CSS */
-.red {
-  color: red;
-}
-.blue {
-  color: blue;
-}
-.green {
-  color: #8bb174;
-}
-.purple {
-  color: #6A5ACD;
-}
-.red-pink {
-  color: #e64173;
-}
-.grey-light {
-  color: grey70;
-}
-.slate {
-  color: #314f4f;
-}
-.small {
-  font-size: 90%;
-}
-
-
-/* Extra CSS */
-.red {
-  color: red;
-}
-.blue {
-  color: blue;
-}
-.green {
-  color: #8bb174;
-}
-.purple {
-  color: #6A5ACD;
-}
-.red-pink {
-  color: #e64173;
-}
-.grey-light {
-  color: grey70;
-}
-.slate {
-  color: #314f4f;
-}
-.small {
-  font-size: 90%;
-}
-
-
-/* Extra CSS */
-.red {
-  color: red;
-}
-.blue {
-  color: blue;
-}
-.green {
-  color: #8bb174;
-}
-.purple {
-  color: #6A5ACD;
-}
-.red-pink {
-  color: #e64173;
-}
-.grey-light {
-  color: grey70;
-}
-.slate {
-  color: #314f4f;
-}
-.small {
-  font-size: 90%;
-}
-
-
-/* Extra CSS */
-.red {
-  color: red;
-}
-.blue {
-  color: blue;
-}
-.green {
-  color: #8bb174;
-}
-.purple {
-  color: #6A5ACD;
-}
-.red-pink {
-  color: #e64173;
-}
-.grey-light {
-  color: grey70;
-}
-.slate {
-  color: #314f4f;
-}
-.small {
-  font-size: 90%;
-}
-
-
-/* Extra CSS */
-.red {
-  color: red;
-}
-.blue {
-  color: blue;
-}
-.green {
-  color: #8bb174;
-}
-.purple {
-  color: #6A5ACD;
-}
-.red-pink {
-  color: #e64173;
-}
-.grey-light {
-  color: grey70;
-}
-.slate {
-  color: #314f4f;
-}
-.small {
-  font-size: 90%;
-}
-
-
-/* Extra CSS */
-.red {
-  color: red;
-}
-.blue {
-  color: blue;
-}
-.green {
-  color: #8bb174;
-}
-.purple {
-  color: #6A5ACD;
-}
-.red-pink {
-  color: #e64173;
-}
-.grey-light {
-  color: grey70;
-}
-.slate {
-  color: #314f4f;
-}
-.small {
-  font-size: 90%;
-}
-
-
-/* Extra CSS */
-.red {
-  color: red;
-}
-.blue {
-  color: blue;
-}
-.green {
-  color: #8bb174;
-}
-.purple {
-  color: #6A5ACD;
-}
-.red-pink {
-  color: #e64173;
-}
-.grey-light {
-  color: grey70;
-}
-.slate {
-  color: #314f4f;
-}
-.small {
-  font-size: 90%;
-}
-
-
-/* Extra CSS */
-.red {
-  color: red;
-}
-.blue {
-  color: blue;
-}
-.green {
-  color: #8bb174;
-}
-.purple {
-  color: #6A5ACD;
-}
-.red-pink {
-  color: #e64173;
-}
-.grey-light {
-  color: grey70;
-}
-.slate {
-  color: #314f4f;
-}
-.small {
-  font-size: 90%;
-}
-
-
-/* Extra CSS */
-.red {
-  color: red;
-}
-.blue {
-  color: blue;
-}
-.green {
-  color: #8bb174;
-}
-.purple {
-  color: #6A5ACD;
-}
-.red-pink {
-  color: #e64173;
-}
-.grey-light {
-  color: grey70;
-}
-.slate {
-  color: #314f4f;
-}
-.small {
-  font-size: 90%;
-}
-
-
-/* Extra CSS */
-.red {
-  color: red;
-}
-.blue {
-  color: blue;
-}
-.green {
-  color: #8bb174;
-}
-.purple {
-  color: #6A5ACD;
-}
-.red-pink {
-  color: #e64173;
-}
-.grey-light {
-  color: grey70;
-}
-.slate {
-  color: #314f4f;
-}
-.small {
-  font-size: 90%;
-}
-
-
-/* Extra CSS */
-.red {
-  color: red;
-}
-.blue {
-  color: blue;
-}
-.green {
-  color: #8bb174;
-}
-.purple {
-  color: #6A5ACD;
-}
-.red-pink {
-  color: #e64173;
-}
-.grey-light {
-  color: grey70;
-}
-.slate {
-  color: #314f4f;
-}
-.small {
-  font-size: 90%;
-}
-
-
-/* Extra CSS */
-.red {
-  color: red;
-}
-.blue {
-  color: blue;
-}
-.green {
-  color: #8bb174;
-}
-.purple {
-  color: #6A5ACD;
-}
-.red-pink {
-  color: #e64173;
-}
-.grey-light {
-  color: grey70;
-}
-.slate {
-  color: #314f4f;
-}
-.small {
-  font-size: 90%;
-}
-
-
-/* Extra CSS */
-.red {
-  color: red;
-}
-.blue {
-  color: blue;
-}
-.green {
-  color: #8bb174;
-}
-.purple {
-  color: #6A5ACD;
-}
-.red-pink {
-  color: #e64173;
-}
-.grey-light {
-  color: grey70;
-}
-.slate {
-  color: #314f4f;
-}
-.small {
-  font-size: 90%;
-}
-
-
-/* Extra CSS */
-.red {
-  color: red;
-}
-.blue {
-  color: blue;
-}
-.green {
-  color: #8bb174;
-}
-.purple {
-  color: #6A5ACD;
-}
-.red-pink {
-  color: #e64173;
-}
-.grey-light {
-  color: grey70;
-}
-.slate {
-  color: #314f4f;
-}
-.small {
-  font-size: 90%;
-}
-
-
-/* Extra CSS */
-.red {
-  color: red;
-}
-.blue {
-  color: blue;
-}
-.green {
-  color: #8bb174;
-}
-.purple {
-  color: #6A5ACD;
-}
-.red-pink {
-  color: #e64173;
-}
-.grey-light {
-  color: grey70;
-}
-.slate {
-  color: #314f4f;
-}
-.small {
-  font-size: 90%;
-}
-
-
-/* Extra CSS */
-.red {
-  color: red;
-}
-.blue {
-  color: blue;
-}
-.green {
-  color: #8bb174;
-}
-.purple {
-  color: #6A5ACD;
-}
-.red-pink {
-  color: #e64173;
-}
-.grey-light {
-  color: grey70;
-}
-.slate {
-  color: #314f4f;
-}
-.small {
-  font-size: 90%;
-}
-
-
-/* Extra CSS */
-.red {
-  color: red;
-}
-.blue {
-  color: blue;
-}
-.green {
-  color: #8bb174;
-}
-.purple {
-  color: #6A5ACD;
-}
-.red-pink {
-  color: #e64173;
-}
-.grey-light {
-  color: grey70;
-}
-.slate {
-  color: #314f4f;
-}
-.small {
-  font-size: 90%;
-}
-
-
-/* Extra CSS */
-.red {
-  color: red;
-}
-.blue {
-  color: blue;
-}
-.green {
-  color: #8bb174;
-}
-.purple {
-  color: #6A5ACD;
-}
-.red-pink {
-  color: #e64173;
-}
-.grey-light {
-  color: grey70;
-}
-.slate {
-  color: #314f4f;
-}
-.small {
-  font-size: 90%;
-}
-
-
-/* Extra CSS */
-.red {
-  color: red;
-}
-.blue {
-  color: blue;
-}
-.green {
-  color: #8bb174;
-}
-.purple {
-  color: #6A5ACD;
-}
-.red-pink {
-  color: #e64173;
-}
-.grey-light {
-  color: grey70;
-}
-.slate {
-  color: #314f4f;
-}
-.small {
-  font-size: 90%;
-}
-
-
-/* Extra CSS */
-.red {
-  color: red;
-}
-.blue {
-  color: blue;
-}
-.green {
-  color: #8bb174;
-}
-.purple {
-  color: #6A5ACD;
-}
-.red-pink {
-  color: #e64173;
-}
-.grey-light {
-  color: grey70;
-}
-.slate {
-  color: #314f4f;
-}
-.small {
-  font-size: 90%;
-}
-
-
-/* Extra CSS */
-.red {
-  color: red;
-}
-.blue {
-  color: blue;
-}
-.green {
-  color: #8bb174;
-}
-.purple {
-  color: #6A5ACD;
-}
-.red-pink {
-  color: #e64173;
-}
-.grey-light {
-  color: grey70;
-}
-.slate {
-  color: #314f4f;
-}
-.small {
-  font-size: 90%;
-}
-
-
-/* Extra CSS */
-.red {
-  color: red;
-}
-.blue {
-  color: blue;
-}
-.green {
-  color: #8bb174;
-}
-.purple {
-  color: #6A5ACD;
-}
-.red-pink {
-  color: #e64173;
-}
-.grey-light {
-  color: grey70;
-}
-.slate {
-  color: #314f4f;
-}
-.small {
-  font-size: 90%;
-}
-
-
-/* Extra CSS */
-.red {
-  color: red;
-}
-.blue {
-  color: blue;
-}
-.green {
-  color: #8bb174;
-}
-.purple {
-  color: #6A5ACD;
-}
-.red-pink {
-  color: #e64173;
-}
-.grey-light {
-  color: grey70;
-}
-.slate {
-  color: #314f4f;
-}
-.small {
-  font-size: 90%;
-}
-
-
-/* Extra CSS */
-.red {
-  color: red;
-}
-.blue {
-  color: blue;
-}
-.green {
-  color: #8bb174;
-}
-.purple {
-  color: #6A5ACD;
-}
-.red-pink {
-  color: #e64173;
-}
-.grey-light {
-  color: grey70;
-}
-.slate {
-  color: #314f4f;
-}
-.small {
-  font-size: 90%;
-}
-
-
-/* Extra CSS */
-.red {
-  color: red;
-}
-.blue {
-  color: blue;
-}
-.green {
-  color: #8bb174;
-}
-.purple {
-  color: #6A5ACD;
-}
-.red-pink {
-  color: #e64173;
-}
-.grey-light {
-  color: grey70;
-}
-.slate {
-  color: #314f4f;
-}
-.small {
-  font-size: 90%;
-}
-
-
-/* Extra CSS */
-.red {
-  color: red;
-}
-.blue {
-  color: blue;
-}
-.green {
-  color: #8bb174;
-}
-.purple {
-  color: #6A5ACD;
-}
-.red-pink {
-  color: #e64173;
-}
-.grey-light {
-  color: grey70;
-}
-.slate {
-  color: #314f4f;
-}
-.small {
-  font-size: 90%;
-}
-
-
-/* Extra CSS */
-.red {
-  color: red;
-}
-.blue {
-  color: blue;
-}
-.green {
-  color: #8bb174;
-}
-.purple {
-  color: #6A5ACD;
-}
-.red-pink {
-  color: #e64173;
-}
-.grey-light {
-  color: grey70;
-}
-.slate {
-  color: #314f4f;
-}
-.small {
-  font-size: 90%;
-}
-
-
-/* Extra CSS */
-.red {
-  color: red;
-}
-.blue {
-  color: blue;
-}
-.green {
-  color: #8bb174;
-}
-.purple {
-  color: #6A5ACD;
-}
-.red-pink {
-  color: #e64173;
-}
-.grey-light {
-  color: grey70;
-}
-.slate {
-  color: #314f4f;
-}
-.small {
-  font-size: 90%;
-}
-
-
-/* Extra CSS */
-.red {
-  color: red;
-}
-.blue {
-  color: blue;
-}
-.green {
-  color: #8bb174;
-}
-.purple {
-  color: #6A5ACD;
-}
-.red-pink {
-  color: #e64173;
-}
-.grey-light {
-  color: grey70;
-}
-.slate {
-  color: #314f4f;
-}
-.small {
-  font-size: 90%;
-}
-
-
-/* Extra CSS */
-.red {
-  color: red;
-}
-.blue {
-  color: blue;
-}
-.green {
-  color: #8bb174;
-}
-.purple {
-  color: #6A5ACD;
-}
-.red-pink {
-  color: #e64173;
-}
-.grey-light {
-  color: grey70;
-}
-.slate {
-  color: #314f4f;
-}
-.small {
-  font-size: 90%;
-}
-
-
-/* Extra CSS */
-.red {
-  color: red;
-}
-.blue {
-  color: blue;
-}
-.green {
-  color: #8bb174;
-}
-.purple {
-  color: #6A5ACD;
-}
-.red-pink {
-  color: #e64173;
-}
-.grey-light {
-  color: grey70;
-}
-.slate {
-  color: #314f4f;
-}
-.small {
-  font-size: 90%;
-}
-
-
-/* Extra CSS */
-.red {
-  color: red;
-}
-.blue {
-  color: blue;
-}
-.green {
-  color: #8bb174;
-}
-.purple {
-  color: #6A5ACD;
-}
-.red-pink {
-  color: #e64173;
-}
-.grey-light {
-  color: grey70;
-}
-.slate {
-  color: #314f4f;
-}
-.small {
-  font-size: 90%;
-}
-
-
-/* Extra CSS */
-.red {
-  color: red;
-}
-.blue {
-  color: blue;
-}
-.green {
-  color: #8bb174;
-}
-.purple {
-  color: #6A5ACD;
-}
-.red-pink {
-  color: #e64173;
-}
-.grey-light {
-  color: grey70;
-}
-.slate {
-  color: #314f4f;
-}
-.small {
-  font-size: 90%;
-}
-
-
-/* Extra CSS */
-.red {
-  color: red;
-}
-.blue {
-  color: blue;
-}
-.green {
-  color: #8bb174;
-}
-.purple {
-  color: #6A5ACD;
-}
-.red-pink {
-  color: #e64173;
-}
-.grey-light {
-  color: grey70;
-}
-.slate {
-  color: #314f4f;
-}
-.small {
-  font-size: 90%;
-}
-
-
-/* Extra CSS */
-.red {
-  color: red;
-}
-.blue {
-  color: blue;
-}
-.green {
-  color: #8bb174;
-}
-.purple {
-  color: #6A5ACD;
-}
-.red-pink {
-  color: #e64173;
-}
-.grey-light {
-  color: grey70;
-}
-.slate {
-  color: #314f4f;
-}
-.small {
-  font-size: 90%;
-}
-
-
-/* Extra CSS */
-.red {
-  color: red;
-}
-.blue {
-  color: blue;
-}
-.green {
-  color: #8bb174;
-}
-.purple {
-  color: #6A5ACD;
-}
-.red-pink {
-  color: #e64173;
-}
-.grey-light {
-  color: grey70;
-}
-.slate {
-  color: #314f4f;
-}
-.small {
-  font-size: 90%;
-}
-
-
-/* Extra CSS */
-.red {
-  color: red;
-}
-.blue {
-  color: blue;
-}
-.green {
-  color: #8bb174;
-}
-.purple {
-  color: #6A5ACD;
-}
-.red-pink {
-  color: #e64173;
-}
-.grey-light {
-  color: grey70;
-}
-.slate {
-  color: #314f4f;
-}
-.small {
-  font-size: 90%;
-}
-
-
-/* Extra CSS */
-.red {
-  color: red;
-}
-.blue {
-  color: blue;
-}
-.green {
-  color: #8bb174;
-}
-.purple {
-  color: #6A5ACD;
-}
-.red-pink {
-  color: #e64173;
-}
-.grey-light {
-  color: grey70;
-}
-.slate {
-  color: #314f4f;
-}
-.small {
-  font-size: 90%;
-}
-
-
-/* Extra CSS */
-.red {
-  color: red;
-}
-.blue {
-  color: blue;
-}
-.green {
-  color: #8bb174;
-}
-.purple {
-  color: #6A5ACD;
-}
-.red-pink {
-  color: #e64173;
-}
-.grey-light {
-  color: grey70;
-}
-.slate {
-  color: #314f4f;
-}
-.small {
-  font-size: 90%;
-}
-
-
-/* Extra CSS */
-.red {
-  color: red;
-}
-.blue {
-  color: blue;
-}
-.green {
-  color: #8bb174;
-}
-.purple {
-  color: #6A5ACD;
-}
-.red-pink {
-  color: #e64173;
-}
-.grey-light {
-  color: grey70;
-}
-.slate {
-  color: #314f4f;
-}
-.small {
-  font-size: 90%;
-}
-
-
-/* Extra CSS */
-.red {
-  color: red;
-}
-.blue {
-  color: blue;
-}
-.green {
-  color: #8bb174;
-}
-.purple {
-  color: #6A5ACD;
-}
-.red-pink {
-  color: #e64173;
-}
-.grey-light {
-  color: grey70;
-}
-.slate {
-  color: #314f4f;
-}
-.small {
-  font-size: 90%;
-}
-
-
-/* Extra CSS */
-.red {
-  color: red;
-}
-.blue {
-  color: blue;
-}
-.green {
-  color: #8bb174;
-}
-.purple {
-  color: #6A5ACD;
-}
-.red-pink {
-  color: #e64173;
-}
-.grey-light {
-  color: grey70;
-}
-.slate {
-  color: #314f4f;
-}
-.small {
-  font-size: 90%;
-}
-
-
-/* Extra CSS */
-.red {
-  color: red;
-}
-.blue {
-  color: blue;
-}
-.green {
-  color: #8bb174;
-}
-.purple {
-  color: #6A5ACD;
-}
-.red-pink {
-  color: #e64173;
-}
-.grey-light {
-  color: grey70;
-}
-.slate {
-  color: #314f4f;
-}
-.small {
-  font-size: 90%;
-}
-
-
-/* Extra CSS */
-.red {
-  color: red;
-}
-.blue {
-  color: blue;
-}
-.green {
-  color: #8bb174;
-}
-.purple {
-  color: #6A5ACD;
-}
-.red-pink {
-  color: #e64173;
-}
-.grey-light {
-  color: grey70;
-}
-.slate {
-  color: #314f4f;
-}
-.small {
-  font-size: 90%;
-}
-
-
-/* Extra CSS */
-.red {
-  color: red;
-}
-.blue {
-  color: blue;
-}
-.green {
-  color: #8bb174;
-}
-.purple {
-  color: #6A5ACD;
-}
-.red-pink {
-  color: #e64173;
-}
-.grey-light {
-  color: grey70;
-}
-.slate {
-  color: #314f4f;
-}
-.small {
-  font-size: 90%;
-}
-
-
-/* Extra CSS */
-.red {
-  color: red;
-}
-.blue {
-  color: blue;
-}
-.green {
-  color: #8bb174;
-}
-.purple {
-  color: #6A5ACD;
-}
-.red-pink {
-  color: #e64173;
-}
-.grey-light {
-  color: grey70;
-}
-.slate {
-  color: #314f4f;
-}
-.small {
-  font-size: 90%;
-}
-
-
-/* Extra CSS */
-.red {
-  color: red;
-}
-.blue {
-  color: blue;
-}
-.green {
-  color: #8bb174;
-}
-.purple {
-  color: #6A5ACD;
-}
-.red-pink {
-  color: #e64173;
-}
-.grey-light {
-  color: grey70;
-}
-.slate {
-  color: #314f4f;
-}
-.small {
-  font-size: 90%;
-}
-
-
-/* Extra CSS */
-.red {
-  color: red;
-}
-.blue {
-  color: blue;
-}
-.green {
-  color: #8bb174;
-}
-.purple {
-  color: #6A5ACD;
-}
-.red-pink {
-  color: #e64173;
-}
-.grey-light {
-  color: grey70;
-}
-.slate {
-  color: #314f4f;
-}
-.small {
-  font-size: 90%;
-}
-
-
-/* Extra CSS */
-.red {
-  color: red;
-}
-.blue {
-  color: blue;
-}
-.green {
-  color: #8bb174;
-}
-.purple {
-  color: #6A5ACD;
-}
-.red-pink {
-  color: #e64173;
-}
-.grey-light {
-  color: grey70;
-}
-.slate {
-  color: #314f4f;
-}
-.small {
-  font-size: 90%;
-}
-
-
-/* Extra CSS */
-.red {
-  color: red;
-}
-.blue {
-  color: blue;
-}
-.green {
-  color: #8bb174;
-}
-.purple {
-  color: #6A5ACD;
-}
-.red-pink {
-  color: #e64173;
-}
-.grey-light {
-  color: grey70;
-}
-.slate {
-  color: #314f4f;
-}
-.small {
-  font-size: 90%;
-}
-
-
-/* Extra CSS */
-.red {
-  color: red;
-}
-.blue {
-  color: blue;
-}
-.green {
-  color: #8bb174;
-}
-.purple {
-  color: #6A5ACD;
-}
-.red-pink {
-  color: #e64173;
-}
-.grey-light {
-  color: grey70;
-}
-.slate {
-  color: #314f4f;
-}
-.small {
-  font-size: 90%;
-}
-
-
-/* Extra CSS */
-.red {
-  color: red;
-}
-.blue {
-  color: blue;
-}
-.green {
-  color: #8bb174;
-}
-.purple {
-  color: #6A5ACD;
-}
-.red-pink {
-  color: #e64173;
-}
-.grey-light {
-  color: grey70;
-}
-.slate {
-  color: #314f4f;
-}
-.small {
-  font-size: 90%;
-}
-
-
-/* Extra CSS */
-.red {
-  color: red;
-}
-.blue {
-  color: blue;
-}
-.green {
-  color: #8bb174;
-}
-.purple {
-  color: #6A5ACD;
-}
-.red-pink {
-  color: #e64173;
-}
-.grey-light {
-  color: grey70;
-}
-.slate {
-  color: #314f4f;
-}
-.small {
-  font-size: 90%;
-}
-
-
-/* Extra CSS */
-.red {
-  color: red;
-}
-.blue {
-  color: blue;
-}
-.green {
-  color: #8bb174;
-}
-.purple {
-  color: #6A5ACD;
-}
-.red-pink {
-  color: #e64173;
-}
-.grey-light {
-  color: grey70;
-}
-.slate {
-  color: #314f4f;
-}
-.small {
-  font-size: 90%;
-}
-
-
-/* Extra CSS */
-.red {
-  color: red;
-}
-.blue {
-  color: blue;
-}
-.green {
-  color: #8bb174;
-}
-.purple {
-  color: #6A5ACD;
-}
-.red-pink {
-  color: #e64173;
-}
-.grey-light {
-  color: grey70;
-}
-.slate {
-  color: #314f4f;
-}
-.small {
-  font-size: 90%;
-}
-
-
-/* Extra CSS */
-.red {
-  color: red;
-}
-.blue {
-  color: blue;
-}
-.green {
-  color: #8bb174;
-}
-.purple {
-  color: #6A5ACD;
-}
-.red-pink {
-  color: #e64173;
-}
-.grey-light {
-  color: grey70;
-}
-.slate {
-  color: #314f4f;
-}
-.small {
-  font-size: 90%;
-}
-
-
-/* Extra CSS */
-.red {
-  color: red;
-}
-.blue {
-  color: blue;
-}
-.green {
-  color: #8bb174;
-}
-.purple {
-  color: #6A5ACD;
-}
-.red-pink {
-  color: #e64173;
-}
-.grey-light {
-  color: grey70;
-}
-.slate {
-  color: #314f4f;
-}
-.small {
-  font-size: 90%;
-}
-
-
-/* Extra CSS */
-.red {
-  color: red;
-}
-.blue {
-  color: blue;
-}
-.green {
-  color: #8bb174;
-}
-.purple {
-  color: #6A5ACD;
-}
-.red-pink {
-  color: #e64173;
-}
-.grey-light {
-  color: grey70;
-}
-.slate {
-  color: #314f4f;
-}
-.small {
-  font-size: 90%;
-}
-
-
-/* Extra CSS */
-.red {
-  color: red;
-}
-.blue {
-  color: blue;
-}
-.green {
-  color: #8bb174;
-}
-.purple {
-  color: #6A5ACD;
-}
-.red-pink {
-  color: #e64173;
-}
-.grey-light {
-  color: grey70;
-}
-.slate {
-  color: #314f4f;
-}
-.small {
-  font-size: 90%;
-}
-
-
-/* Extra CSS */
-.red {
-  color: red;
-}
-.blue {
-  color: blue;
-}
-.green {
-  color: #8bb174;
-}
-.purple {
-  color: #6A5ACD;
-}
-.red-pink {
-  color: #e64173;
-}
-.grey-light {
-  color: grey70;
-}
-.slate {
-  color: #314f4f;
-}
-.small {
-  font-size: 90%;
-}
-
-
-/* Extra CSS */
-.red {
-  color: red;
-}
-.blue {
-  color: blue;
-}
-.green {
-  color: #8bb174;
-}
-.purple {
-  color: #6A5ACD;
-}
-.red-pink {
-  color: #e64173;
-}
-.grey-light {
-  color: grey70;
-}
-.slate {
-  color: #314f4f;
-}
-.small {
-  font-size: 90%;
-}
-
-
-/* Extra CSS */
-.red {
-  color: red;
-}
-.blue {
-  color: blue;
-}
-.red-pink {
-  color: red_pink;
-}
-.grey-light {
-  color: grey_light;
-}
-.purple {
-  color: purple;
-}
-.small {
-  font-size: 90%;
-}
-
-
-/* Extra CSS */
-.red {
-  color: red;
-}
-.blue {
-  color: blue;
-}
-.green {
-  color: #8bb174;
-}
-.purple {
-  color: #6A5ACD;
-}
-.red-pink {
-  color: #e64173;
-}
-.grey-light {
-  color: grey70;
-}
-.slate {
-  color: #314f4f;
-}
-.small {
-  font-size: 90%;
-}
-
-
-/* Extra CSS */
-.red {
-  color: red;
-}
-.blue {
-  color: blue;
-}
-.green {
-  color: #8bb174;
-}
-.purple {
-  color: #6A5ACD;
-}
-.red-pink {
-  color: #e64173;
-}
-.grey-light {
-  color: grey70;
-}
-.slate {
-  color: #314f4f;
-}
-.small {
-  font-size: 90%;
-}
-
-
-/* Extra CSS */
-.red {
-  color: red;
-}
-.blue {
-  color: blue;
-}
-.red-pink {
-  color: red_pink;
-}
-.grey-light {
-  color: grey_light;
-}
-.purple {
-  color: purple;
-}
-.small {
-  font-size: 90%;
-}
-
-
-/* Extra CSS */
-.red {
-  color: red;
-}
-.blue {
-  color: blue;
-}
-.green {
-  color: #8bb174;
-}
-.purple {
-  color: #6A5ACD;
-}
-.red-pink {
-  color: #e64173;
-}
-.grey-light {
-  color: grey70;
-}
-.slate {
-  color: #314f4f;
-}
-.small {
-  font-size: 90%;
-}
-
-
-/* Extra CSS */
-.red {
-  color: red;
-}
-.blue {
-  color: blue;
-}
-.green {
-  color: #8bb174;
-}
-.purple {
-  color: #6A5ACD;
-}
-.red-pink {
-  color: #e64173;
-}
-.grey-light {
-  color: grey70;
-}
-.slate {
-  color: #314f4f;
-}
-.small {
-  font-size: 90%;
-}
-
-
-/* Extra CSS */
-.red {
-  color: red;
-}
-.blue {
-  color: blue;
-}
-.green {
-  color: #8bb174;
-}
-.purple {
-  color: #6A5ACD;
-}
-.red-pink {
-  color: #e64173;
-}
-.grey-light {
-  color: grey70;
-}
-.slate {
-  color: #314f4f;
-}
-.small {
-  font-size: 90%;
-}
-
-
-/* Extra CSS */
-.red {
-  color: red;
-}
-.blue {
-  color: blue;
-}
-.green {
-  color: #8bb174;
-}
-.purple {
-  color: #6A5ACD;
-}
-.red-pink {
-  color: #e64173;
-}
-.grey-light {
-  color: grey70;
-}
-.slate {
-  color: #314f4f;
-}
-.small {
-  font-size: 90%;
-}
-
-
-/* Extra CSS */
-.red {
-  color: red;
-}
-.blue {
-  color: blue;
-}
-.green {
-  color: #8bb174;
-}
-.purple {
-  color: #6A5ACD;
-}
-.red-pink {
-  color: #e64173;
-}
-.grey-light {
-  color: grey70;
-}
-.slate {
-  color: #314f4f;
-}
-.small {
-  font-size: 90%;
-}
-
-
-/* Extra CSS */
-.red {
-  color: red;
-}
-.blue {
-  color: blue;
-}
-.green {
-  color: #8bb174;
-}
-.purple {
-  color: #6A5ACD;
-}
-.red-pink {
-  color: #e64173;
-}
-.grey-light {
-  color: grey70;
-}
-.slate {
-  color: #314f4f;
-}
-.small {
-  font-size: 90%;
-}
-
-
-/* Extra CSS */
-.red {
-  color: red;
-}
-.blue {
-  color: blue;
-}
-.green {
-  color: #8bb174;
-}
-.purple {
-  color: #6A5ACD;
-}
-.red-pink {
-  color: #e64173;
-}
-.grey-light {
-  color: grey70;
-}
-.slate {
-  color: #314f4f;
-}
-.small {
-  font-size: 90%;
-}
-
-
-/* Extra CSS */
-.red {
-  color: red;
-}
-.blue {
-  color: blue;
-}
-.green {
-  color: #8bb174;
-}
-.purple {
-  color: #6A5ACD;
-}
-.red-pink {
-  color: #e64173;
-}
-.grey-light {
-  color: grey70;
-}
-.slate {
-  color: #314f4f;
-}
-.small {
-  font-size: 90%;
-}
-
-
-/* Extra CSS */
-.red {
-  color: red;
-}
-.blue {
-  color: blue;
-}
-.green {
-  color: #8bb174;
-}
-.purple {
-  color: #6A5ACD;
-}
-.red-pink {
-  color: #e64173;
-}
-.grey-light {
-  color: grey70;
-}
-.slate {
-  color: #314f4f;
-}
-.small {
-  font-size: 90%;
-}
-
-
-/* Extra CSS */
-.red {
-  color: red;
-}
-.blue {
-  color: blue;
-}
-.green {
-  color: #8bb174;
-}
-.purple {
-  color: #6A5ACD;
-}
-.red-pink {
-  color: #e64173;
-}
-.grey-light {
-  color: grey70;
-}
-.slate {
-  color: #314f4f;
-}
-.small {
-  font-size: 90%;
-}
-
-
-/* Extra CSS */
-.red {
-  color: red;
-}
-.blue {
-  color: blue;
-}
-.green {
-  color: #8bb174;
-}
-.purple {
-  color: #6A5ACD;
-}
-.red-pink {
-  color: #e64173;
-}
-.grey-light {
-  color: grey70;
-}
-.slate {
-  color: #314f4f;
-}
-.small {
-  font-size: 90%;
-}
-
-
-/* Extra CSS */
-.red {
-  color: red;
-}
-.blue {
-  color: blue;
-}
-.green {
-  color: #8bb174;
-}
-.purple {
-  color: #6A5ACD;
-}
-.red-pink {
-  color: #e64173;
-}
-.grey-light {
-  color: grey70;
-}
-.slate {
-  color: #314f4f;
-}
-.small {
-  font-size: 90%;
-}
-
-
-/* Extra CSS */
-.red {
-  color: red;
-}
-.blue {
-  color: blue;
-}
-.red-pink {
-  color: red_pink;
-}
-.grey-light {
-  color: grey_light;
-}
-.purple {
-  color: purple;
-}
-.small {
-  font-size: 90%;
-}
-
-
-/* Extra CSS */
-.red {
-  color: red;
-}
-.blue {
-  color: blue;
-}
-.red-pink {
-  color: red_pink;
-}
-.grey-light {
-  color: grey_light;
-}
-.purple {
-  color: purple;
-}
-.small {
-  font-size: 90%;
-}
-
-
-/* Extra CSS */
-.red {
-  color: red;
-}
-.blue {
-  color: blue;
-}
-.red-pink {
-  color: red_pink;
-}
-.grey-light {
-  color: grey_light;
-}
-.purple {
-  color: purple;
-}
-.small {
-  font-size: 90%;
-}
-
-
-/* Extra CSS */
-.red {
-  color: red;
-}
-.blue {
-  color: blue;
-}
-.red-pink {
-  color: red_pink;
-}
-.grey-light {
-  color: grey_light;
-}
-.purple {
-  color: purple;
-}
-.small {
-  font-size: 90%;
-}
-
-
-/* Extra CSS */
-.red {
-  color: red;
-}
-.blue {
-  color: blue;
-}
-.red-pink {
-  color: red_pink;
-}
-.grey-light {
-  color: grey_light;
-}
-.purple {
-  color: purple;
-}
-.small {
-  font-size: 90%;
-}
-
-
-/* Extra CSS */
-.red {
-  color: red;
-}
-.blue {
-  color: blue;
-}
-.red-pink {
-  color: red_pink;
-}
-.grey-light {
-  color: grey_light;
-}
-.purple {
-  color: purple;
-}
-.small {
-  font-size: 90%;
-}
-
-
-/* Extra CSS */
-.red {
-  color: red;
-}
-.blue {
-  color: blue;
-}
-.red-pink {
-  color: red_pink;
-}
-.grey-light {
-  color: grey_light;
-}
-.purple {
-  color: purple;
-}
-.small {
-  font-size: 90%;
-}
-
-
-/* Extra CSS */
-.red {
-  color: red;
-}
-.blue {
-  color: blue;
-}
-.red-pink {
-  color: red_pink;
-}
-.grey-light {
-  color: grey_light;
-}
-.purple {
-  color: purple;
-}
-.small {
-  font-size: 90%;
-}
-
-
-/* Extra CSS */
-.red {
-  color: red;
-}
-.blue {
-  color: blue;
-}
-.red-pink {
-  color: red_pink;
-}
-.grey-light {
-  color: grey_light;
-}
-.purple {
-  color: purple;
-}
-.small {
-  font-size: 90%;
-}
-
-
-/* Extra CSS */
-.red {
-  color: red;
-}
-.blue {
-  color: blue;
-}
-.green {
-  color: #8bb174;
-}
-.purple {
-  color: #6A5ACD;
-}
-.red-pink {
-  color: #e64173;
-}
-.grey-light {
-  color: grey70;
-}
-.slate {
-  color: #314f4f;
-}
-.small {
-  font-size: 90%;
-}
-
-
-/* Extra CSS */
-.red {
-  color: red;
-}
-.blue {
-  color: blue;
-}
-.green {
-  color: #8bb174;
-}
-.purple {
-  color: #6A5ACD;
-}
-.red-pink {
-  color: #e64173;
-}
-.grey-light {
-  color: grey70;
-}
-.slate {
-  color: #314f4f;
-}
-.small {
-  font-size: 90%;
-}
-
-
-/* Extra CSS */
-.red {
-  color: red;
-}
-.blue {
-  color: blue;
-}
-.green {
-  color: #8bb174;
-}
-.purple {
-  color: #6A5ACD;
-}
-.red-pink {
-  color: #e64173;
-}
-.grey-light {
-  color: grey70;
-}
-.slate {
-  color: #314f4f;
-}
-.small {
-  font-size: 90%;
-}
-
-
-/* Extra CSS */
-.red {
-  color: red;
-}
-.blue {
-  color: blue;
-}
-.green {
-  color: #8bb174;
-}
-.purple {
-  color: #6A5ACD;
-}
-.red-pink {
-  color: #e64173;
-}
-.grey-light {
-  color: grey70;
-}
-.slate {
-  color: #314f4f;
-}
-.small {
-  font-size: 90%;
-}
-
-
-/* Extra CSS */
-.red {
-  color: red;
-}
-.blue {
-  color: blue;
-}
-.green {
-  color: #8bb174;
-}
-.purple {
-  color: #6A5ACD;
-}
-.red-pink {
-  color: #e64173;
-}
-.grey-light {
-  color: grey70;
-}
-.slate {
-  color: #314f4f;
-}
-.small {
-  font-size: 90%;
-}
-
-
-/* Extra CSS */
-.red {
-  color: red;
-}
-.blue {
-  color: blue;
-}
-.green {
-  color: #8bb174;
-}
-.purple {
-  color: #6A5ACD;
-}
-.red-pink {
-  color: #e64173;
-}
-.grey-light {
-  color: grey70;
-}
-.slate {
-  color: #314f4f;
-}
-.small {
-  font-size: 90%;
-}
-
-
-/* Extra CSS */
-.red {
-  color: red;
-}
-.blue {
-  color: blue;
-}
-.green {
-  color: #8bb174;
-}
-.purple {
-  color: #6A5ACD;
-}
-.red-pink {
-  color: #e64173;
-}
-.grey-light {
-  color: grey70;
-}
-.slate {
-  color: #314f4f;
-}
-.small {
-  font-size: 90%;
-}
-
-
-/* Extra CSS */
-.red {
-  color: red;
-}
-.blue {
-  color: blue;
-}
-.green {
-  color: #8bb174;
-}
-.purple {
-  color: #6A5ACD;
-}
-.red-pink {
-  color: #e64173;
-}
-.grey-light {
-  color: grey70;
-}
-.slate {
-  color: #314f4f;
-}
-.small {
-  font-size: 90%;
-}
-
-
-/* Extra CSS */
-.red {
-  color: red;
-}
-.blue {
-  color: blue;
-}
-.green {
-  color: #8bb174;
-}
-.purple {
-  color: #6A5ACD;
-}
-.red-pink {
-  color: #e64173;
-}
-.grey-light {
-  color: grey70;
-}
-.slate {
-  color: #314f4f;
-}
-.small {
-  font-size: 90%;
-}
-
-
-/* Extra CSS */
-.red {
-  color: red;
-}
-.blue {
-  color: blue;
-}
-.green {
-  color: #8bb174;
-}
-.purple {
-  color: #6A5ACD;
-}
-.red-pink {
-  color: #e64173;
-}
-.grey-light {
-  color: grey70;
-}
-.slate {
-  color: #314f4f;
-}
-.small {
-  font-size: 90%;
-}
-
-
-/* Extra CSS */
-.red {
-  color: red;
-}
-.blue {
-  color: blue;
-}
-.green {
-  color: #8bb174;
-}
-.purple {
-  color: #6A5ACD;
-}
-.red-pink {
-  color: #e64173;
-}
-.grey-light {
-  color: grey70;
-}
-.slate {
-  color: #314f4f;
-}
-.small {
-  font-size: 90%;
-}
-
-
-/* Extra CSS */
-.red {
-  color: red;
-}
-.blue {
-  color: blue;
-}
-.green {
-  color: #8bb174;
-}
-.purple {
-  color: #6A5ACD;
-}
-.red-pink {
-  color: #e64173;
-}
-.grey-light {
-  color: grey70;
-}
-.slate {
-  color: #314f4f;
-}
-.small {
-  font-size: 90%;
-}
-
-
-/* Extra CSS */
-.red {
-  color: red;
-}
-.blue {
-  color: blue;
-}
-.green {
-  color: #8bb174;
-}
-.purple {
-  color: #6A5ACD;
-}
-.red-pink {
-  color: #e64173;
-}
-.grey-light {
-  color: grey70;
-}
-.slate {
-  color: #314f4f;
-}
-.small {
-  font-size: 90%;
-}
-
-
-/* Extra CSS */
-.red {
-  color: red;
-}
-.blue {
-  color: blue;
-}
-.green {
-  color: #8bb174;
-}
-.purple {
-  color: #6A5ACD;
-}
-.red-pink {
-  color: #e64173;
-}
-.grey-light {
-  color: grey70;
-}
-.slate {
-  color: #314f4f;
-}
-.small {
-  font-size: 90%;
-}
-
-
-/* Extra CSS */
-.red {
-  color: red;
-}
-.blue {
-  color: blue;
-}
-.green {
-  color: #8bb174;
-}
-.purple {
-  color: #6A5ACD;
-}
-.red-pink {
-  color: #e64173;
-}
-.grey-light {
-  color: grey70;
-}
-.slate {
-  color: #314f4f;
-}
-.small {
-  font-size: 90%;
-}
-
-
-/* Extra CSS */
-.red {
-  color: red;
-}
-.blue {
-  color: blue;
-}
-.green {
-  color: #8bb174;
-}
-.purple {
-  color: #6A5ACD;
-}
-.red-pink {
-  color: #e64173;
-}
-.grey-light {
-  color: grey70;
-}
-.slate {
-  color: #314f4f;
-}
-.small {
-  font-size: 90%;
-}
-
-
-/* Extra CSS */
-.red {
-  color: red;
-}
-.blue {
-  color: blue;
-}
-.green {
-  color: #8bb174;
-}
-.purple {
-  color: #6A5ACD;
-}
-.red-pink {
-  color: #e64173;
-}
-.grey-light {
-  color: grey70;
-}
-.slate {
-  color: #314f4f;
-}
-.small {
-  font-size: 90%;
-}
-
-
-/* Extra CSS */
-.red {
-  color: red;
-}
-.blue {
-  color: blue;
-}
-.green {
-  color: #8bb174;
-}
-.purple {
-  color: #6A5ACD;
-}
-.red-pink {
-  color: #e64173;
-}
-.grey-light {
-  color: grey70;
-}
-.slate {
-  color: #314f4f;
-}
-.small {
-  font-size: 90%;
-}
-
-
-/* Extra CSS */
-.red {
-  color: red;
-}
-.blue {
-  color: blue;
-}
-.green {
-  color: #8bb174;
-}
-.purple {
-  color: #6A5ACD;
-}
-.red-pink {
-  color: #e64173;
-}
-.grey-light {
-  color: grey70;
-}
-.slate {
-  color: #314f4f;
-}
-.small {
-  font-size: 90%;
-}
-
-
-/* Extra CSS */
-.red {
-  color: red;
-}
-.blue {
-  color: blue;
-}
-.green {
-  color: #8bb174;
-}
-.purple {
-  color: #6A5ACD;
-}
-.red-pink {
-  color: #e64173;
-}
-.grey-light {
-  color: grey70;
-}
-.slate {
-  color: #314f4f;
-}
-.small {
-  font-size: 90%;
-}
-
-
-/* Extra CSS */
-.red {
-  color: red;
-}
-.blue {
-  color: blue;
-}
-.green {
-  color: #8bb174;
-}
-.purple {
-  color: #6A5ACD;
-}
-.red-pink {
-  color: #e64173;
-}
-.grey-light {
-  color: grey70;
-}
-.slate {
-  color: #314f4f;
-}
-.small {
-  font-size: 90%;
-}
-
-
-/* Extra CSS */
-.red {
-  color: red;
-}
-.blue {
-  color: blue;
+.large {
+  font-size: 120%;
 }
-.green {
-  color: #8bb174;
+.tiny {
+  font-size: 70%;
 }
-.purple {
-  color: #6A5ACD;
-}
-.red-pink {
-  color: #e64173;
-}
-.grey-light {
-  color: grey70;
-}
-.slate {
-  color: #314f4f;
-}
-.small {
-  font-size: 90%;
-}
-
-
-/* Extra CSS */
-.red {
-  color: red;
-}
-.blue {
-  color: blue;
-}
-.green {
-  color: #8bb174;
-}
-.purple {
-  color: #6A5ACD;
-}
-.red-pink {
-  color: #e64173;
-}
-.grey-light {
-  color: grey70;
-}
-.slate {
-  color: #314f4f;
-}
-.small {
-  font-size: 90%;
-}
-
-
-/* Extra CSS */
-.red {
-  color: red;
-}
-.blue {
-  color: blue;
-}
-.green {
-  color: #8bb174;
-}
-.purple {
-  color: #6A5ACD;
-}
-.red-pink {
-  color: #e64173;
-}
-.grey-light {
-  color: grey70;
-}
-.slate {
-  color: #314f4f;
-}
-.small {
-  font-size: 90%;
-}
-
-
-/* Extra CSS */
-.red {
-  color: red;
-}
-.blue {
-  color: blue;
-}
-.green {
-  color: #8bb174;
-}
-.purple {
-  color: #6A5ACD;
-}
-.red-pink {
-  color: #e64173;
-}
-.grey-light {
-  color: grey70;
-}
-.slate {
-  color: #314f4f;
-}
-.small {
-  font-size: 90%;
-}
-
-
-/* Extra CSS */
-.red {
-  color: red;
-}
-.blue {
-  color: blue;
-}
-.green {
-  color: #8bb174;
-}
-.purple {
-  color: #6A5ACD;
-}
-.red-pink {
-  color: #e64173;
-}
-.grey-light {
-  color: grey70;
-}
-.slate {
-  color: #314f4f;
-}
-.small {
-  font-size: 90%;
-}
-
-
-/* Extra CSS */
-.red {
-  color: red;
-}
-.blue {
-  color: blue;
-}
-.green {
-  color: #8bb174;
-}
-.purple {
-  color: #6A5ACD;
-}
-.red-pink {
-  color: #e64173;
-}
-.grey-light {
-  color: grey70;
-}
-.slate {
-  color: #314f4f;
-}
-.small {
-  font-size: 90%;
-}
-
-
-/* Extra CSS */
-.red {
-  color: red;
-}
-.blue {
-  color: blue;
-}
-.green {
-  color: #8bb174;
-}
-.purple {
-  color: #6A5ACD;
-}
-.red-pink {
-  color: #e64173;
-}
-.grey-light {
-  color: grey70;
-}
-.slate {
-  color: #314f4f;
-}
-.small {
-  font-size: 90%;
+.tiny2 {
+  font-size: 50%;
 }

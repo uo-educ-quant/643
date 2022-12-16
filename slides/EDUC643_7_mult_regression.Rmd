@@ -1,0 +1,353 @@
+---
+title: "Multiple Regression"
+subtitle: "EDUC 643: Applied Statistics in Education and the Human Services II"
+author: "David D. Liebowitz"
+#date: "`r format(Sys.time(), '%d %B %Y')`"
+output:
+  xaringan::moon_reader:
+    css: ['default', 'uo', 'ki-fonts', 'my_custom.css', 'xaringanthemer.css']
+    # self_contained: true
+    nature:
+      highlightStyle: github
+      highlightLines: true
+      countIncrementalSlides: false
+
+---
+
+```{R, setup, include = F}
+library(pacman)
+p_load(here, tidyverse, ggplot2, xaringan, knitr, kableExtra, haven, broom, xaringanthemer, reshape2)
+
+i_am("slides/EDUC643_7_mult_regression.rmd")
+
+red_pink <- "#e64173"
+turquoise = "#20B2AA"
+orange = "#FFA500"
+red = "#fb6107"
+blue = "#3b3b9a"
+green = "#8bb174"
+grey_light = "#B3B3B3"
+grey_mid = "#7F7F7F"
+grey_dark = "grey20"
+purple = "#6A5ACD"
+slate = "#314f4f"
+
+extra_css <- list(
+  ".red"   = list(color = "red"),
+  ".blue"  =list(color = "blue"),
+  ".red-pink" = list(color= "red_pink"),
+  ".gray" = list(color= "#B3B3B3"),
+  ".purple" = list(color = "purple"),
+  ".small" = list("font-size" = "90%"),
+  ".large" = list("font-size" = "120%"),
+  ".tiny" = list("font-size" = "70%"),
+  ".tiny2" = list("font-size" = "50%"))
+
+write_extra_css(css = extra_css, outfile = "my_custom.css")
+
+# Knitr options
+opts_chunk$set(
+  comment = "#>",
+  fig.align = "center",
+  fig.height = 6.75,
+  fig.width = 10.5,
+  warning = F,
+  message = F
+)
+opts_chunk$set(dev = "svg")
+options(device = function(file, width, height) {
+  svg(tempfile(), width = width, height = height)
+})
+options(knitr.table.format = "html")
+
+```
+# Roadmap
+
+```{r, echo=F, out.width="90%"}
+include_graphics("Roadmap3.jpg")
+```
+---
+# A motivating question
+
+
+[Nichole Kelly, Elizabeth Cotter and Claire Guidinger (2018)](https://doi.org/10.1016/j.eatbeh.2018.07.003) set out to understand the extent to which young men who exhibit overeating behaviors have weight-related medical and psychological challenges.
+
+Using real-world data (generously provided by Nichole Kelly) about the dietary habits, health, and self-appraisals of males 18-30, we are going to attempt to answer a similar question. 
+
+Up until now, we have been exploring a different question: How are **dietary restraint behaviors** (self-reports on the extent to which participants consciously restricted/controlled their food intake) and **body-mass index (BMI)** related?
+
+.red-pink[**Now, we are going to turn to examine the relationship between overeating frequency and dietary restraint behaviors.**]
+
+
+```{r, echo=F}
+do <- read_spss(here("data/male_do_eating.sav")) %>% 
+    select(Study_ID, BMI, age_year, income_group, OE_frequency, 
+         EDEQ_restraint, DERS_total, DMS_mean, EDS_total,  MBAS_muscularity, MBAS_height,
+         SATAQ_total) %>%
+        drop_na()
+do <- rownames_to_column(do, "id")
+do <- select(do, -c(Study_ID))
+
+```
+
+
+---
+# Goals for the unit
+
+- Articulate the concepts of multiple regression and .red-pink["statistical adjustment"]
+- Distinguish between the substantive implications of the terms .red-pink["statistical control"] and .red-pink["statistical adjustment"]
+- Estimate the parameters of a multiple regression model
+- Visually display the results of multiple regresion models
+- State the main effects assumption and what the implication would be if it is violated
+- Conduct statistical inference tests of single predictors ( $t$-test) and full model ( $F$-test) in multiple regression
+- Decompose the total variance into its component parts (model and residual) and use the $R^{2}$ statistic to describe this decomposition
+- Describe problems for regression associated with the phenomenon of multicollinearity
+- Use visual schema (e.g., Venn diagrams) to assess regression models for the potential of multicollinearity
+- Use statistical results (e.g., correlation matrices or heat maps) to assess regression models for the potential of multicollinearity
+- Describe and implement some solutions to multi-collinearity
+
+---
+# Bivariate relationship
+
+Ok, so we can start out by examining each of these variables independently. 
+```{r, echo=F}
+#do <- filter(do, EDEQ_restraint!=0)
+do %>% dplyr::select(OE_frequency, EDEQ_restraint) %>%
+  summarise(
+    mean(OE_frequency),
+    sd(OE_frequency),
+    mean(EDEQ_restraint),
+    sd(EDEQ_restraint),
+    cor(OE_frequency, EDEQ_restraint)
+    )
+
+```
+---
+# Bivariate relationship
+
+Now some univariate visualizations...
+
+```{r, echo=F, fig.height=5.5}
+OE <- ggplot(do, aes(OE_frequency)) +
+        geom_histogram() +
+        theme_minimal(base_size = 16)
+EDEQ <- ggplot(do, aes(EDEQ_restraint)) +
+        geom_histogram() +
+        theme_minimal(base_size = 16)
+
+gridExtra::grid.arrange(OE, EDEQ, ncol=2)
+```
+---
+# Bivariate relationship
+
+```{r, echo=F, fig.height=5.5}
+lm_plot <- ggplot(do, aes(x=EDEQ_restraint, y=OE_frequency)) + 
+  geom_point() +
+  geom_smooth(method = "lm") +
+  xlab("Dietary restraint index") +
+  ylab("Overeating frequency") +
+  theme_minimal(base_size = 16)
+
+lm_plot
+```
+
+--
+
+.blue[Based on what you see here and on the previous slides, what can we say about the direction, linearity, existence of outliers, strength and magnitude of this relationship?]
+
+---
+# Regression results
+
+```{r, echo=F, highlight.output=c(12, 16:18)}
+fit <- lm(OE_frequency ~ EDEQ_restraint, data=do)
+summary(fit)
+```
+
+--
+
+.blue[**Can you interpret this relationship substantively?**]
+---
+# Regression diagnostics
+
+We've looked a little already at the normality and linearity of our relationship. .blue[*What else can we look at?*] 
+
+How can we test for homoscedasticity, linearity and normality in our residuals?
+
+```{r, echo=T}
+do$predict <- predict(fit)
+do$resid <- resid(fit)
+do$stu_resid <- rstudent(fit)
+```
+---
+# Regression diagnostics: normality
+
+```{r, echo=F, fig.height=4.5}
+ggplot(do, aes(x = resid)) + 
+  geom_histogram(binwidth = 1) +
+  theme_minimal(base_size = 16)
+
+```
+
+.red-pink[The bulk of our residuals are roughly normally distributed, but we clearly have a long right tail. Perhaps we would want to test the sensitivity of our models for the exclusion of these outlying values?]
+---
+# Residuals v. fitted
+```{r, echo=F, fig.height=4.5}
+ggplot(do, aes(x = predict, y = stu_resid)) + 
+         geom_point() +
+  geom_hline(yintercept = 0, color = "red", linetype="dashed") +
+  ylab("Studentized Residuals") + xlab("Fitted values") +
+  theme_minimal(base_size = 16)
+```
+
+.red-pink[We are clearly under-predicting for some set of individuals. There is also some evidence of heteroscedasticity.]
+
+There are some orange flags in our estimates here. In fact, we are conducting a different analysis than Kelly et al. (2018). They conducted a logistic regression for the presence of *any* medical or psychological challenges. We will learn how to do that analysis in EDUC 645. However, we are going to proceed with this analysis while noting that some of our assumptions may not be fully met.
+
+---
+# Regression results
+```{r, echo=F}
+summary(fit)
+```
+
+Let's assume that we trust the way we've characterized this bivariate relationship. .red[**But perhaps there are other features among the participants that also influence their eating behaviors?**]
+
+---
+class: middle, inverse
+
+# Statistical adjustment
+
+---
+# Another variable
+
+Perhaps we should consider another variable that might also be related to overeating frequency (*OE_FREQUENCY*). What about one we already know a good deal about...*BMI*?
+
+```{r, echo=F, fig.height=5.5}
+oe_bmi <- ggplot(do, aes(x=BMI, y=OE_frequency)) + 
+  geom_point() +
+  geom_smooth(method = "lm") +
+  xlab("BMI") +
+  ylab("Overeating frequency") +
+  theme_minimal(base_size = 16)
+
+oe_bmi
+
+```
+---
+# Another variable
+Perhaps we should consider another variable that might also be related to overeating frequency (*OE_FREQUENCY*). What about one we already know a good deal about...*BMI*?
+
+```{r, echo=T, highlight.output=c(12, 16:18)}
+summary(lm(OE_frequency ~ BMI, data=do))
+```
+---
+# Multiple regression
+Mathematically, we simply add additional terms to our equation like this:
+
+$$\hat{OEFrequency_{i}} = \beta_{0} + \beta_{1}DietaryRestraint_{i} + \beta_{2}BMI_{i} + \varepsilon_{i}$$
+
+or more generally for $k$ predictors...
+
+$$Y_{i} = \beta_{0} + \beta{1}X_{1} + \beta_{2}X_{2} + \cdots + \beta_{k}X_{k} + \varepsilon_{i}$$
+
+---
+# Multiple regression
+
+Multiple regression helps us as follows:
+1. Allows us to simultaneously consider many contributing factors in the relationship
+2. We explain more of the variation in Y, and
+3. We make more accurate predictions of Y (these both make our residuals smaller)
+4. Provides a separate understanding of each predictor, adjusting for the effects of the other predictors (that is, holding the other predictors constant at their means)
+---
+# What does adjustment look like?
+
+```{r, echo=F}
+library(plotly)
+library(reshape2)
+my_df <- mtcars
+
+cars_lm <- lm(mpg ~ hp, data = my_df)
+
+graph_reso <- 0.05
+graph_reso2 <- 1
+
+#Setup Axis
+axis_x <- seq(min(my_df$hp), max(my_df$hp), by = graph_reso2)
+axis_y <- seq(min(my_df$wt), max(my_df$wt), by = graph_reso)
+
+#Sample points
+cars_lm_surface <- expand.grid(hp = axis_x, 
+                                wt = axis_y, 
+                                KEEP.OUT.ATTRS = F)
+
+cars_lm_surface$mpg <- predict.lm(cars_lm, newdata = cars_lm_surface)
+
+
+cars_lm_surface <- acast(cars_lm_surface, 
+                          wt ~ hp, 
+                          value.var = "mpg")
+
+my_df_2 <- my_df %>% 
+  mutate(mpg = predict(cars_lm, newdata = ),
+         predict = 1)
+
+my_df <- my_df %>% 
+  mutate(predict = 0)
+
+my_df <- rbind(my_df, my_df_2) %>% 
+  mutate(predict = as.numeric(predict))
+
+cars_plot <- plot_ly(my_df, 
+                     x = ~hp, 
+                     y = ~wt, 
+                     z = ~mpg,
+                     frame = ~predict) %>% 
+  animation_opts(1000, transition = 500, easing = "elastic", redraw = T)
+
+fig <- cars_plot %>% 
+  add_markers(size = 5) %>% 
+  add_surface(z = cars_lm_surface,
+              x = axis_x,
+              y = axis_y,
+              opacity = 0.5)
+fig
+
+```
+
+---
+# What MR is and isn't
+
+Why shouldn't we say "control"?
+
+---
+class: middle, inverse
+
+# Inference in multiple regression
+---
+
+class: middle, inverse
+
+# Variance decomposition in multiple regression
+
+---
+# Bivariate v. multiple regression
+
+|                     |  Bivariate regression       |   Multiple regression
+|----------------------------------------------------------------------------
+| Model specification | $\hat{Y}=\hat{\beta_{0}} + \hat{\beta_{1}}\mathbf{X}_{1}$ | $\hat{Y}=\hat{\beta_{0}} + \hat{\beta_{1}}\mathbf{X}_{1} + \hat{\beta_{2}}\mathbf{X}_{2} + \cdots \hat{\beta_{k}}\mathbf{X}_{k}$
+| Interpretation of $\hat{\beta_{0}}$ | Predicted value of Y when X=0 | Predicted value of Y when .red[all] Xs = 0
+| Interpretation of $\hat{\beta_{1}}$ | Difference in Y per 1 unit of X | Difference in Y per 1 unit difference in $X_{1}$, adjusting for $X_{2} \cdots X_{k}$
+| Graphical representation | Fitted line     | Fitted plane in 3D (with two Xs) <br> Plot with prototypical lines
+| Residuals   | Distance between observation and fitted .red-pink[line] | Distance between line and fitted .red-pink[plane]
+| Inference: $t$-tests | $H_{0} = \beta_{1} = 0$ <br> Is there a relationship between X and Y in pop? | $H_{0} = \beta_{1} = 0$ <br> Adjusting for  $X_{2} \cdots X_{k}$ is there a relationship between $X_{1}$ and Y in the population? <br> Repeat for each X
+
+---
+# Bivariate v. multiple regression
+
+|                     |  Bivariate regression       |   Multiple regression
+|----------------------------------------------------------------------------
+| Inference: $F$-test | $H_{0} = \beta_{1} = 0$ <br> same result as $t$-test |  $H_{0} = \textrm{all } \beta_{1} = 0$ <br> Does *any* predictor have a relationship with Y in the population?
+| $R^{2}$ | $\frac{Regress SS}{Total SS}$ <br> % of variation in Y explained by X | $\frac{Regress SS}{Total SS}$ <br> % of variation in Y explained by $X_{1} \cdots X_{k}$ 
+| Regression assumptions | See prior unit          | Same as bivariate, but .red[**at each combination of the Xs**]. <br> Main effects assumption
+
+
+

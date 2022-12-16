@@ -31,7 +31,7 @@ By the end of this term, it is expected that students will be able to:
 4. Describe the assumptions of least-squares regression analysis and test analytic models for the extent to which they satisfy these assumptions
 5. Generalize the least-squares regression model (conceptually and in practice) to predictors that are categorical, interacted and non-linear
 6. Build taxonomies of sensible regression models in response to independently developed research questions
-7. Use the R programming language to conduct all such analyses
+7. Use an open-source, object-oriented statistical programming language to conduct all such analyses
 
 
 # Textbooks and Reading Materials

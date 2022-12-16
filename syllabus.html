@@ -629,7 +629,7 @@ body {
   padding-top: 60px;
 }
 </style>
-<script src="site_libs/header-attrs-2.11/header-attrs.js"></script>
+<script src="site_libs/header-attrs-2.14.3/header-attrs.js"></script>
 <script src="site_libs/jquery-3.6.0/jquery-3.6.0.min.js"></script>
 <meta name="viewport" content="width=device-width, initial-scale=1" />
 <link href="site_libs/bootstrap-3.3.5/css/cosmo.min.css" rel="stylesheet" />
@@ -681,6 +681,7 @@ if (window.hljs) {
 
 
 
+
 <style type = "text/css">
 .main-container {
   max-width: 940px;
@@ -701,6 +702,9 @@ button.code-folding-btn:focus {
 }
 summary {
   display: list-item;
+}
+details > summary > p:only-child {
+  display: inline;
 }
 pre code {
   padding: 0;
@@ -758,11 +762,15 @@ $(document).ready(function () {
     href = "index.html";
   var menuAnchor = $('a[href="' + href + '"]');
 
-  // mark it active
-  menuAnchor.tab('show');
-
-  // if it's got a parent navbar menu mark it active as well
-  menuAnchor.closest('li.dropdown').addClass('active');
+  // mark the anchor link active (and if it's in a dropdown, also mark that active)
+  var dropdown = menuAnchor.closest('li.dropdown');
+  if (window.bootstrap) { // Bootstrap 4+
+    menuAnchor.addClass('active');
+    dropdown.find('> .dropdown-toggle').addClass('active');
+  } else { // Bootstrap 3
+    menuAnchor.parent().addClass('active');
+    dropdown.addClass('active');
+  }
 
   // Navbar adjustments
   var navHeight = $(".navbar").first().height() + 15;
@@ -961,7 +969,7 @@ Lectures
 <div class="navbar navbar-default  navbar-fixed-top" role="navigation">
   <div class="container">
     <div class="navbar-header">
-      <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar">
+      <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-bs-toggle="collapse" data-target="#navbar" data-bs-target="#navbar">
         <span class="icon-bar"></span>
         <span class="icon-bar"></span>
         <span class="icon-bar"></span>
@@ -977,7 +985,7 @@ Lectures
   <a href="schedule.html">Schedule</a>
 </li>
 <li class="dropdown">
-  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
+  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
     Lectures
      
     <span class="caret"></span>
@@ -1030,7 +1038,28 @@ Lectures
 
 <div id="course-overview" class="section level1">
 <h1>Course Overview</h1>
-<p>How closely linked are students’ scores on standardized tests to their socio-economic status? Do individuals with disordered eating behaviors have lower self esteem? Applied data analysis can answer these and other sorts of questions in educational, social and behavior research. This course is the second in a three course sequence intended to provide a toolkit of statistical concepts, methods and their implementation to producers of applied research in education and other social sciences. The course is organized around the principle that research design depends in part on researchers’ substantive questions and their quantitative data available to answer these question. In this intermediate course, we will focus on applying the General Linear Model to Ordinary Least Squares regression analysis. Students will progress from bivariate to multiple regression, developing an understanding of the associated assumptions of these models and tools to solve instances in which those assumptions are unmet. The course seeks to blend a conceptual, mathematical and applied understanding of basic statistical concepts. At the core of our pedagogical approach is the belief that students learn statistical analysis by <strong>doing</strong> statistical analysis. <em>EDUC 641 (or a similar introductory statistics course) is a pre-requisite as is a basic familiarity with a statistical programming language (preferably R). This course (or substitute) is a pre-requisite for EDUC 645</em>.</p>
+<p>How closely linked are students’ scores on standardized tests to
+their socio-economic status? Do individuals with disordered eating
+behaviors have lower self esteem? Applied data analysis can answer these
+and other sorts of questions in educational, social and behavior
+research. This course is the second in a three course sequence intended
+to provide a toolkit of statistical concepts, methods and their
+implementation to producers of applied research in education and other
+social sciences. The course is organized around the principle that
+research design depends in part on researchers’ substantive questions
+and their quantitative data available to answer these question. In this
+intermediate course, we will focus on applying the General Linear Model
+to Ordinary Least Squares regression analysis. Students will progress
+from bivariate to multiple regression, developing an understanding of
+the associated assumptions of these models and tools to solve instances
+in which those assumptions are unmet. The course seeks to blend a
+conceptual, mathematical and applied understanding of basic statistical
+concepts. At the core of our pedagogical approach is the belief that
+students learn statistical analysis by <strong>doing</strong>
+statistical analysis. <em>EDUC 641 (or a similar introductory statistics
+course) is a pre-requisite as is a basic familiarity with a statistical
+programming language (preferably R). This course (or substitute) is a
+pre-requisite for EDUC 645</em>.</p>
 </div>
 <div id="meeting-time-and-location" class="section level1">
 <h1>Meeting Time and Location</h1>
@@ -1040,42 +1069,78 @@ Lectures
 </div>
 <div id="student-learning-outcomes" class="section level1">
 <h1>Student Learning Outcomes</h1>
-<p>By the end of this term, it is expected that students will be able to:</p>
+<p>By the end of this term, it is expected that students will be able
+to:</p>
 <ol style="list-style-type: decimal">
-<li>Articulate the framework of the General Linear Model as a method to describe relationships between quantitative variables</li>
-<li>Distinguish between research designs and analyses that permit different forms of inferences (e.g., relational or causal, inferential or descriptive)</li>
-<li>Conduct and interpret (orally and in writing) least-squares regression analyses with continuous outcomes and predictors</li>
-<li>Describe the assumptions of least-squares regression analysis and test analytic models for the extent to which they satisfy these assumptions</li>
-<li>Generalize the least-squares regression model (conceptually and in practice) to predictors that are categorical, interacted and non-linear</li>
-<li>Build taxonomies of sensible regression models in response to independently developed research questions</li>
-<li>Use the R programming language to conduct all such analyses</li>
+<li>Articulate the framework of the General Linear Model as a method to
+describe relationships between quantitative variables</li>
+<li>Distinguish between research designs and analyses that permit
+different forms of inferences (e.g., relational or causal, inferential
+or descriptive)</li>
+<li>Conduct and interpret (orally and in writing) least-squares
+regression analyses with continuous outcomes and predictors</li>
+<li>Describe the assumptions of least-squares regression analysis and
+test analytic models for the extent to which they satisfy these
+assumptions</li>
+<li>Generalize the least-squares regression model (conceptually and in
+practice) to predictors that are categorical, interacted and
+non-linear</li>
+<li>Build taxonomies of sensible regression models in response to
+independently developed research questions</li>
+<li>Use an open-source, object-oriented statistical programming language
+to conduct all such analyses</li>
 </ol>
 </div>
 <div id="textbooks-and-reading-materials" class="section level1">
 <h1>Textbooks and Reading Materials</h1>
 <div id="textbook" class="section level2">
 <h2>Textbook</h2>
-<p>We will primarily be referring to chapters in <a href="https://learningstatisticswithr-bookdown.netlify.com/index.html">Learning Statistics with R</a> (<strong>LSWR</strong>) by Danielle Navarro. This textbook is available for free online. You may choose to purchase a paper copy if you wish, but it is not required.</p>
+<p>We will primarily be referring to chapters in <a
+href="https://learningstatisticswithr-bookdown.netlify.com/index.html">Learning
+Statistics with R</a> (<strong>LSWR</strong>) by Danielle Navarro. This
+textbook is available for free online. You may choose to purchase a
+paper copy if you wish, but it is not required.</p>
 <div id="other-text-resources" class="section level3">
 <h3>Other text resources</h3>
-<p>There are literally dozens of high-quality introductory statistics textbooks. We have particularly found…</p>
+<p>There are literally dozens of high-quality introductory statistics
+textbooks. We have particularly found…</p>
 </div>
 </div>
 <div id="r-and-rstudio" class="section level2">
 <h2>R and RStudio</h2>
-<p>Students must have the latest version of R, which can be downloaded <a href="https://ftp.osuosl.org/pub/cran/">here</a>. It is strongly recommended that students also download the RStudio GUI, available <a href="https://www.rstudio.com/products/rstudio/download/#download">here</a>. Both softwares are free. We will provide tutorials on R/RStudio installation and they are also accessible <a href=".slides/tutorial.html">here</a>.</p>
+<p>Students must have the latest version of R, which can be downloaded
+<a href="https://ftp.osuosl.org/pub/cran/">here</a>. It is strongly
+recommended that students also download the RStudio GUI, available <a
+href="https://www.rstudio.com/products/rstudio/download/#download">here</a>.
+Both softwares are free. We will provide tutorials on R/RStudio
+installation and they are also accessible <a
+href=".slides/tutorial.html">here</a>.</p>
 <div id="resources-for-r-and-rstudio" class="section level3">
 <h3>Resources for R and RStudio</h3>
-<p>While we will teach you how to effectively use R and RStudio to conduct analyses, one of the key skills required to use R is the ability to find answers on your own. Many common questions or problems are either available on blogs or have been asked and answered in discussion forums already. Finding and deciphering those answers is an important skill you should seek to hone. <em>You will never remember all of the programming commands!</em></p>
-<p>Here are some sites where you can find the answers to many R questions and learn new tricks:</p>
+<p>While we will teach you how to effectively use R and RStudio to
+conduct analyses, one of the key skills required to use R is the ability
+to find answers on your own. Many common questions or problems are
+either available on blogs or have been asked and answered in discussion
+forums already. Finding and deciphering those answers is an important
+skill you should seek to hone. <em>You will never remember all of the
+programming commands!</em></p>
+<p>Here are some sites where you can find the answers to many R
+questions and learn new tricks:</p>
 <ul>
-<li><a href="https://bookdown.org/ndphillips/YaRrr/"><em>YaRrr, the Pirate’s Guide to R</em></a> by Nathaniel Phillips</li>
-<li><a href="https://r4ds.had.co.nz/"><em>R for Data Science</em></a> by Hadley Wickham</li>
-<li><a href="http://www.cookbook-r.com/"><em>R Cookbook</em></a> by Winston Chang</li>
-<li><a href="http://www-bcf.usc.edu/~gareth/ISL"><em>An Introduction to Statistical Learning</em></a> by Gareth James, Daniela Witten, Trevor Hastie and Robert Tibshirani</li>
-<li><a href="https://www.rstudio.com/resources/cheatsheets">Cheat Sheets</a></li>
+<li><a href="https://bookdown.org/ndphillips/YaRrr/"><em>YaRrr, the
+Pirate’s Guide to R</em></a> by Nathaniel Phillips</li>
+<li><a href="https://r4ds.had.co.nz/"><em>R for Data Science</em></a> by
+Hadley Wickham</li>
+<li><a href="http://www.cookbook-r.com/"><em>R Cookbook</em></a> by
+Winston Chang</li>
+<li><a href="http://www-bcf.usc.edu/~gareth/ISL"><em>An Introduction to
+Statistical Learning</em></a> by Gareth James, Daniela Witten, Trevor
+Hastie and Robert Tibshirani</li>
+<li><a href="https://www.rstudio.com/resources/cheatsheets">Cheat
+Sheets</a></li>
 <li><a href="https://www.statmethods.net">Quick-R</a></li>
-<li><a href="https://stackoverflow.com/questions/tagged/r">StackOverflow</a></li>
+<li><a
+href="https://stackoverflow.com/questions/tagged/r">StackOverflow</a></li>
 <li><a href="https://stats.stackexchange.com">Stack Exchange</a></li>
 </ul>
 </div>
@@ -1107,7 +1172,8 @@ Lectures
 <tr class="odd">
 <td align="left">1</td>
 <td align="left">1 - 3</td>
-<td align="left">Introduction to the General Linear Model and bivariate regression refresher</td>
+<td align="left">Introduction to the General Linear Model and bivariate
+regression refresher</td>
 <td align="left">LSWR Ch 15.1-15.2 and 15.4-15.7</td>
 <td align="left">Assignment 1</td>
 <td align="left">Quiz 1</td>
@@ -1173,20 +1239,50 @@ Lectures
 </ul>
 <div id="quizzes" class="section level2">
 <h2>Quizzes</h2>
-<p>Five classes will begin with a very short multiple-choice quiz that is designed to test your knowledge of the theoretical principles underlying the statistics we are studying for the week. While some may feel that this is overly paternalistic, research evidence shows that frequent quizzing increases learning (see a summary of <a href="https://www.nytimes.com/2013/11/21/education/frequent-tests-can-enhance-college-learning-study-finds.html">one study</a> from the University of Texas). Quizzes will be open book and notes (but not laptop/computer).</p>
+<p>Five classes will begin with a very short multiple-choice quiz that
+is designed to test your knowledge of the theoretical principles
+underlying the statistics we are studying for the week. While some may
+feel that this is overly paternalistic, research evidence shows that
+frequent quizzing increases learning (see a summary of <a
+href="https://www.nytimes.com/2013/11/21/education/frequent-tests-can-enhance-college-learning-study-finds.html">one
+study</a> from the University of Texas). Quizzes will be open book and
+notes (but not laptop/computer).</p>
 </div>
 <div id="assignments" class="section level2">
 <h2>Assignments</h2>
-<p>The goal of the assignments is to practice the concepts and vocabulary we have been modeling in class and implement some of the techniques we have learned. Each assignment has an associated data source, short codebook and detailed instructions for the required data and analytic tasks. You may work on your own or collaborate with one (1) partner. Please make sure that you engage in a a full, fair and mutually-agreeable collaboration if you do choose to collaborate. If you do collaborate, you should plan, execute and write-up your analyses together, not simply divide the work. Please make sure to indicate clearly when your work is joint and any other individual or resource (outside of class material) you consulted in your response. Further assignment details are available <a href="./assignments.html">here</a>.</p>
+<p>The goal of the assignments is to practice the concepts and
+vocabulary we have been modeling in class and implement some of the
+techniques we have learned. Each assignment has an associated data
+source, short codebook and detailed instructions for the required data
+and analytic tasks. You may work on your own or collaborate with one (1)
+partner. Please make sure that you engage in a a full, fair and
+mutually-agreeable collaboration if you do choose to collaborate. If you
+do collaborate, you should plan, execute and write-up your analyses
+together, not simply divide the work. Please make sure to indicate
+clearly when your work is joint and any other individual or resource
+(outside of class material) you consulted in your response. Further
+assignment details are available <a
+href="./assignments.html">here</a>.</p>
 </div>
 <div id="final" class="section level2">
 <h2>Final</h2>
-<p>The final assignment involves a more extended application and synthesis of the concepts of descriptive and relational applied data analysis covered in this course. For the final assignment, you will receive a compact dataset which has several potential outcomes, predictors and covariates. It will be your task to construct a research question, identify the relevant measures for inclusion in your analysis, develop a sensible analytic plan, and write up your results for dissemination.</p>
+<p>The final assignment involves a more extended application and
+synthesis of the concepts of descriptive and relational applied data
+analysis covered in this course. For the final assignment, you will
+receive a compact dataset which has several potential outcomes,
+predictors and covariates. It will be your task to construct a research
+question, identify the relevant measures for inclusion in your analysis,
+develop a sensible analytic plan, and write up your results for
+dissemination.</p>
 </div>
 </div>
 <div id="student-engagement-inventory" class="section level1">
 <h1>Student Engagement Inventory</h1>
-<p>Graduate students are expected to perform work of high quality and quantity, typically with forty hours of student engagement for each student credit hour. For this course, the following table shows the number of hours a typical student would expect to spend in each of the following activities:</p>
+<p>Graduate students are expected to perform work of high quality and
+quantity, typically with forty hours of student engagement for each
+student credit hour. For this course, the following table shows the
+number of hours a typical student would expect to spend in each of the
+following activities:</p>
 <table>
 <colgroup>
 <col width="35%" />
@@ -1219,12 +1315,14 @@ Lectures
 <tr class="even">
 <td>Final</td>
 <td>25</td>
-<td>Includes familiarization with data, data analysis, preparation of displays and writing</td>
+<td>Includes familiarization with data, data analysis, preparation of
+displays and writing</td>
 </tr>
 <tr class="odd">
 <td><strong>Total hours</strong></td>
 <td><strong>120</strong></td>
-<td><strong>These are approximations.</strong> Reading and <em>especially</em> analytic time will vary per individual</td>
+<td><strong>These are approximations.</strong> Reading and
+<em>especially</em> analytic time will vary per individual</td>
 </tr>
 </tbody>
 </table>
@@ -1264,7 +1362,8 @@ Lectures
 <div id="basic-needs" class="section level2">
 <h2>Basic Needs</h2>
 </div>
-<div id="accommodation-for-religious-observances" class="section level2">
+<div id="accommodation-for-religious-observances"
+class="section level2">
 <h2>Accommodation for Religious Observances</h2>
 </div>
 <div id="conflict-resolution" class="section level2">

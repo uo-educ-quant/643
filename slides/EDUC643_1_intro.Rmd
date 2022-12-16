@@ -1,7 +1,7 @@
 ---
-title: "Bivariate regression and the General Linear Model"
-subtitle: "EDUC 643: General Linear Model I"
-author: "TBD"
+title: "Introduction and bivariate relationships"
+subtitle: "EDUC 643: Applied Statistics in Education and the Human Services II"
+author: "David D. Liebowitz"
 #date: "`r format(Sys.time(), '%d %B %Y')`"
 output:
   xaringan::moon_reader:
@@ -19,23 +19,36 @@ editor_options:
 ```{R, setup, include = F}
 library(pacman)
 
-p_load(here, MASS, tidyverse, ggplot2, xaringan, knitr, kableExtra, foreign, broom, xaringanthemer)
+p_load(here, tidyverse, xaringan, knitr, kableExtra, haven, broom, xaringanthemer)
 
 
 i_am("slides/EDUC643_1_intro.rmd")
 
-# Define color
+red_pink <- "#e64173"
+turquoise = "#20B2AA"
+orange = "#FFA500"
+red = "#fb6107"
+blue = "#3b3b9a"
+green = "#8bb174"
+grey_light = "#B3B3B3"
+grey_mid = "#7F7F7F"
+grey_dark = "grey20"
+purple = "#6A5ACD"
+slate = "#314f4f"
+
 extra_css <- list(
   ".red"   = list(color = "red"),
   ".blue"  =list(color = "blue"),
-  ".green" = list(color = "#8bb174"),
-  ".purple" = list(color = "#6A5ACD"),
-  ".red-pink" = list(color= "#e64173"),
-  ".grey-light" = list(color= "grey70"),
-  ".slate" = list(color="#314f4f"),
-  ".small" = list("font-size" = "90%"))
+  ".red-pink" = list(color= "red_pink"),
+  ".gray" = list(color= "#B3B3B3"),
+  ".purple" = list(color = "purple"),
+  ".small" = list("font-size" = "90%"),
+  ".large" = list("font-size" = "120%"),
+  ".tiny" = list("font-size" = "70%"),
+  ".tiny2" = list("font-size" = "50%"))
 
 write_extra_css(css = extra_css, outfile = "my_custom.css")
+
 
 # Knitr options
 opts_chunk$set(
@@ -46,13 +59,12 @@ opts_chunk$set(
   warning = F,
   message = F
 )
-# opts_chunk$set(dev = "svg")
-# 
-# options(device = function(file, width, height) {
-#   svg(tempfile(), width = width, height = height)
-# })
-
+opts_chunk$set(dev = "svg")
+options(device = function(file, width, height) {
+  svg(tempfile(), width = width, height = height)
+})
 options(knitr.table.format = "html")
+
 
 hook_output <- knit_hooks$get("output")
 knit_hooks$set(output = function(x, options) {
@@ -79,8 +91,128 @@ knit_hooks$set(output = function(x, options) {
 # Roadmap
 
 ```{r, echo=F, out.width="90%"}
+include_graphics("Roadmap.jpg")
+```
+
+---
+# Goals of EDUC quant sequence
+
+- Develop the basic quantitative skills necessary to conduct applied data analysis
+ + The full-year sequence (EDUC 641 $\rightarrow$ EDUC 643 $\rightarrow$ EDUC 645) prepares you to make valuable contributions to a research team
+ + Not all the skills you will need (and not the only courses you should take), particularly for those interested in analysis-heavy positions, or becoming an applied quantitative doctoral-level researcher
+ + Foundations of statistics, methods and data science
+
+- Understand the (in)appropriate application of those skills
+ + "Building a toolbox, not a cookbook"
+ + Evaluate the credibility of published research
+ + Understand the affordances, limitations and dangers of quantitative analysis
+
+--
+
+.blue[This is an entirely re-designed and modernized core quantitative sequence at the COE. We welcome your feedback!] 
+
+.blue[Given the new-ness of these three courses, there are likely to be shortcomings. We are committed to solving them as they arise, but we ask for your grace in allowing us to do so. In the end, we think this will be a better experience for you and your future program-mates.]
+
+---
+# Pedagogical orientation of EDUC
+
+- Analysis follows research design that emerges from substantive questions
+- Students learn statistical analysis by doing statistical analysis
+- Start from an assumption of no prior background in mathematics, programming, statistics or research
+- Create an inclusive, supportive environment in which we learn from each other
+- Balance support and academic stretch across a variety of levels of prior experience and comfort with quantitative analysis
+
+--
+
+<br>
+
+.blue[**Social conventions and schooling practices often convince some people, particularly women,  people of color and disabled individuals, that they are “bad at math.” We believe that quantitative skills, like any other skills, are built through regular practice, over time, and that all of our students can be successful in the EDUC quantitative sequence.**]
+
+.blue[**We encourage all students, particularly those underrepresented in this field, to pursue the EDUC sequence and additional quantitative analysis courses in the COE and around the UO.**]
+
+---
+# Goals of EDUC 641
+
+We will focus on describing categorical and continuous data and quantifying relationships between categorical and continuous data. Students will form a solid foundation for frequentist, inferential statistics (and some of critiques of this model). The course seeks to blend a conceptual, mathematical and applied understanding of basic statistical concepts.
+
+Concrete learning objectives:
+1. Articulate the principles of responsible and ethical quantitative research
+2. Describe, summarize and visualize quantitative data that are categorical and continuous
+3. Describe, summarize and visualize the relationships between quantitative data that are categorical and continuous
+4. Conduct a frequentist null-hypothesis significance test of the relationships between simple categorical and continuous data
+5. Describe strategies to improve the replicability and generalizability of quantitative research
+6. Use the R programming language to conduct all such analyses
+
+---
+# My personal goals
+
+- Over next two terms, teach you the basics of applied statistics
+- Challenge you:
+  + These courses assume .blue[*no prior knowledge*] of either programming or math, beyond high-school Algebra I
+  + Thus, I hope EDUC 641 provides a smooth on-ramp for everyone
+  + If you're struggling, come talk to me
+  + If the course is too basic, consider either recommended texts for more formal mathematical treatment **AND/OR** the R Bootcamp extension activities (it will get more challenging) **AND/OR** reflect on pedagogical approaches as a future instructor
+- Induct you into a graduate-level focus on mastery, rather than an undergraduate-level focus on success
+- Contribute to building a community of live learners and life-long professional colleagues
+- Assign everyone an A
+
+---
+# Me
+
+.pull-left[
+- David Liebowitz (aka, "David" or "Dr. Liebowitz")
+- he/him
+- English lit undergrad major
+- Former ELA teacher and principal
+- Policy analyst/advisor
+- **Applied** quantitative social scientist focused on improving leadership and policy, particularly in schools serving large proportions of low-family-income and racially minoritized students
+- **Not** a methodologist
+]
+
+.pull-right[
+```{r, echo=F}
+# include_graphics("kids.jpg")
+```
+]
+
+--
+
+.small[*Personal interests: I work and have kids, so I have no life, but when I can, I try to go for runs or play in the Cascade range.*]
+
+---
+# Roadmap of EDUC 643
+
+| Unit  | Week(s)   | Topic
+|------------------------------------------------------------------------------
+| 1     | 1-2      | Continuous relationships redux
+| 2     | 3        | Regression assumptions
+| 3     | 4        | Multiple regression
+| 4     | 5-6      | Categorical predictors
+| 5     | 7-8      | Non-linearities and interactions
+| 6     | 9-10     | Model building and applied analysis
+
+
+---
+# Weekly schedule of activities
+
+1. Two 1.5-hour lectures will introduce concepts in interactive lectures, discussion and activities
+2. Readings are intended to supplement material from lectures (these can be completed after the first class of the unit)
+3. Two *OPTIONAL, UNGRADED* weekly lab meetings intended to provide support for R programming tasks. Each lab will cover identical material.
+4. Five (5) quizzes worth trivial amount of points each (2% of grade)
+5. Four (4) data analytic assignments (15% each) + final project (30% of grade)
+
+--
+
+<br>
+Course website is (we hope!) a valuable resource. Let's check it out!
+
+---
+# Roadmap
+
+```{r, echo=F, out.width="90%"}
 include_graphics("Roadmap1.jpg")
 ```
+
 
 ---
 class: middle, inverse
@@ -90,7 +222,10 @@ class: middle, inverse
 ---
 # Goals for the unit
 
+- Describe goals and structure and of the course (and the quantitative EDUC sequence more broadly)
 - Characterize a bivariate relationship along five dimensions (direction, linearity, outliers, strength and magnitude)
+
+.gray[
 - Describe how statistical models differ from deterministic models
 - Mathematically represent the population model and interpret its deterministic and stochastic components
 - Formulate a linear regression model to hypothesize a population relationship
@@ -100,6 +235,7 @@ class: middle, inverse
 - Conduct an inference test for a regression coefficient and our regression model
 - Calculate a correlation coefficient $(r)$ and describe its relationship to $R^{2}$
 - Distinguish between research designs that permit correlational associations and those that permit causal inferences
+]
 
 
 ---
@@ -111,12 +247,12 @@ Researchers (including two from the .green[University of Oregon]), [Nichole Kell
 include_graphics("kelly_etal.png")
 ```
 
-Using real-world data (generously provided by Nichole Kelly) about the dietary habits, health, and self-appraisals of males 18-30, we are going to attempt to answer a similar question. 
+.small[Using real-world data (generously provided by Nichole Kelly) about the dietary habits, health, and self-appraisals of males 18-30, we are going to attempt to answer a similar question.]
 
-However, before answering this question, we are going to explore **the relationship between dietary restraint behaviors** (self-reports on the extent to which participants consciously restricted/controlled their food intake) **and body-mass index (BMI).**
+.small[However, before answering this question, we are going to explore **the relationship between dietary restraint behaviors** (self-reports on the extent to which participants consciously restricted/controlled their food intake) **and body-mass index (BMI).**]
 
 ---
-# Quantitative research design components
+## Quantitative research design components
 
 1. **Research questions**
  + Descriptive
@@ -132,21 +268,49 @@ However, before answering this question, we are going to explore **the relations
 ---
 # A glance at the data
 ```{r, echo=T}
-do <- read.spss(here("data/male_do_eating.sav"), to.data.frame=T) %>% 
-    select(Study_ID, BMI, age_year, income_group, OE_frequency, 
-         EDEQ_restraint, DERS_total, DMS_mean, EDS_total, 
-          MBAS_muscularity, MBAS_height, SATAQ_total) %>%
-        drop_na()
+do <- read_spss(here("data/male_do_eating.sav")) %>% 
+    select(OE_frequency, EDEQ_restraint, EDS_total,
+           BMI, age_year, income_group) 
+
+head(do)
+```
+
+---
+# More
+
+```{r, echo=T}
+
+str(do)
+```
+
+---
+# More glances
+
+```{r, echo=T}
+
+# Check for missingness
+sapply(do, function(x) sum(is.na(x)))
 # note: we are focusing only on those cases that had complete records  
 #       for all these variables
-str(do)
 ```
 ---
 # A glance at the data
 Let's start by focusing on these two variables of interest: dietary restraint (*EDEQ_restraint*) and body-mass index (*BMI*).
 ```{r, echo=T}
 summary(do$EDEQ_restraint)
-summary(do$BMI)
+summary(do$OE_frequency)
+summary(do$EDS_total)
+```
+
+---
+# Oh the tangled web SPSS weaves!
+
+```{r, echo=T, fig.height=3}
+ggplot(data=do, aes(EDS_total)) + geom_bar()
+
+do <- do %>% mutate(EDS_total = ifelse(EDS_total==-99, NA, EDS_total))
+
+sum(is.na(do$EDS_total))
 ```
 
 ---
@@ -343,1081 +507,24 @@ That line is defined by the intercept (value $Y$ takes when $X=0$) and the slope
 
 
 ---
-# Mathematical representations
-
-In addition to visual representations, we can borrow from mathematical models to construct a statistical relationship between variables. However, these are not identical.
-
-.pull-left[
-**Mathematical models**
-
-- Are deterministic
-- The area of any square is always $s^{2}$
-- Once we know the rule, we can use it to fit the model to data perfectly
-]
-
-.pull-right[
-**Statistical models**
-
-- Include individual variation
-- Other systematic components exist that are either not measured or observable
-- Outcome = Systematic component + residual
-]
-
---
-
-.blue[*What is wrong about describing the relationship between BMI and eating restraint as we did on the previous slide?*]
-
----
-# Statistical model
-
-In order to develop our statistical model (inspired by a deterministic mathematical model), we need to first determine our model's functional form.
-
-```{r, echo=F, fig.height=5.5}
-set.seed(123)
-x <- seq(-25, 25)
-y <- x 
-y2 <- x^2
-y3 <- log10(x)
-form <- cbind.data.frame(x, y, y2, y3)
-
-linear <- ggplot(form, aes(x, y)) +
-  geom_point() +
-  ggtitle("Linear") +
-  theme_minimal(base_size=16) +
-    theme(axis.title.x = element_blank(), axis.title.y = element_blank()) 
-
-quad <- ggplot(form, aes(x, y2)) +
-  geom_point() +
-  ggtitle("Quadratic") +
-  theme_minimal(base_size=16) +
-    theme(axis.title.x = element_blank(), axis.title.y = element_blank()) 
-
-curv <- ggplot(form, aes(x, y3)) +
-  geom_point() +
-  ggtitle("Curvilinear") +
-  theme_minimal(base_size=16) +
-    theme(axis.title.x = element_blank(), axis.title.y = element_blank()) 
-
-gridExtra::grid.arrange(linear, quad, curv, ncol=3)
-```
-
---
-
-.blue[All of the models we will focus on in this course and next are linear. Why?]
-
----
-# Linear models
-
-### Why are straight lines so popular in statistics?
-1. Mathematical simplicity: straight lines are one of the simplest (and consistent) ways of characterizing relationships
-2. Actual linearity: many relationships are best characterized linearly
-
-### What if my data isn't related in linear ways
-1. Transformations: we will learn how to use these later to fit linear models to curvilinear data
-2. Limited ranges of X may yield linearity: most things are "locally linear"
-
-.red[**In fact, linear modeling is so tractable that this is what we will spend the entire course on! And the next one (EDUC 645)!**]
-
---
-
-We'll learn about lots of different modeling approaches. .red[**They are all part of the same family of models, known as the General Linear Model (GLM)**]. We will learn more about this GLM in Unit 4.
-
----
-# Linear reqression equation
-
-Okay, so once we have selected our model's functional form (which for now and the foreseeable future is going to be "linear"), we can move on to a mathematical representation. In this case, we are going to specify a .red[**linear regression**] model.
-
-A linear regression equation borrows the mathematical framework for a line to summarize this relationship.
-$$BMI = \beta_0 + \beta_1(DietaryRestraint)$$
----
-# Regression equations
-
-The regression line describes the mean value of Y for each possible "input" value of X.
-
-$$BMI = \beta_0 + \beta_1(DietaryRestraint)$$
-
---
-Our data already provides us with observations of BMI and dietary restraint:
-
-```{r, echo = F}
-do %>% 
-  select(EDEQ_restraint, BMI) %>% 
-  head()
-```
-
---
-So, modelling requires us to find the best intercept $(\beta_0)$ and slope $(\beta_1)$ to represent the relationship.
-
----
-# Regression equation components
-
-$$BMI = \color{orange}{(\beta_0)} + \color{purple}{(\beta_1)}(DietaryRestraint)$$
-
-<span style = "color:orange"> Intercept $(\beta_0)$: </span> Predicted outcome when X is equal to 0.
-
---
-
-<span style = "color:purple"> Slope $(\beta_1)$: </span> Predicted increase in the outcome for every one unit increase in X.
-
---
-
-**Write out the appropriate regression equation for a line that has an intercept of 20 and Dietary Restraint slope of 1.5.**
-
----
-# Regression equation components
-
-<span style = "color:orange"> Intercept $(\beta_0)$: </span> Predicted outcome when X is equal to 0.
-
-<span style = "color:purple"> Slope $(\beta_1)$: </span> Predicted increase in the outcome for every one unit increase in X.
-
-
-$$BMI = \color{orange}{20} + \color{purple}{1.5}(DietaryRestraint)$$
-**What is the expected BMI value for a Dietary Restraint rating of 2?**
----
-# Regression equation components
-
-<span style = "color:orange"> Intercept $(\beta_0)$: </span> Predicted outcome when X is equal to 0.
-
-<span style = "color:purple"> Slope $(\beta_1)$: </span> Predicted increase in the outcome for every one unit increase in X.
-
-
-
-$$BMI = \color{orange}{20} + \color{purple}{1.5}(2) = 20 + 3 = 23$$
-**For a Dietary Restraint rating of 2, the predicted BMI value is 23.**
----
-# Error/residual term
-"No model is perfect, but some are useful." - George Box
-
-```{r, echo = F, fig.height = 5, fig.width = 7}
-lm_plot +
-  geom_smooth(method='lm', se=F)
-```
-
-Is Dietary Restraint a perfect predictor of BMI? 
-
---
-
-.red[NO!]
-
----
-# Omitted variables
-A "perfect" regression equation would probably include a lot more variables:
-
-$$BMI = \beta_0 + \beta_1(\text{Dietary Restraint}) + \beta_2(\text{Meal Frequency}) + \beta_3(\text{Nutritional Habits})... \beta_\infty$$
-Many of these might not even be measurable!
-
---
-
-Omitted variables are not a problem in themselves. Our estimates of the relationship between two (or more) variables might still be unbiased (i.e., accurately describe the nature of the relationship in the population), but they may be less precise because we have not explained all of the variation.
-
---
-
-However, omitted variables often introduce bias into our estimates of the relationship. More on the problem of omitted variable bias later.
-
----
-# Residual/Error term
-
-In a regression model, all the variability that we couldn't explain with our predictor is condensed into a <span style="color:green"> residual term $\varepsilon$ </span>.
-
-```{r, echo = F, fig.height = 5, fig.width = 7}
-fit <- lm(BMI ~ EDEQ_restraint, data=do)
-do$predict <- predict(fit)
-do %>% 
-  sample_n(100) %>% 
-  ggplot(aes(x=EDEQ_restraint, y=BMI)) + 
-  geom_point() + 
-  geom_point(aes(y=predict), col = "blue", alpha=0.3) +
-  geom_segment(aes(xend = EDEQ_restraint, yend=predict), col = "green", alpha = 0.5) +
-  geom_smooth(aes(EDEQ_restraint, predict))
-
-```
-
-$$BMI = \beta_0 + \beta_1(DietaryRestraint) + \color{green}{\varepsilon}$$
----
-# The regression model
-
-So there it is! Our full population regression model:
-
-$$Y = \color{blue}{\beta_{0} + \beta_{1} X} + \color{green}{\varepsilon}$$
-<div style= "text-align:center"> Outcome = .blue[Systematic component] + .green[residual]<sup>1</sup></div>
-
-> $Y$: our outcome <br>
-$\color{blue}{\beta_{0}}$ and $\color{blue}{\beta_{1}}$: our population parameters and regression coefficients to be estimated <br>
-$\color{green}{\varepsilon}$: our error/residual ( $\varepsilon$ is a fancy way of writing the Greek letter "epsilon")
-
-Also written as:
-
-$$Y_{i} = \beta_{0} + \beta_{1} X_{i} + \varepsilon_{i}$$
-where we use the subscript $i$ to emphasize that the model estimates the outcome for each of the $i$ units (students, schools, patients, etc.).
-
-.footnote[[1] Sometimes also called deterministic and stochastic components.]
----
-# A fitted model
-
-A **fitted model** takes our popualtion model and uses our observed data to derive estimates for the population. 
-$$\hat{Y_{i}} = \hat{\beta_{0}} + \hat{\beta_{1}} X_{i}$$
-We denote that we are generating estimates with "hats" above the estimated coefficients. Note that there is ***no error term*** in our fitted model. 
-
----
-# Residuals
-
-For any observation, the residual is the difference between the observed and predicted value.
-
-$$\varepsilon_i = Y_i - \hat{Y_i}$$
-
-
----
-# Ordinary Least Squares (OLS)
-
-An OLS-fitted regression would go through the "center" of the data, finding the best intercept and slope to minimize the total distance between all of the residual and itself.
-
-
-```{r, echo = F, fig.height = 5, fig.width = 7}
-fit <- lm(BMI ~ EDEQ_restraint, data=do)
-do$predict <- predict(fit)
-do %>% 
-  sample_n(100) %>% 
-  ggplot(aes(x=EDEQ_restraint, y=BMI)) + 
-  geom_point() + 
-  geom_point(aes(y=predict), col = "blue", alpha=0.3) +
-  geom_segment(aes(xend = EDEQ_restraint, yend=predict), col = "green", alpha = 0.5) +
-  geom_smooth(aes(EDEQ_restraint, predict))
-
-```
-
---
-
-For some observations we under-predict, for others we over-predict. But, across the full sample, no matter where we put our line, the residuals will always sum to zero. .blue[So how do we calculate the "best" line?]
-
----
-# Sum of the squared residuals
-
-For any observation, the residual is the difference between the observed and predicted value.
-
-$$\varepsilon_i = Y_i - \hat{Y_i}$$
-
-Squaring the residual terms $(\varepsilon_i^2)$ allows us to treat negative and positive deviations equally, and puts a greater penalty on larger deviations.
-
-```{r, echo = F, comment = NA}
-resid_table <- do %>% 
-  select(BMI, predict) %>% 
-  rename(predicted_BMI = predict) %>% 
-  mutate(residual = BMI - predicted_BMI,
-         residual_sq = residual^2) %>% 
-  mutate(across(everything(), round, 2))
-
-head(resid_table)
-```
---
-
-The **sum of squares** is the sum of all our squared residuals:
-
-$$\Large \Sigma(\varepsilon_i)^2$$
-
----
-# Ordinary Least Squares (OLS)
-
-An OLS-fitted regression finds the best intercept and slope values to **minimize the sum of squared residuals**.
-
-.pull-left[
-```{r, echo = F}
-good_fit <- do %>% 
-  mutate(predict = (24 + 1.5*EDEQ_restraint))
-set.seed(100)
-good_fit_plot <- good_fit %>% 
-  sample_n(100) %>% 
-  ggplot(aes(x=EDEQ_restraint, y=BMI)) + 
-  geom_point() + 
-  geom_point(aes(y=predict), col = "blue", alpha=0.3) +
-  geom_segment(aes(xend = EDEQ_restraint, yend=predict), col = "green", alpha = 0.5) +
-  geom_smooth(aes(EDEQ_restraint, predict))
-
-good_fit_plot
-
-```
-]
-
-.pull-right[
-```{r, echo = F}
-bad_fit <- do %>% 
-  mutate(predict = (31 + 1.3*EDEQ_restraint))
-set.seed(100)
-bad_fit_plot <- bad_fit %>% 
-  sample_n(100) %>% 
-  ggplot(aes(x=EDEQ_restraint, y=BMI)) + 
-  geom_point() + 
-  geom_point(aes(y=predict), col = "blue", alpha=0.3) +
-  geom_segment(aes(xend = EDEQ_restraint, yend=predict), col = "green", alpha = 0.5) +
-  geom_smooth(aes(EDEQ_restraint, predict))
-
-bad_fit_plot
-
-```
-
-]
-
-Which regression line appears to be a better fit?
-
----
-# Ordinary Least Squares (OLS)
-
-An OLS-fitted regression finds the best intercept and slope values to minimize the sum of squared residuals.
-
-.pull-left[
-```{r, echo = F}
-good_fit_plot
-```
-$\bf{\Sigma(e_i)^2 = 67314.93}$
-
-]
-
-.pull-right[
-```{r, echo = F}
-bad_fit_plot
-```
-$\Sigma(e_i)^2 = 100859.80$
-]
-
-Using the OLS method, the regression line on the left is a better fit (67,314 < 100,859).
-
----
-# Sum of Squared Residuals (SSR)
-
-SSR is a grander concept than just model predictions. It is a way of thinking about variability.
-
---
-
-Our outcome's variability is simply the sum of squared deviations from its mean.
-
-$$SSR_\text{BMI} = \sum{(Y_i - \bar{Y})^2}$$
-```{r, fig.height = 4, fig.width = 6, echo = F}
-do <- do %>% 
-  mutate(participant_id = seq(1:1092))
-
-do %>% 
-  filter(participant_id <= 30) %>% 
-  ggplot(aes(x = participant_id, y = BMI)) +
-  geom_point() +
-  geom_hline(yintercept = mean(do$BMI), color = "blue") +
-  geom_segment(aes(xend = participant_id, yend=mean(do$BMI)), col = "green", alpha = 0.5) +
-  geom_label(x = 15, y = mean(do$BMI), label = "Mean BMI", color= "blue")
-
-```
----
-Get a feel for trying to minimize the *sum of the square of the residuals*
-```{r, echo=F, fig.height=8}
-include_app(c("https://daviddl.shinyapps.io/line_ss/"), height="550px")
-
-```
----
-
-# Partitioning variance
-
-The goal of regression is to account for some of this variability with our model's predictors.
-
-We can partition the outcome's total variance ( $SS_{BMI}$) into:
-* Model-accounted variance ( $SS_\text{Model}$)
-* Residual variance ( $SS_\text{Residual}$)
-
-$$SS_\text{BMI} = SS_\text{Model} + SS_\text{Residual}$$
---
-
-Remember our goal with OLS regression is to find the model coefficients that minimize $SS_\text{Residual}$.
-
-
----
-# Partitioning variance
-$$\text{If } SS_\text{BMI} = \color{purple}{SS_\text{Model}} + {SS_\text{Residual}}$$
-
-$\color{purple}{SS_\text{Model}}$ is the sum of squared deviations between the model predicted values $(\hat{Y})$ and the mean $(\bar{Y})$.
-
-```{r, echo = F, fig.height = 4, fig.width=6}
-do %>% 
-  filter(participant_id <= 30) %>% 
-  ggplot(aes(x = participant_id, y = BMI)) +
-  geom_point() + 
-  geom_point(aes(y=predict), col = "purple", alpha=0.3) +
-  geom_segment(aes(xend = participant_id, y = mean(do$BMI), yend=predict), col = "purple", alpha = 0.5) +
-  geom_hline(yintercept = mean(do$BMI), color = "blue")
-
-```
-$$\color{purple}{SS_\text{Model} = \sum{(\hat{Y} - \bar{Y})^2}}$$
----
-# Partitioning variance
-$$\text{If } SS_\text{BMI} = \color{purple}{SS_\text{Model}} + \color{green}{SS_\text{Residual}}$$
-
-$\color{green}{SS_\text{Residual}}$ is the sum of squared deviations between the model predicted values $(\hat{Y})$ and the observed values $(Y)$.
-
-```{r, echo = F, fig.height = 4, fig.width=6}
-do %>% 
-  filter(participant_id <= 30) %>% 
-  ggplot(aes(x = participant_id, y = BMI)) +
-  geom_point() + 
-  geom_point(aes(y=predict), col = "purple", alpha=0.3) +
-  geom_segment(aes(xend = participant_id, y = mean(do$BMI), yend=predict), col = "purple", alpha = 0.5) +
-  geom_hline(yintercept = mean(do$BMI), color = "blue") +
-  geom_segment(aes(xend = participant_id, y = predict, yend=BMI), col = "green", alpha = 0.5)
-
-```
-$$\color{green}{SS_\text{Model} = \sum{(Y - \hat{Y})^2}}$$
-
----
-# $R^2$
-
-Partitioning variance can be useful for model evaluation.
-
-$$SS_\text{BMI} = SS_\text{Model} + SS_\text{Residual}$$
-$R^2$ ("R-squared") is the proportion of variance in the outcome our model accounts for.
-
-$$R^2 = \frac{SS_\text{Model}}{SS_\text{BMI}}$$
---
-For example, if $R^2 = 0.30$, then our model accounts for 30% of our sample's variance in BMI.
-
---
-More on this soon.
-
----
-# Evaluating a regression
-
-Let's try fitting our regression in R.
-
-```{r}
-fit <- lm(BMI ~ EDEQ_restraint, do)
-summary(fit)
-```
-
-
----
-# Evaluating regression coefficients
-
-Here we can find our intercept and slope coefficients for our linear regression.
-
-```{r, highlight.output = c(4,5), echo = F, output.lines = -(1:8), comment = NA}
-summary(fit)
-
-```
-
-**The predicted BMI for a young male with a dietary restraint rating of 0 is 23.94 $(\beta_0)$.**
-
---
-
-**On average, each one unit difference in dietary restraint is positively associated with a 1.03 $(\beta_1)$ difference in BMI.**
-- .blue[Why not just say "increase" or "decrease"?] Be careful of causal language! More on this in a bit!
-
----
-# Evaluating regression residuals
-
-```{r, highlight.output = 9, echo = F, output.lines = -(1:8), comment = NA}
-summary(fit)
-
-```
-
-The residual standard error (RSE) also known as the Root Mean Square Error (RMSE) is the standard deviation of the residuals. This summarizes the variability of observed values around the model-predicted values, in the original units of the outcome. This value is important to our homoscedasticity assumption (Unit 2).
-
-$$RSE = 6.086$$
-
-This means observed values vary around our model-predicted BMI with a standard deviation of 6.086. In BMI, 6 units is quite large!
-
----
-# Degrees of freedom
-
-Though it's not critical that you learn how to calculate the RMSE, it is relevant that is is a function of the **degrees of freedom** $(df)$ in your regression:
-
-$$RMSE = \frac{\text{sum of squares}}{n-(\text{# of parameters estimated})_{SS}}$$
-Our degrees of freedom decrease each time we use another parameter (add a predictor to our regression) to calculate the sum of squares. In a bivariate regression, our degrees of freedom (aka, the denominator) will always be $n-2$ because we are estimating two parameters $\beta_0$ and $\beta_1$.
-
-With smaller samples and lots of covariates, we can quickly use up our degrees of freedom. 
-
---
-
-.blue[What happens to our model's precision as our degrees of freedom decreases?]
-
----
-# Evaluating regression $R^2$
-
-Here is our summary of model performance.
-
-```{r, highlight.output = 10, echo = F, output.lines = -(1:8), comment = NA}
-summary(fit)
-
-```
-
-The R-squared value is .05.
-
-This means that our model accounts for 5% of the variance in BMI. Since our model has only one predictor, we can alternatively say Dietary Restraint accounts for 5% of the variance in BMI.
-
---
-
-- What about the rest? Measurement error, random individual variation, other causes (inherited traits, social phenomena, lack of access)
-
-
----
-# What does (and doesn't) $R^2$ mean?
-
-$R^2$ describes what proportion of the variation in the outcome the full regression model has explained.
-
-Whether or not your model has a high or low $R^2$ is:
-- Disciplinary dependent
-- Entirely independent from whether or not your model accurately characterizes the relationship
-
-$R^2$ does **NOT**:
-- Imply anything about causality
-- Tell us anything about whether there exists a linear or non-linear relationship (more on this soon)
-- Tell us anything about the magnitude (steepness/shallowness) of the slope
----
-class: middle, inverse
-
-# Regression inference
-
----
-# A review of inference
-
-Go back to Units 2, 3 and 4 of EDUC 641 for a refresher on Null-Hypothesis Testing (NHST), the Central Limit Theorem and $t$-distributions.
-
----
-# Repeated sampling
-
-.red[Add simulation of repeated sampling generating different regression lines that approach "population" slope]
-
----
-# Slope $(\hat{\beta_{1}})$ sampling distribution 
-
-.red[Add simulation of different estimated slopes producing histogram of values from 641/slides/continuous_l2.rmd]
-
-The standard deviation of a sampling distribution is known as a .red[**standard error**].
-
----
-# Basic review of NHST
-
-We start by imagining a hypothetical world in which there is **no relationship** between X and Y in our true population. Then, we imagine drawing a series of samples over and over again (say...10,000 times) from this hypothetical population. What values of $\hat{\beta_{1}}$ might we observe?
-
----
-# $p$-values
-
-The statistic that captures the likelihood that one would observe a value of $\hat{\beta_{1}}$ of a given magnitude in a particular sample, in the presence of a null population, is called the .red[*p*-value].
-
-Prior to interacting with our data, we set an **alpha threshold**; a probability threshold, below which we will consider $p$ to be so small that it is unlikely that we would have gotten this result if the null were true, and we will reject the null hypothesis. Above this value, we will fail to reject the null.
-
-In social science research, it is customary to (arbitrarily) set that threshold at **5 percent** ( $p$<0.05). In other words, we say that if the difference between our observed data and our expected data would have happened in fewer than 1 out of 20 randomly drawn samples, that the difference reflects a true difference in the population.
-
----
-# What are we testing?
-
-There are multiple inferential tests in a regression model:
-* Tests of the coefficients
-* Test of the model (omnibus test) 
-
-```{r, highlight.output = c(4, 5, 11), echo = F, output.lines = -(1:8), comment = NA}
-summary(fit)
-
-```
-
----
-# Statistical inference test of $\hat{\beta_{1}}$
-
-Significance tests of regression coefficients test the null hypothesis that $\beta = 0$. (there is no linear relationship between the predictor and the outcome).
-
-$$\Large H_{0}: \beta_{1}= 0$$
-$$\Large H_{1} \text{or} \Large H_{A}: \beta_{1} \neq 0$$
-Here, the $p$-value refers to the probability of obtaining a slope equal to or more extreme than $\beta$ assuming $H_0$ is true. 
-
---
-
-.blue[But where do we get that *p*-value from?]
-
----
-# Student's $t$-distribution
-
-.pull-left[
-- William Sealy Gosset, then a Head Experimental Brewer at Guiness Beer, wrote a pseudonymously published article in 1908 showing that estimates of $(\hat{\beta_{1}})$ divided by their standard error form a defined distribution
-- This distribution is now known as Student's $t$-distribution
-- Why *Student's* $t$-distribtion? Gosset's pseudonym was "Student"
-]
-
-.pull-right[
-```{r, echo=F}
-include_graphics("gosset.jpg")
-```
-]
-
-The $t$-statistic represents an estimate of how many standard errors $\hat{\beta_1}$ lies away from 0 in the $t$-distribution.
-
-$$t = \frac{\hat{\beta_1} - \beta_{1}}{SE(\hat{\beta_1})}$$
-
-- When we posit a null hypothesis, we assume that $\beta_{1}=0$
----
-# $t$-distributions
-
-* The degrees of freedom for our $t$-statistic is always *n*-1, where *n* is our sample size
-* $t$-distributions with fewer degrees of freedom have "fatter" tails
-* As the degrees of freedom get larger, the $t$-distribution approaches a standard normal distribution
-
-  
-```{r, echo=F, animation.hook="gifski", interval=0.6, fig.height=5}
-
-df_seq <- tibble(df = seq(1, 31, 2))
-
-for (i in 1:nrow(df_seq)) {
-x <- ggplot(data.frame(x = c(-4, 4)), aes(x = x)) +
-  stat_function(fun = dnorm,
-                aes(color = "normal")) +
-  stat_function(fun = dt, 
-                args = list(df = df_seq$df[i]),
-                color = "green") +
-  ggtitle("T-Distributions",
-          subtitle = paste("df =", df_seq$df[i])) +
-  theme_classic() +
-  theme(plot.title = element_text(hjust = 0.5),
-        plot.subtitle = element_text(hjust = 0.5))
-print(x)
-}
-```
-
-
----
-# How large is enough?
-
-Generally, as we get to around 50 degrees of freedom, our $t$-distribution approaches a standard normal distribution, and our inferences are straightforward because the $p$-values for our $t$-test are the same as $p$-values are in the standard normal distribution.
-
-### Critical values of $t_{\text{observed}}$
-
-| $df$  |   **0.10**    |   **0.05**   |  **0.01** 
-|-------|-----------------------------------------
-|  10   |   1.81        |  2.23        | 3.17
-|  20   |   1.72        |  2.09        | 2.85
-|  30   |   1.70        |  2.04        | 2.75
-|  50   |   1.68        |  2.01        | 2.68
-|  100  |   1.66        |  1.98        | 2.63
-|  $\rightarrow \infty$ | **1.64**   |  **1.96**  |  **2.58**
-
----
-# Regression coefficients: $\hat{\beta_{0}}$
-
-Our R output shows us the significance of the intercept. (Typically, we are not interested in whether the intercept differs from 0.)
-
-```{r, highlight.output = c(4), echo = F, output.lines = -(1:8), comment = NA}
-summary(fit)
-```
-
----
-# Regression coefficients: $\hat{\beta_{1}}$
-
-```{r, highlight.output = c(5), echo = F, output.lines = -(1:8), comment = NA}
-summary(fit)
-```
-
-$$t = \frac{\hat{\beta_1} - 0}{SE(\hat{\beta_1})} = \frac{1.04}{.14} = 7.43$$
-$$Pr(t < -7.43 \text{ or } t > 7.43)|H_0 = 0.000000000000048 \text{ or p <.001}$$
----
-# Regression coefficients
-
-```{r, highlight.output = c(5), echo = F, output.lines = -(1:8), comment = NA}
-summary(fit)
-```
-
-Under the null hypothesis, it is extremely unlikely to obtain a Dietary Restraint slope of 1.04 (p < .001). Therefore, we can reject the null and conclude that there is a positive relationship between Dietary Restraint rating and BMI, on average in the population.
-
----
-# Confidence intervals (CIs)
-
-Can we identify a range of plausible values for $\hat{\beta_{1}}$? Perhaps, we can use our sampling distribution to construct intervals that offer a range of plausible values for the population parameter.
-
-.red[show simulation of estimate slopes and describe how 19 of 20 will fall within a range +/- 1.96*SE around the "true" population slope.]
-
-
-Confidence interval for $\hat{\beta_1}$:
-
-$$\hat{\beta_1} \pm t_{n-2}[se(\hat{\beta_1})]$$
----
-# Confidence intervals (CIs)
-
-```{r, highlight.output = c(5), echo = F, output.lines = -(1:8), comment = NA}
-summary(fit)
-```
-95% CIs:
-$$\hat{\beta_1} \pm t_{n-2}[se(\hat{\beta_1})]$$
-$$ 1.035 \pm 1.96(0.136)$$
-
-$$[0.768, 1.302]$$
-
----
-# Confidence intervals (CIs)
-
-Let's do the same with R
-```{r, echo=T}
-tidy(fit, conf.int=T)
-```
-
---
-
-```{r, echo = F, fig.height = 4}
-lm_plot +  geom_smooth(method='lm')
-```
-
----
-# $F$-Distributions and omnibus tests
-
-The omnibus test uses the $F$-distribution to test the ratio of two variances (i.e., explained vs unexplained variance). This is a different, but similar, distribution to the $t$-distribution. For now, it's not critical that you know how it differs.
-
-Null hypothesis: The model does not account for variance in Y.
-
-If we reject the null, then the model accounts for more variance than we would expect by chance. 
----
-# $F$-Distributions and omnibus tests
-
-Just like tests with other probability distribution, we are testing the probability of obtaining a value (or more extreme value) of F under the $F$-Distribution.
-
-$$\Large F = \frac{MS_{Model}}{MS_{residual}}$$
-
-Mean Squares (MS) are the Sums of Squares divided by their respective degrees of freedom.
-
----
-# Interpreting the omnibus test
-
-```{r, highlight.output = c(11), echo = F, output.lines = -(1:8), comment = NA}
-summary(fit)
-
-```
-
-Our omnibus test was significant (p < .001), therefore we can reject the null hypothesis that the model accounts for zero variance in BMI.
-
----
-# Summarizing regression results
-
-```{r, highlight.output = c(5), echo = F, output.lines = -(1:8), comment = NA}
-summary(fit)
-```
-
-We fit an Ordinary-Least Squares regression model to assess whether there is a relationship between BMI and Dietary Restraint, on average, in the population of young adult males. At an alpha threshold of $p$<0.05, we found that Dietary Restraint was a significant predictor of BMI and accounted for approximately 5 percent of the variance in BMI. On average, each one unit difference in dietary restraint is positively associated with a 1.03 $(\beta_1)$ difference in BMI.
-
----
-# Regressions as a prediction
-
-Regression equations can be used to evaluate the relationship between variables, and to predict expected values based on particular values of our IVs.
-
-We can ask: What is the expected BMI value for a young male with a Dietary Restraint rating of **4**?
-
---
-$$\Large BMI = 23.94 + 1.03*(\boldsymbol{4}) = 28.1$$
-The expected BMI for a Dietary Restraint of 4 is 28.1
-
---
-
-Technically, there is no limit to what we can input!
-
----
-# Predicting beyond your data
-
-Regression equations can be used to evaluate the relationship between variables, and to predict expected values based on particular values of our IVs.
-
-We can ask: What is the expected BMI value for a young male with a Dietary Restraint rating of **400**?
-
---
-
-Using our measure, this is not a possible value of Dietary Restraint but we can still estimate BMI using our regression equation.
-
---
-$$\Large BMI = 23.94 + 1.03*(\boldsymbol{400}) = 439.9$$
-An adult would have to weigh 2,894 pounds at 5' 8" to have a BMI of 439.9.
-
---
-
-**Only predict within the bounds of your data.**
-
----
-class: middle, inverse
-
-# Correlation ...and causality
-
----
-# Correlations
-
-* Correlation coefficients $(r)$ describe the **strength** of a linear relationship between two variables. 
-
-* The concept was first developed by Karl Pearson a eugenics professor at the University College of London. He held many despicable [views](https://nautil.us/issue/92/frontiers/how-eugenics-shaped-statistics).
-
-* He (along with Francis Galton and RA Fisher) also pioneered many of the basic tools of modern statistics, including standard deviation, $\chi^2$, goodness of fit and correlation
-
-* Correlations are dimensionless measures that eliminate the metrics of any particular scale. To do so requires **standardizing** each variable.
-
----
-# Standardizing variables
-
-* Any variable can be standardized using a simple algorithm.
-
-Each observation $(i)$ is transformed into standardized form using the following formula:
-
-$$z_{i} = \frac{X_{i} - \mu}{\sigma}$$
-
-* The standardized value is calculated calculated by **subtracting the mean** from each value and **dividing by the standard deviation**.
-
-* The sample mean of the new variable is 0 and its standard deviation is 1
-
-* The new values represent an observation's distance from the mean in standard deviation units.
-
-* Values range from -1 to 1
-  + Positive Values - higher values of Y $\rightarrow$ higher values of X (and vice-versa)
-  + Negative Values - higher values of Y $\rightarrow$ lower values of X (and vice-versa)
-
-* **Doesn't change anyone's relative rank**
-
-* **Doesn't create a normally distributed variable**
-
----
-# Correlations visualized
-```{r, echo = F, fig.width = 10, fig.height = 6}
-set.seed(5)
-# create the variance covariance matrix
-sigma<-rbind(c(1,-0.2,-0.9), c(-0.2,1, 0.6), c(-0.9,0.6,1))
-# create the mean vector
-mu<-c(10, 5, 2) 
-# generate the multivariate normal distribution
-df<-as.data.frame(mvrnorm(n=100, mu=mu, Sigma=sigma))
-
-small <- ggplot(df, aes(x = V1, y = V2)) +
-  geom_point() +
-  geom_smooth(method = "lm", se = F) +
-  theme_minimal() +
-  ggtitle("Correlation = -.2")
-
-medium <- ggplot(df, aes(x = V2, y = V3)) +
-  geom_point() +
-  geom_smooth(method = "lm", se = F) +
-  theme_minimal() +
-  ggtitle("Correlation = .6")
-
-large <- ggplot(df, aes(x = V1, y = V3)) +
-  geom_point() +
-  geom_smooth(method = "lm", se = F) +
-  theme_minimal() +
-  ggtitle("Correlation = -.9")
-
-gridExtra::grid.arrange(small, medium, large, nrow = 1)
-
-```
----
-# Visualize in our data
-Let's transform *BMI* and *EDEQ_RESTRAINT* into standardized versions:
-```{r, echo=F, fig.height=5}
-stdDO <- do %>% dplyr::select(BMI, EDEQ_restraint)
-stdDO <- stdDO %>% mutate(BMI_s = (BMI - mean(BMI)) / sd(BMI))
-stdDO <- stdDO %>% mutate(EDEQ_s = (EDEQ_restraint - mean(EDEQ_restraint)) / sd(EDEQ_restraint))
-
-std <- ggplot(stdDO, aes(EDEQ_s, BMI_s)) +
-  geom_point() +
-  geom_smooth(method='lm') +
-  theme_minimal(base_size=14)
-
-std
-```
-Note that the scale of our variables have changed.
-
-- The standardized regression line goes through the origin (0, 0)
-
----
-# Visualize in our data
-Let's transform *BMI* and *EDEQ_RESTRAINT* into standardized versions:
-```{r, echo=F, fig.height=5}
-std
-```
-The new fitted regression line is:
-
-$$\hat{BMI_{std}} = 0.000 + 0.2247 * DietaryRestraint_{std}$$
-
-Just for fun, let's multiply that 0.2247 by itself: $(0.2247)^2 = 0.0505$. .blue[**Anything familiar about 0.05?**]
-
----
-# $r$ and $R^2$
-
-$$r = \sqrt{R^2}$$
-The coefficient on the regression of two standardized variables is called the Pearson product-moment coefficient. It is the same as the Pearson product-moment correlation (otherwise known as Pearson correlation). And it is the square root of the $R^2$. 
-
---
-
-That's it, that's the slide...
----
-# Anscombe's Quartet
-
-...but, correlation is not everything. [Frank Anscombe (1973)](https://www.jstor.org/stable/2682899) first highlighted the following set of distributions, all with correlations $(r)$ of exactly 0.816.
-
-```{r, echo=T, out.width="80%", echo=F}
-include_graphics("anscombe.jpg")
-```
-
----
-
-# What correlation does(n't) mean
-
-Four datasets, each with two variables with (nearly) identical means and correlations
-
-```{r, echo=F}
-datasauRus::datasaurus_dozen %>% 
-  filter(dataset %in% c("circle", "h_lines", "slant_down", "dino")) %>%
-  group_by(dataset) %>%
-  summarise(
-    mean(x),
-    mean(y),
-    cor(x, y))
-```
-
-.blue[What's the correlation between x and y  across these four datasets?]
-
---
-
-All seem pretty similar, right? Let's take a look at their bivariate relationship...
-
----
-# What correlation does(n't) mean
-
-```{r, echo=F}
-
-datasauRus::datasaurus_dozen %>% 
-  filter(dataset %in% c("circle", "h_lines", "slant_down", "dino")) %>%
-  ggplot(aes(x=x, y=y, colour=dataset))+
-  geom_point()+
-  theme_minimal(base_size=14)+
-  theme(legend.position = "none")+
-  facet_wrap(~dataset, ncol=2)
-
-
-```
-
-
----
-# Correlation $\neq$ causation
-
-Does U.S. beef consumption cause more "beefs" between Oregonians and their spouses?
-* What is the relationship between Oregon's per capita divorce rate and U.S. per capita beef consumption? 
-
---
-```{r, echo = F, fig.height = 4, fig.width= 8}
-beef <- read_csv(here::here("data/divorce_beef.csv"))
-
-ggplot(beef, aes(divorce_rate, beef_consumption)) +
-  geom_point() +
-  geom_smooth(method = "lm", se = F) +
-  theme_minimal() +
-  ggtitle("Oregon Divorce Rate and U.S. Beef Consumption (2000-2009)")
-```
-
-There certainly seems to be a relationship! Let's fit a simple regression model.
----
-# Divorce and Beef
-
-If we regress divorce rate on beef consumption...
-
-```{r, highlight.output = c(5), echo = F, output.lines = -(1:8), comment = NA}
-m_beef <- lm(divorce_rate ~ beef_consumption, beef)
-summary(m_beef)
-```
-
-Beef consumption accounts for 50% of the variance in Oregon's divorce rate!
-
----
-# Divorce and Beef
-
-If we regress U.S. beef consumption on Oregon's divorce rate...
-
-```{r, highlight.output = c(5), echo = F, output.lines = -(1:8), comment = NA}
-m_beef <- lm(beef_consumption ~ divorce_rate, beef)
-summary(m_beef)
-```
-
-Oregon's divorce rate accounts for 50% of the variance in U.S. beef consumption!
----
-# Divorce and Beef
-
-What can we conclude? - Do increases in Oregon's divorce rate **cause** increases in U.S. beef consumption, or do increases in beef consumption **cause** increases in the divorce rate?
-
---
-
-**Probably neither...**
-
---
-
-We tested for a linear relationship. There is a significant linear relationship (or correlation) between divorce rate and beef consumption, but we have not established a causal relationship.
-
-**We cannot establish causality, nor the direction of the relationship with a statistical test.**
-
-
----
-# Why correlation $\neq$ causation?
-
-```{r, echo=F, fig.height=5}
-dag <- ggdag::dagify(x ~ y,
-                       y ~ x,
-              labels = c("x" = "Beef",
-                         "y" = "Divorce"))
-ggdag::ggdag(dag, layout="circle", use_labels = "label", text_size = 8) +
-  theme_void()
-```
-
----
-# Spurious correlation
-
-```{r, echo=F, fig.height=4}
-dag <- ggdag::dagify(x ~ y,
-                       y ~ z,
-                       x ~ z,
-                       y ~ z,
-                     labels = c("x" = "Beef",
-                         "y" = "Divorce",
-                         "z" = "Winter"))
-ggdag::ggdag(dag, layout="circle", use_labels = "label", text_size = 8) +
-  theme_void()
-```
-
-A third variable causes changes in X and also in Y. Sometimes called a .red[*confounder*].
-
-> .small[It is easy to prove that the wearing of tall hats and the carrying of umbrellas enlarges the chest, prolongs life, and confers comparative immunity from disease...A university degree, a daily bath, the owning of thirty pairs of trousers, a knowledge of Wagner’s music, a pew in church, anything, in short, that implies more means and better nurture…can be statistically palmed off as a magic spell conferring all sorts of privileges...The mathematician whose correlations would fill a Newton with admiration, may, in collecting and accepting data and drawing conclusions from them, fall into quite crude errors by just such popular oversights. -George Bernard Shaw (1906)]
-
----
-# Why correlation $\neq$ causation?
-
-Other common problems include:
-- [Colliders](http://www.the100.ci/2017/03/14/that-one-weird-third-variable-problem-nobody-ever-mentions-conditioning-on-a-collider/): a third variable that is caused by both the predictor and outcome; controlling for this can make a true causal relationship disappear!
-- Reverse causation: X may cause Y **or** Y may cause X
-- Simpson's Paradox: a third variable may reverse the correlation
-- Also, **lack** of correlation $\neq$ **lack** of causality
-
-```{r, echo=F, out.width="40%"}
-include_graphics("causalinf.jpg")
-```
-h/t [@causalinf](https://twitter.com/causalinf)
-
-
-
----
-# From correlation to causality
-
-### Five criteria for establishing causality:<sup>1</sup>
-
-1. Cause must precede effect in time
-2. Identified mechanism
-3. Consistency
-4. Responsiveness
-5. No plausible alternative explanation
-
-Highest priority is establishing .red[**exogeneous variation**] in exposure to some "treatment."
-
---
-
-Research design is critical. So too can be [Directed Acyclical Graphs (DAGs)](https://journals.sagepub.com/doi/pdf/10.1177/2515245917745629). We have whole classes dedicated to just this topic (EDLD 650, EDLD 679).
-
-.footnote[[1] Derived from [Shadish, Cook and Cambpell (2002)](https://books.google.com/books/about/Experimental_and_Quasi_experimental_Desi.html?id=o7jaAAAAMAAJ) and John Stuart Mill.]
-
-
----
-# Turn and Talk
-
-* Discuss science communication and how you would distinguish correlations from causal relationships to the average person.
-
-* In what contexts might it be difficult to conduct an experimental study to establish causality?
-
----
-# Putting it all together
-
----
 class: middle, inverse
 # Synthesis and wrap-up
+
+
+---
+# Class goals
+
+- Describe goals and structure and of the course (and the quantitative EDUC sequence more broadly)
+- Characterize a bivariate relationship along five dimensions (direction, linearity, outliers, strength and magnitude)
+
+
+---
+# To-Dos
+
+### Reading: 
+- LSWR Chapter 15.1 - 15.2 and 15.4 - 15.7
+
+### Assignment:
+- Have downloaded R/RStudio and familiarized yourself with the RStudio environment (Modules 1 & 2 from [R Bootcamp](https://community.uoregon.edu/courses/18778))
+
 

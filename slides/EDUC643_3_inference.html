@@ -1,0 +1,738 @@
+<!DOCTYPE html>
+<html lang="" xml:lang="">
+  <head>
+    <title>Regression inference</title>
+    <meta charset="utf-8" />
+    <meta name="author" content="David D. Liebowitz" />
+    <script src="EDUC643_3_inference_files/header-attrs/header-attrs.js"></script>
+    <link href="EDUC643_3_inference_files/remark-css/default.css" rel="stylesheet" />
+    <link href="EDUC643_3_inference_files/remark-css/uo.css" rel="stylesheet" />
+    <link href="EDUC643_3_inference_files/remark-css/ki-fonts.css" rel="stylesheet" />
+    <link rel="stylesheet" href="my_custom.css" type="text/css" />
+    <link rel="stylesheet" href="xaringanthemer.css" type="text/css" />
+  </head>
+  <body>
+    <textarea id="source">
+class: center, middle, inverse, title-slide
+
+.title[
+# Regression inference
+]
+.subtitle[
+## EDUC 643: Applied Statistics in Education and the Human Services
+]
+.author[
+### David D. Liebowitz
+]
+
+---
+
+
+
+# Roadmap
+
+&lt;img src="Roadmap1.jpg" width="90%" style="display: block; margin: auto;" /&gt;
+
+
+---
+# Goals for the unit
+
+.gray[
+- Characterize a bivariate relationship along five dimensions (direction, linearity, outliers, strength and magnitude)
+- Describe how statistical models differ from deterministic models
+- Mathematically represent the population model and interpret its deterministic and stochastic components
+- Formulate a linear regression model to hypothesize a population relationship
+- Estimated a fitted regression line using Ordinary-Least Squares regression
+- Describe residuals and how they can describe the degree of our OLS model fit
+]
+
+- Explain `\(R^{2}\)`, both in terms of what it tells us and what it does not
+- Conduct an inference test for a regression coefficient and our regression model
+
+.gray[
+- Calculate a correlation coefficient `\((r)\)` and describe its relationship to `\(R^{2}\)`
+- Distinguish between research designs that permit correlational associations and those that permit causal inferences
+]
+
+---
+class: middle, inverse
+
+
+---
+# A motivating question
+
+Researchers (including two from the .green[University of Oregon]), [Nichole Kelly, Elizabeth Cotter and Claire Guidinger (2018)](https://doi.org/10.1016/j.eatbeh.2018.07.003), set out to understand the extent to which young men who exhibit overeating behaviors have weight-related medical and psychological challenges.
+
+&lt;img src="kelly_etal.png" width="955" height="85%" style="display: block; margin: auto;" /&gt;
+
+Using real-world data (generously provided by Nichole Kelly) about the dietary habits, health, and self-appraisals of males 18-30, we are going to attempt to answer a similar question. 
+
+However, before answering this question, we are going to explore **the relationship between dietary restraint behaviors** (self-reports on the extent to which participants consciously restricted/controlled their food intake) **and body-mass index (BMI).**
+
+
+---
+
+&lt;img src="EDUC643_3_inference_files/figure-html/unnamed-chunk-4-1.png" style="display: block; margin: auto;" /&gt;
+
+---
+# Evaluating a regression
+
+Let's try fitting our regression in R.
+
+
+```
+## 
+## Call:
+## lm(formula = BMI ~ EDEQ_restraint, data = do)
+## 
+## Residuals:
+##     Min      1Q  Median      3Q     Max 
+## -19.059  -3.971  -0.931   2.697  33.263 
+## 
+## Coefficients:
+##                Estimate Std. Error t value Pr(&gt;|t|)    
+## (Intercept)     23.9414     0.2635  90.857  &lt; 2e-16 ***
+## EDEQ_restraint   1.0349     0.1360   7.612 5.82e-14 ***
+## ---
+## Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
+## 
+## Residual standard error: 6.086 on 1090 degrees of freedom
+## Multiple R-squared:  0.05048,	Adjusted R-squared:  0.04961 
+## F-statistic: 57.94 on 1 and 1090 DF,  p-value: 5.821e-14
+```
+
+
+---
+# Evaluating regression coefficients
+
+Here we can find our intercept and slope coefficients for our linear regression.
+
+
+```
+
+Call:
+lm(formula = BMI ~ EDEQ_restraint, data = do)
+*
+*Residuals:
+    Min      1Q  Median      3Q     Max 
+-19.059  -3.971  -0.931   2.697  33.263 
+
+Coefficients:
+               Estimate Std. Error t value Pr(&gt;|t|)    
+(Intercept)     23.9414     0.2635  90.857  &lt; 2e-16 ***
+EDEQ_restraint   1.0349     0.1360   7.612 5.82e-14 ***
+---
+Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
+
+Residual standard error: 6.086 on 1090 degrees of freedom
+Multiple R-squared:  0.05048,	Adjusted R-squared:  0.04961 
+F-statistic: 57.94 on 1 and 1090 DF,  p-value: 5.821e-14
+```
+
+**The predicted BMI for a young male with a dietary restraint rating of 0 is 23.94 `\((\beta_0)\)`.**
+
+--
+
+**On average, each one unit difference in dietary restraint is positively associated with a 1.03 `\((\beta_1)\)` difference in BMI.**
+- .blue[Why not just say "increase" or "decrease"?] Be careful of causal language! More on this in a bit!
+
+---
+# Evaluating regression residuals
+
+
+```
+
+Call:
+lm(formula = BMI ~ EDEQ_restraint, data = do)
+
+Residuals:
+    Min      1Q  Median      3Q     Max 
+-19.059  -3.971  -0.931   2.697  33.263 
+
+*Coefficients:
+               Estimate Std. Error t value Pr(&gt;|t|)    
+(Intercept)     23.9414     0.2635  90.857  &lt; 2e-16 ***
+EDEQ_restraint   1.0349     0.1360   7.612 5.82e-14 ***
+---
+Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
+
+Residual standard error: 6.086 on 1090 degrees of freedom
+Multiple R-squared:  0.05048,	Adjusted R-squared:  0.04961 
+F-statistic: 57.94 on 1 and 1090 DF,  p-value: 5.821e-14
+```
+
+The residual standard error (RSE) also known as the Root Mean Square Error (RMSE) is the standard deviation of the residuals. This summarizes the variability of observed values around the model-predicted values, in the original units of the outcome. This value is important to our homoscedasticity assumption (Unit 2).
+
+`$$RSE = 6.086$$`
+
+This means observed values vary around our model-predicted BMI with a standard deviation of 6.086. In BMI, 6 units is quite large!
+
+---
+# Degrees of freedom
+
+Though it's not critical that you learn how to calculate the RMSE, it is relevant that is is a function of the **degrees of freedom** `\((df)\)` in your regression:
+
+`$$RMSE = \frac{\text{sum of squares}}{n-(\text{# of parameters estimated})_{SS}}$$`
+Our degrees of freedom decrease each time we use another parameter (add a predictor to our regression) to calculate the sum of squares. In a bivariate regression, our degrees of freedom (aka, the denominator) will always be `\(n-2\)` because we are estimating two parameters `\(\beta_0\)` and `\(\beta_1\)`.
+
+With smaller samples and lots of covariates, we can quickly use up our degrees of freedom. 
+
+--
+
+.blue[What happens to our model's precision as our degrees of freedom decreases?]
+
+---
+# Evaluating regression `\(R^2\)`
+
+Here is our summary of model performance.
+
+
+```
+
+Call:
+lm(formula = BMI ~ EDEQ_restraint, data = do)
+
+Residuals:
+    Min      1Q  Median      3Q     Max 
+-19.059  -3.971  -0.931   2.697  33.263 
+
+Coefficients:
+*               Estimate Std. Error t value Pr(&gt;|t|)    
+(Intercept)     23.9414     0.2635  90.857  &lt; 2e-16 ***
+EDEQ_restraint   1.0349     0.1360   7.612 5.82e-14 ***
+---
+Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
+
+Residual standard error: 6.086 on 1090 degrees of freedom
+Multiple R-squared:  0.05048,	Adjusted R-squared:  0.04961 
+F-statistic: 57.94 on 1 and 1090 DF,  p-value: 5.821e-14
+```
+
+The R-squared value is .05.
+
+This means that our model accounts for 5% of the variance in BMI. Since our model has only one predictor, we can alternatively say Dietary Restraint accounts for 5% of the variance in BMI.
+
+--
+
+- What about the rest? Measurement error, random individual variation, other causes (inherited traits, social phenomena, lack of access)
+
+
+---
+# What does (and doesn't) `\(R^2\)` mean?
+
+`\(R^2\)` describes what proportion of the variation in the outcome the full regression model has explained.
+
+Whether or not your model has a high or low `\(R^2\)` is:
+- Disciplinary dependent
+- Entirely independent from whether or not your model accurately characterizes the relationship
+
+`\(R^2\)` does **NOT**:
+- Imply anything about causality
+- Tell us anything about whether there exists a linear or non-linear relationship (more on this soon)
+- Tell us anything about the magnitude (steepness/shallowness) of the slope
+---
+class: middle, inverse
+
+# Regression inference
+
+---
+# A review of inference
+
+Go back to Units 2, 3 and 4 of EDUC 641 for a refresher on Null-Hypothesis Testing (NHST), the Central Limit Theorem and `\(t\)`-distributions.
+
+---
+# Repeated sampling
+
+.red[Add simulation of repeated sampling generating different regression lines that approach "population" slope]
+
+---
+# Slope `\((\hat{\beta_{1}})\)` sampling distribution 
+
+.red[Add simulation of different estimated slopes producing histogram of values from 641/slides/continuous_l2.rmd]
+
+The standard deviation of a sampling distribution is known as a .red[**standard error**].
+
+---
+# Basic review of NHST
+
+We start by imagining a hypothetical world in which there is **no relationship** between X and Y in our true population. Then, we imagine drawing a series of samples over and over again (say...10,000 times) from this hypothetical population. What values of `\(\hat{\beta_{1}}\)` might we observe?
+
+---
+# `\(p\)`-values
+
+The statistic that captures the likelihood that one would observe a value of `\(\hat{\beta_{1}}\)` of a given magnitude in a particular sample, in the presence of a null population, is called the .red[*p*-value].
+
+Prior to interacting with our data, we set an **alpha threshold**; a probability threshold, below which we will consider `\(p\)` to be so small that it is unlikely that we would have gotten this result if the null were true, and we will reject the null hypothesis. Above this value, we will fail to reject the null.
+
+In social science research, it is customary to (arbitrarily) set that threshold at **5 percent** ( `\(p\)`&lt;0.05). In other words, we say that if the difference between our observed data and our expected data would have happened in fewer than 1 out of 20 randomly drawn samples, that the difference reflects a true difference in the population.
+
+---
+# What are we testing?
+
+There are multiple inferential tests in a regression model:
+* Tests of the coefficients
+* Test of the model (omnibus test) 
+
+
+```
+
+Call:
+lm(formula = BMI ~ EDEQ_restraint, data = do)
+*
+*Residuals:
+    Min      1Q  Median      3Q     Max 
+-19.059  -3.971  -0.931   2.697  33.263 
+
+Coefficients:
+               Estimate Std. Error t value Pr(&gt;|t|)    
+*(Intercept)     23.9414     0.2635  90.857  &lt; 2e-16 ***
+EDEQ_restraint   1.0349     0.1360   7.612 5.82e-14 ***
+---
+Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
+
+Residual standard error: 6.086 on 1090 degrees of freedom
+Multiple R-squared:  0.05048,	Adjusted R-squared:  0.04961 
+F-statistic: 57.94 on 1 and 1090 DF,  p-value: 5.821e-14
+```
+
+---
+# Statistical inference test of `\(\hat{\beta_{1}}\)`
+
+Significance tests of regression coefficients test the null hypothesis that `\(\beta = 0\)`. (there is no linear relationship between the predictor and the outcome).
+
+`$$\Large H_{0}: \beta_{1}= 0$$`
+`$$\Large H_{1} \text{or} \Large H_{A}: \beta_{1} \neq 0$$`
+Here, the `\(p\)`-value refers to the probability of obtaining a slope equal to or more extreme than `\(\beta\)` assuming `\(H_0\)` is true. 
+
+--
+
+.blue[But where do we get that *p*-value from?]
+
+---
+# Student's `\(t\)`-distribution
+
+.pull-left[
+- William Sealy Gosset, then a Head Experimental Brewer at Guiness Beer, wrote a pseudonymously published article in 1908 showing that estimates of `\((\hat{\beta_{1}})\)` divided by their standard error form a defined distribution
+- This distribution is now known as Student's `\(t\)`-distribution
+- Why *Student's* `\(t\)`-distribtion? Gosset's pseudonym was "Student"
+]
+
+.pull-right[
+&lt;img src="gosset.jpg" width="267" style="display: block; margin: auto;" /&gt;
+]
+
+The `\(t\)`-statistic represents an estimate of how many standard errors `\(\hat{\beta_1}\)` lies away from 0 in the `\(t\)`-distribution.
+
+`$$t = \frac{\hat{\beta_1} - \beta_{1}}{SE(\hat{\beta_1})}$$`
+
+- When we posit a null hypothesis, we assume that `\(\beta_{1}=0\)`
+---
+# `\(t\)`-distributions
+
+* The degrees of freedom for our `\(t\)`-statistic is always *n*-1, where *n* is our sample size
+* `\(t\)`-distributions with fewer degrees of freedom have "fatter" tails
+* As the degrees of freedom get larger, the `\(t\)`-distribution approaches a standard normal distribution
+
+  
+  
+&lt;img src="EDUC643_3_inference_files/figure-html/unnamed-chunk-11-.gif" style="display: block; margin: auto;" /&gt;
+
+---
+# How large is enough?
+
+Generally, as we get to around 50 degrees of freedom, our `\(t\)`-distribution approaches a standard normal distribution, and our inferences are straightforward because the `\(p\)`-values for our `\(t\)`-test are the same as `\(p\)`-values are in the standard normal distribution.
+
+### Critical values of `\(t_{\text{observed}}\)`
+
+| `\(df\)`  |   **0.10**    |   **0.05**   |  **0.01** 
+|-------|-----------------------------------------
+|  10   |   1.81        |  2.23        | 3.17
+|  20   |   1.72        |  2.09        | 2.85
+|  30   |   1.70        |  2.04        | 2.75
+|  50   |   1.68        |  2.01        | 2.68
+|  100  |   1.66        |  1.98        | 2.63
+|  `\(\rightarrow \infty\)` | **1.64**   |  **1.96**  |  **2.58**
+
+---
+# Regression coefficients: `\(\hat{\beta_{0}}\)`
+
+Our R output shows us the significance of the intercept. (Typically, we are not interested in whether the intercept differs from 0.)
+
+
+```
+
+Call:
+lm(formula = BMI ~ EDEQ_restraint, data = do)
+*
+Residuals:
+    Min      1Q  Median      3Q     Max 
+-19.059  -3.971  -0.931   2.697  33.263 
+
+Coefficients:
+               Estimate Std. Error t value Pr(&gt;|t|)    
+(Intercept)     23.9414     0.2635  90.857  &lt; 2e-16 ***
+EDEQ_restraint   1.0349     0.1360   7.612 5.82e-14 ***
+---
+Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
+
+Residual standard error: 6.086 on 1090 degrees of freedom
+Multiple R-squared:  0.05048,	Adjusted R-squared:  0.04961 
+F-statistic: 57.94 on 1 and 1090 DF,  p-value: 5.821e-14
+```
+
+---
+# Regression coefficients: `\(\hat{\beta_{1}}\)`
+
+
+```
+
+Call:
+lm(formula = BMI ~ EDEQ_restraint, data = do)
+
+*Residuals:
+    Min      1Q  Median      3Q     Max 
+-19.059  -3.971  -0.931   2.697  33.263 
+
+Coefficients:
+               Estimate Std. Error t value Pr(&gt;|t|)    
+(Intercept)     23.9414     0.2635  90.857  &lt; 2e-16 ***
+EDEQ_restraint   1.0349     0.1360   7.612 5.82e-14 ***
+---
+Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
+
+Residual standard error: 6.086 on 1090 degrees of freedom
+Multiple R-squared:  0.05048,	Adjusted R-squared:  0.04961 
+F-statistic: 57.94 on 1 and 1090 DF,  p-value: 5.821e-14
+```
+
+`$$t = \frac{\hat{\beta_1} - 0}{SE(\hat{\beta_1})} = \frac{1.04}{.14} = 7.43$$`
+`$$Pr(t &lt; -7.43 \text{ or } t &gt; 7.43)|H_0 = 0.000000000000048 \text{ or p &lt;.001}$$`
+---
+# Regression coefficients
+
+
+```
+
+Call:
+lm(formula = BMI ~ EDEQ_restraint, data = do)
+
+*Residuals:
+    Min      1Q  Median      3Q     Max 
+-19.059  -3.971  -0.931   2.697  33.263 
+
+Coefficients:
+               Estimate Std. Error t value Pr(&gt;|t|)    
+(Intercept)     23.9414     0.2635  90.857  &lt; 2e-16 ***
+EDEQ_restraint   1.0349     0.1360   7.612 5.82e-14 ***
+---
+Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
+
+Residual standard error: 6.086 on 1090 degrees of freedom
+Multiple R-squared:  0.05048,	Adjusted R-squared:  0.04961 
+F-statistic: 57.94 on 1 and 1090 DF,  p-value: 5.821e-14
+```
+
+Under the null hypothesis, it is extremely unlikely to obtain a Dietary Restraint slope of 1.04 (p &lt; .001). Therefore, we can reject the null and conclude that there is a positive relationship between Dietary Restraint rating and BMI, on average in the population.
+
+---
+# Confidence intervals (CIs)
+
+Can we identify a range of plausible values for `\(\hat{\beta_{1}}\)`? Perhaps, we can use our sampling distribution to construct intervals that offer a range of plausible values for the population parameter.
+
+.red[show simulation of estimate slopes and describe how 19 of 20 will fall within a range +/- 1.96*SE around the "true" population slope.]
+
+
+Confidence interval for `\(\hat{\beta_1}\)`:
+
+`$$\hat{\beta_1} \pm t_{n-2}[se(\hat{\beta_1})]$$`
+---
+# Confidence intervals (CIs)
+
+
+```
+
+Call:
+lm(formula = BMI ~ EDEQ_restraint, data = do)
+
+*Residuals:
+    Min      1Q  Median      3Q     Max 
+-19.059  -3.971  -0.931   2.697  33.263 
+
+Coefficients:
+               Estimate Std. Error t value Pr(&gt;|t|)    
+(Intercept)     23.9414     0.2635  90.857  &lt; 2e-16 ***
+EDEQ_restraint   1.0349     0.1360   7.612 5.82e-14 ***
+---
+Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
+
+Residual standard error: 6.086 on 1090 degrees of freedom
+Multiple R-squared:  0.05048,	Adjusted R-squared:  0.04961 
+F-statistic: 57.94 on 1 and 1090 DF,  p-value: 5.821e-14
+```
+95% CIs:
+`$$\hat{\beta_1} \pm t_{n-2}[se(\hat{\beta_1})]$$`
+$$ 1.035 \pm 1.96(0.136)$$
+
+`$$[0.768, 1.302]$$`
+
+---
+# Confidence intervals (CIs)
+
+Let's do the same with R
+
+```r
+tidy(fit, conf.int=T)
+```
+
+```
+## # A tibble: 2 x 7
+##   term           estimate std.error statistic  p.value conf.low conf.high
+##   &lt;chr&gt;             &lt;dbl&gt;     &lt;dbl&gt;     &lt;dbl&gt;    &lt;dbl&gt;    &lt;dbl&gt;     &lt;dbl&gt;
+## 1 (Intercept)       23.9      0.264     90.9  0          23.4       24.5 
+## 2 EDEQ_restraint     1.03     0.136      7.61 5.82e-14    0.768      1.30
+```
+
+--
+
+&lt;img src="EDUC643_3_inference_files/figure-html/unnamed-chunk-17-1.png" style="display: block; margin: auto;" /&gt;
+
+---
+# `\(F\)`-Distributions and omnibus tests
+
+The omnibus test uses the `\(F\)`-distribution to test the ratio of two variances (i.e., explained vs unexplained variance). This is a different, but similar, distribution to the `\(t\)`-distribution. For now, it's not critical that you know how it differs.
+
+Null hypothesis: The model does not account for variance in Y.
+
+If we reject the null, then the model accounts for more variance than we would expect by chance. 
+---
+# `\(F\)`-Distributions and omnibus tests
+
+Just like tests with other probability distribution, we are testing the probability of obtaining a value (or more extreme value) of F under the `\(F\)`-Distribution.
+
+`$$\Large F = \frac{MS_{Model}}{MS_{residual}}$$`
+
+Mean Squares (MS) are the Sums of Squares divided by their respective degrees of freedom.
+
+---
+# Interpreting the omnibus test
+
+
+```
+
+Call:
+lm(formula = BMI ~ EDEQ_restraint, data = do)
+
+Residuals:
+    Min      1Q  Median      3Q     Max 
+-19.059  -3.971  -0.931   2.697  33.263 
+
+Coefficients:
+               Estimate Std. Error t value Pr(&gt;|t|)    
+*(Intercept)     23.9414     0.2635  90.857  &lt; 2e-16 ***
+EDEQ_restraint   1.0349     0.1360   7.612 5.82e-14 ***
+---
+Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
+
+Residual standard error: 6.086 on 1090 degrees of freedom
+Multiple R-squared:  0.05048,	Adjusted R-squared:  0.04961 
+F-statistic: 57.94 on 1 and 1090 DF,  p-value: 5.821e-14
+```
+
+Our omnibus test was significant (p &lt; .001), therefore we can reject the null hypothesis that the model accounts for zero variance in BMI.
+
+---
+# Summarizing regression results
+
+
+```
+
+Call:
+lm(formula = BMI ~ EDEQ_restraint, data = do)
+
+*Residuals:
+    Min      1Q  Median      3Q     Max 
+-19.059  -3.971  -0.931   2.697  33.263 
+
+Coefficients:
+               Estimate Std. Error t value Pr(&gt;|t|)    
+(Intercept)     23.9414     0.2635  90.857  &lt; 2e-16 ***
+EDEQ_restraint   1.0349     0.1360   7.612 5.82e-14 ***
+---
+Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
+
+Residual standard error: 6.086 on 1090 degrees of freedom
+Multiple R-squared:  0.05048,	Adjusted R-squared:  0.04961 
+F-statistic: 57.94 on 1 and 1090 DF,  p-value: 5.821e-14
+```
+
+We fit an Ordinary-Least Squares regression model to assess whether there is a relationship between BMI and Dietary Restraint, on average, in the population of young adult males. At an alpha threshold of `\(p\)`&lt;0.05, we found that Dietary Restraint was a significant predictor of BMI and accounted for approximately 5 percent of the variance in BMI. On average, each one unit difference in dietary restraint is positively associated with a 1.03 `\((\beta_1)\)` difference in BMI.
+
+---
+# Regressions as a prediction
+
+Regression equations can be used to evaluate the relationship between variables, and to predict expected values based on particular values of our IVs.
+
+We can ask: What is the expected BMI value for a young male with a Dietary Restraint rating of **4**?
+
+--
+`$$\Large BMI = 23.94 + 1.03*(\boldsymbol{4}) = 28.1$$`
+The expected BMI for a Dietary Restraint of 4 is 28.1
+
+--
+
+Technically, there is no limit to what we can input!
+
+---
+# Predicting beyond your data
+
+Regression equations can be used to evaluate the relationship between variables, and to predict expected values based on particular values of our IVs.
+
+We can ask: What is the expected BMI value for a young male with a Dietary Restraint rating of **400**?
+
+--
+
+Using our measure, this is not a possible value of Dietary Restraint but we can still estimate BMI using our regression equation.
+
+--
+`$$\Large BMI = 23.94 + 1.03*(\boldsymbol{400}) = 439.9$$`
+An adult would have to weigh 2,894 pounds at 5' 8" to have a BMI of 439.9.
+
+--
+
+**Only predict within the bounds of your data.**
+    </textarea>
+<style data-target="print-only">@media screen {.remark-slide-container{display:block;}.remark-slide-scaler{box-shadow:none;}}</style>
+<script src="https://remarkjs.com/downloads/remark-latest.min.js"></script>
+<script>var slideshow = remark.create({
+"highlightStyle": "github",
+"highlightLines": true,
+"countIncrementalSlides": false
+});
+if (window.HTMLWidgets) slideshow.on('afterShowSlide', function (slide) {
+  window.dispatchEvent(new Event('resize'));
+});
+(function(d) {
+  var s = d.createElement("style"), r = d.querySelector(".remark-slide-scaler");
+  if (!r) return;
+  s.type = "text/css"; s.innerHTML = "@page {size: " + r.style.width + " " + r.style.height +"; }";
+  d.head.appendChild(s);
+})(document);
+
+(function(d) {
+  var el = d.getElementsByClassName("remark-slides-area");
+  if (!el) return;
+  var slide, slides = slideshow.getSlides(), els = el[0].children;
+  for (var i = 1; i < slides.length; i++) {
+    slide = slides[i];
+    if (slide.properties.continued === "true" || slide.properties.count === "false") {
+      els[i - 1].className += ' has-continuation';
+    }
+  }
+  var s = d.createElement("style");
+  s.type = "text/css"; s.innerHTML = "@media print { .has-continuation { display: none; } }";
+  d.head.appendChild(s);
+})(document);
+// delete the temporary CSS (for displaying all slides initially) when the user
+// starts to view slides
+(function() {
+  var deleted = false;
+  slideshow.on('beforeShowSlide', function(slide) {
+    if (deleted) return;
+    var sheets = document.styleSheets, node;
+    for (var i = 0; i < sheets.length; i++) {
+      node = sheets[i].ownerNode;
+      if (node.dataset["target"] !== "print-only") continue;
+      node.parentNode.removeChild(node);
+    }
+    deleted = true;
+  });
+})();
+// add `data-at-shortcutkeys` attribute to <body> to resolve conflicts with JAWS
+// screen reader (see PR #262)
+(function(d) {
+  let res = {};
+  d.querySelectorAll('.remark-help-content table tr').forEach(tr => {
+    const t = tr.querySelector('td:nth-child(2)').innerText;
+    tr.querySelectorAll('td:first-child .key').forEach(key => {
+      const k = key.innerText;
+      if (/^[a-z]$/.test(k)) res[k] = t;  // must be a single letter (key)
+    });
+  });
+  d.body.setAttribute('data-at-shortcutkeys', JSON.stringify(res));
+})(document);
+(function() {
+  "use strict"
+  // Replace <script> tags in slides area to make them executable
+  var scripts = document.querySelectorAll(
+    '.remark-slides-area .remark-slide-container script'
+  );
+  if (!scripts.length) return;
+  for (var i = 0; i < scripts.length; i++) {
+    var s = document.createElement('script');
+    var code = document.createTextNode(scripts[i].textContent);
+    s.appendChild(code);
+    var scriptAttrs = scripts[i].attributes;
+    for (var j = 0; j < scriptAttrs.length; j++) {
+      s.setAttribute(scriptAttrs[j].name, scriptAttrs[j].value);
+    }
+    scripts[i].parentElement.replaceChild(s, scripts[i]);
+  }
+})();
+(function() {
+  var links = document.getElementsByTagName('a');
+  for (var i = 0; i < links.length; i++) {
+    if (/^(https?:)?\/\//.test(links[i].getAttribute('href'))) {
+      links[i].target = '_blank';
+    }
+  }
+})();
+// adds .remark-code-has-line-highlighted class to <pre> parent elements
+// of code chunks containing highlighted lines with class .remark-code-line-highlighted
+(function(d) {
+  const hlines = d.querySelectorAll('.remark-code-line-highlighted');
+  const preParents = [];
+  const findPreParent = function(line, p = 0) {
+    if (p > 1) return null; // traverse up no further than grandparent
+    const el = line.parentElement;
+    return el.tagName === "PRE" ? el : findPreParent(el, ++p);
+  };
+
+  for (let line of hlines) {
+    let pre = findPreParent(line);
+    if (pre && !preParents.includes(pre)) preParents.push(pre);
+  }
+  preParents.forEach(p => p.classList.add("remark-code-has-line-highlighted"));
+})(document);</script>
+
+<script>
+slideshow._releaseMath = function(el) {
+  var i, text, code, codes = el.getElementsByTagName('code');
+  for (i = 0; i < codes.length;) {
+    code = codes[i];
+    if (code.parentNode.tagName !== 'PRE' && code.childElementCount === 0) {
+      text = code.textContent;
+      if (/^\\\((.|\s)+\\\)$/.test(text) || /^\\\[(.|\s)+\\\]$/.test(text) ||
+          /^\$\$(.|\s)+\$\$$/.test(text) ||
+          /^\\begin\{([^}]+)\}(.|\s)+\\end\{[^}]+\}$/.test(text)) {
+        code.outerHTML = code.innerHTML;  // remove <code></code>
+        continue;
+      }
+    }
+    i++;
+  }
+};
+slideshow._releaseMath(document);
+</script>
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+(function () {
+  var script = document.createElement('script');
+  script.type = 'text/javascript';
+  script.src  = 'https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-MML-AM_CHTML';
+  if (location.protocol !== 'file:' && /^https?:/.test(script.src))
+    script.src  = script.src.replace(/^https?:/, '');
+  document.getElementsByTagName('head')[0].appendChild(script);
+})();
+</script>
+  </body>
+</html>
