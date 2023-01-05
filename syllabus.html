@@ -629,7 +629,7 @@ body {
   padding-top: 60px;
 }
 </style>
-<script src="site_libs/header-attrs-2.14.3/header-attrs.js"></script>
+<script src="site_libs/header-attrs-2.19/header-attrs.js"></script>
 <script src="site_libs/jquery-3.6.0/jquery-3.6.0.min.js"></script>
 <meta name="viewport" content="width=device-width, initial-scale=1" />
 <link href="site_libs/bootstrap-3.3.5/css/cosmo.min.css" rel="stylesheet" />
@@ -799,8 +799,8 @@ $(document).ready(function () {
   border-radius: 4px;
 }
 
-.tabset-dropdown > .nav-tabs > li.active:before {
-  content: "";
+.tabset-dropdown > .nav-tabs > li.active:before, .tabset-dropdown > .nav-tabs.nav-tabs-open:before {
+  content: "\e259";
   font-family: 'Glyphicons Halflings';
   display: inline-block;
   padding: 10px;
@@ -808,16 +808,9 @@ $(document).ready(function () {
 }
 
 .tabset-dropdown > .nav-tabs.nav-tabs-open > li.active:before {
-  content: "&#xe258;";
-  border: none;
-}
-
-.tabset-dropdown > .nav-tabs.nav-tabs-open:before {
-  content: "";
+  content: "\e258";
   font-family: 'Glyphicons Halflings';
-  display: inline-block;
-  padding: 10px;
-  border-right: 1px solid #ddd;
+  border: none;
 }
 
 .tabset-dropdown > .nav-tabs > li.active {
@@ -944,12 +937,23 @@ Lectures
 <span class="down-arrow">&#x25BE;</span>
 </button>
 <div class="nav-dropdown-content">
-<a href="./slides/EDUC643_1_intro.html">Unit 1: Intro to Regression and GLM</a>
-<a href="./slides/EDUC643_2_assumptions.html">Unit 2: Regression Assumptions &amp; Diagnostics</a>
-<a href="./slides/EDUC643_3_mult_regression.html">Unit 3: Multiple Regression</a>
-<a href="./slides/EDUC643_4_ANOVA.html">Unit 4: Categorical Predictors</a>
-<a href="./slides/EDUC643_5_interactions.html">Unit 5: Interactions &amp; Non-linearity</a>
-<a href="./slides/EDUC643_6_modeling.html">Unit 6: Model Building</a>
+<a href="./slides/EDUC643_1_intro.html">1. Intro and bivariate relationships</a>
+<a href="./slides/EDUC643_2_GLM.html">2. GLM</a>
+<a href="./slides/EDUC643_3_inference.html">3. Regression inference</a>
+<a href="./slides/EDUC643_4_correlation.html">4. Correlation...and causality</a>
+<a href="./slides/EDUC643_5_assumptions.html">5. Regression assumptions</a>
+<a href="./slides/EDUC643_5_assumptions.html">6. Regression assumptions</a>
+<a href="./slides/EDUC643_7_mult_regression.html">7. Multiple regression</a>
+<a href="./slides/EDUC643_8_mult_collinearity.html">8. Multi-collinearity</a>
+<a href="./slides/EDUC643_9_categorical.html">9. Categorical predictors</a>
+<a href="./slides/EDUC643_10_ttests.html">10. TWo sample $t$-tests</a>
+<a href="./slides/EDUC643_11_ANOVA.html">11. ANOVA</a>
+<a href="./slides/EDUC643_12_ANCOVA.html">12. ANCOVA and GLM redux</a>
+<a href="./slides/EDUC643_13_nonlinearity.html">13. Non-linearity I</a>
+<a href="./slides/EDUC643_13_nonlinearity.html">14. Non-linearity II</a>
+<a href="./slides/EDUC643_15_interactions.html">15. Interactions I</a>
+<a href="./slides/EDUC643_15_interactions.html">16. Interactions II</a>
+<a href="./slides/EDUC643_17_modeling.html">17. Model building taxonomies</a>
 </div>
 </div>
 </div>
@@ -992,22 +996,55 @@ Lectures
   </a>
   <ul class="dropdown-menu" role="menu">
     <li>
-      <a href="./slides/EDUC643_1_intro.html">Unit 1: Intro to Regression and GLM</a>
+      <a href="./slides/EDUC643_1_intro.html">1. Intro and bivariate relationships</a>
     </li>
     <li>
-      <a href="./slides/EDUC643_2_assumptions.html">Unit 2: Regression Assumptions &amp; Diagnostics</a>
+      <a href="./slides/EDUC643_2_GLM.html">2. GLM</a>
     </li>
     <li>
-      <a href="./slides/EDUC643_3_mult_regression.html">Unit 3: Multiple Regression</a>
+      <a href="./slides/EDUC643_3_inference.html">3. Regression inference</a>
     </li>
     <li>
-      <a href="./slides/EDUC643_4_ANOVA.html">Unit 4: Categorical Predictors</a>
+      <a href="./slides/EDUC643_4_correlation.html">4. Correlation...and causality</a>
     </li>
     <li>
-      <a href="./slides/EDUC643_5_interactions.html">Unit 5: Interactions &amp; Non-linearity</a>
+      <a href="./slides/EDUC643_5_assumptions.html">5. Regression assumptions</a>
     </li>
     <li>
-      <a href="./slides/EDUC643_6_modeling.html">Unit 6: Model Building</a>
+      <a href="./slides/EDUC643_5_assumptions.html">6. Regression assumptions</a>
+    </li>
+    <li>
+      <a href="./slides/EDUC643_7_mult_regression.html">7. Multiple regression</a>
+    </li>
+    <li>
+      <a href="./slides/EDUC643_8_mult_collinearity.html">8. Multi-collinearity</a>
+    </li>
+    <li>
+      <a href="./slides/EDUC643_9_categorical.html">9. Categorical predictors</a>
+    </li>
+    <li>
+      <a href="./slides/EDUC643_10_ttests.html">10. TWo sample $t$-tests</a>
+    </li>
+    <li>
+      <a href="./slides/EDUC643_11_ANOVA.html">11. ANOVA</a>
+    </li>
+    <li>
+      <a href="./slides/EDUC643_12_ANCOVA.html">12. ANCOVA and GLM redux</a>
+    </li>
+    <li>
+      <a href="./slides/EDUC643_13_nonlinearity.html">13. Non-linearity I</a>
+    </li>
+    <li>
+      <a href="./slides/EDUC643_13_nonlinearity.html">14. Non-linearity II</a>
+    </li>
+    <li>
+      <a href="./slides/EDUC643_15_interactions.html">15. Interactions I</a>
+    </li>
+    <li>
+      <a href="./slides/EDUC643_15_interactions.html">16. Interactions II</a>
+    </li>
+    <li>
+      <a href="./slides/EDUC643_17_modeling.html">17. Model building taxonomies</a>
     </li>
   </ul>
 </li>
@@ -1045,9 +1082,10 @@ and other sorts of questions in educational, social and behavior
 research. This course is the second in a three course sequence intended
 to provide a toolkit of statistical concepts, methods and their
 implementation to producers of applied research in education and other
-social sciences. The course is organized around the principle that
-research design depends in part on researchers’ substantive questions
-and their quantitative data available to answer these question. In this
+social sciences.</p>
+<p>The course is organized around the principle that research design
+depends in part on researchers’ substantive questions and their
+quantitative data available to answer these question. In this
 intermediate course, we will focus on applying the General Linear Model
 to Ordinary Least Squares regression analysis. Students will progress
 from bivariate to multiple regression, developing an understanding of
@@ -1063,9 +1101,25 @@ pre-requisite for EDUC 645</em>.</p>
 </div>
 <div id="meeting-time-and-location" class="section level1">
 <h1>Meeting Time and Location</h1>
+<ul>
+<li><em>Class:</em> Tuesdays and Thursdays, 4:00pm - 5:20pm, 276
+Lokey</li>
+<li><em>Lab:</em> Mondays, 4:00pm - 4:50pm, 119 Lokey and Tuesdays,
+5:30pm - 6:20pm 276 Lokey</li>
+</ul>
 </div>
 <div id="instructors" class="section level1">
 <h1>Instructors</h1>
+<ul>
+<li>David Liebowitz (office hours: Thursdays 9-10:30am or by
+appointment)
+<ul>
+<li>Zoom link: <a
+href="https://uoregon.zoom.us/j/6336067468">https://uoregon.zoom.us/j/6336067468</a></li>
+</ul></li>
+<li>Claire Zhang</li>
+<li>Havisha Khurana</li>
+</ul>
 </div>
 <div id="student-learning-outcomes" class="section level1">
 <h1>Student Learning Outcomes</h1>
@@ -1103,7 +1157,24 @@ paper copy if you wish, but it is not required.</p>
 <div id="other-text-resources" class="section level3">
 <h3>Other text resources</h3>
 <p>There are literally dozens of high-quality introductory statistics
-textbooks. We have particularly found…</p>
+textbooks. We have particularly found the following to be helpful:</p>
+<p>Howell, D.C. (2013). Statistical Methods for Psychology. Cengage
+Learning: Belmont, CA. [A balanced book in terms of technical details
+and conceptual discussion. A lot of examples and discussions with a
+context in psychology and social science.]</p>
+<p>Fox, J. (2015) Applied Regression Analysis and Generalized Linear
+Models. 3rd Ed. SAGE Publications: Thousand Oaks, CA. [Focused only on
+regression and a lot more detail in regression diagnostics, remedial
+measures, etc. compared to Howell]</p>
+<p>Darlington, R.B. &amp; Hayes, A.F. (2016) Regression Analysis and
+Linear Models. Guilford Press: New York, NY. [Strong conceptual
+discussion and many examples]</p>
+<p>Gelman, A., Hill, J. &amp; Vehtari, A. (2020). Regression and Other
+Stories. Cambridge University Press: Cambridge, UK. [Focused on applied
+problems of data analysis, estimation, prediction and causal inference.
+Computation in R with code available online. Note: this book primarily
+takes a Bayesian approach to inference and so will be more appropriate
+as you advance in your learning.]</p>
 </div>
 </div>
 <div id="r-and-rstudio" class="section level2">
@@ -1152,11 +1223,10 @@ href="https://stackoverflow.com/questions/tagged/r">StackOverflow</a></li>
 <table>
 <colgroup>
 <col width="4%" />
-<col width="4%" />
-<col width="53%" />
-<col width="22%" />
-<col width="9%" />
 <col width="5%" />
+<col width="56%" />
+<col width="23%" />
+<col width="9%" />
 </colgroup>
 <thead>
 <tr class="header">
@@ -1165,57 +1235,50 @@ href="https://stackoverflow.com/questions/tagged/r">StackOverflow</a></li>
 <th align="left">Topics</th>
 <th align="left">Required Readings</th>
 <th align="left">Assignments</th>
-<th align="left">Quizzes</th>
 </tr>
 </thead>
 <tbody>
 <tr class="odd">
 <td align="left">1</td>
-<td align="left">1 - 3</td>
+<td align="left">1 - 2</td>
 <td align="left">Introduction to the General Linear Model and bivariate
 regression refresher</td>
 <td align="left">LSWR Ch 15.1-15.2 and 15.4-15.7</td>
 <td align="left">Assignment 1</td>
-<td align="left">Quiz 1</td>
 </tr>
 <tr class="even">
 <td align="left">2</td>
-<td align="left">4</td>
+<td align="left">3</td>
 <td align="left">Regression assumptions, diagnostics and residuals</td>
 <td align="left">LSWR Ch 15.8-15.9</td>
 <td align="left">Assignment 2</td>
-<td align="left">Quiz 2</td>
 </tr>
 <tr class="odd">
 <td align="left">3</td>
-<td align="left">5 - 6</td>
+<td align="left">4</td>
 <td align="left">Multiple regression</td>
 <td align="left">LSWR Ch 15.3</td>
 <td align="left">Assingment 3</td>
-<td align="left">Quiz 3</td>
 </tr>
 <tr class="even">
 <td align="left">4</td>
-<td align="left">7 - 8</td>
+<td align="left">5 - 6</td>
 <td align="left">Categorical predictors and ANOVA</td>
 <td align="left">LSWR Ch 14 and 16.6</td>
 <td align="left">Assignment 4</td>
-<td align="left">Quiz 4</td>
 </tr>
 <tr class="odd">
 <td align="left">5</td>
-<td align="left">9</td>
+<td align="left">7 - 8</td>
 <td align="left">Interactions and non-linearity</td>
 <td align="left">LSWR Ch 16.2</td>
 <td align="left">Assignment 5</td>
-<td align="left">Quiz 5</td>
 </tr>
 <tr class="even">
 <td align="left">6</td>
-<td align="left">10</td>
+<td align="left">9 - 10</td>
 <td align="left">Model building and regression taxonomies</td>
 <td align="left">LSWR Ch 15.10-15.11</td>
-<td align="left">-</td>
 <td align="left">-</td>
 </tr>
 <tr class="odd">
@@ -1224,7 +1287,6 @@ regression refresher</td>
 <td align="left">-</td>
 <td align="left">-</td>
 <td align="left">Final</td>
-<td align="left">-</td>
 </tr>
 </tbody>
 </table>
@@ -1239,14 +1301,27 @@ regression refresher</td>
 </ul>
 <div id="quizzes" class="section level2">
 <h2>Quizzes</h2>
-<p>Five classes will begin with a very short multiple-choice quiz that
-is designed to test your knowledge of the theoretical principles
-underlying the statistics we are studying for the week. While some may
-feel that this is overly paternalistic, research evidence shows that
-frequent quizzing increases learning (see a summary of <a
+<p>We will have five (5) short quizzes that are designed to test your
+knowledge of the theoretical principles underlying the statistics and
+analytic strategies we have covered in the previous classes. The goal of
+these quizzes is to serve as a gentle nudge to you to make sure you have
+fully understood and internalized the content we have covered. While
+some may feel that this is overly paternalistic, research evidence shows
+that frequent quizzing increases learning (see a summary of <a
 href="https://www.nytimes.com/2013/11/21/education/frequent-tests-can-enhance-college-learning-study-finds.html">one
-study</a> from the University of Texas). Quizzes will be open book and
-notes (but not laptop/computer).</p>
+study</a> from the University of Texas). After we have covered each
+topic, you should review your lecture notes and ensure that you
+understand the core substantive content, referencing LSWR to help
+clarify any fuzziness. The quizzes will cover the substance of material
+introduced in class only. Based on student feedback, quizzes are to be
+completed at home. The quizzes are intended to be completed in less than
+15 minutes. Quizzes will go live 15 minutes prior to the start of class
+on the designated date on which they are to occur and will remain open
+until 5pm the following day. Outside of the case of an emergency,
+quizzes not completed by 5pm the following day will receive a 0. Quizzes
+are open book, notes and computer, but should be completed
+independently. If students attempt all questions on a quiz, they will
+minimally earn a score of 1 out of 2.</p>
 </div>
 <div id="assignments" class="section level2">
 <h2>Assignments</h2>
@@ -1326,57 +1401,324 @@ displays and writing</td>
 </tr>
 </tbody>
 </table>
+</div>
+<div id="attendance-expectations" class="section level1">
+<h1>Attendance expectations</h1>
+<p>This is a face-to-face course. Attendance is important because we
+will develop our knowledge through in-class activities that require your
+active engagement. We’ll have discussions and group activities that will
+be richer for your presence, and that you won’t be able to benefit from
+if you are not there. While there is not an automatic grade deduction
+for missing classes, we hope to create a value proposition by which
+attending class will help you learn more and excessive absences will
+make it challenging to succeed in the course. In case of unavoidable
+absence, students must inform the instructor as early as possible to
+discuss make-up work.</p>
+</div>
+<div id="grading-scale" class="section level1">
+<h1>Grading scale</h1>
+<p>Final grades are based on the following scale: A+ 98-100%, A 94-97%,
+A- 90-93%; B+ 87-89%, B 83-86%, B- 80-82%, C+ 77-79%, C 73-76%, C-
+70-72%, D+ 67-69%, D 63-66%, D- 60-62%, F 0-59%.</p>
+</div>
+<div id="common-course-policies" class="section level1">
+<h1>Common Course Policies</h1>
 <div id="indigenous-recognition-statement" class="section level2">
 <h2>Indigenous Recognition Statement</h2>
+<p>The University of Oregon is located on Kalapuya Ilihi, the
+traditional indigenous homeland of the Kalapuya people. Today,
+descendants are citizens of the Confederated Tribes of the Grand Ronde
+Community of Oregon and the Confederated Tribes of Siletz Indians of
+Oregon, and they continue to make important contributions in their
+communities, at UO, and across the land we now refer to as Oregon.</p>
 </div>
-<div id="role-of-the-ges" class="section level2">
-<h2>Role of the GEs</h2>
+<div id="graduate-assistants" class="section level2">
+<h2>Graduate assistants</h2>
+<p>If you are concurrently taking any courses with the GEs assigned to
+this course, please let David Liebowitz know. The GEs will not be
+involved with any review of assignments for students in this course who
+are taking other courses concurrently.</p>
 </div>
-<div id="attendance-and-absence-guidelines" class="section level2">
-<h2>Attendance and Absence Guidelines</h2>
+<div id="absence-and-attendance-policies" class="section level2">
+<h2>Absence and Attendance Policies</h2>
+<p>This is a face-to-face course. Attendance is important because we
+will develop our knowledge through in-class activities that require your
+active engagement. We’ll have discussions and group activities that will
+be richer for your presence, and that you won’t be able to benefit from
+if you are not there. While there is not an automatic grade deduction
+for missing classes, we hope to create a value proposition by which
+attending class will help you learn more and excessive absences will
+make it challenging to succeed in the course.</p>
+<p>We know our UO community will still be navigating COVID-19, and some
+students will need to isolate and rest if they get COVID. Please take
+absences only when necessary, so when they are necessary, your prior
+attendance will have positioned you for success. Students with COVID are
+encouraged to seek guidance and resources at <a
+href="https://coronavirus.uoregon.edu/">UO’s COVID-19 Safety
+Resources</a> webpage.</p>
+<p>I will be mindful of the many impacts the unfolding events related to
+COVID-19 may be having on you. There may be situations beyond the
+control of individual students that lead to excessive absences such as
+becoming ill, caring for others, managing home schooling, etc.</p>
 </div>
 <div id="diversity-equity-and-inclusion" class="section level2">
 <h2>Diversity, Equity, and Inclusion</h2>
+<p>It is the policy of the University of Oregon to support and value
+equity and diversity and to provide inclusive learning environments for
+all students. To do so requires that we:</p>
+<ul>
+<li>respect the dignity and essential worth of all individuals.</li>
+<li>promote a culture of respect throughout the University
+community.</li>
+<li>respect the privacy, property, and freedom of others.</li>
+<li>reject bigotry, discrimination, violence, or intimidation of any
+kind.</li>
+<li>practice personal and academic integrity and expect it from
+others.</li>
+<li>promote the diversity of opinions, ideas and backgrounds which is
+the lifeblood of the university.</li>
+</ul>
+<p>In this course, class discussions, projects/activities and
+assignments will challenge students to think critically about and be
+sensitive to the influence, and intersections, of race, ethnicity,
+nationality, documentation, language, religion, gender, socioeconomic
+background, physical and cognitive ability, sexual orientation, and
+other cultural identities and experiences. Students will be encouraged
+to develop or expand their respect and understanding of such
+differences.</p>
+<p>Maintaining an inclusive classroom environment where all students
+feel able to talk about their cultural identities and experiences,
+ideas, beliefs, and values will not only be my responsibility, but the
+responsibility of each class member as well. Behavior that disregards or
+diminishes another student will not be permitted for any reason. This
+means that no racist, ableist, transphobic, xenophobic, chauvinistic or
+otherwise derogatory comments will be allowed. It also means that
+students must pay attention and listen respectfully to each other’s
+comments</p>
 </div>
 <div id="using-pronouns-and-personal-preference" class="section level2">
 <h2>Using Pronouns and Personal Preference</h2>
+<p>The College of Education is always working to include and engage
+everyone. One way we can do this is to share your pronouns, or the words
+you want to be called when people aren’t using your name. Like names,
+pronouns are an important part of how we identify that deserves to be
+respected. And we recognize that assuming someone’s gender can be
+hurtful, especially to members of our community who are transgender,
+genderqueer, or non-binary. As a community, we are all learning together
+about the importance of pronouns and being better allies to the trans
+community on campus. Please discuss the pronouns you wish to be used
+with your professor to help them be aware of how to address you
+respectfully. Please visit this university <a
+href="https://studentlife.uoregon.edu/pronouns">website</a> for more
+information.</p>
 </div>
 <div id="accessible-education" class="section level2">
 <h2>Accessible Education</h2>
+<p>The University of Oregon is working to create inclusive learning
+environments. Please notify me if there are aspects of the instruction
+or design of this course that result in disability-related barriers to
+your participation. Participation includes access to lectures, web-based
+information, in-class activities, and exams. The <a
+href="http://aec.uoregon.edu/">Accessible Education Center</a> works
+with students to provide an instructor notification letter that outlines
+accommodations and adjustments to class design that will enable better
+access. Contact the Accessible Education Center in 360 Oregon Hall at
+541-346-1155 or <a href="uoaec@uoregon.edu">uoaec@uoregon.edu</a> for
+assistance with access or disability-related questions or concerns.</p>
+</div>
+<div id="children-in-class" class="section level2">
+<h2>Children in Class</h2>
+<p>As a parent of three young children, I understand the difficulty in
+balancing academic, work, and family commitments. Here are my policies
+(with credit to <a href="https://github.com/datalorax">Daniel
+Anderson</a>) regarding children in class:</p>
+<ul>
+<li>All breastfeeding babies are welcome in class as often as
+necessary.</li>
+<li>Non-nursing babies and older children are welcome whenever alternate
+arrangements cannot be made. I understand that childcare arrangements
+fall through, partners have conflicting schedules, children get sick,
+and other issues arise that leave caregivers with few other
+options.</li>
+<li>In cases where children come to class, I invite parents/caregivers
+to sit close to the door so as to more easily excuse yourself to attend
+to your child’s needs. Non-parents in the class: please reserve seats
+near the door for your parenting classmates.</li>
+<li>All students are expected to join with me in creating a welcoming
+environment that is respectful of your classmates who bring children to
+class.</li>
+<li>I understand that sleep deprivation and exhaustion are among the
+most difficult aspects of caring for young children. The struggle of
+balancing school, work, childcare, and graduate school is tiring (not to
+mention being in the middle of a pandemic!), and I will do my best to
+accommodate any such issues while maintaining the same high expectations
+for all students enrolled in the class. Please do not hesitate to
+contact me with any questions or concerns.</li>
+</ul>
 </div>
 <div id="reporting-title-ix-experiences" class="section level2">
 <h2>Reporting Title IX Experiences</h2>
+<p>Any student who has experienced sexual assault, relationship
+violence, sex or gender-based bullying, stalking, and/or sexual
+harassment may seek resources and help at safe.uoregon.edu. To get help
+by phone, a student can also call either the UO’s 24-hour hotline at
+541-346-7244 [SAFE], or the non-confidential Title IX Coordinator at
+541-346-8136. From the SAFE website, students may also connect to
+Callisto, a confidential, third-party reporting site that is not a part
+of the university.</p>
+<p>Students experiencing any other form of prohibited discrimination or
+harassment can find information at <a
+href="https://respect.uoregon.edu/">https://respect.uoregon.edu/</a> or
+<a href="https://aaeo.uoregon.edu/">https://aaeo.uoregon.edu/</a> or
+contact the non-confidential AAEO office at 541-346-3123 or the Dean of
+Students Office at 541-346-3216 for help. As UO policy has different
+reporting requirements based on the nature of the reported harassment or
+discrimination, additional information about reporting requirements for
+discrimination or harassment unrelated to sexual assault, relationship
+violence, sex or gender based bullying, stalking, and/or sexual
+harassment is available at <a
+href="http://aaeo.uoregon.edu/content/discrimination-harassment">http://aaeo.uoregon.edu/content/discrimination-harassment</a></p>
+<p>Specific details about confidentiality of information and reporting
+obligations of employees can be found at <a
+href="https://titleix.uoregon.edu">https://titleix.uoregon.edu</a>.</p>
 </div>
-<div id="reporting-obligations" class="section level2">
-<h2>Reporting Obligations</h2>
+<div id="mandatory-reporter-status" class="section level2">
+<h2>Mandatory Reporter Status</h2>
+<p>I am an assisting employee. For information about my reporting
+obligations as an employee, please see Employee Reporting Obligations on
+the Office of Investigations and Civil Rights Compliance (OICRC)
+website. Students experiencing any form of prohibited discrimination or
+harassment, including sex or gender-based violence, may seek information
+and resources at safe.uoregon.edu, respect.uoregon.edu, or
+investigations.uoregon.edu or contact the non-confidential Title IX
+office/Office of Civil Rights Compliance (541-346-3123), or Dean of
+Students offices (541-346-3216), or call the 24-7 hotline 541-346-SAFE
+for help. I am also a mandatory reporter of child abuse. Please find
+more information at Mandatory Reporting of Child Abuse and Neglect</p>
 </div>
-<div id="academic-misconduct" class="section level2">
-<h2>Academic Misconduct</h2>
+<div id="academic-integrity" class="section level2">
+<h2>Academic Integrity</h2>
+<p>The University Student Conduct Code (available at
+conduct.uoregon.edu) defines academic misconduct. Students are
+prohibited from committing or attempting to commit any act that
+constitutes academic misconduct. By way of example, students should not
+give or receive (or attempt to give or receive) unauthorized help on
+assignments or examinations without express permission from the
+instructor. Students should properly acknowledge and document all
+sources of information (e.g. quotations, paraphrases, ideas) and use
+only the sources and resources authorized by the instructor. If there is
+any question about whether an act constitutes academic misconduct, it is
+the students’ obligation to clarify the question with the instructor
+before committing or attempting to commit the act. Additional
+information about a common form of academic misconduct, plagiarism, is
+available at <a
+href="https://researchguides.uoregon.edu/citing-plagiarism">https://researchguides.uoregon.edu/citing-plagiarism</a></p>
 </div>
 <div id="inclement-weather" class="section level2">
 <h2>Inclement Weather</h2>
+<p>It is generally expected that class will meet unless the University
+is officially closed for inclement weather. If it becomes necessary to
+cancel class while the University remains open, this will be announced
+on Canvas and by email. Updates on inclement weather and closure are
+also communicated in other ways described <a
+href="https://hr.uoregon.edu/about-hr/campus-notifications/inclement-weather/inclement-weather-immediate-updates">here</a>.</p>
 </div>
 <div id="mental-health-and-wellness" class="section level2">
 <h2>Mental Health and Wellness</h2>
+<p>Life at college can be very complicated. Students often feel
+overwhelmed or stressed, experience anxiety or depression, struggle with
+relationships, or just need help navigating challenges in their life. If
+you’re facing such challenges, you don’t need to handle them on your
+own–there’s help and support on campus.</p>
+<p>As your instructor if I believe you may need additional support, I
+will express my concerns, the reasons for them, and refer you to
+resources that might be helpful. It is not my intention to know the
+details of what might be bothering you, but simply to let you know I
+care and that help is available. Getting help is a courageous thing to
+do—for yourself and those you care about. University Health Services
+help students cope with difficult emotions and life stressors. If you
+need general resources on coping with stress or want to talk with
+another student who has been in the same place as you, visit the Duck
+Nest (located in the EMU on the ground floor) and get help from one of
+the specially trained Peer Wellness Advocates. Find out more at
+health.uoregon.edu/ducknest.</p>
+<p>University Counseling Services (UCS) has a team of dedicated staff
+members to support you with your concerns, many of whom can provide
+identity-based support. All clinical services are free and confidential.
+Find out more at counseling.uoregon.edu or by calling 541-346-3227
+(anytime UCS is closed, the After-Hours Support and Crisis Line is
+available by calling this same number).</p>
 </div>
 <div id="basic-needs" class="section level2">
 <h2>Basic Needs</h2>
+<p>Any student who has difficulty affording groceries or accessing
+sufficient food to eat every day, or who lacks a safe and stable place
+to live and believes this may affect their performance in the course is
+urged to contact the Dean of Students Office (346-3216, 164 Oregon Hall)
+for support. This UO webpage includes resources for food, housing,
+healthcare, childcare, transportation, technology, finances, and legal
+support: <a href="https://blogs.uoregon.edu/basicneeds/food/"
+class="uri">https://blogs.uoregon.edu/basicneeds/food/</a></p>
 </div>
 <div id="accommodation-for-religious-observances"
 class="section level2">
 <h2>Accommodation for Religious Observances</h2>
+<p>The university makes reasonable accommodations, upon request, for
+students who are unable to attend a class for religious obligations or
+observance reasons, in accordance with the university discrimination
+policy which says “Any student who, because of religious beliefs, is
+unable to attend classes on a particular day shall be excused from
+attendance requirements and from any examination or other assignment on
+that day. The student shall make up the examination or other assignment
+missed because of the absence.” To request accommodations for this
+course for religious observance, visit the Office of the Registrar’s
+website (<a
+href="https://registrar.uoregon.edu/calendars/religious-observances"
+class="uri">https://registrar.uoregon.edu/calendars/religious-observances</a>)
+and complete and submit to the instructor the “Student Religious
+Accommodation Request” form prior to the end of the second week of the
+term.</p>
 </div>
 <div id="conflict-resolution" class="section level2">
 <h2>Conflict Resolution</h2>
+<p>Several options, both informal and formal, are available to resolve
+conflicts for students who believe they have been subjected to or have
+witnessed bias, unfairness, or other improper treatment.</p>
+<p>It is important to exhaust the administrative remedies available to
+you including discussing the conflict with the specific individual,
+contacting the Department Head, or within the College of Education, fall
+term you can contact the Associate Dean for Academic Affairs, Sylvia
+Linan-Thompson, <a
+href="mailto%20:%20sthomps5@uoregon.edu">sthomps5@uoregon.edu</a>.
+Outside the College, you can contact:</p>
+<ul>
+<li><a href="http://bias.uoregon.edu/whatbrt.htm">UO Bias Response
+Team</a>: 346-3216<br />
+</li>
+<li>[Conflict Resolution Services}(<a
+href="http://studentlife.uoregon.edu/support"
+class="uri">http://studentlife.uoregon.edu/support</a>): 346-3216</li>
+<li><a href="http://aaeo.uoregon.edu/">Affirmative Action and Equal
+Opportunity</a>: 346-3123</li>
+</ul>
 </div>
 <div id="grievance-policy" class="section level2">
 <h2>Grievance Policy</h2>
+<p>A student or group of students of the College of Education may appeal
+decisions or actions pertaining to admissions, programs, evaluation of
+performance and program retention and completion. Students who decide to
+file a grievance should follow University <a
+href="https://policies.uoregon.edu/grievance-procedures">student
+grievance procedures</a> and/or consult with the College Associate Dean
+for Academic Affairs (Sylvia Linan-Thompson, <a
+href="mailto%20:%20sthomps5@uoregon.edu">sthomps5@uoregon.edu</a>.</p>
 </div>
 <div id="course-incomplete-policy" class="section level2">
 <h2>Course Incomplete Policy</h2>
-</div>
-<div id="more-per-university-requirements" class="section level2">
-<h2>More per university requirements…</h2>
+<p>Students are expected to be familiar with university policy regarding
+grades of “incomplete” and the time line for completion. For details on
+the policy and procedures regarding incompletes, Please see: <a
+href="https://education.uoregon.edu/academics/incompletes-courses">https://education.uoregon.edu/academics/incompletes-courses</a></p>
 </div>
 </div>
 

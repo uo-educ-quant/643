@@ -1,5 +1,5 @@
 ---
-title: "The General Linear Model (GLM)"
+title: "General Linear Model (GLM)"
 subtitle: "EDUC 643: Applied Statistics in Education and the Human Services II"
 author: "David D. Liebowitz"
 #date: "`r format(Sys.time(), '%d %B %Y')`"
@@ -41,6 +41,7 @@ extra_css <- list(
   ".red"   = list(color = "red"),
   ".blue"  =list(color = "blue"),
   ".red-pink" = list(color= "red_pink"),
+  ".orange" = list(color="orange"),
   ".gray" = list(color= "#B3B3B3"),
   ".purple" = list(color = "purple"),
   ".small" = list("font-size" = "90%"),
@@ -139,12 +140,10 @@ However, before answering this question, we are going to explore **the relations
 # Reading in the data
 ```{r, echo=T}
 do <- read_spss(here("data/male_do_eating.sav")) %>% 
-    select(Study_ID, BMI, age_year, income_group, OE_frequency, 
-         EDEQ_restraint, DERS_total, DMS_mean, EDS_total, 
-          MBAS_muscularity, MBAS_height, SATAQ_total) %>%
-        drop_na()
-# note: we are focusing only on those cases that had complete records  
-#       for all these variables
+    select(OE_frequency, EDEQ_restraint, EDS_total,
+           BMI, age_year, income_group) %>%
+    mutate(EDS_total = ifelse(EDS_total==-99, NA, EDS_total)) %>%
+    drop_na()
 ```
 
 ---
@@ -162,9 +161,9 @@ Five ways to characterize them
 
 .pull-right[
 ```{r, echo = F}
-lm_plot <- ggplot(do, aes(x=EDEQ_restraint, y=BMI)) + 
+lm_plot <- ggplot(do, aes(x=EDEQ_restraint, y=OE_frequency)) + 
   geom_point() +
-  ggtitle("BMI vs Dietary restraint") +
+  ggtitle("Over-eating vs Dietary restraint") +
     theme_minimal(base_size = 16)
 
 
@@ -174,16 +173,14 @@ lm_plot
 ---
 # A line through our cloud
 
-Notice that in the previous slide, we added a line running through our data
-
-```{r, echo = F, fig.height=4.5}
+```{r, echo = F, fig.height=4}
 lm_plot +
   geom_smooth(method='lm', se=F)
 ```
-That line is defined by the intercept (value $Y$ takes when $X=0$) and the slope (the difference in $Y$ per 1 unit difference in $X$)
+We added a line running through our data. That line is defined by the intercept (value $Y$ takes when $X=0$) and the slope (the difference in $Y$ per 1 unit difference in $X$)
 > $Y = intercept + slope*X$ (you may have seen this in HS as Y = mX + b)
 
-> We could think of this relationship, therefore, as $BMI = slope*EDEQrestraint + intercept$ ... .purple[but that's not quite right]
+> We could think of this relationship, therefore, as $BMI = slope*EDEQrestraint + intercept$ ... In fact, that's how we described this in EDUC 641, .purple[but that's not quite right]
 
 ---
 # Mathematical representations
@@ -208,7 +205,7 @@ In addition to visual representations, we can borrow from mathematical models to
 
 --
 
-.blue[*What is wrong about describing the relationship between BMI and eating restraint as we did on the previous slide?*]
+.blue[*What is wrong about describing the relationship between over-eating frequency and eating restraint as we did on the previous slide?*]
 
 ---
 # Statistical model
@@ -246,7 +243,7 @@ gridExtra::grid.arrange(linear, quad, curv, ncol=3)
 
 --
 
-.blue[All of the models we will focus on in this course and next are linear. Why?]
+.blue[All of the models we will focus on in this course are linear. Why?]
 
 ---
 # Linear models
@@ -259,7 +256,7 @@ gridExtra::grid.arrange(linear, quad, curv, ncol=3)
 1. Transformations: we will learn how to use these later to fit linear models to curvilinear data
 2. Limited ranges of X may yield linearity: most things are "locally linear"
 
-.red[**In fact, linear modeling is so tractable that this is what we will spend the entire course on! And the next one (EDUC 645)!**]
+.red[**In fact, linear modeling is so tractable that this is what we will spend the entire course on!**]
 
 --
 
@@ -271,21 +268,21 @@ We'll learn about lots of different modeling approaches. .red[**They are all par
 Okay, so once we have selected our model's functional form (which for now and the foreseeable future is going to be "linear"), we can move on to a mathematical representation. In this case, we are going to specify a .red[**linear regression**] model.
 
 A linear regression equation borrows the mathematical framework for a line to summarize this relationship.
-$$BMI = \beta_0 + \beta_1(DietaryRestraint)$$
+$$OvereatingFrequency = \beta_0 + \beta_1(DietaryRestraint)$$
 ---
 # Regression equations
 
 The regression line describes the mean value of Y for each possible "input" value of X.
 
-$$BMI = \beta_0 + \beta_1(DietaryRestraint)$$
+$$OvereatingFrequency = \beta_0 + \beta_1(DietaryRestraint)$$
 
 --
-Our data already provides us with observations of BMI and dietary restraint:
+Our data already provides us with observations of over-eating frequency and dietary restraint:
 
 ```{r, echo = F}
 do %>% 
-  select(EDEQ_restraint, BMI) %>% 
-  head()
+  select(EDEQ_restraint, OE_frequency) %>% 
+  tail()
 ```
 
 --
@@ -294,13 +291,13 @@ So, modelling requires us to find the best intercept $(\beta_0)$ and slope $(\be
 ---
 # Regression equation components
 
-$$BMI = \color{orange}{(\beta_0)} + \color{purple}{(\beta_1)}(DietaryRestraint)$$
+$$OvereatingFrequency = \color{orange}{(\beta_0)} + \color{purple}{(\beta_1)}(DietaryRestraint)$$
 
-<span style = "color:orange"> Intercept $(\beta_0)$: </span> Predicted outcome when X is equal to 0.
+.orange[Intercept] $\color{orange}{(\beta_0)}$: Predicted outcome when X is equal to 0.
 
 --
 
-<span style = "color:purple"> Slope $(\beta_1)$: </span> Predicted increase in the outcome for every one unit increase in X.
+.purple[Slope] $\color{purple}{(\beta_1)}$: Predicted difference in the outcome for every one unit difference in X.
 
 --
 
@@ -309,44 +306,45 @@ $$BMI = \color{orange}{(\beta_0)} + \color{purple}{(\beta_1)}(DietaryRestraint)$
 ---
 # Regression equation components
 
-<span style = "color:orange"> Intercept $(\beta_0)$: </span> Predicted outcome when X is equal to 0.
+.orange[Intercept] $\color{orange}{(\beta_0)}$: Predicted outcome when X is equal to 0.
 
-<span style = "color:purple"> Slope $(\beta_1)$: </span> Predicted increase in the outcome for every one unit increase in X.
+.purple[Slope] $\color{purple}{(\beta_1)}$: Predicted difference in the outcome for every one unit difference in X.
 
 
-$$BMI = \color{orange}{20} + \color{purple}{1.5}(DietaryRestraint)$$
-**What is the expected BMI value for a Dietary Restraint rating of 2?**
+$$OvereatingFrequency = \color{orange}{20} + \color{purple}{1.5}(DietaryRestraint)$$
+**What is the expected over-eating frequency for a Dietary Restraint rating of 2?**
+
 ---
 # Regression equation components
 
-<span style = "color:orange"> Intercept $(\beta_0)$: </span> Predicted outcome when X is equal to 0.
+.orange[Intercept] $\color{orange}{(\beta_0)}$: Predicted outcome when X is equal to 0.
 
-<span style = "color:purple"> Slope $(\beta_1)$: </span> Predicted increase in the outcome for every one unit increase in X.
+.purple[Slope] $\color{purple}{(\beta_1)}$: Predicted difference in the outcome for every one unit difference in X.
 
 
 
-$$BMI = \color{orange}{20} + \color{purple}{1.5}(2) = 20 + 3 = 23$$
-**For a Dietary Restraint rating of 2, the predicted BMI value is 23.**
+$$OvereatingFrequency = \color{orange}{20} + \color{purple}{1.5}(2) = 20 + 3 = 23$$
+**For a Dietary Restraint rating of 2, the predicted over-eating frequency value is 23.**
+
 ---
 # Error/residual term
 "No model is perfect, but some are useful." - George Box
 
-```{r, echo = F, fig.height = 5, fig.width = 7}
+```{r, echo = F, fig.height = 4.5, fig.width = 7}
 lm_plot +
   geom_smooth(method='lm', se=F)
 ```
 
-Is Dietary Restraint a perfect predictor of BMI? 
+Is Dietary Restraint a perfect predictor of Overeating Frequency? 
 
 --
-
 .red[NO!]
 
 ---
 # Omitted variables
 A "perfect" regression equation would probably include a lot more variables:
 
-$$BMI = \beta_0 + \beta_1(\text{Dietary Restraint}) + \beta_2(\text{Meal Frequency}) + \beta_3(\text{Nutritional Habits})... \beta_\infty$$
+$$Overeating = \beta_0 + \beta_1(\text{Dietary Restraint}) + \beta_2(\text{Meal Frequency}) + \beta_3(\text{Nutritional Habits})... \beta_\infty$$
 Many of these might not even be measurable!
 
 --
@@ -360,14 +358,14 @@ However, omitted variables often introduce bias into our estimates of the relati
 ---
 # Residual/Error term
 
-In a regression model, all the variability that we couldn't explain with our predictor is condensed into a <span style="color:green"> residual term $\varepsilon$ </span>.
+In a regression model, all the variability that we couldn't explain with our predictor is condensed into a .green[residual term] $\color{green}{\varepsilon}$.
 
-```{r, echo = F, fig.height = 5, fig.width = 7}
-fit <- lm(BMI ~ EDEQ_restraint, data=do)
+```{r, echo = F, fig.height = 4, fig.width = 7}
+fit <- lm(OE_frequency ~ EDEQ_restraint, data=do)
 do$predict <- predict(fit)
 do %>% 
   sample_n(100) %>% 
-  ggplot(aes(x=EDEQ_restraint, y=BMI)) + 
+  ggplot(aes(x=EDEQ_restraint, y=OE_frequency)) + 
   geom_point() + 
   geom_point(aes(y=predict), col = "blue", alpha=0.3) +
   geom_segment(aes(xend = EDEQ_restraint, yend=predict), col = "green", alpha = 0.5) +
@@ -375,7 +373,7 @@ do %>%
 
 ```
 
-$$BMI = \beta_0 + \beta_1(DietaryRestraint) + \color{green}{\varepsilon}$$
+$$OvereatingFrequency = \beta_0 + \beta_1(DietaryRestraint) + \color{green}{\varepsilon}$$
 ---
 # The regression model
 
@@ -384,8 +382,8 @@ So there it is! Our full population regression model:
 $$Y = \color{blue}{\beta_{0} + \beta_{1} X} + \color{green}{\varepsilon}$$
 <div style= "text-align:center"> Outcome = .blue[Systematic component] + .green[residual]<sup>1</sup></div>
 
-> $Y$: our outcome <br>
-$\color{blue}{\beta_{0}}$ and $\color{blue}{\beta_{1}}$: our population parameters and regression coefficients to be estimated <br>
+> $Y$: our outcome <br> <br>
+$\color{blue}{\beta_{0}}$ and $\color{blue}{\beta_{1}}$: our population parameters and regression coefficients to be estimated <br> <br>
 $\color{green}{\varepsilon}$: our error/residual ( $\varepsilon$ is a fancy way of writing the Greek letter "epsilon")
 
 Also written as:
@@ -394,10 +392,11 @@ $$Y_{i} = \beta_{0} + \beta_{1} X_{i} + \varepsilon_{i}$$
 where we use the subscript $i$ to emphasize that the model estimates the outcome for each of the $i$ units (students, schools, patients, etc.).
 
 .footnote[[1] Sometimes also called deterministic and stochastic components.]
+
 ---
 # A fitted model
 
-A **fitted model** takes our popualtion model and uses our observed data to derive estimates for the population. 
+A **fitted model** takes our population model and uses our observed data to derive estimates for the population. 
 $$\hat{Y_{i}} = \hat{\beta_{0}} + \hat{\beta_{1}} X_{i}$$
 We denote that we are generating estimates with "hats" above the estimated coefficients. Note that there is ***no error term*** in our fitted model. 
 
@@ -415,12 +414,12 @@ $$\varepsilon_i = Y_i - \hat{Y_i}$$
 An OLS-fitted regression would go through the "center" of the data, finding the best intercept and slope to minimize the total distance between all of the residual and itself.
 
 
-```{r, echo = F, fig.height = 5, fig.width = 7}
-fit <- lm(BMI ~ EDEQ_restraint, data=do)
+```{r, echo = F, fig.height = 4, fig.width = 7}
+fit <- lm(OE_frequency ~ EDEQ_restraint, data=do)
 do$predict <- predict(fit)
 do %>% 
   sample_n(100) %>% 
-  ggplot(aes(x=EDEQ_restraint, y=BMI)) + 
+  ggplot(aes(x=EDEQ_restraint, y=OE_frequency)) + 
   geom_point() + 
   geom_point(aes(y=predict), col = "blue", alpha=0.3) +
   geom_segment(aes(xend = EDEQ_restraint, yend=predict), col = "green", alpha = 0.5) +
@@ -443,13 +442,13 @@ Squaring the residual terms $(\varepsilon_i^2)$ allows us to treat negative and 
 
 ```{r, echo = F, comment = NA}
 resid_table <- do %>% 
-  select(BMI, predict) %>% 
-  rename(predicted_BMI = predict) %>% 
-  mutate(residual = BMI - predicted_BMI,
+  select(OE_frequency, predict) %>% 
+  rename(predicted_OE = predict) %>% 
+  mutate(residual = OE_frequency - predicted_OE,
          residual_sq = residual^2) %>% 
   mutate(across(everything(), round, 2))
 
-head(resid_table)
+tail(resid_table)
 ```
 --
 
@@ -465,11 +464,11 @@ An OLS-fitted regression finds the best intercept and slope values to **minimize
 .pull-left[
 ```{r, echo = F}
 good_fit <- do %>% 
-  mutate(predict = (24 + 1.5*EDEQ_restraint))
+  mutate(predict = (1 + 0.85*EDEQ_restraint))
 set.seed(100)
 good_fit_plot <- good_fit %>% 
   sample_n(100) %>% 
-  ggplot(aes(x=EDEQ_restraint, y=BMI)) + 
+  ggplot(aes(x=EDEQ_restraint, y=OE_frequency)) + 
   geom_point() + 
   geom_point(aes(y=predict), col = "blue", alpha=0.3) +
   geom_segment(aes(xend = EDEQ_restraint, yend=predict), col = "green", alpha = 0.5) +
@@ -483,11 +482,11 @@ good_fit_plot
 .pull-right[
 ```{r, echo = F}
 bad_fit <- do %>% 
-  mutate(predict = (31 + 1.3*EDEQ_restraint))
+  mutate(predict = (3 + 1.5*EDEQ_restraint))
 set.seed(100)
 bad_fit_plot <- bad_fit %>% 
   sample_n(100) %>% 
-  ggplot(aes(x=EDEQ_restraint, y=BMI)) + 
+  ggplot(aes(x=EDEQ_restraint, y=OE_frequency)) + 
   geom_point() + 
   geom_point(aes(y=predict), col = "blue", alpha=0.3) +
   geom_segment(aes(xend = EDEQ_restraint, yend=predict), col = "green", alpha = 0.5) +
@@ -510,7 +509,7 @@ An OLS-fitted regression finds the best intercept and slope values to minimize t
 ```{r, echo = F}
 good_fit_plot
 ```
-$\bf{\Sigma(e_i)^2 = 67314.93}$
+$\bf{\Sigma(e_i)^2 = 13690.73}$
 
 ]
 
@@ -518,32 +517,32 @@ $\bf{\Sigma(e_i)^2 = 67314.93}$
 ```{r, echo = F}
 bad_fit_plot
 ```
-$\Sigma(e_i)^2 = 100859.80$
+$\Sigma(e_i)^2 = 22971.23$
 ]
 
-Using the OLS method, the regression line on the left is a better fit (67,314 < 100,859).
+Using the OLS method, the regression line on the left is a better fit (13,691 < 22,971).
 
 ---
 # Sum of Squared Residuals (SSR)
 
-SSR is a grander concept than just model predictions. It is a way of thinking about variability.
+SSR is a bigger concept than just model predictions. It is a way of thinking about variability.
 
 --
 
 Our outcome's variability is simply the sum of squared deviations from its mean.
 
-$$SSR_\text{BMI} = \sum{(Y_i - \bar{Y})^2}$$
+$$SSR_\text{OEfreq} = \sum{(Y_i - \bar{Y})^2}$$
 ```{r, fig.height = 4, fig.width = 6, echo = F}
 do <- do %>% 
-  mutate(participant_id = seq(1:1092))
+  mutate(participant_id = seq(1:1085))
 
 do %>% 
   filter(participant_id <= 30) %>% 
-  ggplot(aes(x = participant_id, y = BMI)) +
+  ggplot(aes(x = participant_id, y = OE_frequency)) +
   geom_point() +
-  geom_hline(yintercept = mean(do$BMI), color = "blue") +
-  geom_segment(aes(xend = participant_id, yend=mean(do$BMI)), col = "green", alpha = 0.5) +
-  geom_label(x = 15, y = mean(do$BMI), label = "Mean BMI", color= "blue")
+  geom_hline(yintercept = mean(do$OE_frequency), color = "blue") +
+  geom_segment(aes(xend = participant_id, yend=mean(do$OE_frequency)), col = "green", alpha = 0.5) +
+  geom_label(x = 15, y = mean(do$OE_frequency), label = "Mean Overeating Freq.", color= "blue")
 
 ```
 ---
@@ -558,11 +557,11 @@ include_app(c("https://daviddl.shinyapps.io/line_ss/"), height="550px")
 
 The goal of regression is to account for some of this variability with our model's predictors.
 
-We can partition the outcome's total variance ( $SS_{BMI}$) into:
-* Model-accounted variance ( $SS_\text{Model}$)
-* Residual variance ( $SS_\text{Residual}$)
+We can partition the outcome's total variance $(SS_{OEfreq})$ into:
+* Model-accounted variance $(SS_\text{Model})$
+* Residual variance $(SS_\text{Residual})$
 
-$$SS_\text{BMI} = SS_\text{Model} + SS_\text{Residual}$$
+$$SS_\text{OEfreq} = SS_\text{Model} + SS_\text{Residual}$$
 --
 
 Remember our goal with OLS regression is to find the model coefficients that minimize $SS_\text{Residual}$.
@@ -570,35 +569,35 @@ Remember our goal with OLS regression is to find the model coefficients that min
 
 ---
 # Partitioning variance
-$$\text{If } SS_\text{BMI} = \color{purple}{SS_\text{Model}} + {SS_\text{Residual}}$$
+$$\text{If } SS_\text{OEfreq} = \color{purple}{SS_\text{Model}} + {SS_\text{Residual}}$$
 
 $\color{purple}{SS_\text{Model}}$ is the sum of squared deviations between the model predicted values $(\hat{Y})$ and the mean $(\bar{Y})$.
 
 ```{r, echo = F, fig.height = 4, fig.width=6}
 do %>% 
   filter(participant_id <= 30) %>% 
-  ggplot(aes(x = participant_id, y = BMI)) +
+  ggplot(aes(x = participant_id, y = OE_frequency)) +
   geom_point() + 
   geom_point(aes(y=predict), col = "purple", alpha=0.3) +
-  geom_segment(aes(xend = participant_id, y = mean(do$BMI), yend=predict), col = "purple", alpha = 0.5) +
-  geom_hline(yintercept = mean(do$BMI), color = "blue")
+  geom_segment(aes(xend = participant_id, y = mean(do$OE_frequency), yend=predict), col = "purple", alpha = 0.5) +
+  geom_hline(yintercept = mean(do$OE_frequency), color = "blue")
 
 ```
 $$\color{purple}{SS_\text{Model} = \sum{(\hat{Y} - \bar{Y})^2}}$$
 ---
 # Partitioning variance
-$$\text{If } SS_\text{BMI} = \color{purple}{SS_\text{Model}} + \color{green}{SS_\text{Residual}}$$
+$$\text{If } SS_\text{OEfreq} = \color{purple}{SS_\text{Model}} + \color{green}{SS_\text{Residual}}$$
 
 $\color{green}{SS_\text{Residual}}$ is the sum of squared deviations between the model predicted values $(\hat{Y})$ and the observed values $(Y)$.
 
 ```{r, echo = F, fig.height = 4, fig.width=6}
 do %>% 
   filter(participant_id <= 30) %>% 
-  ggplot(aes(x = participant_id, y = BMI)) +
+  ggplot(aes(x = participant_id, y = OE_frequency)) +
   geom_point() + 
   geom_point(aes(y=predict), col = "purple", alpha=0.3) +
-  geom_segment(aes(xend = participant_id, y = mean(do$BMI), yend=predict), col = "purple", alpha = 0.5) +
-  geom_hline(yintercept = mean(do$BMI), color = "blue") +
+  geom_segment(aes(xend = participant_id, y = mean(do$OE_frequency), yend=predict), col = "purple", alpha = 0.5) +
+  geom_hline(yintercept = mean(do$OE_frequency), color = "blue") +
   geom_segment(aes(xend = participant_id, y = predict, yend=BMI), col = "green", alpha = 0.5)
 
 ```
@@ -609,12 +608,12 @@ $$\color{green}{SS_\text{Model} = \sum{(Y - \hat{Y})^2}}$$
 
 Partitioning variance can be useful for model evaluation.
 
-$$SS_\text{BMI} = SS_\text{Model} + SS_\text{Residual}$$
+$$SS_\text{OEfreq} = SS_\text{Model} + SS_\text{Residual}$$
 $R^2$ ("R-squared") is the proportion of variance in the outcome our model accounts for.
 
-$$R^2 = \frac{SS_\text{Model}}{SS_\text{BMI}}$$
+$$R^2 = \frac{SS_\text{Model}}{SS_\text{OEfreq}}$$
 --
-For example, if $R^2 = 0.30$, then our model accounts for 30% of our sample's variance in BMI.
+For example, if $R^2 = 0.30$, then our model accounts for 30% of our sample's variance in over-eating frequency.
 
 --
 More on this soon.

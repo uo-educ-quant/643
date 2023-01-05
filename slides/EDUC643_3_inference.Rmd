@@ -220,10 +220,106 @@ class: middle, inverse
 
 Go back to Units 2, 3 and 4 of EDUC 641 for a refresher on Null-Hypothesis Testing (NHST), the Central Limit Theorem and $t$-distributions.
 
+
 ---
 # Repeated sampling
 
-.red[Add simulation of repeated sampling generating different regression lines that approach "population" slope]
+```{r, echo=F, fig.height=7}
+set.seed(1234)
+
+n = 5000
+x = rnorm(n, 2, 0.2)
+epsilon = rnorm(n, 0, 0.2)
+y = 1 + 2*x + epsilon
+
+df = tibble(x, y)
+
+model = lm(y ~ x, data = df)
+
+# df %>% 
+#   ggplot(aes(x = x, y = y)) +
+#   geom_point(alpha=0.1, shape=21) +
+#   geom_smooth(method = "lm", se = FALSE) +
+#   ggpubr::stat_regline_equation() +
+#   ylim(3,7) +
+#   xlim(1.1, 2.7) +
+#   theme_minimal(base_size=16)
+
+ci <- augment(model, interval = "confidence")
+
+plotdf <- tibble(
+  x = ci$x,
+  y = ci$y, 
+  line = ci$.fitted,
+  ci_lwr = ci$.lower,
+  ci_upr = ci$.upper)
+
+plot1 <- plotdf %>% 
+  ggplot(aes(x = x, y = y)) +
+  geom_point(alpha=0.1, shape=21) + 
+  geom_line(aes(x = x, y = line), colour = "blue") +
+  ylim(3,7) +
+  xlim(1.2, 2.7) +
+  ggpubr::stat_regline_equation() +
+  geom_ribbon(aes(x = x, ymin = ci_lwr, ymax = ci_upr), fill = "gray20", alpha = 0.3) +
+  labs(caption = "blue: single estimated linear regression line,
+       gray: 95% CI") +
+  theme_minimal(base_size=16)
+
+plot1
+```
+
+---
+# Repeated sampling
+```{r, echo=F, fig.height=7}
+library(gganimate)
+nsim = 100 ## Number of simulations
+n = 50
+
+sim_tbl <- tibble(
+  x = rnorm(n*nsim, 2, sd = 0.2),
+  epsilon = rnorm(n*nsim, 0, sd = 0.2),
+  y = 1 + 2*x + epsilon,
+  sim_num = rep(1:nsim, n)) ## This tibble puts all the simulated data in one
+
+sim_lm_tbl <- sim_tbl %>% 
+  group_by(sim_num) %>% 
+  nest() %>% ## Group by simulation number and separately fit linear models
+  mutate(
+    lm = purrr::map(.x = data, .f = ~ lm(y ~ x, data = .x)),
+    lm_tidy = purrr::map(lm, broom::tidy))
+
+sim_coef_tbl <- sim_lm_tbl %>% 
+  select(sim_num, lm_tidy) %>% 
+  unnest(lm_tidy) %>% 
+  select(sim_num, term, estimate) %>%
+  pivot_wider(names_from = "term",
+                     values_from = "estimate")
+
+sim_conf_int <- augment(model, newdata = sim_tbl, interval = "confidence") %>% 
+  select(x, y, .lower, .upper)
+
+animation1 = ggplot() +
+  geom_point(data=df, aes(x, y), alpha=0.1, shape=21) +
+  geom_point(data = sim_tbl, aes(x = x, y = y), color = "orange") +
+  geom_ribbon(data = sim_conf_int, aes(x = x, y = y, ymin = .lower, ymax = .upper),
+              alpha = 0.5) +
+  geom_abline(intercept = model$coefficients[1],
+              slope = model$coefficients[2], color = "blue") +
+  geom_abline(data = sim_coef_tbl,
+              aes(slope = x, intercept = `(Intercept)`), 
+              color = "orange") +
+  ylim(3,7) +
+  xlim(1.2, 2.7) +
+  transition_states(sim_num, wrap=FALSE) +
+  shadow_mark(color = "orange", alpha = 0.2) +
+  labs(subtitle = "Simulation {closest_state}",
+       caption = "blue: single estimated linear regression line,
+       orange: 100 simulated linear regression lines") +
+  theme_minimal(base_size=16)
+
+animation1
+```
 
 ---
 # Slope $(\hat{\beta_{1}})$ sampling distribution 

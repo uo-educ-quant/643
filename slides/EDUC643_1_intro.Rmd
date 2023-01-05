@@ -114,44 +114,56 @@ include_graphics("Roadmap.jpg")
 .blue[Given the new-ness of these three courses, there are likely to be shortcomings. We are committed to solving them as they arise, but we ask for your grace in allowing us to do so. In the end, we think this will be a better experience for you and your future program-mates.]
 
 ---
+# Learnings from the fall
+
+- More examples of analysis
+- More examples of write-up
+- More opportunities to collaborate with classmates (engage in active learning)
+
+---
 # Pedagogical orientation of EDUC
 
 - Analysis follows research design that emerges from substantive questions
 - Students learn statistical analysis by doing statistical analysis
-- Start from an assumption of no prior background in mathematics, programming, statistics or research
 - Create an inclusive, supportive environment in which we learn from each other
 - Balance support and academic stretch across a variety of levels of prior experience and comfort with quantitative analysis
+- *Started with an assumption of no prior background in mathematics, programming, statistics or research*
 
 --
 
-<br>
+We assume that you enter this course (EDUC 643) with the ability to:
+- Create an RStudio project, read in a dataset in csv format, filter rows, select columns, understand structure of data, recode variables, assess missingness, and calculate summary statistics for continuous and categorical variables in the R programming language
+- Create simple visualizations describing categorical and continuous variables, and their relationships with each other in R
+- State a quantitative research question and its corresponding null hypothesis
+- Articulate the conceptual basis for a null-hypothesis significance test
+- Conduct a one-sample $t$-test and fit a bivariate Ordinary Least Squares regression
 
-.blue[**Social conventions and schooling practices often convince some people, particularly women,  people of color and disabled individuals, that they are “bad at math.” We believe that quantitative skills, like any other skills, are built through regular practice, over time, and that all of our students can be successful in the EDUC quantitative sequence.**]
+--
+- See [EDUC 641 data management guide](https://daviddliebowitz.github.io/EDUC641_22F/data_management.html) for pointers
 
-.blue[**We encourage all students, particularly those underrepresented in this field, to pursue the EDUC sequence and additional quantitative analysis courses in the COE and around the UO.**]
 
 ---
-# Goals of EDUC 641
+# Goals of EDUC 643
 
-We will focus on describing categorical and continuous data and quantifying relationships between categorical and continuous data. Students will form a solid foundation for frequentist, inferential statistics (and some of critiques of this model). The course seeks to blend a conceptual, mathematical and applied understanding of basic statistical concepts.
+.small[In this intermediate course, we will focus on applying the General Linear Model to Ordinary Least Squares regression analysis. Students will progress from bivariate to multiple regression, developing an understanding of the associated assumptions of these models and tools to solve instances in which those assumptions are unmet. The course seeks to blend a conceptual, mathematical and applied understanding of basic statistical concepts.]
 
 Concrete learning objectives:
-1. Articulate the principles of responsible and ethical quantitative research
-2. Describe, summarize and visualize quantitative data that are categorical and continuous
-3. Describe, summarize and visualize the relationships between quantitative data that are categorical and continuous
-4. Conduct a frequentist null-hypothesis significance test of the relationships between simple categorical and continuous data
-5. Describe strategies to improve the replicability and generalizability of quantitative research
-6. Use the R programming language to conduct all such analyses
+1. Articulate the framework of the General Linear Model as a method to describe relationships between quantitative variables
+2. Distinguish between research designs and analyses that permit different forms of inferences (e.g., relational or causal, inferential or descriptive)
+3. Conduct and interpret (orally and in writing) least-squares regression analyses with continuous outcomes and predictors
+4. Describe the assumptions of least-squares regression analysis and test analytic models for the extent to which they satisfy these assumptions
+5. Generalize the least-squares regression model (conceptually and in practice) to predictors that are categorical, interacted and non-linear
+6. Build taxonomies of sensible regression models in response to independently developed research questions
+7. Use an open-source, object-oriented statistical programming language to conduct all such analyses
 
 ---
 # My personal goals
 
-- Over next two terms, teach you the basics of applied statistics
+- Teach you the basics of applied statistics
 - Challenge you:
-  + These courses assume .blue[*no prior knowledge*] of either programming or math, beyond high-school Algebra I
-  + Thus, I hope EDUC 641 provides a smooth on-ramp for everyone
+  + Everyone did very well in EDUC 641; this course will introduce more challenging material
   + If you're struggling, come talk to me
-  + If the course is too basic, consider either recommended texts for more formal mathematical treatment **AND/OR** the R Bootcamp extension activities (it will get more challenging) **AND/OR** reflect on pedagogical approaches as a future instructor
+  + If the course is too basic, consider either recommended texts for more formal mathematical treatment **AND/OR** programming extensions (see the resources on the [syllabus](../syllabus.html) **AND/OR** reflect on pedagogical approaches as a future instructor
 - Induct you into a graduate-level focus on mastery, rather than an undergraduate-level focus on success
 - Contribute to building a community of live learners and life-long professional colleagues
 - Assign everyone an A
@@ -171,7 +183,7 @@ Concrete learning objectives:
 
 .pull-right[
 ```{r, echo=F}
-# include_graphics("kids.jpg")
+include_graphics("kids.jpg")
 ```
 ]
 
@@ -198,7 +210,7 @@ Concrete learning objectives:
 1. Two 1.5-hour lectures will introduce concepts in interactive lectures, discussion and activities
 2. Readings are intended to supplement material from lectures (these can be completed after the first class of the unit)
 3. Two *OPTIONAL, UNGRADED* weekly lab meetings intended to provide support for R programming tasks. Each lab will cover identical material.
-4. Five (5) quizzes worth trivial amount of points each (2% of grade)
+4. Five (5) take-home quizzes worth trivial amount of points each (2% of grade)
 5. Four (4) data analytic assignments (15% each) + final project (30% of grade)
 
 --
@@ -249,25 +261,36 @@ include_graphics("kelly_etal.png")
 
 .small[Using real-world data (generously provided by Nichole Kelly) about the dietary habits, health, and self-appraisals of males 18-30, we are going to attempt to answer a similar question.]
 
-.small[However, before answering this question, we are going to explore **the relationship between dietary restraint behaviors** (self-reports on the extent to which participants consciously restricted/controlled their food intake) **and body-mass index (BMI).**]
+.small[In particular, we are going to explore the .purple[**relationship**] between **dietary restraint behaviors** (self-reports on the extent to which participants consciously restricted/controlled their food intake) and **over-eating frequency** (participants' self-reported frequency of over-eating episodes).]
 
 ---
 ## Quantitative research design components
 
+.large[
 1. **Research questions**
  + Descriptive
  + Relational
  + Causal
-2. **Question predictors / independent variables (IV)**
+2. **Question predictors**, *sometimes called independent variables (IV)*
  + Fixed attributes (e.g., race, age)
  + Potentially changeable characteristics (e.g., trauma, class size)
  + Interventions (e.g., new curriculum, counseling, programs/policies)
-3. **Outcomes / dependent variables (DV)**
+3. **Outcomes**, *sometimes called dependent variables (DV)*
 4. **Analytic strategy**
+]
+
+--
+
+.blue[**What do you anticipate each of these will be here?**]
 
 ---
 # A glance at the data
 ```{r, echo=T}
+# Not all data comes to us in .csv format
+# Here we'll use the `haven` package to read in SPSS data
+# There are many other such packages, including: `foreign` and `rio`
+
+# install.packages("haven")
 do <- read_spss(here("data/male_do_eating.sav")) %>% 
     select(OE_frequency, EDEQ_restraint, EDS_total,
            BMI, age_year, income_group) 
@@ -276,7 +299,7 @@ head(do)
 ```
 
 ---
-# More
+# More glance-ing
 
 ```{r, echo=T}
 
@@ -284,18 +307,26 @@ str(do)
 ```
 
 ---
-# More glances
+# Check for missingness
 
 ```{r, echo=T}
 
 # Check for missingness
 sapply(do, function(x) sum(is.na(x)))
-# note: we are focusing only on those cases that had complete records  
-#       for all these variables
+
+# Things look good, but we'll focus on those cases that had complete  
+# records for all variables
+do <- do %>% drop_na()
 ```
+
+.blue[**What is this approach to missingness called?**]
+
+--
+.purple[**Listwise deletion**]
+
 ---
-# A glance at the data
-Let's start by focusing on these two variables of interest: dietary restraint (*EDEQ_restraint*) and body-mass index (*BMI*).
+# Even more glance-ing
+Let's start by focusing on a few variables of interest: dietary restraint (***EDEQ_restraint***), over-eating frequency (***OE_frequency***), and exercise-dependency (***EDS_total***).
 ```{r, echo=T}
 summary(do$EDEQ_restraint)
 summary(do$OE_frequency)
@@ -307,10 +338,14 @@ summary(do$EDS_total)
 
 ```{r, echo=T, fig.height=3}
 ggplot(data=do, aes(EDS_total)) + geom_bar()
+```
 
+```{r, echo=T}
 do <- do %>% mutate(EDS_total = ifelse(EDS_total==-99, NA, EDS_total))
 
 sum(is.na(do$EDS_total))
+
+do <- filter(do, !is.na(EDS_total))
 ```
 
 ---
@@ -320,17 +355,17 @@ We are interested in the *relationship* between dietary restraint (*EDEQ_restrai
 
 .pull-left[
 ```{r, echo=F}
-ggplot(do, aes(x=BMI, y=EDEQ_restraint)) + 
+ggplot(do, aes(x=OE_frequency, y=EDEQ_restraint)) + 
   geom_point() +
-  ggtitle("BMI Predicting Dietary Restraint") +
+  ggtitle("Over-eating Predicting Dietary Restraint") +
   theme_minimal(base_size = 16)
 ```
 ]
 .pull-right[
 ```{r, echo = F}
-ggplot(do, aes(x = EDEQ_restraint, y = BMI)) + 
+ggplot(do, aes(x = EDEQ_restraint, y = OE_frequency)) + 
   geom_point() +
-  ggtitle("Dietary Restraint Predicting BMI") +
+  ggtitle("Dietary Restraint Predicting Over-eating") +
   theme_minimal(base_size = 16)
 
 ```
@@ -342,12 +377,12 @@ However, our convention is to consider the variable on the Y-axis to be the one 
 ---
 # Bivariate relationships
 
-For pedagogical reasons, for the moment, we are choosing to plot BMI against dietary restraint. 
+Given the focus of the Kelly et al. paper and for pedagogical reasons, for the moment, we are choosing to plot over-eating frequency against dietary restraint. 
 
 ```{r, echo = F, fig.height=4, fig.width = 6}
-lm_plot <- ggplot(do, aes(x=EDEQ_restraint, y=BMI)) + 
+lm_plot <- ggplot(do, aes(x=EDEQ_restraint, y=OE_frequency)) + 
   geom_point() +
-  ggtitle("BMI vs Dietary restraint") +
+  ggtitle("Over-eating vs Dietary restraint") +
     theme_minimal(base_size = 16)
 
 
@@ -395,11 +430,12 @@ gridExtra::grid.arrange(positive, negative, ncol=2)
 # Bivariate relationships: Linearity
 
 ```{r, echo=F, fig.height=5}
-y3 <- log(y)*15 
+y3 <- log(y)*10
 tri <- cbind.data.frame(x, y3)
 
 poly <- ggplot(tri, aes(x, y3)) +
   geom_point() +
+  ylim(15, 50) +
   ggtitle("Non-linear") +
     theme_minimal(base_size=16) +
     theme(axis.title.x = element_blank(), axis.title.y = element_blank()) 
@@ -455,7 +491,7 @@ weak <- ggplot(pos, aes(x, y4)) +
 gridExtra::grid.arrange(strong, weak, ncol=2)
 ```
 
-**Note that these have the same slope**
+**Note that these have the same slope (magnitude)**
 ---
 # Bivariate relationships: Magnitude
 
@@ -481,9 +517,9 @@ steep <- ggplot(pos, aes(x, y5)) +
 
 gridExtra::grid.arrange(steep, shallow, ncol=2)
 ```
-**Note that these have the same strength**
+**Note that these have the same strength (tightness of fit)**
 ---
-# BMI vs. eating restraint
+# Over-eating vs. eating restraint
 
 .blue[So what can we say with respect to these five characteristics in our data?]
 
@@ -496,14 +532,14 @@ lm_plot +
 
 Notice that in the previous slide, we added a line running through our data
 
-```{r, echo = F, fig.height=4.5}
+```{r, echo = F, fig.height=4}
 lm_plot +
   geom_smooth(method='lm', se=F)
 ```
 That line is defined by the intercept (value $Y$ takes when $X=0$) and the slope (the difference in $Y$ per 1 unit difference in $X$)
 > $Y = intercept + slope*X$ (you may have seen this in HS as Y = mX + b)
 
-> We could think of this relationship, therefore, as $BMI = slope*EDEQrestraint + intercept$ ... .purple[but that's not quite right]
+> We could think of this relationship, therefore, as $BMI = slope*EDEQrestraint + intercept$ ... In fact, that's how we described this in EDUC 641, .purple[but that's not quite right]
 
 
 ---
@@ -523,8 +559,5 @@ class: middle, inverse
 
 ### Reading: 
 - LSWR Chapter 15.1 - 15.2 and 15.4 - 15.7
-
-### Assignment:
-- Have downloaded R/RStudio and familiarized yourself with the RStudio environment (Modules 1 & 2 from [R Bootcamp](https://community.uoregon.edu/courses/18778))
 
 
