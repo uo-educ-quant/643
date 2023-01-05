@@ -629,7 +629,7 @@ body {
   padding-top: 60px;
 }
 </style>
-<script src="site_libs/header-attrs-2.11/header-attrs.js"></script>
+<script src="site_libs/header-attrs-2.19/header-attrs.js"></script>
 <script src="site_libs/jquery-3.6.0/jquery-3.6.0.min.js"></script>
 <meta name="viewport" content="width=device-width, initial-scale=1" />
 <link href="site_libs/bootstrap-3.3.5/css/cosmo.min.css" rel="stylesheet" />
@@ -681,6 +681,7 @@ if (window.hljs) {
 
 
 
+
 <style type = "text/css">
 .main-container {
   max-width: 940px;
@@ -701,6 +702,9 @@ button.code-folding-btn:focus {
 }
 summary {
   display: list-item;
+}
+details > summary > p:only-child {
+  display: inline;
 }
 pre code {
   padding: 0;
@@ -758,11 +762,15 @@ $(document).ready(function () {
     href = "index.html";
   var menuAnchor = $('a[href="' + href + '"]');
 
-  // mark it active
-  menuAnchor.tab('show');
-
-  // if it's got a parent navbar menu mark it active as well
-  menuAnchor.closest('li.dropdown').addClass('active');
+  // mark the anchor link active (and if it's in a dropdown, also mark that active)
+  var dropdown = menuAnchor.closest('li.dropdown');
+  if (window.bootstrap) { // Bootstrap 4+
+    menuAnchor.addClass('active');
+    dropdown.find('> .dropdown-toggle').addClass('active');
+  } else { // Bootstrap 3
+    menuAnchor.parent().addClass('active');
+    dropdown.addClass('active');
+  }
 
   // Navbar adjustments
   var navHeight = $(".navbar").first().height() + 15;
@@ -791,8 +799,8 @@ $(document).ready(function () {
   border-radius: 4px;
 }
 
-.tabset-dropdown > .nav-tabs > li.active:before {
-  content: "";
+.tabset-dropdown > .nav-tabs > li.active:before, .tabset-dropdown > .nav-tabs.nav-tabs-open:before {
+  content: "\e259";
   font-family: 'Glyphicons Halflings';
   display: inline-block;
   padding: 10px;
@@ -800,16 +808,9 @@ $(document).ready(function () {
 }
 
 .tabset-dropdown > .nav-tabs.nav-tabs-open > li.active:before {
-  content: "&#xe258;";
-  border: none;
-}
-
-.tabset-dropdown > .nav-tabs.nav-tabs-open:before {
-  content: "";
+  content: "\e258";
   font-family: 'Glyphicons Halflings';
-  display: inline-block;
-  padding: 10px;
-  border-right: 1px solid #ddd;
+  border: none;
 }
 
 .tabset-dropdown > .nav-tabs > li.active {
@@ -936,12 +937,23 @@ Lectures
 <span class="down-arrow">&#x25BE;</span>
 </button>
 <div class="nav-dropdown-content">
-<a href="./slides/EDUC643_1_intro.html">Unit 1: Intro to Regression and GLM</a>
-<a href="./slides/EDUC643_2_assumptions.html">Unit 2: Regression Assumptions &amp; Diagnostics</a>
-<a href="./slides/EDUC643_3_mult_regression.html">Unit 3: Multiple Regression</a>
-<a href="./slides/EDUC643_4_ANOVA.html">Unit 4: Categorical Predictors</a>
-<a href="./slides/EDUC643_5_interactions.html">Unit 5: Interactions &amp; Non-linearity</a>
-<a href="./slides/EDUC643_6_modeling.html">Unit 6: Model Building</a>
+<a href="./slides/EDUC643_1_intro.html">1. Intro and bivariate relationships</a>
+<a href="./slides/EDUC643_2_GLM.html">2. GLM</a>
+<a href="./slides/EDUC643_3_inference.html">3. Regression inference</a>
+<a href="./slides/EDUC643_4_correlation.html">4. Correlation...and causality</a>
+<a href="./slides/EDUC643_5_assumptions.html">5. Regression assumptions</a>
+<a href="./slides/EDUC643_5_assumptions.html">6. Regression assumptions</a>
+<a href="./slides/EDUC643_7_mult_regression.html">7. Multiple regression</a>
+<a href="./slides/EDUC643_8_mult_collinearity.html">8. Multi-collinearity</a>
+<a href="./slides/EDUC643_9_categorical.html">9. Categorical predictors</a>
+<a href="./slides/EDUC643_10_ttests.html">10. TWo sample $t$-tests</a>
+<a href="./slides/EDUC643_11_ANOVA.html">11. ANOVA</a>
+<a href="./slides/EDUC643_12_ANCOVA.html">12. ANCOVA and GLM redux</a>
+<a href="./slides/EDUC643_13_nonlinearity.html">13. Non-linearity I</a>
+<a href="./slides/EDUC643_13_nonlinearity.html">14. Non-linearity II</a>
+<a href="./slides/EDUC643_15_interactions.html">15. Interactions I</a>
+<a href="./slides/EDUC643_15_interactions.html">16. Interactions II</a>
+<a href="./slides/EDUC643_17_modeling.html">17. Model building taxonomies</a>
 </div>
 </div>
 </div>
@@ -961,7 +973,7 @@ Lectures
 <div class="navbar navbar-default  navbar-fixed-top" role="navigation">
   <div class="container">
     <div class="navbar-header">
-      <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar">
+      <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-bs-toggle="collapse" data-target="#navbar" data-bs-target="#navbar">
         <span class="icon-bar"></span>
         <span class="icon-bar"></span>
         <span class="icon-bar"></span>
@@ -977,29 +989,62 @@ Lectures
   <a href="schedule.html">Schedule</a>
 </li>
 <li class="dropdown">
-  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
+  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
     Lectures
      
     <span class="caret"></span>
   </a>
   <ul class="dropdown-menu" role="menu">
     <li>
-      <a href="./slides/EDUC643_1_intro.html">Unit 1: Intro to Regression and GLM</a>
+      <a href="./slides/EDUC643_1_intro.html">1. Intro and bivariate relationships</a>
     </li>
     <li>
-      <a href="./slides/EDUC643_2_assumptions.html">Unit 2: Regression Assumptions &amp; Diagnostics</a>
+      <a href="./slides/EDUC643_2_GLM.html">2. GLM</a>
     </li>
     <li>
-      <a href="./slides/EDUC643_3_mult_regression.html">Unit 3: Multiple Regression</a>
+      <a href="./slides/EDUC643_3_inference.html">3. Regression inference</a>
     </li>
     <li>
-      <a href="./slides/EDUC643_4_ANOVA.html">Unit 4: Categorical Predictors</a>
+      <a href="./slides/EDUC643_4_correlation.html">4. Correlation...and causality</a>
     </li>
     <li>
-      <a href="./slides/EDUC643_5_interactions.html">Unit 5: Interactions &amp; Non-linearity</a>
+      <a href="./slides/EDUC643_5_assumptions.html">5. Regression assumptions</a>
     </li>
     <li>
-      <a href="./slides/EDUC643_6_modeling.html">Unit 6: Model Building</a>
+      <a href="./slides/EDUC643_5_assumptions.html">6. Regression assumptions</a>
+    </li>
+    <li>
+      <a href="./slides/EDUC643_7_mult_regression.html">7. Multiple regression</a>
+    </li>
+    <li>
+      <a href="./slides/EDUC643_8_mult_collinearity.html">8. Multi-collinearity</a>
+    </li>
+    <li>
+      <a href="./slides/EDUC643_9_categorical.html">9. Categorical predictors</a>
+    </li>
+    <li>
+      <a href="./slides/EDUC643_10_ttests.html">10. TWo sample $t$-tests</a>
+    </li>
+    <li>
+      <a href="./slides/EDUC643_11_ANOVA.html">11. ANOVA</a>
+    </li>
+    <li>
+      <a href="./slides/EDUC643_12_ANCOVA.html">12. ANCOVA and GLM redux</a>
+    </li>
+    <li>
+      <a href="./slides/EDUC643_13_nonlinearity.html">13. Non-linearity I</a>
+    </li>
+    <li>
+      <a href="./slides/EDUC643_13_nonlinearity.html">14. Non-linearity II</a>
+    </li>
+    <li>
+      <a href="./slides/EDUC643_15_interactions.html">15. Interactions I</a>
+    </li>
+    <li>
+      <a href="./slides/EDUC643_15_interactions.html">16. Interactions II</a>
+    </li>
+    <li>
+      <a href="./slides/EDUC643_17_modeling.html">17. Model building taxonomies</a>
     </li>
   </ul>
 </li>
@@ -1030,23 +1075,36 @@ Lectures
 
 <div id="unit-1-glm-and-regression" class="section level2">
 <h2>Unit 1: GLM and regression</h2>
-<p><strong>Topic: Introduction to the General Linear Model and bivariate regression refresher</strong></p>
+<p><strong>Topic: Introduction to the General Linear Model and bivariate
+regression refresher</strong></p>
 <p>Objectives:</p>
 <ul>
-<li>Characterize a bivariate relationship along five dimensions (direction, linearity, outliers, strength and magnitude)</li>
-<li>Describe how statistical models differ from deterministic models</li>
-<li>Mathematically represent the population model and interpret its deterministic and stochastic components</li>
-<li>Formulate a linear regression model to hypothesize a population relationship</li>
-<li>Estimated a fitted regression line using Ordinary-Least Squares regression</li>
-<li>Describe residuals and how they can describe the degree of our OLS model fit</li>
-<li>Explain <span class="math inline">\(R^{2}\)</span>, both in terms of what it tells us and what it does not</li>
-<li>Conduct an inference test for a regression coefficient and our regression model</li>
-<li>Calculate a correlation coefficient <span class="math inline">\((r)\)</span> and describe its relationship to <span class="math inline">\(R^{2}\)</span></li>
-<li>Distinguish between research designs that permit correlational associations and those that permit causal inferences</li>
+<li>Characterize a bivariate relationship along five dimensions
+(direction, linearity, outliers, strength and magnitude)</li>
+<li>Describe how statistical models differ from deterministic
+models</li>
+<li>Mathematically represent the population model and interpret its
+deterministic and stochastic components</li>
+<li>Formulate a linear regression model to hypothesize a population
+relationship</li>
+<li>Estimated a fitted regression line using Ordinary-Least Squares
+regression</li>
+<li>Describe residuals and how they can describe the degree of our OLS
+model fit</li>
+<li>Explain <span class="math inline">\(R^{2}\)</span>, both in terms of
+what it tells us and what it does not</li>
+<li>Conduct an inference test for a regression coefficient and our
+regression model</li>
+<li>Calculate a correlation coefficient <span
+class="math inline">\((r)\)</span> and describe its relationship to
+<span class="math inline">\(R^{2}\)</span></li>
+<li>Distinguish between research designs that permit correlational
+associations and those that permit causal inferences</li>
 </ul>
 <p>Readings:</p>
 <ul>
-<li><a href="https://learningstatisticswithr.com/lsr-0.6.pdf">LSWR Chapter 15.1-15.2 and 15.4-15.7</a></li>
+<li><a href="https://learningstatisticswithr.com/lsr-0.6.pdf">LSWR
+Chapter 15.1-15.2 and 15.4-15.7</a></li>
 </ul>
 <p>Lectures:</p>
 <ul>
@@ -1054,7 +1112,8 @@ Lectures
 </ul>
 <p>Assignment 1:</p>
 <ul>
-<li>R Tutorial slides/activity assignment: <a href="./slides/tutorial2.html">html</a></li>
+<li>R Tutorial slides/activity assignment: <a
+href="./slides/tutorial2.html">html</a></li>
 </ul>
 </div>
 <div id="unit-2-assumptions-diagnostics" class="section level2">
@@ -1062,20 +1121,30 @@ Lectures
 <p><strong>Topic: Regression assumptions and diagnostics</strong></p>
 <p>Objectives:</p>
 <ul>
-<li>Articulate the assumptions of the General Linear Model broadly and least squares estimation and inference particularly</li>
-<li>Describe sources of assumption violation in the regression model including: measurement error, non-linearity, heteroscedasticity, non-normally distributed residuals, correlated errors, and outliers.</li>
-<li>Articulate properties of residuals and describe their centrality in understanding the regression model assumptions</li>
-<li>Conduct diagnostic tests on regression model assumption violations</li>
-<li>Implement a consistent screening protocol to identify regression model assumption violations</li>
-<li>Implement solutions to regression model assumption violations, when appropriate</li>
+<li>Articulate the assumptions of the General Linear Model broadly and
+least squares estimation and inference particularly</li>
+<li>Describe sources of assumption violation in the regression model
+including: measurement error, non-linearity, heteroscedasticity,
+non-normally distributed residuals, correlated errors, and
+outliers.</li>
+<li>Articulate properties of residuals and describe their centrality in
+understanding the regression model assumptions</li>
+<li>Conduct diagnostic tests on regression model assumption
+violations</li>
+<li>Implement a consistent screening protocol to identify regression
+model assumption violations</li>
+<li>Implement solutions to regression model assumption violations, when
+appropriate</li>
 </ul>
 <p>Readings:</p>
 <ul>
-<li><a href="https://learningstatisticswithr.com/lsr-0.6.pdf">LSWR Chapter 15.8-15.9</a></li>
+<li><a href="https://learningstatisticswithr.com/lsr-0.6.pdf">LSWR
+Chapter 15.8-15.9</a></li>
 </ul>
 <p>Lecture:</p>
 <ul>
-<li>Slides: <a href="./slides/EDUC643_2_assumptions.html">html</a> | pdf</li>
+<li>Slides: <a href="./slides/EDUC643_2_assumptions.html">html</a> |
+pdf</li>
 <li>Data: <a href="./data/male_do_eating.sav">sav</a></li>
 <li>R script:</li>
 </ul>
@@ -1090,25 +1159,37 @@ Lectures
 <p><strong>Topic: Multiple Regression</strong></p>
 <p>Objectives:</p>
 <ul>
-<li>Articulate the concepts of multiple regression and “statistical adjustment”</li>
-<li>Distinguish between the substantive implications of the terms “statistical control” and “statistical adjustment”</li>
+<li>Articulate the concepts of multiple regression and “statistical
+adjustment”</li>
+<li>Distinguish between the substantive implications of the terms
+“statistical control” and “statistical adjustment”</li>
 <li>Estimate the parameters of a multiple regression model</li>
 <li>Visually display the results of multiple regression models</li>
-<li>State the main effects assumption and what the implication would be if it is violated</li>
-<li>Conduct statistical inference tests of single predictors ( <span class="math inline">\(t\)</span>-test) and full model ( <span class="math inline">\(F\)</span>-test) in multiple regression</li>
-<li>Decompose the total variance into its component parts (model and residual) and use the <span class="math inline">\(R^2\)</span> statistic to describe this decomposition</li>
-<li>Describe problems for regression associated with the phenomenon of multicollinearity</li>
-<li>Use visual schema (e.g., Venn diagrams) to assess regression models for the potential of multicollinearity</li>
-<li>Use statistical results (e.g., correlation matrices or heat maps) to assess regression models for the potential of multicollinearity</li>
+<li>State the main effects assumption and what the implication would be
+if it is violated</li>
+<li>Conduct statistical inference tests of single predictors ( <span
+class="math inline">\(t\)</span>-test) and full model ( <span
+class="math inline">\(F\)</span>-test) in multiple regression</li>
+<li>Decompose the total variance into its component parts (model and
+residual) and use the <span class="math inline">\(R^2\)</span> statistic
+to describe this decomposition</li>
+<li>Describe problems for regression associated with the phenomenon of
+multicollinearity</li>
+<li>Use visual schema (e.g., Venn diagrams) to assess regression models
+for the potential of multicollinearity</li>
+<li>Use statistical results (e.g., correlation matrices or heat maps) to
+assess regression models for the potential of multicollinearity</li>
 <li>Describe and implement some solutions to multi-collinearity</li>
 </ul>
 <p>Readings:</p>
 <ul>
-<li><a href="https://learningstatisticswithr.com/lsr-0.6.pdf">LSWR Chapter 15.3</a></li>
+<li><a href="https://learningstatisticswithr.com/lsr-0.6.pdf">LSWR
+Chapter 15.3</a></li>
 </ul>
 <p>Lecture:</p>
 <ul>
-<li>Slides: <a href="./slides/EDUC643_3_mult_regression.html">html</a> | pdf</li>
+<li>Slides: <a href="./slides/EDUC643_3_mult_regression.html">html</a> |
+pdf</li>
 <li>Data: <a href="./data/male_do_eating.sav">sav</a></li>
 <li>R script:</li>
 </ul>
@@ -1123,20 +1204,35 @@ Lectures
 <p><strong>Topic: Categorical predictors and ANOVA</strong></p>
 <p>Objectives</p>
 <ul>
-<li>Describe the relationship between dichotomous and polychotomous variables and convert variables between these forms, as necessary</li>
-<li>Conduct a two-sample <span class="math inline">\(t\)</span>-test</li>
-<li>Describe the relationship between a two-sample <span class="math inline">\(t\)</span>-test and regressing a continuous outcome on a dichotomous predictor</li>
-<li>Estimate a regression with one dummy variable as a predictor and interpret the results (including when the reference category changes)</li>
-<li>Estimate a multiple regression model with several continuous and dummy variables and interpret the results</li>
-<li>Estimate an ANOVA model and interpret the within- and between-group variance</li>
-<li>Do the same for an ANCOVA model, adjusting for additional continuous predictors</li>
-<li>Describe the similarities and differences of Ordinary-Least Squares regression analysis and ANOVA/ANCOVA, and when one would prefer one approach to another</li>
-<li>Describe potential Type I error problems that arise from multiple group comparisons and potential solutions to these problems, including theory, pre-registration, ANOVA and <em>post-hoc</em> corrections</li>
-<li>Describe the relationship between different modeling approaches with the General Linear Model family</li>
+<li>Describe the relationship between dichotomous and polychotomous
+variables and convert variables between these forms, as necessary</li>
+<li>Conduct a two-sample <span
+class="math inline">\(t\)</span>-test</li>
+<li>Describe the relationship between a two-sample <span
+class="math inline">\(t\)</span>-test and regressing a continuous
+outcome on a dichotomous predictor</li>
+<li>Estimate a regression with one dummy variable as a predictor and
+interpret the results (including when the reference category
+changes)</li>
+<li>Estimate a multiple regression model with several continuous and
+dummy variables and interpret the results</li>
+<li>Estimate an ANOVA model and interpret the within- and between-group
+variance</li>
+<li>Do the same for an ANCOVA model, adjusting for additional continuous
+predictors</li>
+<li>Describe the similarities and differences of Ordinary-Least Squares
+regression analysis and ANOVA/ANCOVA, and when one would prefer one
+approach to another</li>
+<li>Describe potential Type I error problems that arise from multiple
+group comparisons and potential solutions to these problems, including
+theory, pre-registration, ANOVA and <em>post-hoc</em> corrections</li>
+<li>Describe the relationship between different modeling approaches with
+the General Linear Model family</li>
 </ul>
 <p>Readings:</p>
 <ul>
-<li><a href="https://learningstatisticswithr.com/lsr-0.6.pdf">LSWR Chapter 14 and 16.6</a></li>
+<li><a href="https://learningstatisticswithr.com/lsr-0.6.pdf">LSWR
+Chapter 14 and 16.6</a></li>
 </ul>
 <p>Lecture:</p>
 <ul>
@@ -1155,18 +1251,26 @@ Lectures
 <p><strong>Topic: Interactions and non-linearity</strong></p>
 <p>Objectives</p>
 <ul>
-<li>Describe in writing and verbally the assumptions we violate when we fit a non-linear relationship in a linear model</li>
-<li>Transform non-linear relationships into linear ones by using logarithmic scales</li>
-<li>Estimate regression models using logarithmic scales and interpret the results</li>
-<li>Describe in writing and verbally the concept of statistical interaction</li>
-<li>Estimate and interpret regression models with interactions between categorical and continuous predictors</li>
+<li>Describe in writing and verbally the assumptions we violate when we
+fit a non-linear relationship in a linear model</li>
+<li>Transform non-linear relationships into linear ones by using
+logarithmic scales</li>
+<li>Estimate regression models using logarithmic scales and interpret
+the results</li>
+<li>Describe in writing and verbally the concept of statistical
+interaction</li>
+<li>Estimate and interpret regression models with interactions between
+categorical and continuous predictors</li>
 <li>Visualize interaction effects graphically</li>
-<li>Describe statistical power and Type II error challenges resulting from interactions</li>
-<li>Estimate models with quadratic and higher-order polynomial terms</li>
+<li>Describe statistical power and Type II error challenges resulting
+from interactions</li>
+<li>Estimate models with quadratic and higher-order polynomial
+terms</li>
 </ul>
 <p>Readings:</p>
 <ul>
-<li><a href="https://learningstatisticswithr.com/lsr-0.6.pdf">LSWR Chapter 16.2</a></li>
+<li><a href="https://learningstatisticswithr.com/lsr-0.6.pdf">LSWR
+Chapter 16.2</a></li>
 </ul>
 <p>Lecture:</p>
 <ul>
@@ -1185,17 +1289,23 @@ Lectures
 <p><strong>Topic: Model building</strong></p>
 <p>Objectives</p>
 <ul>
-<li>Translate research questions into question predictors, covariates, outcomes and rival hypothesis predictors</li>
-<li>Develop work processes to address real life data which contain large number of predictors</li>
-<li>Build a logical and sequential taxonomy of fitted regression models</li>
-<li>Distinguish between model building and reporting, including best practices for research transparency, replicability and integrity</li>
+<li>Translate research questions into question predictors, covariates,
+outcomes and rival hypothesis predictors</li>
+<li>Develop work processes to address real life data which contain large
+number of predictors</li>
+<li>Build a logical and sequential taxonomy of fitted regression
+models</li>
+<li>Distinguish between model building and reporting, including best
+practices for research transparency, replicability and integrity</li>
 <li>Present results in publication-ready tables and figures</li>
-<li>Write compelling and scientifically accurate interpretation of results</li>
+<li>Write compelling and scientifically accurate interpretation of
+results</li>
 <li>Describe power and limits of quantitative research</li>
 </ul>
 <p>Readings:</p>
 <ul>
-<li><a href="https://learningstatisticswithr.com/lsr-0.6.pdf">LSWR Chapter 15.10-15.11</a></li>
+<li><a href="https://learningstatisticswithr.com/lsr-0.6.pdf">LSWR
+Chapter 15.10-15.11</a></li>
 </ul>
 <p>Lecture:</p>
 <ul>

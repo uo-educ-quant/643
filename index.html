@@ -630,7 +630,7 @@ body {
   padding-top: 60px;
 }
 </style>
-<script src="site_libs/header-attrs-2.11/header-attrs.js"></script>
+<script src="site_libs/header-attrs-2.19/header-attrs.js"></script>
 <script src="site_libs/jquery-3.6.0/jquery-3.6.0.min.js"></script>
 <meta name="viewport" content="width=device-width, initial-scale=1" />
 <link href="site_libs/bootstrap-3.3.5/css/cosmo.min.css" rel="stylesheet" />
@@ -682,6 +682,7 @@ if (window.hljs) {
 
 
 
+
 <style type = "text/css">
 .main-container {
   max-width: 940px;
@@ -702,6 +703,9 @@ button.code-folding-btn:focus {
 }
 summary {
   display: list-item;
+}
+details > summary > p:only-child {
+  display: inline;
 }
 pre code {
   padding: 0;
@@ -759,11 +763,15 @@ $(document).ready(function () {
     href = "index.html";
   var menuAnchor = $('a[href="' + href + '"]');
 
-  // mark it active
-  menuAnchor.tab('show');
-
-  // if it's got a parent navbar menu mark it active as well
-  menuAnchor.closest('li.dropdown').addClass('active');
+  // mark the anchor link active (and if it's in a dropdown, also mark that active)
+  var dropdown = menuAnchor.closest('li.dropdown');
+  if (window.bootstrap) { // Bootstrap 4+
+    menuAnchor.addClass('active');
+    dropdown.find('> .dropdown-toggle').addClass('active');
+  } else { // Bootstrap 3
+    menuAnchor.parent().addClass('active');
+    dropdown.addClass('active');
+  }
 
   // Navbar adjustments
   var navHeight = $(".navbar").first().height() + 15;
@@ -792,8 +800,8 @@ $(document).ready(function () {
   border-radius: 4px;
 }
 
-.tabset-dropdown > .nav-tabs > li.active:before {
-  content: "";
+.tabset-dropdown > .nav-tabs > li.active:before, .tabset-dropdown > .nav-tabs.nav-tabs-open:before {
+  content: "\e259";
   font-family: 'Glyphicons Halflings';
   display: inline-block;
   padding: 10px;
@@ -801,16 +809,9 @@ $(document).ready(function () {
 }
 
 .tabset-dropdown > .nav-tabs.nav-tabs-open > li.active:before {
-  content: "&#xe258;";
-  border: none;
-}
-
-.tabset-dropdown > .nav-tabs.nav-tabs-open:before {
-  content: "";
+  content: "\e258";
   font-family: 'Glyphicons Halflings';
-  display: inline-block;
-  padding: 10px;
-  border-right: 1px solid #ddd;
+  border: none;
 }
 
 .tabset-dropdown > .nav-tabs > li.active {
@@ -937,12 +938,23 @@ Lectures
 <span class="down-arrow">&#x25BE;</span>
 </button>
 <div class="nav-dropdown-content">
-<a href="./slides/EDUC643_1_intro.html">Unit 1: Intro to Regression and GLM</a>
-<a href="./slides/EDUC643_2_assumptions.html">Unit 2: Regression Assumptions &amp; Diagnostics</a>
-<a href="./slides/EDUC643_3_mult_regression.html">Unit 3: Multiple Regression</a>
-<a href="./slides/EDUC643_4_ANOVA.html">Unit 4: Categorical Predictors</a>
-<a href="./slides/EDUC643_5_interactions.html">Unit 5: Interactions &amp; Non-linearity</a>
-<a href="./slides/EDUC643_6_modeling.html">Unit 6: Model Building</a>
+<a href="./slides/EDUC643_1_intro.html">1. Intro and bivariate relationships</a>
+<a href="./slides/EDUC643_2_GLM.html">2. GLM</a>
+<a href="./slides/EDUC643_3_inference.html">3. Regression inference</a>
+<a href="./slides/EDUC643_4_correlation.html">4. Correlation...and causality</a>
+<a href="./slides/EDUC643_5_assumptions.html">5. Regression assumptions</a>
+<a href="./slides/EDUC643_5_assumptions.html">6. Regression assumptions</a>
+<a href="./slides/EDUC643_7_mult_regression.html">7. Multiple regression</a>
+<a href="./slides/EDUC643_8_mult_collinearity.html">8. Multi-collinearity</a>
+<a href="./slides/EDUC643_9_categorical.html">9. Categorical predictors</a>
+<a href="./slides/EDUC643_10_ttests.html">10. TWo sample $t$-tests</a>
+<a href="./slides/EDUC643_11_ANOVA.html">11. ANOVA</a>
+<a href="./slides/EDUC643_12_ANCOVA.html">12. ANCOVA and GLM redux</a>
+<a href="./slides/EDUC643_13_nonlinearity.html">13. Non-linearity I</a>
+<a href="./slides/EDUC643_13_nonlinearity.html">14. Non-linearity II</a>
+<a href="./slides/EDUC643_15_interactions.html">15. Interactions I</a>
+<a href="./slides/EDUC643_15_interactions.html">16. Interactions II</a>
+<a href="./slides/EDUC643_17_modeling.html">17. Model building taxonomies</a>
 </div>
 </div>
 </div>
@@ -962,7 +974,7 @@ Lectures
 <div class="navbar navbar-default  navbar-fixed-top" role="navigation">
   <div class="container">
     <div class="navbar-header">
-      <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar">
+      <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-bs-toggle="collapse" data-target="#navbar" data-bs-target="#navbar">
         <span class="icon-bar"></span>
         <span class="icon-bar"></span>
         <span class="icon-bar"></span>
@@ -978,29 +990,62 @@ Lectures
   <a href="schedule.html">Schedule</a>
 </li>
 <li class="dropdown">
-  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
+  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
     Lectures
      
     <span class="caret"></span>
   </a>
   <ul class="dropdown-menu" role="menu">
     <li>
-      <a href="./slides/EDUC643_1_intro.html">Unit 1: Intro to Regression and GLM</a>
+      <a href="./slides/EDUC643_1_intro.html">1. Intro and bivariate relationships</a>
     </li>
     <li>
-      <a href="./slides/EDUC643_2_assumptions.html">Unit 2: Regression Assumptions &amp; Diagnostics</a>
+      <a href="./slides/EDUC643_2_GLM.html">2. GLM</a>
     </li>
     <li>
-      <a href="./slides/EDUC643_3_mult_regression.html">Unit 3: Multiple Regression</a>
+      <a href="./slides/EDUC643_3_inference.html">3. Regression inference</a>
     </li>
     <li>
-      <a href="./slides/EDUC643_4_ANOVA.html">Unit 4: Categorical Predictors</a>
+      <a href="./slides/EDUC643_4_correlation.html">4. Correlation...and causality</a>
     </li>
     <li>
-      <a href="./slides/EDUC643_5_interactions.html">Unit 5: Interactions &amp; Non-linearity</a>
+      <a href="./slides/EDUC643_5_assumptions.html">5. Regression assumptions</a>
     </li>
     <li>
-      <a href="./slides/EDUC643_6_modeling.html">Unit 6: Model Building</a>
+      <a href="./slides/EDUC643_5_assumptions.html">6. Regression assumptions</a>
+    </li>
+    <li>
+      <a href="./slides/EDUC643_7_mult_regression.html">7. Multiple regression</a>
+    </li>
+    <li>
+      <a href="./slides/EDUC643_8_mult_collinearity.html">8. Multi-collinearity</a>
+    </li>
+    <li>
+      <a href="./slides/EDUC643_9_categorical.html">9. Categorical predictors</a>
+    </li>
+    <li>
+      <a href="./slides/EDUC643_10_ttests.html">10. TWo sample $t$-tests</a>
+    </li>
+    <li>
+      <a href="./slides/EDUC643_11_ANOVA.html">11. ANOVA</a>
+    </li>
+    <li>
+      <a href="./slides/EDUC643_12_ANCOVA.html">12. ANCOVA and GLM redux</a>
+    </li>
+    <li>
+      <a href="./slides/EDUC643_13_nonlinearity.html">13. Non-linearity I</a>
+    </li>
+    <li>
+      <a href="./slides/EDUC643_13_nonlinearity.html">14. Non-linearity II</a>
+    </li>
+    <li>
+      <a href="./slides/EDUC643_15_interactions.html">15. Interactions I</a>
+    </li>
+    <li>
+      <a href="./slides/EDUC643_15_interactions.html">16. Interactions II</a>
+    </li>
+    <li>
+      <a href="./slides/EDUC643_17_modeling.html">17. Model building taxonomies</a>
     </li>
   </ul>
 </li>
@@ -1033,7 +1078,28 @@ Lectures
 
 <div id="course-overview" class="section level1">
 <h1>Course Overview</h1>
-<p>How closely linked are students’ scores on standardized tests to their socio-economic status? Do individuals with disordered eating behaviors have lower self esteem? Applied data analysis can answer these and other sorts of questions in educational, social and behavior research. This course is the second in a three course sequence intended to provide a toolkit of statistical concepts, methods and their implementation to producers of applied research in education and other social sciences. The course is organized around the principle that research design depends in part on researchers’ substantive questions and their quantitative data available to answer these question. In this intermediate course, we will focus on applying the General Linear Model to Ordinary Least Squares regression analysis. Students will progress from bivariate to multiple regression, developing an understanding of the associated assumptions of these models and tools to solve instances in which those assumptions are unmet. The course seeks to blend a conceptual, mathematical and applied understanding of basic statistical concepts. At the core of our pedagogical approach is the belief that students learn statistical analysis by <strong>doing</strong> statistical analysis. <em>EDUC 641 (or a similar introductory statistics course) is a pre-requisite as is a basic familiarity with a statistical programming language (preferably R). This course (or substitute) is a pre-requisite for EDUC 645</em>.</p>
+<p>How closely linked are students’ scores on standardized tests to
+their socio-economic status? Do individuals with disordered eating
+behaviors have lower self esteem? Applied data analysis can answer these
+and other sorts of questions in educational, social and behavior
+research. This course is the second in a three course sequence intended
+to provide a toolkit of statistical concepts, methods and their
+implementation to producers of applied research in education and other
+social sciences. The course is organized around the principle that
+research design depends in part on researchers’ substantive questions
+and their quantitative data available to answer these question. In this
+intermediate course, we will focus on applying the General Linear Model
+to Ordinary Least Squares regression analysis. Students will progress
+from bivariate to multiple regression, developing an understanding of
+the associated assumptions of these models and tools to solve instances
+in which those assumptions are unmet. The course seeks to blend a
+conceptual, mathematical and applied understanding of basic statistical
+concepts. At the core of our pedagogical approach is the belief that
+students learn statistical analysis by <strong>doing</strong>
+statistical analysis. <em>EDUC 641 (or a similar introductory statistics
+course) is a pre-requisite as is a basic familiarity with a statistical
+programming language (preferably R). This course (or substitute) is a
+pre-requisite for EDUC 645</em>.</p>
 </div>
 <div id="meeting-time-and-location" class="section level1">
 <h1>Meeting time and location</h1>
