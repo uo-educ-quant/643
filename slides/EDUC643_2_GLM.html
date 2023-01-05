@@ -4,7 +4,7 @@
     <title>General Linear Model (GLM)</title>
     <meta charset="utf-8" />
     <meta name="author" content="David D. Liebowitz" />
-    <script src="EDUC643_2_GLM_files/header-attrs-2.14.3/header-attrs.js"></script>
+    <script src="EDUC643_2_GLM_files/header-attrs-2.19/header-attrs.js"></script>
     <link href="EDUC643_2_GLM_files/remark-css-0.0.1/default.css" rel="stylesheet" />
     <link href="EDUC643_2_GLM_files/remark-css-0.0.1/uo.css" rel="stylesheet" />
     <link href="EDUC643_2_GLM_files/remark-css-0.0.1/ki-fonts.css" rel="stylesheet" />
@@ -19,7 +19,7 @@ class: center, middle, inverse, title-slide
 # General Linear Model (GLM)
 ]
 .subtitle[
-## EDUC 643: Applied Statistics in Education and the Human Services II
+## EDUC 643: Unit 1
 ]
 .author[
 ### David D. Liebowitz
@@ -57,17 +57,30 @@ class: center, middle, inverse, title-slide
 ---
 class: middle, inverse
 
+# The General Linear Model
 
 ---
 # A motivating question
 
-Researchers (including two from the .green[University of Oregon]), [Nichole Kelly, Elizabeth Cotter and Claire Guidinger (2018)](https://doi.org/10.1016/j.eatbeh.2018.07.003), set out to understand the extent to which young men who exhibit overeating behaviors have weight-related medical and psychological challenges.
+Researchers (including two from the .green[**University of Oregon**]), [Nichole Kelly, Elizabeth Cotter and Claire Guidinger (2018)](https://doi.org/10.1016/j.eatbeh.2018.07.003), set out to understand the extent to which young men who exhibit overeating behaviors have weight-related medical and psychological challenges.
 
-&lt;img src="kelly_etal.png" width="955" height="85%" style="display: block; margin: auto;" /&gt;
+&lt;img src="kelly_etal.png" width="775" height="80%" style="display: block; margin: auto;" /&gt;
 
-Using real-world data (generously provided by Nichole Kelly) about the dietary habits, health, and self-appraisals of males 18-30, we are going to attempt to answer a similar question. 
+.small[Using real-world data (generously provided by Nichole Kelly) about the dietary habits, health, and self-appraisals of males 18-30, we are going to attempt to answer a similar question.]
 
-However, before answering this question, we are going to explore **the relationship between dietary restraint behaviors** (self-reports on the extent to which participants consciously restricted/controlled their food intake) **and body-mass index (BMI).**
+.small[In particular, we are going to explore the .purple[**relationship**] between **dietary restraint behaviors** (self-reports on the extent to which participants consciously restricted/controlled their food intake) and **over-eating frequency** (participants' self-reported frequency of over-eating episodes).]
+
+
+---
+# A preliminary analysis
+
+Before we get to the core question of the Kelly et al. study--how are dietary restraint behaviors related to over-eating frequency?--we are going to explore another important relationship in the data that may also be related to our main research question: the .purple[**relationship**] between .red-pink[**dietary restraint behaviors**] (self-reports on the extent to which participants consciously restricted/controlled their food intake) and .red-pink[**body-mass index (BMI)**]. In particular, we are going to operationalize this by examining the relationship in our sample of young men between our predictor variable (***EDEQ_restraint***) and their body-mass index (***BMI***). 
+
+--
+
+&gt; We are examining this relationship so that we can better understand how all three of these variables (***OE_frequency***, ***EDEQ_restraint*** and ***BMI***) are related in Unit 3. Additionally, the properties of the variable ***BMI*** are pedadogically helpful in demonstrating the assumptions of OLS.
+
+&gt; However, we recognize that BMI has been shown to be relatively uninformative about individuals' overall health and categorizes individuals based on distributions initially derived exclusively from white Western European (French and Scottish) study participants. We use the measure for pedagogical purposes because the variable is one of the few continuous measures in one of the few datasets that our UO colleagues shared with us, while noting its problematic historical use.
 
 
 ---
@@ -104,7 +117,7 @@ Five ways to characterize them
 We added a line running through our data. That line is defined by the intercept (value `\(Y\)` takes when `\(X=0\)`) and the slope (the difference in `\(Y\)` per 1 unit difference in `\(X\)`)
 &gt; `\(Y = intercept + slope*X\)` (you may have seen this in HS as Y = mX + b)
 
-&gt; We could think of this relationship, therefore, as `\(BMI = slope*EDEQrestraint + intercept\)` ... In fact, that's how we described this in EDUC 641, .purple[but that's not quite right]
+&gt; We could think of this relationship, therefore, as `\(BMI = slope*EDEQ\_restraint + intercept\)` ... In fact, that's how we described this in EDUC 641, .purple[but that's not quite right...]
 
 ---
 # Mathematical representations
@@ -116,7 +129,7 @@ In addition to visual representations, we can borrow from mathematical models to
 
 - Are deterministic
 - The area of any square is always `\(s^{2}\)`
-- Once we know the rule, we can use it to fit the model to data perfectly
+- Once we know the rule, we can use it to fit the model to empirical data perfectly
 ]
 
 .pull-right[
@@ -129,7 +142,7 @@ In addition to visual representations, we can borrow from mathematical models to
 
 --
 
-.blue[*What is wrong about describing the relationship between over-eating frequency and eating restraint as we did on the previous slide?*]
+.blue[**What is wrong about describing the relationship between BMI and eating restraint as we did on the previous slide?**]
 
 ---
 # Statistical model
@@ -140,112 +153,124 @@ In order to develop our statistical model (inspired by a deterministic mathemati
 
 --
 
-.blue[All of the models we will focus on in this course are linear. Why?]
+.red-pink[**All of the models we will focus on in this course are linear, but we're going to "cheat" to allow ourselves to model non-linear relationships with linear models.**]
 
 ---
 # Linear models
 
 ### Why are straight lines so popular in statistics?
 1. Mathematical simplicity: straight lines are one of the simplest (and consistent) ways of characterizing relationships
-2. Actual linearity: many relationships are best characterized linearly
+2. Actual linearity: many relationships are best characterized linearly; over a small enough interval, every relationship is linear
 
 ### What if my data isn't related in linear ways
 1. Transformations: we will learn how to use these later to fit linear models to curvilinear data
 2. Limited ranges of X may yield linearity: most things are "locally linear"
 
-.red[**In fact, linear modeling is so tractable that this is what we will spend the entire course on!**]
+.red-pink[**In fact, linear modeling is so tractable that this is what we will spend the entire course on!**]
 
 --
 
-We'll learn about lots of different modeling approaches. .red[**They are all part of the same family of models, known as the General Linear Model (GLM)**]. We will learn more about this GLM in Unit 4.
+We'll learn about lots of different modeling approaches. .red-pink[**They are all part of the same family of models, known as the General Linear Model (GLM)**]. We will learn more about this GLM in Unit 4.
 
 ---
-# Linear reqression equation
+# Linear reqression equations
 
-Okay, so once we have selected our model's functional form (which for now and the foreseeable future is going to be "linear"), we can move on to a mathematical representation. In this case, we are going to specify a .red[**linear regression**] model.
+Okay, so once we have selected our model's functional form (which for now and the foreseeable future is going to be "linear"), we can move on to a mathematical representation. In this case, we are going to postulate a .red-pink[**linear regression**] model.
 
 A linear regression equation borrows the mathematical framework for a line to summarize this relationship.
-`$$OvereatingFrequency = \beta_0 + \beta_1(DietaryRestraint)$$`
+`$$BMI = \beta_0 + \beta_1(EDEQ\_restraint)$$`
 ---
 # Regression equations
 
 The regression line describes the mean value of Y for each possible "input" value of X.
 
-`$$OvereatingFrequency = \beta_0 + \beta_1(DietaryRestraint)$$`
+`$$BMI = \beta_0 + \beta_1(EDEQ\_restraint)$$`
 
 --
-Our data already provides us with observations of over-eating frequency and dietary restraint:
+.small[Our data already provides us with observations of over-eating frequency and dietary restraint:]
 
+
+```r
+do %&gt;% 
+  select(EDEQ_restraint, BMI) %&gt;% 
+  tail()
+```
 
 ```
 #&gt; # A tibble: 6 x 2
-#&gt;   EDEQ_restraint OE_frequency
-#&gt;            &lt;dbl&gt;        &lt;dbl&gt;
-#&gt; 1            3              0
-#&gt; 2            0              0
-#&gt; 3            6              3
-#&gt; 4            0.2            0
-#&gt; 5            1              4
-#&gt; 6            0              0
+#&gt;   EDEQ_restraint   BMI
+#&gt;            &lt;dbl&gt; &lt;dbl&gt;
+#&gt; 1            3    36.0
+#&gt; 2            0    29.7
+#&gt; 3            6    22.3
+#&gt; 4            0.2  26.5
+#&gt; 5            1    38.0
+#&gt; 6            0    23.0
 ```
 
 --
-So, modelling requires us to find the best intercept `\((\beta_0)\)` and slope `\((\beta_1)\)` to represent the relationship.
+.small[So, we need to find the best intercept] `\((\beta_0)\)` .small[and slope] `\((\beta_1)\)` .small[to represent the relationship.]
 
 ---
-# Regression equation components
+## Regression equation components
 
-`$$OvereatingFrequency = \color{orange}{(\beta_0)} + \color{purple}{(\beta_1)}(DietaryRestraint)$$`
+`$$BMI = \color{orange}{(\beta_0)} + \color{purple}{(\beta_1)}(EDEQ\_restraint)$$`
 
-.orange[Intercept] `\(\color{orange}{(\beta_0)}\)`: Predicted outcome when X is equal to 0.
+.orange[Intercept] `\(\color{orange}{(\beta_0)}\)`: Predicted outcome when `\(x\)` is equal to 0.
 
 --
 
-.purple[Slope] `\(\color{purple}{(\beta_1)}\)`: Predicted difference in the outcome for every one unit difference in X.
+.purple[Slope] `\(\color{purple}{(\beta_1)}\)`: Predicted difference in the outcome for every one unit difference in `\(x\)`.
 
 --
 
-**Write out the appropriate regression equation for a line that has an intercept of 20 and Dietary Restraint slope of 1.5.**
+.blue[**Write out the appropriate regression equation for a line that has an intercept of 20 and a Dietary Restraint slope of 1.5.**]
+
+--
+
+.blue[**Interpret this equation in words, being careful to avoid making causal statements.**]
 
 ---
-# Regression equation components
+## Regression equation components
 
-.orange[Intercept] `\(\color{orange}{(\beta_0)}\)`: Predicted outcome when X is equal to 0.
+.orange[Intercept] `\(\color{orange}{(\beta_0)}\)`: Predicted outcome when `\(x\)` is equal to 0.
 
-.purple[Slope] `\(\color{purple}{(\beta_1)}\)`: Predicted difference in the outcome for every one unit difference in X.
-
-
-`$$OvereatingFrequency = \color{orange}{20} + \color{purple}{1.5}(DietaryRestraint)$$`
-**What is the expected over-eating frequency for a Dietary Restraint rating of 2?**
-
----
-# Regression equation components
-
-.orange[Intercept] `\(\color{orange}{(\beta_0)}\)`: Predicted outcome when X is equal to 0.
-
-.purple[Slope] `\(\color{purple}{(\beta_1)}\)`: Predicted difference in the outcome for every one unit difference in X.
+.purple[Slope] `\(\color{purple}{(\beta_1)}\)`: Predicted difference in the outcome for every one unit difference in `\(x\)`.
 
 
+`$$BMI = \color{orange}{20} + \color{purple}{1.5}(EDEQ\_restraint)$$`
 
-`$$OvereatingFrequency = \color{orange}{20} + \color{purple}{1.5}(2) = 20 + 3 = 23$$`
-**For a Dietary Restraint rating of 2, the predicted over-eating frequency value is 23.**
+--
+.blue[**What is an individual's expected BMI given a Dietary Restraint rating of 2?**]
 
 ---
-# Error/residual term
+## Regression equation components
+
+.orange[Intercept] `\(\color{orange}{(\beta_0)}\)`: Predicted outcome when `\(x\)` is equal to 0.
+
+.purple[Slope] `\(\color{purple}{(\beta_1)}\)`: Predicted difference in the outcome for every one unit difference in `\(x\)`.
+
+
+
+`$$BMI = \color{orange}{20} + \color{purple}{1.5}(2) = 20 + 3 = 23$$`
+**We predict that individuals with an observed Dietary Restraint rating of 2 will have a body-mass index of 23.**
+
+---
+# Residual (error) term
 "No model is perfect, but some are useful." - George Box
 
 &lt;img src="EDUC643_2_GLM_files/figure-html/unnamed-chunk-8-1.svg" style="display: block; margin: auto;" /&gt;
 
-Is Dietary Restraint a perfect predictor of Overeating Frequency? 
+Is Dietary Restraint a perfect predictor of BMI? 
 
 --
-.red[NO!]
+.red[**NO!**]
 
 ---
 # Omitted variables
 A "perfect" regression equation would probably include a lot more variables:
 
-`$$Overeating = \beta_0 + \beta_1(\text{Dietary Restraint}) + \beta_2(\text{Meal Frequency}) + \beta_3(\text{Nutritional Habits})... \beta_\infty$$`
+`$$BMI = \beta_0 + \beta_1(EDEQ\_restraint) + \beta_2(\text{Meal Frequency}) + \beta_3(\text{Nutritional Habits}) + ... \beta_\infty$$`
 Many of these might not even be measurable!
 
 --
@@ -257,13 +282,13 @@ Omitted variables are not a problem in themselves. Our estimates of the relation
 However, omitted variables often introduce bias into our estimates of the relationship. More on the problem of omitted variable bias later.
 
 ---
-# Residual/Error term
+# Residual (error) term
 
-In a regression model, all the variability that we couldn't explain with our predictor is condensed into a .green[residual term] `\(\color{green}{\varepsilon}\)`.
+In a regression model, all the variability that we can't explain with our predictor(s) is condensed into a .green[residual term] `\(\color{green}{\varepsilon}\)`.
 
 &lt;img src="EDUC643_2_GLM_files/figure-html/unnamed-chunk-9-1.svg" style="display: block; margin: auto;" /&gt;
 
-`$$OvereatingFrequency = \beta_0 + \beta_1(DietaryRestraint) + \color{green}{\varepsilon}$$`
+`$$BMI = \beta_0 + \beta_1(EDEQ\_restraint) + \color{green}{\varepsilon}$$`
 ---
 # The regression model
 
@@ -289,6 +314,11 @@ where we use the subscript `\(i\)` to emphasize that the model estimates the out
 A **fitted model** takes our population model and uses our observed data to derive estimates for the population. 
 `$$\hat{Y_{i}} = \hat{\beta_{0}} + \hat{\beta_{1}} X_{i}$$`
 We denote that we are generating estimates with "hats" above the estimated coefficients. Note that there is ***no error term*** in our fitted model. 
+
+---
+class: middle, inverse
+
+# Residuals and model fit
 
 ---
 # Residuals
@@ -322,14 +352,14 @@ Squaring the residual terms `\((\varepsilon_i^2)\)` allows us to treat negative 
 
 ```
 # A tibble: 6 x 4
-  OE_frequency predicted_OE residual residual_sq
-         &lt;dbl&gt;        &lt;dbl&gt;    &lt;dbl&gt;       &lt;dbl&gt;
-1            0         3.66    -3.66       13.4 
-2            0         1.1     -1.1         1.22
-3            3         6.21    -3.21       10.3 
-4            0         1.27    -1.27        1.62
-5            4         1.96     2.04        4.18
-6            0         1.1     -1.1         1.22
+    BMI predicted_BMI residual residual_sq
+  &lt;dbl&gt;         &lt;dbl&gt;    &lt;dbl&gt;       &lt;dbl&gt;
+1  36.0          27.0     8.99       80.8 
+2  29.7          23.9     5.76       33.2 
+3  22.3          30.1    -7.83       61.3 
+4  26.5          24.1     2.37        5.6 
+5  38.0          25.0    13.0       169.  
+6  23.0          23.9    -0.97        0.94
 ```
 --
 
@@ -360,19 +390,19 @@ An OLS-fitted regression finds the best intercept and slope values to minimize t
 
 .pull-left[
 &lt;img src="EDUC643_2_GLM_files/figure-html/unnamed-chunk-14-1.svg" style="display: block; margin: auto;" /&gt;
-`\(\bf{\Sigma(e_i)^2 = 13690.73}\)`
+`\(\bf{\Sigma(e_i)^2 = 40,153}\)`
 
 ]
 
 .pull-right[
 &lt;img src="EDUC643_2_GLM_files/figure-html/unnamed-chunk-15-1.svg" style="display: block; margin: auto;" /&gt;
-`\(\Sigma(e_i)^2 = 22971.23\)`
+`\(\Sigma(e_i)^2 = 101,566\)`
 ]
 
-Using the OLS method, the regression line on the left is a better fit (13,691 &lt; 22,971).
+The regression line on the left is a better fit because the sum of its squared errors is smaller  (40,153 &lt; 101,566).
 
 ---
-# Sum of Squared Residuals (SSR)
+## Sum of Squared Residuals (SSR)
 
 SSR is a bigger concept than just model predictions. It is a way of thinking about variability.
 
@@ -380,8 +410,9 @@ SSR is a bigger concept than just model predictions. It is a way of thinking abo
 
 Our outcome's variability is simply the sum of squared deviations from its mean.
 
-`$$SSR_\text{OEfreq} = \sum{(Y_i - \bar{Y})^2}$$`
+`$$SSR_\text{BMI} = \sum{(Y_i - \bar{Y})^2}$$`
 &lt;img src="EDUC643_2_GLM_files/figure-html/unnamed-chunk-16-1.svg" style="display: block; margin: auto;" /&gt;
+
 ---
 Get a feel for trying to minimize the *sum of the square of the residuals*
 &lt;iframe src="https://daviddl.shinyapps.io/line_ss/?showcase=0" width="100%" height="550px" data-external="1"&gt;&lt;/iframe&gt;
@@ -391,11 +422,11 @@ Get a feel for trying to minimize the *sum of the square of the residuals*
 
 The goal of regression is to account for some of this variability with our model's predictors.
 
-We can partition the outcome's total variance `\((SS_{OEfreq})\)` into:
+We can partition the outcome's total variance `\((SS_{BMI})\)` into:
 * Model-accounted variance `\((SS_\text{Model})\)`
 * Residual variance `\((SS_\text{Residual})\)`
 
-`$$SS_\text{OEfreq} = SS_\text{Model} + SS_\text{Residual}$$`
+`$$SS_\text{BMI} = SS_\text{Model} + SS_\text{Residual}$$`
 --
 
 Remember our goal with OLS regression is to find the model coefficients that minimize `\(SS_\text{Residual}\)`.
@@ -403,7 +434,7 @@ Remember our goal with OLS regression is to find the model coefficients that min
 
 ---
 # Partitioning variance
-`$$\text{If } SS_\text{OEfreq} = \color{purple}{SS_\text{Model}} + {SS_\text{Residual}}$$`
+`$$\text{If } SS_\text{BMI} = \color{purple}{SS_\text{Model}} + {SS_\text{Residual}}$$`
 
 `\(\color{purple}{SS_\text{Model}}\)` is the sum of squared deviations between the model predicted values `\((\hat{Y})\)` and the mean `\((\bar{Y})\)`.
 
@@ -411,7 +442,7 @@ Remember our goal with OLS regression is to find the model coefficients that min
 `$$\color{purple}{SS_\text{Model} = \sum{(\hat{Y} - \bar{Y})^2}}$$`
 ---
 # Partitioning variance
-`$$\text{If } SS_\text{OEfreq} = \color{purple}{SS_\text{Model}} + \color{green}{SS_\text{Residual}}$$`
+`$$\text{If } SS_\text{BMI} = \color{purple}{SS_\text{Model}} + \color{green}{SS_\text{Residual}}$$`
 
 `\(\color{green}{SS_\text{Residual}}\)` is the sum of squared deviations between the model predicted values `\((\hat{Y})\)` and the observed values `\((Y)\)`.
 
@@ -423,15 +454,42 @@ Remember our goal with OLS regression is to find the model coefficients that min
 
 Partitioning variance can be useful for model evaluation.
 
-`$$SS_\text{OEfreq} = SS_\text{Model} + SS_\text{Residual}$$`
+`$$SS_\text{BMI} = SS_\text{Model} + SS_\text{Residual}$$`
 `\(R^2\)` ("R-squared") is the proportion of variance in the outcome our model accounts for.
 
-`$$R^2 = \frac{SS_\text{Model}}{SS_\text{OEfreq}}$$`
+`$$R^2 = \frac{SS_\text{Model}}{SS_\text{BMI}}$$`
 --
 For example, if `\(R^2 = 0.30\)`, then our model accounts for 30% of our sample's variance in over-eating frequency.
 
 --
 More on this soon.
+
+
+---
+class: middle, inverse
+# Synthesis and wrap-up
+
+
+---
+# Class goals
+
+- Describe how statistical models differ from deterministic models
+- Mathematically represent the population model and interpret its deterministic and stochastic components
+- Formulate a linear regression model to hypothesize a population relationship
+- .gray[Estimated a fitted regression line using Ordinary-Least Squares regression]
+- Describe residuals and how they can describe the degree of our OLS model fit
+
+---
+# To-Dos
+
+### Reading: 
+- **By January 19 class**: LSWR Chapter 15.1 - 15.2 and 15.4 - 15.7
+
+### Review: 
+- Review EDUC 641, Unit 4 (Lectures 13 - 16)
+
+
+
     </textarea>
 <style data-target="print-only">@media screen {.remark-slide-container{display:block;}.remark-slide-scaler{box-shadow:none;}}</style>
 <script src="https://remarkjs.com/downloads/remark-latest.min.js"></script>

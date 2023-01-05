@@ -28,7 +28,7 @@ navbar:
         href: ./slides/EDUC643_8_mult_collinearity.html
       - text: "9. Categorical predictors"
         href: ./slides/EDUC643_9_categorical.html
-      - text: "10. TWo sample $t$-tests"
+      - text: "10. Two sample *t*-tests"
         href: ./slides/EDUC643_10_ttests.html
       - text: "11. ANOVA"
         href: ./slides/EDUC643_11_ANOVA.html

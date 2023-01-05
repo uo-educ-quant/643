@@ -4,7 +4,7 @@
     <title>Introduction and bivariate relationships</title>
     <meta charset="utf-8" />
     <meta name="author" content="David D. Liebowitz" />
-    <script src="EDUC643_1_intro_files/header-attrs-2.14.3/header-attrs.js"></script>
+    <script src="EDUC643_1_intro_files/header-attrs-2.19/header-attrs.js"></script>
     <link href="EDUC643_1_intro_files/remark-css-0.0.1/default.css" rel="stylesheet" />
     <link href="EDUC643_1_intro_files/remark-css-0.0.1/uo.css" rel="stylesheet" />
     <link href="EDUC643_1_intro_files/remark-css-0.0.1/ki-fonts.css" rel="stylesheet" />
@@ -19,7 +19,7 @@ class: center, middle, inverse, title-slide
 # Introduction and bivariate relationships
 ]
 .subtitle[
-## EDUC 643: Applied Statistics in Education and the Human Services II
+## EDUC 643: Unit 1
 ]
 .author[
 ### David D. Liebowitz
@@ -34,7 +34,7 @@ class: center, middle, inverse, title-slide
 &lt;img src="Roadmap.jpg" width="90%" style="display: block; margin: auto;" /&gt;
 
 ---
-# Goals of EDUC quant sequence
+## Goals of EDUC quant sequence
 
 - Develop the basic quantitative skills necessary to conduct applied data analysis
  + The full-year sequence (EDUC 641 `\(\rightarrow\)` EDUC 643 `\(\rightarrow\)` EDUC 645) prepares you to make valuable contributions to a research team
@@ -48,25 +48,18 @@ class: center, middle, inverse, title-slide
 
 --
 
-.blue[This is an entirely re-designed and modernized core quantitative sequence at the COE. We welcome your feedback!] 
-
-.blue[Given the new-ness of these three courses, there are likely to be shortcomings. We are committed to solving them as they arise, but we ask for your grace in allowing us to do so. In the end, we think this will be a better experience for you and your future program-mates.]
+.small[.blue[This is an entirely re-designed and modernized quantitative sequence for the COE. We welcome your feedback! Given the new-ness of these three courses, there are likely to be shortcomings. We are committed to solving them as they arise, but we ask for your grace in allowing us to do so. In the end, we think this will be a better experience for you and your future program-mates.]]
 
 ---
-# Learnings from the fall
+# EDUC pedagogical orientation
 
-- More examples of analysis
-- More examples of write-up
-- More opportunities to collaborate with classmates (engage in active learning)
-
----
-# Pedagogical orientation of EDUC
 
 - Analysis follows research design that emerges from substantive questions
 - Students learn statistical analysis by doing statistical analysis
 - Create an inclusive, supportive environment in which we learn from each other
 - Balance support and academic stretch across a variety of levels of prior experience and comfort with quantitative analysis
-- *Started with an assumption of no prior background in mathematics, programming, statistics or research*
+- *We started with an assumption of no prior background in mathematics, programming, statistics or research*
+
 
 --
 
@@ -78,7 +71,7 @@ We assume that you enter this course (EDUC 643) with the ability to:
 - Conduct a one-sample `\(t\)`-test and fit a bivariate Ordinary Least Squares regression
 
 --
-- See [EDUC 641 data management guide](https://daviddliebowitz.github.io/EDUC641_22F/data_management.html) for pointers
+- See [EDUC 641 data management guide](https://daviddliebowitz.github.io/EDUC641_22F/data_management.html) for data management pointers
 
 
 ---
@@ -86,6 +79,7 @@ We assume that you enter this course (EDUC 643) with the ability to:
 
 .small[In this intermediate course, we will focus on applying the General Linear Model to Ordinary Least Squares regression analysis. Students will progress from bivariate to multiple regression, developing an understanding of the associated assumptions of these models and tools to solve instances in which those assumptions are unmet. The course seeks to blend a conceptual, mathematical and applied understanding of basic statistical concepts.]
 
+.small[
 Concrete learning objectives:
 1. Articulate the framework of the General Linear Model as a method to describe relationships between quantitative variables
 2. Distinguish between research designs and analyses that permit different forms of inferences (e.g., relational or causal, inferential or descriptive)
@@ -94,6 +88,7 @@ Concrete learning objectives:
 5. Generalize the least-squares regression model (conceptually and in practice) to predictors that are categorical, interacted and non-linear
 6. Build taxonomies of sensible regression models in response to independently developed research questions
 7. Use an open-source, object-oriented statistical programming language to conduct all such analyses
+]
 
 ---
 # My personal goals
@@ -102,7 +97,7 @@ Concrete learning objectives:
 - Challenge you:
   + Everyone did very well in EDUC 641; this course will introduce more challenging material
   + If you're struggling, come talk to me
-  + If the course is too basic, consider either recommended texts for more formal mathematical treatment **AND/OR** programming extensions (see the resources on the [syllabus](../syllabus.html) **AND/OR** reflect on pedagogical approaches as a future instructor
+  + If the course is too basic, consider either the recommended texts for more formal mathematical treatment **AND/OR** programming extensions (see the resources on the [syllabus](../syllabus.html) **AND/OR** reflect on pedagogical approaches as a future instructor
 - Induct you into a graduate-level focus on mastery, rather than an undergraduate-level focus on success
 - Contribute to building a community of live learners and life-long professional colleagues
 - Assign everyone an A
@@ -116,17 +111,33 @@ Concrete learning objectives:
 - English lit undergrad major
 - Former ELA teacher and principal
 - Policy analyst/advisor
-- **Applied** quantitative social scientist focused on improving leadership and policy, particularly in schools serving large proportions of low-family-income and racially minoritized students
+- **Applied** quantitative social scientist focused on improving leadership and policy
 - **Not** a methodologist
 ]
 
 .pull-right[
-&lt;img src="kids.jpg" width="4024" style="display: block; margin: auto;" /&gt;
+&lt;img src="kids.jpg" width="1836" style="display: block; margin: auto;" /&gt;
 ]
+
 
 --
 
 .small[*Personal interests: I work and have kids, so I have no life, but when I can, I try to go for runs or play in the Cascade range.*]
+
+
+---
+# Learnings from the fall
+
+- More examples of actually doing the analysis
+- More examples of write-up
+- More opportunities to collaborate with classmates (engage in active learning)
+
+--
+
+
+### A wondering:
+- Many students did not submit polished final products for their assignments, do we need to grade for this?
+
 
 ---
 # Roadmap of EDUC 643
@@ -188,16 +199,16 @@ class: middle, inverse
 ---
 # A motivating question
 
-Researchers (including two from the .green[University of Oregon]), [Nichole Kelly, Elizabeth Cotter and Claire Guidinger (2018)](https://doi.org/10.1016/j.eatbeh.2018.07.003), set out to understand the extent to which young men who exhibit overeating behaviors have weight-related medical and psychological challenges.
+Researchers (including two from the .green[**University of Oregon**]), [Nichole Kelly, Elizabeth Cotter and Claire Guidinger (2018)](https://doi.org/10.1016/j.eatbeh.2018.07.003), set out to understand the extent to which young men who exhibit overeating behaviors have weight-related medical and psychological challenges.
 
-&lt;img src="kelly_etal.png" width="955" height="85%" style="display: block; margin: auto;" /&gt;
+&lt;img src="kelly_etal.png" width="775" height="80%" style="display: block; margin: auto;" /&gt;
 
 .small[Using real-world data (generously provided by Nichole Kelly) about the dietary habits, health, and self-appraisals of males 18-30, we are going to attempt to answer a similar question.]
 
 .small[In particular, we are going to explore the .purple[**relationship**] between **dietary restraint behaviors** (self-reports on the extent to which participants consciously restricted/controlled their food intake) and **over-eating frequency** (participants' self-reported frequency of over-eating episodes).]
 
 ---
-## Quantitative research design components
+### Quantitative research design components
 
 .large[
 1. **Research questions**
@@ -226,16 +237,16 @@ Researchers (including two from the .green[University of Oregon]), [Nichole Kell
 
 # install.packages("haven")
 do &lt;- read_spss(here("data/male_do_eating.sav")) %&gt;% 
-    select(OE_frequency, EDEQ_restraint, EDS_total,
-           BMI, age_year, income_group) 
+          select(OE_frequency, EDEQ_restraint, EDS_total,
+          BMI, age_year, income_group) 
 
 head(do)
 ```
 
 ```
 #&gt; # A tibble: 6 x 6
-#&gt;   OE_frequency EDEQ_restraint EDS_total   BMI age_year         income_group
-#&gt;          &lt;dbl&gt;          &lt;dbl&gt;     &lt;dbl&gt; &lt;dbl&gt;    &lt;dbl&gt;            &lt;dbl+lbl&gt;
+#&gt;   OE_frequency EDEQ_restraint EDS_total   BMI age_year income_group        
+#&gt;          &lt;dbl&gt;          &lt;dbl&gt;     &lt;dbl&gt; &lt;dbl&gt;    &lt;dbl&gt; &lt;dbl+lbl&gt;           
 #&gt; 1            0            0          21  23.3       27 1 [less than 19,999]
 #&gt; 2            0            1.2        21  16.6       30 1 [less than 19,999]
 #&gt; 3            0            0.4        22  18.7       21 1 [less than 19,999]
@@ -339,7 +350,7 @@ summary(do$EDS_total)
 ```
 
 ---
-# Oh the tangled web SPSS weaves!
+## Oh the tangled web SPSS weaves!
 
 
 ```r
@@ -364,6 +375,18 @@ do &lt;- filter(do, !is.na(EDS_total))
 ```
 
 ---
+# A preliminary analysis
+
+
+Before we get to the core question of the Kelly et al. study--how are dietary restraint behaviors related to over-eating frequency?--we are going to explore another important relationship in the data that may also be related to our main research question: the .purple[**relationship**] between .red-pink[**dietary restraint behaviors**] (self-reports on the extent to which participants consciously restricted/controlled their food intake) and .red-pink[**body-mass index (BMI)**]. In particular, we are going to operationalize this by examining the relationship in our sample of young men between our predictor variable (***EDEQ_restraint***) and their body-mass index (***BMI***). 
+
+--
+
+&gt; We are examining this relationship so that we can better understand how all three of these variables (***OE_frequency***, ***EDEQ_restraint*** and ***BMI***) are related in Unit 3. Additionally, the properties of the variable ***BMI*** are pedadogically helpful in demonstrating the assumptions of OLS.
+
+&gt; However, we recognize that BMI has been shown to be relatively uninformative about individuals' overall health and categorizes individuals based on distributions initially derived exclusively from white Western European (French and Scottish) study participants. We use the measure for pedagogical purposes because the variable is one of the few continuous measures in one of the few datasets that our UO colleagues shared with us, while noting its problematic historical use.
+
+---
 # Bivariate relationships
 
 We are interested in the *relationship* between dietary restraint (*EDEQ_restraint*) and body-mass index (*BMI*). Statistically, the relationship is the same regardless of which variable is the outcome.
@@ -378,12 +401,19 @@ We are interested in the *relationship* between dietary restraint (*EDEQ_restrai
 --
 
 However, our convention is to consider the variable on the Y-axis to be the one that we interpret as the "outcome" or the "dependent" variable.
+
 ---
 # Bivariate relationships
 
-Given the focus of the Kelly et al. paper and for pedagogical reasons, for the moment, we are choosing to plot over-eating frequency against dietary restraint. 
+Given the focus of the Kelly et al. paper and for pedagogical reasons, for the moment, we are choosing to plot BMI against dietary restraint. 
 
-&lt;img src="EDUC643_1_intro_files/figure-html/unnamed-chunk-13-1.svg" style="display: block; margin: auto;" /&gt;
+
+```r
+biv &lt;- ggplot(data=do, aes(x=EDEQ_restraint, y=BMI)) + 
+          geom_point()
+```
+
+&lt;img src="EDUC643_1_intro_files/figure-html/unnamed-chunk-14-1.svg" style="display: block; margin: auto;" /&gt;
 
 ---
 # Bivariate relationships
@@ -397,46 +427,46 @@ Given the focus of the Kelly et al. paper and for pedagogical reasons, for the m
 - Magnitude
 
 ---
-# Bivariate relationships: Direction
-
-&lt;img src="EDUC643_1_intro_files/figure-html/unnamed-chunk-14-1.svg" style="display: block; margin: auto;" /&gt;
----
-# Bivariate relationships: Linearity
+## Bivariate relationships: Direction
 
 &lt;img src="EDUC643_1_intro_files/figure-html/unnamed-chunk-15-1.svg" style="display: block; margin: auto;" /&gt;
-
 ---
-# Bivariate relationships: Outliers
+## Bivariate relationships: Linearity
 
 &lt;img src="EDUC643_1_intro_files/figure-html/unnamed-chunk-16-1.svg" style="display: block; margin: auto;" /&gt;
 
 ---
-# Bivariate relationships: Strength
+## Bivariate relationships: Outliers
 
 &lt;img src="EDUC643_1_intro_files/figure-html/unnamed-chunk-17-1.svg" style="display: block; margin: auto;" /&gt;
 
-**Note that these have the same slope (magnitude)**
 ---
-# Bivariate relationships: Magnitude
+## Bivariate relationships: Strength
 
 &lt;img src="EDUC643_1_intro_files/figure-html/unnamed-chunk-18-1.svg" style="display: block; margin: auto;" /&gt;
+
+**Note that these have the same slope (magnitude)**
+---
+## Bivariate relationships: Magnitude
+
+&lt;img src="EDUC643_1_intro_files/figure-html/unnamed-chunk-19-1.svg" style="display: block; margin: auto;" /&gt;
 **Note that these have the same strength (tightness of fit)**
 ---
-# Over-eating vs. eating restraint
+# BMI and over-eating
 
 .blue[So what can we say with respect to these five characteristics in our data?]
 
-&lt;img src="EDUC643_1_intro_files/figure-html/unnamed-chunk-19-1.svg" style="display: block; margin: auto;" /&gt;
+&lt;img src="EDUC643_1_intro_files/figure-html/unnamed-chunk-20-1.svg" style="display: block; margin: auto;" /&gt;
 ---
 # A line through our cloud
 
 Notice that in the previous slide, we added a line running through our data
 
-&lt;img src="EDUC643_1_intro_files/figure-html/unnamed-chunk-20-1.svg" style="display: block; margin: auto;" /&gt;
+&lt;img src="EDUC643_1_intro_files/figure-html/unnamed-chunk-21-1.svg" style="display: block; margin: auto;" /&gt;
 That line is defined by the intercept (value `\(Y\)` takes when `\(X=0\)`) and the slope (the difference in `\(Y\)` per 1 unit difference in `\(X\)`)
 &gt; `\(Y = intercept + slope*X\)` (you may have seen this in HS as Y = mX + b)
 
-&gt; We could think of this relationship, therefore, as `\(BMI = slope*EDEQrestraint + intercept\)` ... In fact, that's how we described this in EDUC 641, .purple[but that's not quite right]
+&gt; We could think of this relationship, therefore, as `\(BMI = slope*EDEQ\_restraint + intercept\)` ... In fact, that's how we described this in EDUC 641, .purple[but that's not quite right...]
 
 
 ---
@@ -455,7 +485,10 @@ class: middle, inverse
 # To-Dos
 
 ### Reading: 
-- LSWR Chapter 15.1 - 15.2 and 15.4 - 15.7
+- **By January 19 class**: LSWR Chapter 15.1 - 15.2 and 15.4 - 15.7
+
+### Review: 
+- Review EDUC 641, Unit 4 (Lectures 13 - 16)
 
 
     </textarea>
