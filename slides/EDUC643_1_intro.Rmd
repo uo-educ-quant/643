@@ -253,9 +253,9 @@ class: middle, inverse
 - Describe how statistical models differ from deterministic models
 - Mathematically represent the population model and interpret its deterministic and stochastic components
 - Formulate a linear regression model to hypothesize a population relationship
-- Estimated a fitted regression line using Ordinary-Least Squares regression
 - Describe residuals and how they can describe the degree of our OLS model fit
 - Explain $R^{2}$, both in terms of what it tells us and what it does not
+- Estimated a fitted regression line using Ordinary-Least Squares regression
 - Conduct an inference test for a regression coefficient and our regression model
 - Calculate a correlation coefficient $(r)$ and describe its relationship to $R^{2}$
 - Distinguish between research designs that permit correlational associations and those that permit causal inferences

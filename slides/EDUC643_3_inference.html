@@ -19,7 +19,7 @@ class: center, middle, inverse, title-slide
 # Regression inference
 ]
 .subtitle[
-## EDUC 643: Applied Statistics in Education and the Human Services
+## EDUC 643: Unit 1
 ]
 .author[
 ### David D. Liebowitz
@@ -42,11 +42,11 @@ class: center, middle, inverse, title-slide
 - Describe how statistical models differ from deterministic models
 - Mathematically represent the population model and interpret its deterministic and stochastic components
 - Formulate a linear regression model to hypothesize a population relationship
-- Estimated a fitted regression line using Ordinary-Least Squares regression
 - Describe residuals and how they can describe the degree of our OLS model fit
 ]
 
 - Explain `\(R^{2}\)`, both in terms of what it tells us and what it does not
+- Estimated a fitted regression line using Ordinary-Least Squares regression
 - Conduct an inference test for a regression coefficient and our regression model
 
 .gray[
@@ -57,63 +57,51 @@ class: center, middle, inverse, title-slide
 ---
 class: middle, inverse
 
+# OLS regression
 
 ---
 # A motivating question
 
-Researchers (including two from the .green[University of Oregon]), [Nichole Kelly, Elizabeth Cotter and Claire Guidinger (2018)](https://doi.org/10.1016/j.eatbeh.2018.07.003), set out to understand the extent to which young men who exhibit overeating behaviors have weight-related medical and psychological challenges.
+Researchers (including two from the .green[**University of Oregon**]), [Nichole Kelly, Elizabeth Cotter and Claire Guidinger (2018)](https://doi.org/10.1016/j.eatbeh.2018.07.003), set out to understand the extent to which young men who exhibit overeating behaviors have weight-related medical and psychological challenges.
 
-&lt;img src="kelly_etal.png" width="955" height="85%" style="display: block; margin: auto;" /&gt;
+&lt;img src="kelly_etal.png" width="775" height="80%" style="display: block; margin: auto;" /&gt;
 
-Using real-world data (generously provided by Nichole Kelly) about the dietary habits, health, and self-appraisals of males 18-30, we are going to attempt to answer a similar question. 
+.small[Using real-world data (generously provided by Nichole Kelly) about the dietary habits, health, and self-appraisals of males 18-30, we are going to attempt to answer a similar question.]
 
-However, before answering this question, we are going to explore **the relationship between dietary restraint behaviors** (self-reports on the extent to which participants consciously restricted/controlled their food intake) **and body-mass index (BMI).**
+.small[In particular, we are going to explore the .purple[**relationship**] between **dietary restraint behaviors** (self-reports on the extent to which participants consciously restricted/controlled their food intake) and **over-eating frequency** (participants' self-reported frequency of over-eating episodes).]
 
 
 ---
+# A preliminary analysis
+
+Before we get to the core question of the Kelly et al. study--how are dietary restraint behaviors related to over-eating frequency?--we are going to explore another important relationship in the data that may also be related to our main research question: the .purple[**relationship**] between .red-pink[**dietary restraint behaviors**] (self-reports on the extent to which participants consciously restricted/controlled their food intake) and .red-pink[**body-mass index (BMI)**]. In particular, we are going to operationalize this by examining the relationship in our sample of young men between our predictor variable (***EDEQ_restraint***) and their body-mass index (***BMI***). 
+
+--
+
+&gt; We are examining this relationship so that we can better understand how all three of these variables (***OE_frequency***, ***EDEQ_restraint*** and ***BMI***) are related in Unit 3. Additionally, the properties of the variable ***BMI*** are pedadogically helpful in demonstrating the assumptions of OLS.
+
+&gt; However, we recognize that BMI has been shown to be relatively uninformative about individuals' overall health and categorizes individuals based on distributions initially derived exclusively from white Western European (French and Scottish) study participants. We use the measure for pedagogical purposes because the variable is one of the few continuous measures in one of the few datasets that our UO colleagues shared with us, while noting its problematic historical use.
+
+
+
+
+---
+# Our bivariate relationship
 
 &lt;img src="EDUC643_3_inference_files/figure-html/unnamed-chunk-4-1.png" style="display: block; margin: auto;" /&gt;
 
 ---
-# Evaluating a regression
+# Evaluating regressions
 
 Let's try fitting our regression in R.
-
-
-```
-## 
-## Call:
-## lm(formula = BMI ~ EDEQ_restraint, data = do)
-## 
-## Residuals:
-##     Min      1Q  Median      3Q     Max 
-## -19.059  -3.971  -0.931   2.697  33.263 
-## 
-## Coefficients:
-##                Estimate Std. Error t value Pr(&gt;|t|)    
-## (Intercept)     23.9414     0.2635  90.857  &lt; 2e-16 ***
-## EDEQ_restraint   1.0349     0.1360   7.612 5.82e-14 ***
-## ---
-## Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
-## 
-## Residual standard error: 6.086 on 1090 degrees of freedom
-## Multiple R-squared:  0.05048,	Adjusted R-squared:  0.04961 
-## F-statistic: 57.94 on 1 and 1090 DF,  p-value: 5.821e-14
-```
-
-
----
-# Evaluating regression coefficients
-
-Here we can find our intercept and slope coefficients for our linear regression.
 
 
 ```
 
 Call:
 lm(formula = BMI ~ EDEQ_restraint, data = do)
-*
-*Residuals:
+
+Residuals:
     Min      1Q  Median      3Q     Max 
 -19.059  -3.971  -0.931   2.697  33.263 
 
@@ -129,39 +117,80 @@ Multiple R-squared:  0.05048,	Adjusted R-squared:  0.04961
 F-statistic: 57.94 on 1 and 1090 DF,  p-value: 5.821e-14
 ```
 
-**The predicted BMI for a young male with a dietary restraint rating of 0 is 23.94 `\((\beta_0)\)`.**
-
---
-
-**On average, each one unit difference in dietary restraint is positively associated with a 1.03 `\((\beta_1)\)` difference in BMI.**
-- .blue[Why not just say "increase" or "decrease"?] Be careful of causal language! More on this in a bit!
 
 ---
-# Evaluating regression residuals
+## Evaluating regressions: Coefficients
+
+Here we can find our **intercept** and slope coefficients for our linear regression.
 
 
 ```
-
-Call:
-lm(formula = BMI ~ EDEQ_restraint, data = do)
-
-Residuals:
-    Min      1Q  Median      3Q     Max 
--19.059  -3.971  -0.931   2.697  33.263 
-
-*Coefficients:
+...
+Coefficients:
                Estimate Std. Error t value Pr(&gt;|t|)    
-(Intercept)     23.9414     0.2635  90.857  &lt; 2e-16 ***
-EDEQ_restraint   1.0349     0.1360   7.612 5.82e-14 ***
+*(Intercept)     23.9414     0.2635  90.857  &lt; 2e-16 ***
+*EDEQ_restraint   1.0349     0.1360   7.612 5.82e-14 ***
 ---
 Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
 
 Residual standard error: 6.086 on 1090 degrees of freedom
 Multiple R-squared:  0.05048,	Adjusted R-squared:  0.04961 
 F-statistic: 57.94 on 1 and 1090 DF,  p-value: 5.821e-14
+...
 ```
 
-The residual standard error (RSE) also known as the Root Mean Square Error (RMSE) is the standard deviation of the residuals. This summarizes the variability of observed values around the model-predicted values, in the original units of the outcome. This value is important to our homoscedasticity assumption (Unit 2).
+**The predicted BMI for a young male with a dietary restraint rating of 0 is 23.94 `\((\beta_0)\)`.**
+
+---
+## Evaluating regressions: Coefficients
+
+Here we can find our intercept and **slope** coefficients for our linear regression.
+
+
+```
+...
+Coefficients:
+               Estimate Std. Error t value Pr(&gt;|t|)    
+*(Intercept)     23.9414     0.2635  90.857  &lt; 2e-16 ***
+*EDEQ_restraint   1.0349     0.1360   7.612 5.82e-14 ***
+---
+Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
+
+Residual standard error: 6.086 on 1090 degrees of freedom
+Multiple R-squared:  0.05048,	Adjusted R-squared:  0.04961 
+F-statistic: 57.94 on 1 and 1090 DF,  p-value: 5.821e-14
+...
+```
+
+--
+.tiny[**On average, each one unit difference in dietary restraint is positively associated with a 1.03 difference in BMI.**]
+
+.small[Even better: **We reject the null hypothesis, and conclude that *on average, in the population* there is a relationship between dietary restraint and BMI. We estimate that young men who are one unit apart on dietary restraint index will have a BMI score 1.03 points different from each other.**]
+
+--
+
+.small[.blue[Why not just say "increase" or "decrease"?] Be careful of causal language! More on this next class!]
+
+---
+## Evaluating regressions: Residuals
+
+
+```
+...
+Coefficients:
+               Estimate Std. Error t value Pr(&gt;|t|)    
+(Intercept)     23.9414     0.2635  90.857  &lt; 2e-16 ***
+EDEQ_restraint   1.0349     0.1360   7.612 5.82e-14 ***
+---
+Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
+
+*Residual standard error: 6.086 on 1090 degrees of freedom
+Multiple R-squared:  0.05048,	Adjusted R-squared:  0.04961 
+F-statistic: 57.94 on 1 and 1090 DF,  p-value: 5.821e-14
+...
+```
+
+The .red-pink[**residual standard error (RSE)**] is the standard deviation of the residuals. This summarizes the variability of observed values around the model-predicted values, in the original units of the outcome. This value is important to our homoscedasticity assumption (Unit 2).
 
 `$$RSE = 6.086$$`
 
@@ -170,42 +199,48 @@ This means observed values vary around our model-predicted BMI with a standard d
 ---
 # Degrees of freedom
 
-Though it's not critical that you learn how to calculate the RMSE, it is relevant that is is a function of the **degrees of freedom** `\((df)\)` in your regression:
+Both RSE and the related measure of model fit, .red-pink[**Root Mean Square Error (RMSE)**], depend on the number of .red-pink[**degrees of freedom**] `\((df)\)` in your regression. Though it's not critical that you learn how to calculate the RMSE, it is important to understand that is is a function of the **degrees of freedom** `\((df)\)` in your regression:
 
-`$$RMSE = \frac{\text{sum of squares}}{n-(\text{# of parameters estimated})_{SS}}$$`
+`$$RMSE = \frac{\text{sum of squared residuals}}{n-(\text{# of parameters estimated})_{SS}}$$`
 Our degrees of freedom decrease each time we use another parameter (add a predictor to our regression) to calculate the sum of squares. In a bivariate regression, our degrees of freedom (aka, the denominator) will always be `\(n-2\)` because we are estimating two parameters `\(\beta_0\)` and `\(\beta_1\)`.
 
-With smaller samples and lots of covariates, we can quickly use up our degrees of freedom. 
+With smaller samples and many covariates, we may use up our degrees of freedom. 
 
 --
 
 .blue[What happens to our model's precision as our degrees of freedom decreases?]
 
+--
+
+To calculate RMSE: 
+
+```r
+sqrt(sum((fit$residuals)^2)) / fit$df
+```
+
+```
+## [1] 0.1843462
+```
+
 ---
-# Evaluating regression `\(R^2\)`
+# Evaluating regression: `\(R^2\)`
 
 Here is our summary of model performance.
 
 
 ```
-
-Call:
-lm(formula = BMI ~ EDEQ_restraint, data = do)
-
-Residuals:
-    Min      1Q  Median      3Q     Max 
--19.059  -3.971  -0.931   2.697  33.263 
-
+...
 Coefficients:
-*               Estimate Std. Error t value Pr(&gt;|t|)    
+               Estimate Std. Error t value Pr(&gt;|t|)    
 (Intercept)     23.9414     0.2635  90.857  &lt; 2e-16 ***
 EDEQ_restraint   1.0349     0.1360   7.612 5.82e-14 ***
 ---
 Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
 
 Residual standard error: 6.086 on 1090 degrees of freedom
-Multiple R-squared:  0.05048,	Adjusted R-squared:  0.04961 
+*Multiple R-squared:  0.05048,	Adjusted R-squared:  0.04961 
 F-statistic: 57.94 on 1 and 1090 DF,  p-value: 5.821e-14
+...
 ```
 
 The R-squared value is .05.
@@ -214,11 +249,11 @@ This means that our model accounts for 5% of the variance in BMI. Since our mode
 
 --
 
-- What about the rest? Measurement error, random individual variation, other causes (inherited traits, social phenomena, lack of access)
+- The rest? Measurement error, random individual variation, other unobserved causes
 
 
 ---
-# What does (and doesn't) `\(R^2\)` mean?
+# What does `\(R^2\)` mean?
 
 `\(R^2\)` describes what proportion of the variation in the outcome the full regression model has explained.
 
@@ -240,15 +275,6 @@ class: middle, inverse
 
 Go back to Units 2, 3 and 4 of EDUC 641 for a refresher on Null-Hypothesis Testing (NHST), the Central Limit Theorem and `\(t\)`-distributions.
 
-
----
-# Repeated sampling
-
-&lt;img src="EDUC643_3_inference_files/figure-html/unnamed-chunk-9-1.png" style="display: block; margin: auto;" /&gt;
-
----
-# Repeated sampling
-&lt;img src="EDUC643_3_inference_files/figure-html/unnamed-chunk-10-1.gif" style="display: block; margin: auto;" /&gt;
 
 ---
 # Slope `\((\hat{\beta_{1}})\)` sampling distribution 
@@ -280,24 +306,18 @@ There are multiple inferential tests in a regression model:
 
 
 ```
-
-Call:
-lm(formula = BMI ~ EDEQ_restraint, data = do)
-*
-*Residuals:
-    Min      1Q  Median      3Q     Max 
--19.059  -3.971  -0.931   2.697  33.263 
-
+...
 Coefficients:
                Estimate Std. Error t value Pr(&gt;|t|)    
 *(Intercept)     23.9414     0.2635  90.857  &lt; 2e-16 ***
-EDEQ_restraint   1.0349     0.1360   7.612 5.82e-14 ***
+*EDEQ_restraint   1.0349     0.1360   7.612 5.82e-14 ***
 ---
 Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
 
 Residual standard error: 6.086 on 1090 degrees of freedom
 Multiple R-squared:  0.05048,	Adjusted R-squared:  0.04961 
-F-statistic: 57.94 on 1 and 1090 DF,  p-value: 5.821e-14
+*F-statistic: 57.94 on 1 and 1090 DF,  p-value: 5.821e-14
+...
 ```
 
 ---
@@ -349,6 +369,8 @@ Generally, as we get to around 50 degrees of freedom, our `\(t\)`-distribution a
 
 ### Critical values of `\(t_{\text{observed}}\)`
 
+&lt;br&gt;
+
 | `\(df\)`  |   **0.10**    |   **0.05**   |  **0.01** 
 |-------|-----------------------------------------
 |  10   |   1.81        |  2.23        | 3.17
@@ -361,21 +383,14 @@ Generally, as we get to around 50 degrees of freedom, our `\(t\)`-distribution a
 ---
 # Regression coefficients: `\(\hat{\beta_{0}}\)`
 
-Our R output shows us the significance of the intercept. (Typically, we are not interested in whether the intercept differs from 0.)
+Our output shows us the significance of the intercept (typically, we are not interested in whether the intercept differs from 0).
 
 
 ```
-
-Call:
-lm(formula = BMI ~ EDEQ_restraint, data = do)
-*
-Residuals:
-    Min      1Q  Median      3Q     Max 
--19.059  -3.971  -0.931   2.697  33.263 
-
+...
 Coefficients:
                Estimate Std. Error t value Pr(&gt;|t|)    
-(Intercept)     23.9414     0.2635  90.857  &lt; 2e-16 ***
+*(Intercept)     23.9414     0.2635  90.857  &lt; 2e-16 ***
 EDEQ_restraint   1.0349     0.1360   7.612 5.82e-14 ***
 ---
 Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
@@ -383,6 +398,7 @@ Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
 Residual standard error: 6.086 on 1090 degrees of freedom
 Multiple R-squared:  0.05048,	Adjusted R-squared:  0.04961 
 F-statistic: 57.94 on 1 and 1090 DF,  p-value: 5.821e-14
+...
 ```
 
 ---
@@ -390,24 +406,18 @@ F-statistic: 57.94 on 1 and 1090 DF,  p-value: 5.821e-14
 
 
 ```
-
-Call:
-lm(formula = BMI ~ EDEQ_restraint, data = do)
-
-*Residuals:
-    Min      1Q  Median      3Q     Max 
--19.059  -3.971  -0.931   2.697  33.263 
-
+...
 Coefficients:
                Estimate Std. Error t value Pr(&gt;|t|)    
 (Intercept)     23.9414     0.2635  90.857  &lt; 2e-16 ***
-EDEQ_restraint   1.0349     0.1360   7.612 5.82e-14 ***
+*EDEQ_restraint   1.0349     0.1360   7.612 5.82e-14 ***
 ---
 Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
 
 Residual standard error: 6.086 on 1090 degrees of freedom
 Multiple R-squared:  0.05048,	Adjusted R-squared:  0.04961 
 F-statistic: 57.94 on 1 and 1090 DF,  p-value: 5.821e-14
+...
 ```
 
 `$$t = \frac{\hat{\beta_1} - 0}{SE(\hat{\beta_1})} = \frac{1.04}{.14} = 7.43$$`
@@ -417,24 +427,18 @@ F-statistic: 57.94 on 1 and 1090 DF,  p-value: 5.821e-14
 
 
 ```
-
-Call:
-lm(formula = BMI ~ EDEQ_restraint, data = do)
-
-*Residuals:
-    Min      1Q  Median      3Q     Max 
--19.059  -3.971  -0.931   2.697  33.263 
-
+...
 Coefficients:
                Estimate Std. Error t value Pr(&gt;|t|)    
 (Intercept)     23.9414     0.2635  90.857  &lt; 2e-16 ***
-EDEQ_restraint   1.0349     0.1360   7.612 5.82e-14 ***
+*EDEQ_restraint   1.0349     0.1360   7.612 5.82e-14 ***
 ---
 Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
 
 Residual standard error: 6.086 on 1090 degrees of freedom
 Multiple R-squared:  0.05048,	Adjusted R-squared:  0.04961 
 F-statistic: 57.94 on 1 and 1090 DF,  p-value: 5.821e-14
+...
 ```
 
 Under the null hypothesis, it is extremely unlikely to obtain a Dietary Restraint slope of 1.04 (p &lt; .001). Therefore, we can reject the null and conclude that there is a positive relationship between Dietary Restraint rating and BMI, on average in the population.
@@ -444,35 +448,55 @@ Under the null hypothesis, it is extremely unlikely to obtain a Dietary Restrain
 
 Can we identify a range of plausible values for `\(\hat{\beta_{1}}\)`? Perhaps, we can use our sampling distribution to construct intervals that offer a range of plausible values for the population parameter.
 
-.red[show simulation of estimate slopes and describe how 19 of 20 will fall within a range +/- 1.96*SE around the "true" population slope.]
 
+---
+# Confidence Interval intuition
+
+&lt;img src="EDUC643_3_inference_files/figure-html/unnamed-chunk-17-1.png" style="display: block; margin: auto;" /&gt;
+
+---
+# Confidence interval intuition
+
+&lt;img src="EDUC643_3_inference_files/figure-html/unnamed-chunk-18-1.png" style="display: block; margin: auto;" /&gt;
+
+---
+# Condidence interval intuition
+&lt;img src="EDUC643_3_inference_files/figure-html/unnamed-chunk-19-1.gif" style="display: block; margin: auto;" /&gt;
+---
+# Formal confidence intervals
+
+The intuition to take from the preceding simulation is that the confidence interval corresponds to the frequency with which the underlying "true" population parameter will fall within the range of the confidence interval over repeated sampling from that population. 
+
+For a given `\(\alpha\)`-threshold, we are positing that 90 or 95, 99 or 99.9 percent of future confidence intervals drawn from repeated samples will encompass the true value of the population parameter. 
+
+Colloquially: "If we drew a sample over and over again and computed a 95% confidence interval for each replication, then 95% of those intervals would contain the true mean."
+
+--
+
+.red[**NOT**]: "there is a 95% probability that the true mean lies within the confidence interval"
+
+--
 
 Confidence interval for `\(\hat{\beta_1}\)`:
 
-`$$\hat{\beta_1} \pm t_{n-2}[se(\hat{\beta_1})]$$`
+`$$\hat{\beta_1} \pm t_{n-2}^{critical}[se(\hat{\beta_1})]$$`
 ---
 # Confidence intervals (CIs)
 
 
 ```
-
-Call:
-lm(formula = BMI ~ EDEQ_restraint, data = do)
-
-*Residuals:
-    Min      1Q  Median      3Q     Max 
--19.059  -3.971  -0.931   2.697  33.263 
-
+...
 Coefficients:
                Estimate Std. Error t value Pr(&gt;|t|)    
 (Intercept)     23.9414     0.2635  90.857  &lt; 2e-16 ***
-EDEQ_restraint   1.0349     0.1360   7.612 5.82e-14 ***
+*EDEQ_restraint   1.0349     0.1360   7.612 5.82e-14 ***
 ---
 Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
 
 Residual standard error: 6.086 on 1090 degrees of freedom
 Multiple R-squared:  0.05048,	Adjusted R-squared:  0.04961 
 F-statistic: 57.94 on 1 and 1090 DF,  p-value: 5.821e-14
+...
 ```
 95% CIs:
 `$$\hat{\beta_1} \pm t_{n-2}[se(\hat{\beta_1})]$$`
@@ -494,25 +518,25 @@ tidy(fit, conf.int=T)
 ##   term           estimate std.error statistic  p.value conf.low conf.high
 ##   &lt;chr&gt;             &lt;dbl&gt;     &lt;dbl&gt;     &lt;dbl&gt;    &lt;dbl&gt;    &lt;dbl&gt;     &lt;dbl&gt;
 ## 1 (Intercept)       23.9      0.264     90.9  0          23.4       24.5 
-## 2 EDEQ_restraint     1.03     0.136      7.61 5.82e-14    0.768      1.30
+*## 2 EDEQ_restraint     1.03     0.136      7.61 5.82e-14    0.768      1.30
 ```
 
 --
 
-&lt;img src="EDUC643_3_inference_files/figure-html/unnamed-chunk-19-1.png" style="display: block; margin: auto;" /&gt;
+&lt;img src="EDUC643_3_inference_files/figure-html/unnamed-chunk-22-1.png" style="display: block; margin: auto;" /&gt;
 
 ---
-# `\(F\)`-Distributions and omnibus tests
+## `\(F\)`-Distributions and omnibus tests
 
 The omnibus test uses the `\(F\)`-distribution to test the ratio of two variances (i.e., explained vs unexplained variance). This is a different, but similar, distribution to the `\(t\)`-distribution. For now, it's not critical that you know how it differs.
 
-Null hypothesis: The model does not account for variance in Y.
+Null hypothesis: The model does not account for any variance in `\(Y\)`.
 
 If we reject the null, then the model accounts for more variance than we would expect by chance. 
 ---
-# `\(F\)`-Distributions and omnibus tests
+## `\(F\)`-Distributions and omnibus tests
 
-Just like tests with other probability distribution, we are testing the probability of obtaining a value (or more extreme value) of F under the `\(F\)`-Distribution.
+Just like tests with other probability distribution, we are testing the probability of obtaining a value (or more extreme value) of `\(F\)` under the `\(F\)`-Distribution.
 
 `$$\Large F = \frac{MS_{Model}}{MS_{residual}}$$`
 
@@ -523,41 +547,7 @@ Mean Squares (MS) are the Sums of Squares divided by their respective degrees of
 
 
 ```
-
-Call:
-lm(formula = BMI ~ EDEQ_restraint, data = do)
-
-Residuals:
-    Min      1Q  Median      3Q     Max 
--19.059  -3.971  -0.931   2.697  33.263 
-
-Coefficients:
-               Estimate Std. Error t value Pr(&gt;|t|)    
-*(Intercept)     23.9414     0.2635  90.857  &lt; 2e-16 ***
-EDEQ_restraint   1.0349     0.1360   7.612 5.82e-14 ***
----
-Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
-
-Residual standard error: 6.086 on 1090 degrees of freedom
-Multiple R-squared:  0.05048,	Adjusted R-squared:  0.04961 
-F-statistic: 57.94 on 1 and 1090 DF,  p-value: 5.821e-14
-```
-
-Our omnibus test was significant (p &lt; .001), therefore we can reject the null hypothesis that the model accounts for zero variance in BMI.
-
----
-# Summarizing regression results
-
-
-```
-
-Call:
-lm(formula = BMI ~ EDEQ_restraint, data = do)
-
-*Residuals:
-    Min      1Q  Median      3Q     Max 
--19.059  -3.971  -0.931   2.697  33.263 
-
+...
 Coefficients:
                Estimate Std. Error t value Pr(&gt;|t|)    
 (Intercept)     23.9414     0.2635  90.857  &lt; 2e-16 ***
@@ -567,10 +557,33 @@ Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
 
 Residual standard error: 6.086 on 1090 degrees of freedom
 Multiple R-squared:  0.05048,	Adjusted R-squared:  0.04961 
-F-statistic: 57.94 on 1 and 1090 DF,  p-value: 5.821e-14
+*F-statistic: 57.94 on 1 and 1090 DF,  p-value: 5.821e-14
+...
 ```
 
-We fit an Ordinary-Least Squares regression model to assess whether there is a relationship between BMI and Dietary Restraint, on average, in the population of young adult males. At an alpha threshold of `\(p\)`&lt;0.05, we found that Dietary Restraint was a significant predictor of BMI and accounted for approximately 5 percent of the variance in BMI. On average, each one unit difference in dietary restraint is positively associated with a 1.03 `\((\beta_1)\)` difference in BMI.
+Our omnibus test was significant (p &lt; .001), therefore we can reject the null hypothesis that the full model accounts for zero variance in BMI.
+
+---
+# Summarizing regression results
+
+
+```
+...
+Coefficients:
+               Estimate Std. Error t value Pr(&gt;|t|)    
+(Intercept)     23.9414     0.2635  90.857  &lt; 2e-16 ***
+*EDEQ_restraint   1.0349     0.1360   7.612 5.82e-14 ***
+---
+Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
+
+Residual standard error: 6.086 on 1090 degrees of freedom
+Multiple R-squared:  0.05048,	Adjusted R-squared:  0.04961 
+F-statistic: 57.94 on 1 and 1090 DF,  p-value: 5.821e-14
+...
+```
+
+&gt; We postulated a linear model which we estimated via Ordinary-Least Squares regression to assess whether there is a relationship between BMI and Dietary Restraint, on average, in the population of young adult males. At an alpha threshold of `\(p\)`&lt;0.05, we found that Dietary Restraint was a significant predictor of BMI and accounted for approximately 5 percent of the variance in BMI. We estimate that young men who are one unit apart on a dietary restraint index will have a BMI score 1.03 points different from each other.
+
 
 ---
 # Regressions as a prediction
@@ -605,6 +618,36 @@ An adult would have to weigh 2,894 pounds at 5' 8" to have a BMI of 439.9.
 --
 
 **Only predict within the bounds of your data.**
+
+
+---
+class: middle, inverse
+# Synthesis and wrap-up
+
+
+---
+# Class goals
+
+- Formulate a linear regression model to hypothesize a population relationship
+- Explain `\(R^{2}\)`, both in terms of what it tells us and what it does not
+- Estimated a fitted regression line using Ordinary-Least Squares regression
+- Conduct an inference test for a regression coefficient and our regression model
+
+---
+# To-Dos
+
+### Reading: 
+- **By January 19 class**: LSWR Chapter 15.1 - 15.2 and 15.4 - 15.7
+
+### Quiz: 
+- Opens 3:45 on Thursday, Jan. 19
+
+### Assignment 1:
+- Now live
+- Have all information you need to complete
+- Due Jan. 24, 11:59pm
+
+
     </textarea>
 <style data-target="print-only">@media screen {.remark-slide-container{display:block;}.remark-slide-scaler{box-shadow:none;}}</style>
 <script src="https://remarkjs.com/downloads/remark-latest.min.js"></script>

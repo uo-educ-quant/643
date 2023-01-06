@@ -1,6 +1,6 @@
 ---
 title: "Regression inference"
-subtitle: "EDUC 643: Applied Statistics in Education and the Human Services"
+subtitle: "EDUC 643: Unit 1"
 author: "David D. Liebowitz"
 #date: "`r format(Sys.time(), '%d %B %Y')`"
 output:
@@ -51,6 +51,27 @@ write_extra_css(css = extra_css, outfile = "my_custom.css")
 
 options(htmltools.dir.version = FALSE)
 
+hook_output <- knit_hooks$get("output")
+knit_hooks$set(output = function(x, options) {
+  lines <- options$output.lines
+  if (is.null(lines)) {
+    return(hook_output(x, options))  # pass to default hook
+  }
+  x <- unlist(strsplit(x, "\n"))
+  more <- "..."
+  if (length(lines)==1) {        # first n lines
+    if (length(x) > lines) {
+      # truncate the output, but add ....
+      x <- c(head(x, lines), more)
+    }
+  } else {
+    x <- c(more, x[lines], more)
+  }
+  # paste these lines together
+  x <- paste(c(x, ""), collapse = "\n")
+  hook_output(x, options)
+})
+
 knitr::opts_chunk$set(warning = FALSE,
                       message = FALSE,
                       echo = FALSE,
@@ -72,11 +93,11 @@ include_graphics("Roadmap1.jpg")
 - Describe how statistical models differ from deterministic models
 - Mathematically represent the population model and interpret its deterministic and stochastic components
 - Formulate a linear regression model to hypothesize a population relationship
-- Estimated a fitted regression line using Ordinary-Least Squares regression
 - Describe residuals and how they can describe the degree of our OLS model fit
 ]
 
 - Explain $R^{2}$, both in terms of what it tells us and what it does not
+- Estimated a fitted regression line using Ordinary-Least Squares regression
 - Conduct an inference test for a regression coefficient and our regression model
 
 .gray[
@@ -87,19 +108,34 @@ include_graphics("Roadmap1.jpg")
 ---
 class: middle, inverse
 
+# OLS regression
 
 ---
 # A motivating question
 
-Researchers (including two from the .green[University of Oregon]), [Nichole Kelly, Elizabeth Cotter and Claire Guidinger (2018)](https://doi.org/10.1016/j.eatbeh.2018.07.003), set out to understand the extent to which young men who exhibit overeating behaviors have weight-related medical and psychological challenges.
+Researchers (including two from the .green[**University of Oregon**]), [Nichole Kelly, Elizabeth Cotter and Claire Guidinger (2018)](https://doi.org/10.1016/j.eatbeh.2018.07.003), set out to understand the extent to which young men who exhibit overeating behaviors have weight-related medical and psychological challenges.
 
-```{r, echo=F, out.height="85%"}
+```{r, echo=F, out.height="80%"}
 include_graphics("kelly_etal.png")
 ```
 
-Using real-world data (generously provided by Nichole Kelly) about the dietary habits, health, and self-appraisals of males 18-30, we are going to attempt to answer a similar question. 
+.small[Using real-world data (generously provided by Nichole Kelly) about the dietary habits, health, and self-appraisals of males 18-30, we are going to attempt to answer a similar question.]
 
-However, before answering this question, we are going to explore **the relationship between dietary restraint behaviors** (self-reports on the extent to which participants consciously restricted/controlled their food intake) **and body-mass index (BMI).**
+.small[In particular, we are going to explore the .purple[**relationship**] between **dietary restraint behaviors** (self-reports on the extent to which participants consciously restricted/controlled their food intake) and **over-eating frequency** (participants' self-reported frequency of over-eating episodes).]
+
+
+---
+# A preliminary analysis
+
+Before we get to the core question of the Kelly et al. study--how are dietary restraint behaviors related to over-eating frequency?--we are going to explore another important relationship in the data that may also be related to our main research question: the .purple[**relationship**] between .red-pink[**dietary restraint behaviors**] (self-reports on the extent to which participants consciously restricted/controlled their food intake) and .red-pink[**body-mass index (BMI)**]. In particular, we are going to operationalize this by examining the relationship in our sample of young men between our predictor variable (***EDEQ_restraint***) and their body-mass index (***BMI***). 
+
+--
+
+> We are examining this relationship so that we can better understand how all three of these variables (***OE_frequency***, ***EDEQ_restraint*** and ***BMI***) are related in Unit 3. Additionally, the properties of the variable ***BMI*** are pedadogically helpful in demonstrating the assumptions of OLS.
+
+> However, we recognize that BMI has been shown to be relatively uninformative about individuals' overall health and categorizes individuals based on distributions initially derived exclusively from white Western European (French and Scottish) study participants. We use the measure for pedagogical purposes because the variable is one of the few continuous measures in one of the few datasets that our UO colleagues shared with us, while noting its problematic historical use.
+
+
 
 ```{r, echo=F}
 do <- read_spss(here("data/male_do_eating.sav")) %>% 
@@ -110,8 +146,9 @@ do <- read_spss(here("data/male_do_eating.sav")) %>%
 
 ```
 ---
+# Our bivariate relationship
 
-```{r, echo = F, fig.height=4, fig.width = 6}
+```{r, echo = F, fig.height=6, fig.width = 8}
 lm_plot <- ggplot(do, aes(x=EDEQ_restraint, y=BMI)) + 
   geom_point() +
   ggtitle("BMI vs Dietary restraint") +
@@ -123,42 +160,56 @@ lm_plot  +
 ```
 
 ---
-# Evaluating a regression
+# Evaluating regressions
 
 Let's try fitting our regression in R.
 
-```{r}
+```{r, comment = NA}
 fit <- lm(BMI ~ EDEQ_restraint, do)
 summary(fit)
 ```
 
 
 ---
-# Evaluating regression coefficients
+## Evaluating regressions: Coefficients
 
-Here we can find our intercept and slope coefficients for our linear regression.
+Here we can find our **intercept** and slope coefficients for our linear regression.
 
-```{r, highlight.output = c(4,5), echo = F, output.lines = -(1:8), comment = NA}
+```{r, highlight.output = c(4,5), echo = F, output.lines = -c(1:8), comment = NA}
 summary(fit)
 
 ```
 
 **The predicted BMI for a young male with a dietary restraint rating of 0 is 23.94 $(\beta_0)$.**
 
+---
+## Evaluating regressions: Coefficients
+
+Here we can find our intercept and **slope** coefficients for our linear regression.
+
+```{r, highlight.output = c(4,5), echo = F, output.lines = -c(1:8), comment = NA}
+summary(fit)
+
+```
+
+--
+.tiny[**On average, each one unit difference in dietary restraint is positively associated with a 1.03 difference in BMI.**]
+
+.small[Even better: **We reject the null hypothesis, and conclude that *on average, in the population* there is a relationship between dietary restraint and BMI. We estimate that young men who are one unit apart on dietary restraint index will have a BMI score 1.03 points different from each other.**]
+
 --
 
-**On average, each one unit difference in dietary restraint is positively associated with a 1.03 $(\beta_1)$ difference in BMI.**
-- .blue[Why not just say "increase" or "decrease"?] Be careful of causal language! More on this in a bit!
+.small[.blue[Why not just say "increase" or "decrease"?] Be careful of causal language! More on this next class!]
 
 ---
-# Evaluating regression residuals
+## Evaluating regressions: Residuals
 
 ```{r, highlight.output = 9, echo = F, output.lines = -(1:8), comment = NA}
 summary(fit)
 
 ```
 
-The residual standard error (RSE) also known as the Root Mean Square Error (RMSE) is the standard deviation of the residuals. This summarizes the variability of observed values around the model-predicted values, in the original units of the outcome. This value is important to our homoscedasticity assumption (Unit 2).
+The .red-pink[**residual standard error (RSE)**] is the standard deviation of the residuals. This summarizes the variability of observed values around the model-predicted values, in the original units of the outcome. This value is important to our homoscedasticity assumption (Unit 2).
 
 $$RSE = 6.086$$
 
@@ -167,19 +218,26 @@ This means observed values vary around our model-predicted BMI with a standard d
 ---
 # Degrees of freedom
 
-Though it's not critical that you learn how to calculate the RMSE, it is relevant that is is a function of the **degrees of freedom** $(df)$ in your regression:
+Both RSE and the related measure of model fit, .red-pink[**Root Mean Square Error (RMSE)**], depend on the number of .red-pink[**degrees of freedom**] $(df)$ in your regression. Though it's not critical that you learn how to calculate the RMSE, it is important to understand that is is a function of the **degrees of freedom** $(df)$ in your regression:
 
-$$RMSE = \frac{\text{sum of squares}}{n-(\text{# of parameters estimated})_{SS}}$$
+$$RMSE = \frac{\text{sum of squared residuals}}{n-(\text{# of parameters estimated})_{SS}}$$
 Our degrees of freedom decrease each time we use another parameter (add a predictor to our regression) to calculate the sum of squares. In a bivariate regression, our degrees of freedom (aka, the denominator) will always be $n-2$ because we are estimating two parameters $\beta_0$ and $\beta_1$.
 
-With smaller samples and lots of covariates, we can quickly use up our degrees of freedom. 
+With smaller samples and many covariates, we may use up our degrees of freedom. 
 
 --
 
 .blue[What happens to our model's precision as our degrees of freedom decreases?]
 
+--
+
+To calculate RMSE: 
+```{r, echo=T}
+sqrt(sum((fit$residuals)^2)) / fit$df
+```
+
 ---
-# Evaluating regression $R^2$
+# Evaluating regression: $R^2$
 
 Here is our summary of model performance.
 
@@ -194,11 +252,11 @@ This means that our model accounts for 5% of the variance in BMI. Since our mode
 
 --
 
-- What about the rest? Measurement error, random individual variation, other causes (inherited traits, social phenomena, lack of access)
+- The rest? Measurement error, random individual variation, other unobserved causes
 
 
 ---
-# What does (and doesn't) $R^2$ mean?
+# What does $R^2$ mean?
 
 $R^2$ describes what proportion of the variation in the outcome the full regression model has explained.
 
@@ -220,106 +278,6 @@ class: middle, inverse
 
 Go back to Units 2, 3 and 4 of EDUC 641 for a refresher on Null-Hypothesis Testing (NHST), the Central Limit Theorem and $t$-distributions.
 
-
----
-# Repeated sampling
-
-```{r, echo=F, fig.height=7}
-set.seed(1234)
-
-n = 5000
-x = rnorm(n, 2, 0.2)
-epsilon = rnorm(n, 0, 0.2)
-y = 1 + 2*x + epsilon
-
-df = tibble(x, y)
-
-model = lm(y ~ x, data = df)
-
-# df %>% 
-#   ggplot(aes(x = x, y = y)) +
-#   geom_point(alpha=0.1, shape=21) +
-#   geom_smooth(method = "lm", se = FALSE) +
-#   ggpubr::stat_regline_equation() +
-#   ylim(3,7) +
-#   xlim(1.1, 2.7) +
-#   theme_minimal(base_size=16)
-
-ci <- augment(model, interval = "confidence")
-
-plotdf <- tibble(
-  x = ci$x,
-  y = ci$y, 
-  line = ci$.fitted,
-  ci_lwr = ci$.lower,
-  ci_upr = ci$.upper)
-
-plot1 <- plotdf %>% 
-  ggplot(aes(x = x, y = y)) +
-  geom_point(alpha=0.1, shape=21) + 
-  geom_line(aes(x = x, y = line), colour = "blue") +
-  ylim(3,7) +
-  xlim(1.2, 2.7) +
-  ggpubr::stat_regline_equation() +
-  geom_ribbon(aes(x = x, ymin = ci_lwr, ymax = ci_upr), fill = "gray20", alpha = 0.3) +
-  labs(caption = "blue: single estimated linear regression line,
-       gray: 95% CI") +
-  theme_minimal(base_size=16)
-
-plot1
-```
-
----
-# Repeated sampling
-```{r, echo=F, fig.height=7}
-library(gganimate)
-nsim = 100 ## Number of simulations
-n = 50
-
-sim_tbl <- tibble(
-  x = rnorm(n*nsim, 2, sd = 0.2),
-  epsilon = rnorm(n*nsim, 0, sd = 0.2),
-  y = 1 + 2*x + epsilon,
-  sim_num = rep(1:nsim, n)) ## This tibble puts all the simulated data in one
-
-sim_lm_tbl <- sim_tbl %>% 
-  group_by(sim_num) %>% 
-  nest() %>% ## Group by simulation number and separately fit linear models
-  mutate(
-    lm = purrr::map(.x = data, .f = ~ lm(y ~ x, data = .x)),
-    lm_tidy = purrr::map(lm, broom::tidy))
-
-sim_coef_tbl <- sim_lm_tbl %>% 
-  select(sim_num, lm_tidy) %>% 
-  unnest(lm_tidy) %>% 
-  select(sim_num, term, estimate) %>%
-  pivot_wider(names_from = "term",
-                     values_from = "estimate")
-
-sim_conf_int <- augment(model, newdata = sim_tbl, interval = "confidence") %>% 
-  select(x, y, .lower, .upper)
-
-animation1 = ggplot() +
-  geom_point(data=df, aes(x, y), alpha=0.1, shape=21) +
-  geom_point(data = sim_tbl, aes(x = x, y = y), color = "orange") +
-  geom_ribbon(data = sim_conf_int, aes(x = x, y = y, ymin = .lower, ymax = .upper),
-              alpha = 0.5) +
-  geom_abline(intercept = model$coefficients[1],
-              slope = model$coefficients[2], color = "blue") +
-  geom_abline(data = sim_coef_tbl,
-              aes(slope = x, intercept = `(Intercept)`), 
-              color = "orange") +
-  ylim(3,7) +
-  xlim(1.2, 2.7) +
-  transition_states(sim_num, wrap=FALSE) +
-  shadow_mark(color = "orange", alpha = 0.2) +
-  labs(subtitle = "Simulation {closest_state}",
-       caption = "blue: single estimated linear regression line,
-       orange: 100 simulated linear regression lines") +
-  theme_minimal(base_size=16)
-
-animation1
-```
 
 ---
 # Slope $(\hat{\beta_{1}})$ sampling distribution 
@@ -423,6 +381,8 @@ Generally, as we get to around 50 degrees of freedom, our $t$-distribution appro
 
 ### Critical values of $t_{\text{observed}}$
 
+<br>
+
 | $df$  |   **0.10**    |   **0.05**   |  **0.01** 
 |-------|-----------------------------------------
 |  10   |   1.81        |  2.23        | 3.17
@@ -435,7 +395,7 @@ Generally, as we get to around 50 degrees of freedom, our $t$-distribution appro
 ---
 # Regression coefficients: $\hat{\beta_{0}}$
 
-Our R output shows us the significance of the intercept. (Typically, we are not interested in whether the intercept differs from 0.)
+Our output shows us the significance of the intercept (typically, we are not interested in whether the intercept differs from 0).
 
 ```{r, highlight.output = c(4), echo = F, output.lines = -(1:8), comment = NA}
 summary(fit)
@@ -464,12 +424,149 @@ Under the null hypothesis, it is extremely unlikely to obtain a Dietary Restrain
 
 Can we identify a range of plausible values for $\hat{\beta_{1}}$? Perhaps, we can use our sampling distribution to construct intervals that offer a range of plausible values for the population parameter.
 
-.red[show simulation of estimate slopes and describe how 19 of 20 will fall within a range +/- 1.96*SE around the "true" population slope.]
 
+---
+# Confidence Interval intuition
+
+```{r, echo=F, fig.height=7}
+set.seed(1234)
+
+n = 5000
+x = rnorm(n, 2, 0.2)
+epsilon = rnorm(n, 0, 0.2)
+y = 1 + 2*x + epsilon
+
+df = tibble(x, y)
+
+model = lm(y ~ x, data = df)
+
+# df %>% 
+#   ggplot(aes(x = x, y = y)) +
+#   geom_point(alpha=0.1, shape=21) +
+#   geom_smooth(method = "lm", se = FALSE) +
+#   ggpubr::stat_regline_equation() +
+#   ylim(3,7) +
+#   xlim(1.1, 2.7) +
+#   theme_minimal(base_size=16)
+
+ci <- augment(model, interval = "confidence")
+
+plotdf <- tibble(
+  x = ci$x,
+  y = ci$y, 
+  line = ci$.fitted,
+  ci_lwr = ci$.lower,
+  ci_upr = ci$.upper)
+
+plot1 <- plotdf %>% 
+  ggplot(aes(x = x, y = y)) +
+  geom_point(alpha=0.1, shape=21) + 
+  geom_line(aes(x = x, y = line), colour = "blue") +
+  ylim(3,7) +
+  xlim(1.2, 2.7) +
+  ggpubr::stat_regline_equation() +
+  geom_ribbon(aes(x = x, ymin = ci_lwr, ymax = ci_upr), fill = "gray20", alpha = 0.3) +
+  labs(caption = "blue: hypothetical linear regression line on full population,
+       gray: 95% CI") +
+  theme_minimal(base_size=16)
+
+plot1
+```
+
+---
+# Confidence interval intuition
+
+```{r, echo=F, fig.height=7}
+
+n2 = 50
+x2 = rnorm(n2, 2, 0.2)
+nu = rnorm(n2, 0, 0.2)
+y2 = 1 + 2*x2 + nu
+
+df2 = tibble(x2, y2)
+
+plot2 <- ggplot() +
+          geom_point(data=plotdf, aes(x=x, y=y), alpha=0.1, shape=21) + 
+          geom_point(data=df2, aes(x=x2, y=y2), color="orange") +
+          geom_smooth(data=df2, aes(x=x2, y=y2), method='lm') + 
+          ylim(3,7) +
+          xlim(1.2, 2.7) +
+          ggpubr::stat_regline_equation(data=df2, aes(x=x2, y=y2)) +
+            labs(caption = "blue: linear regression line on random sample of 50 observations,
+            gray: 95% CI on random sample estimate") +
+          theme_minimal(base_size=16)
+plot2
+```
+
+---
+# Condidence interval intuition
+```{r, echo=F, fig.height=7}
+library(gganimate)
+nsim = 100 ## Number of simulations
+n = 50
+
+sim_tbl <- tibble(
+  x = rnorm(n*nsim, 2, sd = 0.2),
+  epsilon = rnorm(n*nsim, 0, sd = 0.2),
+  y = 1 + 2*x + epsilon,
+  sim_num = rep(1:nsim, n)) ## This tibble puts all the simulated data in one
+
+sim_lm_tbl <- sim_tbl %>% 
+  group_by(sim_num) %>% 
+  nest() %>% ## Group by simulation number and separately fit linear models
+  mutate(
+    lm = purrr::map(.x = data, .f = ~ lm(y ~ x, data = .x)),
+    lm_tidy = purrr::map(lm, broom::tidy))
+
+sim_coef_tbl <- sim_lm_tbl %>% 
+  select(sim_num, lm_tidy) %>% 
+  unnest(lm_tidy) %>% 
+  select(sim_num, term, estimate) %>%
+  pivot_wider(names_from = "term",
+                     values_from = "estimate")
+
+sim_conf_int <- augment(model, newdata = sim_tbl, interval = "confidence") %>% 
+  select(x, y, .lower, .upper)
+
+animation1 = ggplot() +
+  geom_point(data=df, aes(x, y), alpha=0.1, shape=21) +
+  geom_point(data = sim_tbl, aes(x = x, y = y), color = "orange") +
+  geom_ribbon(data = sim_conf_int, aes(x = x, y = y, ymin = .lower, ymax = .upper),
+              alpha = 0.5) +
+  geom_abline(intercept = model$coefficients[1],
+              slope = model$coefficients[2], color = "blue") +
+  geom_abline(data = sim_coef_tbl,
+              aes(slope = x, intercept = `(Intercept)`), 
+              color = "orange") +
+  ylim(3,7) +
+  xlim(1.2, 2.7) +
+  transition_states(sim_num, wrap=FALSE) +
+  shadow_mark(color = "orange", alpha = 0.2) +
+  labs(subtitle = "Simulation {closest_state}",
+       caption = "blue: single estimated linear regression line,
+       orange: 100 simulated linear regression lines") +
+  theme_minimal(base_size=16)
+
+animation1
+```
+---
+# Formal confidence intervals
+
+The intuition to take from the preceding simulation is that the confidence interval corresponds to the frequency with which the underlying "true" population parameter will fall within the range of the confidence interval over repeated sampling from that population. 
+
+For a given $\alpha$-threshold, we are positing that 90 or 95, 99 or 99.9 percent of future confidence intervals drawn from repeated samples will encompass the true value of the population parameter. 
+
+Colloquially: "If we drew a sample over and over again and computed a 95% confidence interval for each replication, then 95% of those intervals would contain the true mean."
+
+--
+
+.red[**NOT**]: "there is a 95% probability that the true mean lies within the confidence interval"
+
+--
 
 Confidence interval for $\hat{\beta_1}$:
 
-$$\hat{\beta_1} \pm t_{n-2}[se(\hat{\beta_1})]$$
+$$\hat{\beta_1} \pm t_{n-2}^{critical}[se(\hat{\beta_1})]$$
 ---
 # Confidence intervals (CIs)
 
@@ -486,28 +583,28 @@ $$[0.768, 1.302]$$
 # Confidence intervals (CIs)
 
 Let's do the same with R
-```{r, echo=T}
+```{r, echo=T, highlight.output=c(5)}
 tidy(fit, conf.int=T)
 ```
 
 --
 
-```{r, echo = F, fig.height = 4}
+```{r, echo = F, fig.height = 3.75}
 lm_plot +  geom_smooth(method='lm')
 ```
 
 ---
-# $F$-Distributions and omnibus tests
+## $F$-Distributions and omnibus tests
 
 The omnibus test uses the $F$-distribution to test the ratio of two variances (i.e., explained vs unexplained variance). This is a different, but similar, distribution to the $t$-distribution. For now, it's not critical that you know how it differs.
 
-Null hypothesis: The model does not account for variance in Y.
+Null hypothesis: The model does not account for any variance in $Y$.
 
 If we reject the null, then the model accounts for more variance than we would expect by chance. 
 ---
-# $F$-Distributions and omnibus tests
+## $F$-Distributions and omnibus tests
 
-Just like tests with other probability distribution, we are testing the probability of obtaining a value (or more extreme value) of F under the $F$-Distribution.
+Just like tests with other probability distribution, we are testing the probability of obtaining a value (or more extreme value) of $F$ under the $F$-Distribution.
 
 $$\Large F = \frac{MS_{Model}}{MS_{residual}}$$
 
@@ -521,7 +618,7 @@ summary(fit)
 
 ```
 
-Our omnibus test was significant (p < .001), therefore we can reject the null hypothesis that the model accounts for zero variance in BMI.
+Our omnibus test was significant (p < .001), therefore we can reject the null hypothesis that the full model accounts for zero variance in BMI.
 
 ---
 # Summarizing regression results
@@ -530,7 +627,8 @@ Our omnibus test was significant (p < .001), therefore we can reject the null hy
 summary(fit)
 ```
 
-We fit an Ordinary-Least Squares regression model to assess whether there is a relationship between BMI and Dietary Restraint, on average, in the population of young adult males. At an alpha threshold of $p$<0.05, we found that Dietary Restraint was a significant predictor of BMI and accounted for approximately 5 percent of the variance in BMI. On average, each one unit difference in dietary restraint is positively associated with a 1.03 $(\beta_1)$ difference in BMI.
+> We postulated a linear model which we estimated via Ordinary-Least Squares regression to assess whether there is a relationship between BMI and Dietary Restraint, on average, in the population of young adult males. At an alpha threshold of $p$<0.05, we found that Dietary Restraint was a significant predictor of BMI and accounted for approximately 5 percent of the variance in BMI. We estimate that young men who are one unit apart on a dietary restraint index will have a BMI score 1.03 points different from each other.
+
 
 ---
 # Regressions as a prediction
@@ -565,3 +663,33 @@ An adult would have to weigh 2,894 pounds at 5' 8" to have a BMI of 439.9.
 --
 
 **Only predict within the bounds of your data.**
+
+
+---
+class: middle, inverse
+# Synthesis and wrap-up
+
+
+---
+# Class goals
+
+- Formulate a linear regression model to hypothesize a population relationship
+- Explain $R^{2}$, both in terms of what it tells us and what it does not
+- Estimated a fitted regression line using Ordinary-Least Squares regression
+- Conduct an inference test for a regression coefficient and our regression model
+
+---
+# To-Dos
+
+### Reading: 
+- **By January 19 class**: LSWR Chapter 15.1 - 15.2 and 15.4 - 15.7
+
+### Quiz: 
+- Opens 3:45 on Thursday, Jan. 19
+
+### Assignment 1:
+- Now live
+- Have all information you need to complete
+- Due Jan. 24, 11:59pm
+
+

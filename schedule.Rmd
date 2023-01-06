@@ -47,7 +47,7 @@ Lectures:
 
 Assignment 1:
 
-- Due: Jan. 25, 11:59pm
+- Due: Jan. 24, 11:59pm
 - [Assignment]
 - Data
 
