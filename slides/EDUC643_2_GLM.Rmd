@@ -643,6 +643,30 @@ For example, if $R^2 = 0.30$, then our model accounts for 30% of our sample's va
 --
 More on this soon.
 
+---
+# Taking stock
+
+We've developed some understanding of the formal structures of linear models (GLMs) and used some graphical representations to understand some of the components of a least-squares regression fit
+
+.pull-left[
+**Bivariate relationship characteristics:**
+- Direction
+- Linearity
+- Outliers
+- Strength
+- Magnitude
+]
+
+.pull-right[
+**Model fit characteristics:**
+- Residuals
+- Sum of Squared Residuals (SSR)
+- Sum of Squared Model (SSM) 
+- $R^2$
+]
+
+Next, we're going to turn to actually fitting our regression so we can say something substantive about the relationship between dietary restraint behaviors and BMI.
+
 
 ---
 class: middle, inverse
@@ -656,7 +680,7 @@ class: middle, inverse
 - Mathematically represent the population model and interpret its deterministic and stochastic components
 - Formulate a linear regression model to hypothesize a population relationship
 - Describe residuals and how they can describe the degree of our OLS model fit
-.gray[- Explain $R^{2}$, both in terms of what it tells us and what it does not]
+- .gray[Explain] $\color{gray}{R^{2}}$.gray[, both in terms of what it tells us and what it does not]
 
 ---
 # To-Dos

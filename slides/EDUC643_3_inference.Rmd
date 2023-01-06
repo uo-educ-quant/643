@@ -19,7 +19,7 @@ editor_options:
 ```{R, setup, include = F}
 library(pacman)
 
-p_load(here, tidyverse, xaringan, knitr, kableExtra, haven, broom, gifski, blogdown, xaringanthemer)
+p_load(here, tidyverse, xaringan, knitr, kableExtra, haven, broom, gifski, blogdown, xaringanthemer, modelsummary)
 
 i_am("slides/EDUC643_3_inference.rmd")
 
@@ -106,11 +106,6 @@ include_graphics("Roadmap1.jpg")
 ]
 
 ---
-class: middle, inverse
-
-# OLS regression
-
----
 # A motivating question
 
 Researchers (including two from the .green[**University of Oregon**]), [Nichole Kelly, Elizabeth Cotter and Claire Guidinger (2018)](https://doi.org/10.1016/j.eatbeh.2018.07.003), set out to understand the extent to which young men who exhibit overeating behaviors have weight-related medical and psychological challenges.
@@ -148,7 +143,7 @@ do <- read_spss(here("data/male_do_eating.sav")) %>%
 ---
 # Our bivariate relationship
 
-```{r, echo = F, fig.height=6, fig.width = 8}
+```{r, echo = F, fig.height=5.5, fig.width = 8}
 lm_plot <- ggplot(do, aes(x=EDEQ_restraint, y=BMI)) + 
   geom_point() +
   ggtitle("BMI vs Dietary restraint") +
@@ -159,13 +154,23 @@ lm_plot  +
   geom_smooth(method='lm', se=F)
 ```
 
+--
+
+**Our linear model:**
+$$BMI_{i} = \beta_0 + \beta_1 (EDEQ\_restraint_{i}) + \varepsilon_{i}$$
+
 ---
-# Evaluating regressions
+class: middle, inverse
+
+# OLS regression
+
+---
+# Fit a regression
 
 Let's try fitting our regression in R.
 
-```{r, comment = NA}
-fit <- lm(BMI ~ EDEQ_restraint, do)
+```{r, echo=T, comment = NA}
+fit <- lm(BMI ~ EDEQ_restraint, data=do)
 summary(fit)
 ```
 
@@ -173,7 +178,7 @@ summary(fit)
 ---
 ## Evaluating regressions: Coefficients
 
-Here we can find our **intercept** and slope coefficients for our linear regression.
+.small[Here we can find our **intercept** and slope coefficients for our linear regression.]
 
 ```{r, highlight.output = c(4,5), echo = F, output.lines = -c(1:8), comment = NA}
 summary(fit)
@@ -185,7 +190,7 @@ summary(fit)
 ---
 ## Evaluating regressions: Coefficients
 
-Here we can find our intercept and **slope** coefficients for our linear regression.
+.small[Here we can find our intercept and **slope** coefficients for our linear regression.]
 
 ```{r, highlight.output = c(4,5), echo = F, output.lines = -c(1:8), comment = NA}
 summary(fit)
@@ -193,7 +198,7 @@ summary(fit)
 ```
 
 --
-.tiny[**On average, each one unit difference in dietary restraint is positively associated with a 1.03 difference in BMI.**]
+.small[**A one unit difference in dietary restraint is positively associated with a 1.03 difference in BMI.**]
 
 .small[Even better: **We reject the null hypothesis, and conclude that *on average, in the population* there is a relationship between dietary restraint and BMI. We estimate that young men who are one unit apart on dietary restraint index will have a BMI score 1.03 points different from each other.**]
 
@@ -202,14 +207,28 @@ summary(fit)
 .small[.blue[Why not just say "increase" or "decrease"?] Be careful of causal language! More on this next class!]
 
 ---
-## Evaluating regressions: Residuals
+## Evaluating regressions: Std errors
+
+.red-pink[**Standard errors**] represent how precisely we have estimated our regression coefficient, given our sample size, the quality of our model fit, and the variability in our predictor.
+
+```{r, highlight.output = c(5), echo = F, output.lines = -c(1:8), comment = NA}
+summary(fit)
+```
+
+--
+.small[Not critical you understand the formula, but standard errors are important pieces of information that we'll examine in more detail momentarily:]
+
+$$SE_{\hat{\beta_1}} = \sqrt{\frac{1}{n-2}*\frac{\Sigma (y_i - \hat{y_i})^2}{\Sigma (x_i - \bar{x})^2}}$$
+
+---
+## Evaluating regressions: Model fit
 
 ```{r, highlight.output = 9, echo = F, output.lines = -(1:8), comment = NA}
 summary(fit)
 
 ```
 
-The .red-pink[**residual standard error (RSE)**] is the standard deviation of the residuals. This summarizes the variability of observed values around the model-predicted values, in the original units of the outcome. This value is important to our homoscedasticity assumption (Unit 2).
+The .red-pink[**residual standard error (RSE)**] is the standard deviation of the residuals. This summarizes the variability of observed values around the model-predicted values, in the original units of the outcome. 
 
 $$RSE = 6.086$$
 
@@ -218,12 +237,10 @@ This means observed values vary around our model-predicted BMI with a standard d
 ---
 # Degrees of freedom
 
-Both RSE and the related measure of model fit, .red-pink[**Root Mean Square Error (RMSE)**], depend on the number of .red-pink[**degrees of freedom**] $(df)$ in your regression. Though it's not critical that you learn how to calculate the RMSE, it is important to understand that is is a function of the **degrees of freedom** $(df)$ in your regression:
+Both RSE and the related measure of model fit, .red-pink[**Root Mean Square Error (RMSE)**], depend on the number of .red-pink[**degrees of freedom**] $(df)$ in your regression. Though it's not critical that you learn how to calculate RSE or RMSE, it is important to understand that is is a function of the **degrees of freedom** $(df)$ in your regression:
 
-$$RMSE = \frac{\text{sum of squared residuals}}{n-(\text{# of parameters estimated})_{SS}}$$
-Our degrees of freedom decrease each time we use another parameter (add a predictor to our regression) to calculate the sum of squares. In a bivariate regression, our degrees of freedom (aka, the denominator) will always be $n-2$ because we are estimating two parameters $\beta_0$ and $\beta_1$.
-
-With smaller samples and many covariates, we may use up our degrees of freedom. 
+$$RSE = \sqrt{\frac{\text{sum of squared residuals}}{n-(\text{# of parameters estimated})_{SS}}}$$
+.small[Our degrees of freedom decrease each time we use another parameter (add a predictor to our regression) to calculate the sum of squares. In a bivariate regression, our degrees of freedom (aka, the denominator) will always be] $n-2$ .small[because we are estimating two parameters] $\beta_0$ .small[and] $\beta_1$.small[. With smaller samples and many covariates, we may quickly use up our degrees of freedom.]
 
 --
 
@@ -231,9 +248,9 @@ With smaller samples and many covariates, we may use up our degrees of freedom.
 
 --
 
-To calculate RMSE: 
+Use the stored model statistics to calculate RSE by hand: 
 ```{r, echo=T}
-sqrt(sum((fit$residuals)^2)) / fit$df
+sqrt(sum(fit$residuals^2) / fit$df)
 ```
 
 ---
@@ -246,9 +263,7 @@ summary(fit)
 
 ```
 
-The R-squared value is .05.
-
-This means that our model accounts for 5% of the variance in BMI. Since our model has only one predictor, we can alternatively say Dietary Restraint accounts for 5% of the variance in BMI.
+The R-squared value is .05. This means that our model accounts for 5% of the variance in BMI. Since our model has only one predictor, we can alternatively say Dietary Restraint accounts for 5% of the variance in BMI.
 
 --
 
@@ -276,29 +291,133 @@ class: middle, inverse
 ---
 # A review of inference
 
-Go back to Units 2, 3 and 4 of EDUC 641 for a refresher on Null-Hypothesis Testing (NHST), the Central Limit Theorem and $t$-distributions.
+So far, we've been evaluating the statistics generated by models fit on our sample, but remember our primary interest is in making .purple[**an inference from the sample to the population.**]
 
+Go back to EDUC 641 for a refresher on Null-Hypothesis Significance Testing (NHST), the Central Limit Theorem and $t$-distributions.
 
----
-# Slope $(\hat{\beta_{1}})$ sampling distribution 
+--
 
-.red[Add simulation of different estimated slopes producing histogram of values from 641/slides/continuous_l2.rmd]
+...but we're going to provide a quick review now before applying these concepts to understanding .red-pink[**standard errors**] and using them to construct .red-pink[**confidence intervals (CI)**].
 
-The standard deviation of a sampling distribution is known as a .red[**standard error**].
 
 ---
 # Basic review of NHST
 
-We start by imagining a hypothetical world in which there is **no relationship** between X and Y in our true population. Then, we imagine drawing a series of samples over and over again (say...10,000 times) from this hypothetical population. What values of $\hat{\beta_{1}}$ might we observe?
+Start by imagining a hypothetical world in which there is **no relationship** between $x$ and $y$ in our population. 
+
+Last term, we formulated a set of null hypotheses about relationship between categorical data (e.g., no relationship between race of victim and death penalty sentence) or about whether a sample mean was different from a "known" population mean (e.g., life expectancy in Mediterranean countries is the same as in the full population of countries).
+
+--
+
+We can use the same framework to test elements of the General Linear Model and, in particular, regression coefficients. In particular, here we will test the null hypothesis that $\beta_{1} = 0$ (there is no relationship between dietary restraint behaviors and BMI).
+
+$$\Large H_{0}: \beta_{1}= 0$$
+--
+
+Our alternative hypothesis is that there is a relationship:
+$$\Large H_{1} \text{or} \Large H_{A}: \beta_{1} \neq 0$$
+---
+# The beauty of the CLT
+
+We can imagine drawing samples over and over again (say...5,000 times) from this hypothetical null population. What values of $\hat{\beta_{1}}$ might we observe?
+
+
+```{r, fig.height=5.75, fig.width=9, animation.hook='gifski', interval=0.9, eval=T}
+library(scales)
+set.seed(1234)
+par(mar = c(2, 0.1, 3, 0))
+pop <- 5000             #population
+x <- runif(pop)
+y <- rnorm(pop)
+samples <- c(rep(0.006, 5000))
+olslines <- list()
+par(mfrow = c(1, 2))
+show_examples <- c(1:10, 25, 50, 100, 500, 1000, 5000)
+beta1 <- c()
+for (i in seq_along(samples)) {
+  sample_i <- sample(1:pop, pop * samples[i])
+  ols <- lm(y[sample_i] ~ x[sample_i])
+  olslines <- c(list(ols), olslines)
+  beta1 <- c(beta1, coefficients(ols)[2])
+  if (i %in% show_examples | i == length(samples)) {
+    plot(x, y,
+      col = alpha("grey", 0.1),
+      pch = 19,
+      #xlim = c(.05, 2.05),
+      #ylim = c(.4, 2.4),
+      main = paste0(
+        signif(length(olslines), 3), " line fits on ",
+        signif(length(olslines), 3)," samples"
+      ),
+      xaxt = 'n',
+      yaxt = 'n'
+    )
+    
+    for (olsold in olslines) {
+      abline(
+        reg = olsold,
+        col = alpha("darkslategray", 1 / sqrt(sqrt(i))),
+        lwd = 1.5
+      )
+    }
+    if (i < length(samples)) {
+      points(
+        x[sample_i],
+        y[sample_i],
+        col = alpha("#e64173", 1),
+        pch = 19,
+        #xlim = 1 + c(-1.05, 1.05),
+        #ylim = 1 + c(-1.4, 1.4)
+      )
+      abline(reg = ols,
+             col = alpha("#e64173", 1),
+             lwd = 5)
+    }
+    abline(
+      a = 0,
+      b = 0,
+      lwd = 3,
+      col = "black"
+    )
+    hist(
+      beta1,
+      #breaks = 0.3 + 1.4 * (0:30) / 30,
+      main = paste0("Histogram of beta across ", signif(length(olslines), 3), " samples"),
+      xlim = c(-3, 3),
+      freq = F,
+      yaxt = 'n',
+      col = "darkslategray"
+    )
+  }
+}
+```
+
+
+.footnote[h/t Simon Hess ([@simonhhess](https://twitter.com/simonhhess))]
+
+---
+# The beauty of the CLT
+
+- Random sampling from the population **will return** sample means that will be asymptotically (approaching) normal in their distribution as the number of samples approaches infinity (i.e., they will take on a $Z$-distribution). This is (mathematically) what the Central Limit Theorem demonstrates.
+
+- Because of that mathematical fact, we can conduct inference in the statistics.
+
+- We know what the distribution of sample means from a null hypothesis will look like, so we can determine the probability of observing a sample statistic as extreme as we did
+
+- .red-pink[**REMEMBER**]: this requires no assumptions about the shape of the sample variable(s); they do **NOT** have to be normally distributed for the CLT to hold
+
+--
+
+- ...but, how do we know how likely it is to have observed such an extreme sample statistic in the presence of a null relationship in the population?
 
 ---
 # $p$-values
 
-The statistic that captures the likelihood that one would observe a value of $\hat{\beta_{1}}$ of a given magnitude in a particular sample, in the presence of a null population, is called the .red[*p*-value].
+The statistic that captures the likelihood that one would observe a value of $\hat{\beta_{1}}$ of a given magnitude in a particular sample, in the presence of a null population, is called the .red-pink[***p*-value**].
 
-Prior to interacting with our data, we set an **alpha threshold**; a probability threshold, below which we will consider $p$ to be so small that it is unlikely that we would have gotten this result if the null were true, and we will reject the null hypothesis. Above this value, we will fail to reject the null.
+Prior to interacting with our data, we set an .red-pink[**alpha threshold**]; a probability threshold, below which we will consider $p$ to be so small that it is unlikely that we would have gotten this result if the null were true, and we will reject the null hypothesis. Above this value, we will fail to reject the null.
 
-In social science research, it is customary to (arbitrarily) set that threshold at **5 percent** ( $p$<0.05). In other words, we say that if the difference between our observed data and our expected data would have happened in fewer than 1 out of 20 randomly drawn samples, that the difference reflects a true difference in the population.
+In social science research, it is customary to (arbitrarily) set that threshold at **5 percent** $(p<0.05)$. In other words, we say that if the difference between our observed data and our expected data would have happened in fewer than 1 out of 20 randomly drawn samples, that the difference reflects a true difference in the population.
 
 ---
 # What are we testing?
@@ -312,30 +431,23 @@ summary(fit)
 
 ```
 
----
-# Statistical inference test of $\hat{\beta_{1}}$
 
-Significance tests of regression coefficients test the null hypothesis that $\beta = 0$. (there is no linear relationship between the predictor and the outcome).
-
-$$\Large H_{0}: \beta_{1}= 0$$
-$$\Large H_{1} \text{or} \Large H_{A}: \beta_{1} \neq 0$$
 Here, the $p$-value refers to the probability of obtaining a slope equal to or more extreme than $\beta$ assuming $H_0$ is true. 
 
 --
-
 .blue[But where do we get that *p*-value from?]
 
 ---
 # Student's $t$-distribution
 
 .pull-left[
-- William Sealy Gosset, then a Head Experimental Brewer at Guiness Beer, wrote a pseudonymously published article in 1908 showing that estimates of $(\hat{\beta_{1}})$ divided by their standard error form a defined distribution
+- William Sealy Gosset, then a Head Experimental Brewer at Guinness Beer, wrote a pseudonymously published article in 1908 showing that estimates of $(\hat{\beta_{1}})$ divided by their standard error form a defined distribution
 - This distribution is now known as Student's $t$-distribution
 - Why *Student's* $t$-distribtion? Gosset's pseudonym was "Student"
 ]
 
 .pull-right[
-```{r, echo=F}
+```{r, echo=F, out.height="90%"}
 include_graphics("gosset.jpg")
 ```
 ]
@@ -345,6 +457,7 @@ The $t$-statistic represents an estimate of how many standard errors $\hat{\beta
 $$t = \frac{\hat{\beta_1} - \beta_{1}}{SE(\hat{\beta_1})}$$
 
 - When we posit a null hypothesis, we assume that $\beta_{1}=0$
+
 ---
 # $t$-distributions
 
@@ -408,8 +521,8 @@ summary(fit)
 summary(fit)
 ```
 
-$$t = \frac{\hat{\beta_1} - 0}{SE(\hat{\beta_1})} = \frac{1.04}{.14} = 7.43$$
-$$Pr(t < -7.43 \text{ or } t > 7.43)|H_0 = 0.000000000000048 \text{ or p <.001}$$
+$$t = \frac{\hat{\beta_1} - 0}{SE(\hat{\beta_1})} = \frac{1.0349}{.136} = 7.61$$
+$$Pr(t < -7.61 \text{ or } t > 7.61)|H_0 = 0.000000000000058 \text{ or } p <0.001$$
 ---
 # Regression coefficients
 
@@ -417,12 +530,18 @@ $$Pr(t < -7.43 \text{ or } t > 7.43)|H_0 = 0.000000000000048 \text{ or p <.001}$
 summary(fit)
 ```
 
-Under the null hypothesis, it is extremely unlikely to obtain a Dietary Restraint slope of 1.04 (p < .001). Therefore, we can reject the null and conclude that there is a positive relationship between Dietary Restraint rating and BMI, on average in the population.
+Under the null hypothesis, it is extremely unlikely to obtain a Dietary Restraint slope of 1.04 (p < .001). Therefore, we can reject the null hypothesis and conclude that there is a positive relationship between Dietary Restraint rating and BMI, on average in the population.
 
 ---
 # Confidence intervals (CIs)
 
-Can we identify a range of plausible values for $\hat{\beta_{1}}$? Perhaps, we can use our sampling distribution to construct intervals that offer a range of plausible values for the population parameter.
+It would be nice to say something more concrete about how accurately we have estimated this relationship.
+
+Perhaps, we can identify a range of plausible values for $\hat{\beta_{1}}$. We may be able to use information about the quality of our model fit and the variability in our to construct intervals that offer a range of plausible values for the population parameter.
+
+--
+
+Let's develop some intuition around the idea of .red-pink[**confidence intervals (CIs)**].
 
 
 ---
@@ -549,6 +668,84 @@ animation1 = ggplot() +
 
 animation1
 ```
+
+---
+## Slope $(\hat{\beta_{1}})$ sampling distribution 
+We can use this same approach to construct a distribution of estimated slopes $\hat{\beta_{1}}$. Here, we imagine the "true" population slope is 1.
+
+```{r, fig.height=5, fig.width=9, animation.hook='gifski', interval=0.9, eval=T}
+library(scales)
+set.seed(2)
+par(mar = c(2, 0.1, 3, 0))
+pop <- 5000             #population
+x <- runif(pop) * 2
+y <- x + rnorm(pop) / 2
+samples <- c(rep(0.006, 5000))
+olslines <- list()
+par(mfrow = c(1, 2))
+show_examples <- c(1:10, 25, 50, 100, 500, 1000, 5000)
+beta1 <- c()
+for (i in seq_along(samples)) {
+  sample_i <- sample(1:pop, pop * samples[i])
+  ols <- lm(y[sample_i] ~ x[sample_i])
+  olslines <- c(list(ols), olslines)
+  beta1 <- c(beta1, coefficients(ols)[2])
+  if (i %in% show_examples | i == length(samples)) {
+    plot(x, y,
+      col = alpha("grey", 0.1),
+      pch = 19,
+      xlim = c(.05, 2.05),
+      ylim = c(.4, 2.4),
+      main = paste0(
+        signif(length(olslines), 3), " line fits on ",
+        signif(length(olslines), 3)," samples"
+      ),
+      xaxt = 'n',
+      yaxt = 'n'
+    )
+    
+    for (olsold in olslines) {
+      abline(
+        reg = olsold,
+        col = alpha("darkslategray", 1 / sqrt(sqrt(i))),
+        lwd = 1.5
+      )
+    }
+    if (i < length(samples)) {
+      points(
+        x[sample_i],
+        y[sample_i],
+        col = alpha("#e64173", 1),
+        pch = 19,
+        xlim = 1 + c(-1.05, 1.05),
+        ylim = 1 + c(-1.4, 1.4)
+      )
+      abline(reg = ols,
+             col = alpha("#e64173", 1),
+             lwd = 5)
+    }
+    abline(
+      a = 0,
+      b = 1,
+      lwd = 3,
+      col = "black"
+    )
+    hist(
+      beta1,
+      breaks = 0.3 + 1.4 * (0:30) / 30,
+      main = paste0("Histogram of beta across ", signif(length(olslines), 3), " samples"),
+      xlim = c(0.4, 1.6),
+      freq = F,
+      yaxt = 'n',
+      col = "darkslategray"
+    )
+  }
+}
+```
+
+
+.footnote[h/t Simon Hess ([@simonhhess](https://twitter.com/simonhhess))]
+
 ---
 # Formal confidence intervals
 
@@ -618,53 +815,49 @@ summary(fit)
 
 ```
 
-Our omnibus test was significant (p < .001), therefore we can reject the null hypothesis that the full model accounts for zero variance in BMI.
+Our omnibus test is significant at an $\alpha$-threshold of 0.05 $(p < 0.001)$, therefore we can reject the null hypothesis that the full model accounts for no variability in individuals' BMI.
+
+---
+# Summarizing regression results
+```{r, echo=T}
+modelsummary(fit, stars=T,
+  gof_omit = "Adj.|AIC|BIC|Log",
+  coef_rename = c("EDEQ_restraint" = "Dietary Restraint Index (0-6)"))
+```
 
 ---
 # Summarizing regression results
 
-```{r, highlight.output = c(5), echo = F, output.lines = -(1:8), comment = NA}
-summary(fit)
+```{r, echo=F}
+modelsummary(fit, stars=T,
+     gof_omit = "Adj.|AIC|BIC|Log",
+     coef_rename = c("EDEQ_restraint" = "Dietary Restraint Index (0-6)"))
 ```
 
-> We postulated a linear model which we estimated via Ordinary-Least Squares regression to assess whether there is a relationship between BMI and Dietary Restraint, on average, in the population of young adult males. At an alpha threshold of $p$<0.05, we found that Dietary Restraint was a significant predictor of BMI and accounted for approximately 5 percent of the variance in BMI. We estimate that young men who are one unit apart on a dietary restraint index will have a BMI score 1.03 points different from each other.
+
+
+.small[We postulated a linear model which we estimated via Ordinary-Least Squares regression to assess whether there is a relationship between BMI and Dietary Restraint, on average, in the population of young adult males. At an alpha threshold of 0.05, we found that Dietary Restraint was a significant predictor of BMI and accounted for approximately 5 percent of the variance in BMI. We estimate that young men who are one unit apart on a dietary restraint index will have a BMI score 1.03 (*p*<0.001, 95% CI: 0.77, 1.30) points different from each other.]
 
 
 ---
-# Regressions as a prediction
+## Putting it all together...so far
 
-Regression equations can be used to evaluate the relationship between variables, and to predict expected values based on particular values of our IVs.
+- **Understand your data first**
+ + Summarize and visualize each variable independently
+ + Start with a visual representation of the relationship between your two variables
+- **Your General Linear Model represents your hypothesis about the population**
+ + When you fit a regression model, you are estimating *sample* values of *population* parameters that you will not directly observe
+ + The goal of classical regression inference is to understand how likely the observed data in your sample are in the presence of no relationship in the unobserved population
+ + State a null hypothesis
+ + Establish an alpha threshold
+- **Use Ordinary Least Squares regression to estimate the relationship**
+ + Interpret coefficients, standard errors, $R^2$
+ + .purple[*Assess assumptions*]
+ + Conduct an inference test
+ + Reject (or fail to reject) the null
+ + Substantively interpret
 
-We can ask: What is the expected BMI value for a young male with a Dietary Restraint rating of **4**?
-
---
-$$\Large BMI = 23.94 + 1.03*(\boldsymbol{4}) = 28.1$$
-The expected BMI for a Dietary Restraint of 4 is 28.1
-
---
-
-Technically, there is no limit to what we can input!
-
----
-# Predicting beyond your data
-
-Regression equations can be used to evaluate the relationship between variables, and to predict expected values based on particular values of our IVs.
-
-We can ask: What is the expected BMI value for a young male with a Dietary Restraint rating of **400**?
-
---
-
-Using our measure, this is not a possible value of Dietary Restraint but we can still estimate BMI using our regression equation.
-
---
-$$\Large BMI = 23.94 + 1.03*(\boldsymbol{400}) = 439.9$$
-An adult would have to weigh 2,894 pounds at 5' 8" to have a BMI of 439.9.
-
---
-
-**Only predict within the bounds of your data.**
-
-
+ 
 ---
 class: middle, inverse
 # Synthesis and wrap-up

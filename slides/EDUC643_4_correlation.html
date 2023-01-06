@@ -4,7 +4,7 @@
     <title>Correlation…and causality</title>
     <meta charset="utf-8" />
     <meta name="author" content="David D. Liebowitz" />
-    <script src="EDUC643_4_correlation_files/header-attrs-2.14.3/header-attrs.js"></script>
+    <script src="EDUC643_4_correlation_files/header-attrs-2.19/header-attrs.js"></script>
     <link href="EDUC643_4_correlation_files/remark-css-0.0.1/default.css" rel="stylesheet" />
     <link href="EDUC643_4_correlation_files/remark-css-0.0.1/uo.css" rel="stylesheet" />
     <link href="EDUC643_4_correlation_files/remark-css-0.0.1/ki-fonts.css" rel="stylesheet" />
@@ -19,7 +19,7 @@ class: center, middle, inverse, title-slide
 # Correlation…and causality
 ]
 .subtitle[
-## EDUC 643: Applied Statistics in Education and the Human Services II
+## EDUC 643: Unit 1
 ]
 .author[
 ### David D. Liebowitz
@@ -288,7 +288,44 @@ Research design is critical. So too can be [Directed Acyclical Graphs (DAGs)](ht
 * In what contexts might it be difficult to conduct an experimental study to establish causality?
 
 ---
-# Putting it all together
+class: middle, inverse
+
+# Stay within the lines
+
+---
+# Regression as a prediction
+
+Regression equations can be used to evaluate the relationship between variables, and to predict expected values based on particular values of our IVs.
+
+We can ask: What is the expected BMI value for a young male with a Dietary Restraint rating of **4**?
+
+--
+`$$\Large BMI = 23.94 + 1.03*(\boldsymbol{4}) = 28.1$$`
+The expected BMI for a Dietary Restraint of 4 is 28.1
+
+--
+
+Technically, there is no limit to what we can input!
+
+---
+# Predicting beyond your data
+
+Regression equations can be used to evaluate the relationship between variables, and to predict expected values based on particular values of our IVs.
+
+We can ask: What is the expected BMI value for a young male with a Dietary Restraint rating of **400**?
+
+--
+
+Using our measure, this is not a possible value of Dietary Restraint but we can still estimate BMI using our regression equation.
+
+--
+`$$\Large BMI = 23.94 + 1.03*(\boldsymbol{400}) = 439.9$$`
+An adult would have to weigh 2,894 pounds at 5' 8" to have a BMI of 439.9.
+
+--
+
+**Only predict within the bounds of your data.**
+
 
 ---
 class: middle, inverse
