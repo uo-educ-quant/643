@@ -17,33 +17,39 @@ navbar:
       - text: "3. Regression inference"
         href: ./slides/EDUC643_3_inference.html
       - text: "4. Correlation...and causality"
-        href: ./slides/EDUC643_4_correlation.html
+        #href: ./slides/EDUC643_4_correlation.html
       - text: "5. Regression assumptions"
-        href: ./slides/EDUC643_5_assumptions.html
+        #href: ./slides/EDUC643_5_assumptions.html
       - text: "6. Regression assumptions"
-        href: ./slides/EDUC643_5_assumptions.html
+        #href: ./slides/EDUC643_5_assumptions.html
       - text: "7. Multiple regression"
-        href: ./slides/EDUC643_7_mult_regression.html
+        #href: ./slides/EDUC643_7_mult_regression.html
       - text: "8. Multi-collinearity"
-        href: ./slides/EDUC643_8_mult_collinearity.html
+        #href: ./slides/EDUC643_8_mult_collinearity.html
       - text: "9. Categorical predictors"
-        href: ./slides/EDUC643_9_categorical.html
+        #href: ./slides/EDUC643_9_categorical.html
       - text: "10. Two sample <i>t</i>-tests"
-        href: ./slides/EDUC643_10_ttests.html
+        #href: ./slides/EDUC643_10_ttests.html
       - text: "11. ANOVA"
-        href: ./slides/EDUC643_11_ANOVA.html
+        #href: ./slides/EDUC643_11_ANOVA.html
       - text: "12. ANCOVA and GLM redux"
-        href: ./slides/EDUC643_12_ANCOVA.html
+        #href: ./slides/EDUC643_12_ANCOVA.html
       - text: "13. Non-linearity I"
-        href: ./slides/EDUC643_13_nonlinearity.html
+        #href: ./slides/EDUC643_13_nonlinearity.html
       - text: "14. Non-linearity II"
-        href: ./slides/EDUC643_13_nonlinearity.html
+        #href: ./slides/EDUC643_13_nonlinearity.html
       - text: "15. Interactions I"
-        href: ./slides/EDUC643_15_interactions.html
+        #href: ./slides/EDUC643_15_interactions.html
       - text: "16. Interactions II"
-        href: ./slides/EDUC643_15_interactions.html
-      - text: "17. Model building taxonomies"
-        href: ./slides/EDUC643_17_modeling.html
+        #href: ./slides/EDUC643_15_interactions.html
+      - text: "17. Simple imputation"
+        #href: ./slides/EDUC643_17_modeling.html
+      - text: "18. Model building"
+        #href:
+      - text: "19. Model building"
+        #href:
+      - text: "20. Model building"
+        #href:
 
 
   right:
