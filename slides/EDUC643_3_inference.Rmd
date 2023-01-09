@@ -134,10 +134,10 @@ Before we get to the core question of the Kelly et al. study--how are dietary re
 
 ```{r, echo=F}
 do <- read_spss(here("data/male_do_eating.sav")) %>% 
-    select(Study_ID, BMI, age_year, income_group, OE_frequency, 
-         EDEQ_restraint, DERS_total, DMS_mean, EDS_total, 
-          MBAS_muscularity, MBAS_height, SATAQ_total) %>%
-        drop_na()
+    select(OE_frequency, EDEQ_restraint, EDS_total,
+           BMI, age_year, income_group) %>%
+    mutate(EDS_total = ifelse(EDS_total==-99, NA, EDS_total)) %>%
+    drop_na()
 
 ```
 ---
@@ -185,7 +185,7 @@ summary(fit)
 
 ```
 
-**The predicted BMI for a young male with a dietary restraint rating of 0 is 23.94 $(\beta_0)$.**
+**The predicted BMI for a young male with a dietary restraint rating of 0 is 23.92 $(\beta_0)$.**
 
 ---
 ## Evaluating regressions: Coefficients
@@ -198,9 +198,9 @@ summary(fit)
 ```
 
 --
-.small[**A one unit difference in dietary restraint is positively associated with a 1.03 difference in BMI.**]
+.small[**A one unit difference in dietary restraint is positively associated with a 1.04 difference in BMI.**]
 
-.small[Even better: **We reject the null hypothesis, and conclude that *on average, in the population* there is a relationship between dietary restraint and BMI. We estimate that young men who are one unit apart on dietary restraint index will have a BMI score 1.03 points different from each other.**]
+.small[Even better: **We reject the null hypothesis, and conclude that *on average, in the population* there is a relationship between dietary restraint and BMI. We estimate that young men who are one unit apart on dietary restraint index will have a BMI score 1.04 points different from each other.**]
 
 --
 
@@ -230,9 +230,9 @@ summary(fit)
 
 The .red-pink[**residual standard error (RSE)**] is the standard deviation of the residuals. This summarizes the variability of observed values around the model-predicted values, in the original units of the outcome. 
 
-$$RSE = 6.086$$
+$$RSE = 6.089$$
 
-This means observed values vary around our model-predicted BMI with a standard deviation of 6.086. In BMI, 6 units is quite large!
+This means observed values vary around our model-predicted BMI with a standard deviation of 6.089. In BMI, 6 units is quite large!
 
 ---
 # Degrees of freedom
@@ -521,8 +521,8 @@ summary(fit)
 summary(fit)
 ```
 
-$$t = \frac{\hat{\beta_1} - 0}{SE(\hat{\beta_1})} = \frac{1.0349}{.136} = 7.61$$
-$$Pr(t < -7.61 \text{ or } t > 7.61)|H_0 = 0.000000000000058 \text{ or } p <0.001$$
+$$t = \frac{\hat{\beta_1} - 0}{SE(\hat{\beta_1})} = \frac{1.0367}{0.137} = 7.57$$
+$$Pr(t < -7.57 \text{ or } t > 7.57)|H_0 = 0.000000000000082 \text{ or } p <0.001$$
 ---
 # Regression coefficients
 
@@ -772,9 +772,9 @@ summary(fit)
 ```
 95% CIs:
 $$\hat{\beta_1} \pm t_{n-2}[se(\hat{\beta_1})]$$
-$$ 1.035 \pm 1.96(0.136)$$
+$$ 1.037 \pm 1.96(0.137)$$
 
-$$[0.768, 1.302]$$
+$$[0.768, 1.306]$$
 
 ---
 # Confidence intervals (CIs)
@@ -836,7 +836,7 @@ modelsummary(fit, stars=T,
 
 
 
-.small[We postulated a linear model which we estimated via Ordinary-Least Squares regression to assess whether there is a relationship between BMI and Dietary Restraint, on average, in the population of young adult males. At an alpha threshold of 0.05, we found that Dietary Restraint was a significant predictor of BMI and accounted for approximately 5 percent of the variance in BMI. We estimate that young men who are one unit apart on a dietary restraint index will have a BMI score 1.03 (*p*<0.001, 95% CI: 0.77, 1.30) points different from each other.]
+.small[We postulated a linear model which we estimated via Ordinary-Least Squares regression to assess whether there is a relationship between BMI and Dietary Restraint, on average, in the population of young adult males. At an alpha threshold of 0.05, we found that Dietary Restraint was a significant predictor of BMI and accounted for approximately 5 percent of the variance in BMI. We estimate that young men who are one unit apart on a dietary restraint index will have a BMI score 1.04 (*p*<0.001, 95% CI: 0.77, 1.31) points different from each other.]
 
 
 ---
@@ -876,6 +876,7 @@ class: middle, inverse
 
 ### Reading: 
 - **By January 19 class**: LSWR Chapter 15.1 - 15.2 and 15.4 - 15.7
+- **By January 24 class**: LSWR Chapter 5.7
 
 ### Quiz: 
 - Opens 3:45 on Thursday, Jan. 19

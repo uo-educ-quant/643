@@ -33,7 +33,8 @@ Objectives:
 
 Readings: 
 
-- Complete **prior to Jan. 19** class: [LSWR Chapter 15.1-15.2 and 15.4-15.7](https://learningstatisticswithr.com/lsr-0.6.pdf) 
+- Complete **prior to Jan. 19** class: [LSWR Chapter 15.1-15.2 and 15.4-15.7](https://learningstatisticswithr.com/lsr-0.6.pdf)
+- Complete **prior to Jan. 24** class: [LSWR Chapter 5.7](https://learningstatisticswithr.com/lsr-0.6.pdf)
 
 Lectures:
 
@@ -41,8 +42,8 @@ Lectures:
 - Class 2 (1/12) slides: [html](./slides/EDUC643_2_GLM.html) | [pdf](./slides/EDUC643_2_GLM.pdf)
 - Class 3 (1/17) slides: [html](./slides/EDUC643_3_inference.html) | [pdf](./slides/EDUC643_3_inference.pdf)
 - Class 4 (1/19) slides: [html] | [pdf]
-- Data: [male_do_eating.sav](./data/male_do_eating.sav) | codebook
-- R code: R script
+- Data: [male_do_eating.sav](./data/male_do_eating.sav) | [codebook](./slides/male_do_eating_codebook/pdf)
+- R code: [R script](./slides/EDUC643_1_code.R)
 
 
 Assignment 1:
