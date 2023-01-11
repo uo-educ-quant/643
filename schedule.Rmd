@@ -42,7 +42,7 @@ Lectures:
 - Class 2 (1/12) slides: [html](./slides/EDUC643_2_GLM.html) | [pdf](./slides/EDUC643_2_GLM.pdf)
 - Class 3 (1/17) slides: [html](./slides/EDUC643_3_inference.html) | [pdf](./slides/EDUC643_3_inference.pdf)
 - Class 4 (1/19) slides: [html](./slides/EDUC643_4_correlation.html) | [pdf](./slides/EDUC643_4_correlation.pdf)
-- Data: [male_do_eating.sav](./data/male_do_eating.sav) | [codebook](./slides/male_do_eating_codebook/pdf)
+- Data: [male_do_eating.sav](./data/male_do_eating.sav) | [codebook](./slides/male_do_eating_codebook.pdf)
 - R code: [R script](./slides/EDUC643_1_code.R)
 
 
