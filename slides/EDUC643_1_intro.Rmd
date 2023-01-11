@@ -227,7 +227,7 @@ include_graphics("kids.jpg")
 2. Readings are intended to supplement material from lectures (these can be completed after the first class of the unit)
 3. Two *OPTIONAL, UNGRADED* weekly lab meetings intended to provide support for R programming tasks. Each lab will cover identical material.
 4. Five (5) take-home quizzes worth trivial amount of points each (2% of grade)
-5. Four (4) data analytic assignments (15% each) + final project (30% of grade)
+5. Five (5) data analytic assignments (12% each) + final project (30% of grade)
 
 --
 
