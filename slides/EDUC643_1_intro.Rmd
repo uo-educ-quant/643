@@ -551,6 +551,25 @@ steep <- ggplot(pos, aes(x, y5)) +
 gridExtra::grid.arrange(steep, shallow, ncol=2)
 ```
 **Note that these have the same strength (tightness of fit)**
+
+---
+## Bivariate relationships: Magnitude
+
+Note that if you change the scale of either axis, it will change the perceived--**but not the *actual***--size of the magnitude
+```{r, echo=F, fig.height=5}
+yaxis <- shallow +
+            ggtitle("Extend y-axis") +
+            expand_limits(y=c(0,200))
+    
+xaxis <- shallow +
+            ggtitle("Extend x-axis") +
+            expand_limits(x=c(0,100))
+
+gridExtra::grid.arrange(shallow, yaxis, xaxis, ncol=3)
+```
+
+
+
 ---
 # BMI and over-eating
 
