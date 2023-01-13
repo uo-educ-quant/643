@@ -626,7 +626,7 @@ do %>%
   geom_segment(aes(xend = participant_id, y = predict, yend=BMI), col = "green", alpha = 0.5)
 
 ```
-$$\color{green}{SS_\text{Model} = \sum{(Y - \hat{Y})^2}}$$
+$$\color{green}{SS_\text{Residual} = \sum{(Y - \hat{Y})^2}}$$
 
 ---
 # $R^2$
@@ -638,7 +638,7 @@ $R^2$ ("R-squared") is the proportion of variance in the outcome our model accou
 
 $$R^2 = \frac{SS_\text{Model}}{SS_\text{BMI}}$$
 --
-For example, if $R^2 = 0.30$, then our model accounts for 30% of our sample's variance in over-eating frequency.
+For example, if $R^2 = 0.30$, then our model accounts for 30% of our sample's variance in body-mass index.
 
 --
 More on this soon.
