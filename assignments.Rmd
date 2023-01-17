@@ -33,6 +33,19 @@ Please upload below two files on Canvas:
 
 #### 3.1. Assignment 1
 
+**Bivariate relationships**
+Objectives of this assignment
+
+ * Create bivariate scatterplots and bivariate regression estimates
+
+ * State null hypothesis and interpret results of linear regression test of bivariate continuous relationship
+ 
+ * Substantively interpret results of bivariate relationship to non-expert audience
+
+
+Deadline: Jan. 24, 11:59pm
+Download: [html file](./assignments/assignment_1.html) | [nerds dataset](./data/nerds.csv)
+
 #### 3.2. Assignment 2
 
 #### 3.3. Assignment 3

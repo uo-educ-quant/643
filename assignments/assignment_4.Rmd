@@ -1,0 +1,54 @@
+---
+title: "EDUC 643 Assignment 4"
+subtitle: "Continuous relationships and bivariate regression"
+output: html_document
+---
+```{R, setup, include = FALSE}
+if (!require(pacman)) install.packages('pacman', repos = 'https://cran.rstudio.com')
+pacman::p_load(here, tidyverse, xaringan, knitr, kableExtra)
+
+opts_chunk$set(include = FALSE)
+```
+
+
+### General Guidelines
+
+The purpose of this assignment is to practice the concepts and vocabulary we have been modeling in class and implement some of the techniques we have learned. You may work on your own or collaborate with one partner. Please make sure that you engage in a a full, fair and mutually-agreeable collaboration if you do choose to collaborate. If you do collaborate, you should plan, execute and write-up your analyses together, not simply divide the work. Please make sure to indicate clearly when your work is joint and any other individual or resource (outside of class material) you consulted in your responses.
+
+### Submission Requirements
+
+Please upload below two files on Canvas:  
+
+1. An .html, .doc(x) or .pdf file that includes your typed responses (in your own words and not identical to anybody else's except your partner), tables, and/or figures to the problems
+2. The .Rmd or .R file that you used to render the tables and figures in the above html/pdf. 
+
+*Polished product*  
+
+
+### Objectives of this assignment
+
+- 
+
+### 4. Data Background
+
+#### Teacher Professional Development Study (PDS) 
+
+The data set we'll be using for this assignment is drawn from the NCRECE [Teacher Professional Development Study (PDS)](https://www.icpsr.umich.edu/web/ICPSR/studies/34848) data. This study was a randomized controlled evaluation of two forms of professional development (PD) - coursework (phase 1) and consultancy (phase 2) - delivered to about 490 early childhood education teachers across the nation. These PD supports aimed to improve teachers' implementation of language/literacy activities and interactions with children, as well as promote gains in children's social and academic development. 
+
+**Analytic Sample**. Our data set is student-level data for 440 preschool students. Since PDS student outcome data has not been collected during phase 1, we focus on phase 2 intervention. Specifically, the sample students were in phase 1 treatment group and in either the treatment or control group during phase 2. Observations with missing values on any of the key variables were deleted for simplification reasons.
+
+**Key variables**. The data set contains 11 variables, detailed below.
+
+ * *childid*, unique identification number for the student
+ * *tchid*, unique identification number for the student's teacher
+ * *schid*, unique identification number for the student's school
+ * *cohort*, coded 1 for cohort 1 students (who started the experiment in spring 08) and 2 for cohort 2 students (who started the experiment in spring 09)
+ * *treat*, coded 1 for students in phase 2 treatment group and 0 for those in phase 2 control group
+ * *vocabulary*, the student's post phase 2 score on a receptive vocabulary test (Peabody Picture Vocabulary Test-3rd edition) 
+ * *female*, coded 1 for female students and 0 for male students
+ * *language_eng*, coded 1 for students whose primary language is English and 0 otherwise
+ * *disability*, coded 1 for students with a disability and 0 otherwise
+ * *ethnicity*, eight-category variable documenting the student's ethnicity
+ * *mother_edu*, the student's mother's total years of education
+ 
+**Download the [pd_stu.csv data set](./data/pd_stu.csv)**

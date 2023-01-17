@@ -49,8 +49,8 @@ Lectures:
 Assignment 1:
 
 - Due: Jan. 24, 11:59pm
-- [Assignment]
-- Data
+- [html file](./assignments/assignment_1.html)
+- [nerds.csv](./data/nerds.csv)
 
 ## Unit 2: Assumptions & diagnostics
 
