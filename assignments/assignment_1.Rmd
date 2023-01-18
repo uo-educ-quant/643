@@ -87,5 +87,5 @@ As a country, the United States spends approximately $650 billion per year on it
 
 2.6. Select an alpha-threshold and describe the corresponding confidence interval for your estimates of the relationship between $frpl$ and $ppe$. **(1 point)**
 
-2.7. Imagine you are an analyst working for Colt Gill, Director of the Oregon Department of Education. You have been tasked with describing to him whether schools with greater levels of student financial need receive more money. Write a short paragraph reporting the results of your analysis, while introducing appropriate caveats and nuances as needed. In particular, you should think about how you want to introduce the ideas of model fit, omitted variables and correlation for a lay audience. **(1 point)**
+2.7. Imagine you are an analyst working for Colt Gill, Director of the Oregon Department of Education. You have been tasked with describing to him whether schools with greater levels of student financial need receive more money. Write a short paragraph reporting the results of your analysis, while introducing appropriate caveats and nuances as needed. In particular, you should think about how you want to introduce the ideas of relationship magnitude, model fit, omitted variables, and correlation for a lay audience. **(1 point)**
 

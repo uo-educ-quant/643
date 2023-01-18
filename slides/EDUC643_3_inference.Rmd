@@ -879,7 +879,7 @@ class: middle, inverse
 - **By January 24 class**: LSWR Chapter 5.7
 
 ### Quiz: 
-- Opens 3:45 on Thursday, Jan. 19
+- Opens 3:45 on Tuesday, Jan. 24
 
 ### Assignment 1:
 - Now live

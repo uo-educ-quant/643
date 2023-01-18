@@ -44,6 +44,7 @@ Objectives of this assignment
 
 
 Deadline: Jan. 24, 11:59pm
+
 Download: [html file](./assignments/assignment_1.html) | [nerds dataset](./data/nerds.csv)
 
 #### 3.2. Assignment 2
