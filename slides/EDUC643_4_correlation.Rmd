@@ -409,13 +409,14 @@ ggdag::ggdag_status(dag2, use_labels = "label", text=F, text_size=8) +
 # Why correlation $\neq$ causation?
 
 Common barriers in attributing causality to observed co-relationships include:
-- .purple[Confounders]: a third variable causes changes in X and also in Y
+- .blue[Confounders]: a third variable causes changes in X and also in Y
 - [Colliders](http://www.the100.ci/2017/03/14/that-one-weird-third-variable-problem-nobody-ever-mentions-conditioning-on-a-collider/): a third variable that is caused by both the predictor and outcome; controlling for this can make a true causal relationship disappear!
-- .purple[Reverse causation]: X may cause Y **or** Y may cause X
-- .purple[Simpson's Paradox]: a third variable may reverse the correlation
+- .blue[Reverse causation]: X may cause Y **or** Y may cause X
+- [Simpson's Paradox](https://en.wikipedia.org/wiki/Simpson%27s_paradox): a third variable may reverse the correlation
+- [Selection bias](https://daviddliebowitz.github.io/EDUC643_23W/slides/EDUC643_4_correlation.html#30): due to the way in which the sample was constructed, observed relationships (or lack thereof) mask the true underlying relationship.
 - Also, **lack** of correlation $\neq$ **lack** of causality
 
-```{r, echo=F, out.width="40%"}
+```{r, echo=F, out.width="30%"}
 include_graphics("causalinf.jpg")
 ```
 h/t [@causalinf](https://twitter.com/causalinf)
@@ -525,13 +526,62 @@ class: middle, inverse
 - **By January 24**: LSWR Chapter 5.7
 
 ### Quiz: 
-- Due by 5pm tomorrow
+- Opens 3:45 Tuesday, Jan. 24 (closes 5pm on 1/25)
 
 ### Assignment 1:
 - Due Jan. 24, 11:59pm
 
 ### Next week: Regression assumptions
 
+---
+# No racial bias in policing?
 
+.pull-left[
+In 2016, Harvard economics professor Roland Fryer<sup>1</sup> released a [study](https://www.journals.uchicago.edu/doi/full/10.1086/701423) that claimed to find that police were ***equally likely*** to use force (i.e., officer-involved shootings) on whether the individuals they stopped were Black or White.
+]
 
+.pull-right[
+```{r, echo=F}
+include_graphics("fryer.jpg")
+```
+]
 
+As you can imagine, this drew substantial media attention and controversy. We read about (but did not discuss) this last term in Lily Hu's [article](https://www.bostonreview.net/articles/race-policing-and-the-limits-of-social-science/) in the *Boston Review*.
+
+.footnote[[1] Since this study's release, Fryer has been accused of improper behavior towards members of his research lab.]
+
+---
+# Selection bias
+
+As detailed in [Knox, Lowe and Mummolo (2020)](https://www.cambridge.org/core/journals/american-political-science-review/article/administrative-records-mask-racially-biased-policing/66BC0F9998543868BB20F241796B79B8#article), Fryer's results are a product of a fundamental statistical error: .red-pink[**selecting on the outcome** (dependent variable)]
+
+```{r, echo=F, fig.height=6, fig.width=10}
+set.seed(1234)
+fryer <- readxl::read_excel(here("data/police_stop.xlsx"))
+fryer$violent_tend <- factor(fryer$violent_tend,
+                             levels=c(0,1),
+                             labels=(c("Non-violent", "Violent")))
+
+race <-  ggplot(fryer, aes(x=race, y=prob_stop, color=violent_tend)) + 
+        geom_jitter() +
+        ylab("Probability of being stopped") +
+        xlab("") +
+        theme_minimal(base_size=16) +
+        theme(legend.title=element_blank()) +
+        geom_vline(xintercept=1.5)
+
+race
+```
+
+---
+# Selection bias
+
+As detailed in [Knox, Lowe and Mummolo (2020)](https://www.cambridge.org/core/journals/american-political-science-review/article/administrative-records-mask-racially-biased-policing/66BC0F9998543868BB20F241796B79B8#article), Fryer's results are a product of a fundamental statistical error: .red-pink[**selecting on the outcome** (dependent variable)]
+
+```{r, echo=F, fig.height=6, fig.width=10}
+set.seed(1234)
+race + 
+  annotate("rect", xmin = 0.5, xmax=1.5, ymin=0.5, ymax=1, alpha=0.1, fill="#e64173") +
+  annotate("rect", xmin = 1.5, xmax=2.5, ymin=0.9, ymax=1, alpha=0.1, fill="purple")
+```
+.footnote[Helpful [thread](https://twitter.com/bristimtom/status/1259458866015805440) with a nice illustration of how selecting on the dependent variable and collider bias are interrelated.]

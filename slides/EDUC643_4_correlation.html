@@ -275,13 +275,14 @@ This is a classic problem of a .blue[**confounder**]!&lt;sup&gt;1&lt;/sup&gt;
 # Why correlation `\(\neq\)` causation?
 
 Common barriers in attributing causality to observed co-relationships include:
-- .purple[Confounders]: a third variable causes changes in X and also in Y
+- .blue[Confounders]: a third variable causes changes in X and also in Y
 - [Colliders](http://www.the100.ci/2017/03/14/that-one-weird-third-variable-problem-nobody-ever-mentions-conditioning-on-a-collider/): a third variable that is caused by both the predictor and outcome; controlling for this can make a true causal relationship disappear!
-- .purple[Reverse causation]: X may cause Y **or** Y may cause X
-- .purple[Simpson's Paradox]: a third variable may reverse the correlation
+- .blue[Reverse causation]: X may cause Y **or** Y may cause X
+- [Simpson's Paradox](https://en.wikipedia.org/wiki/Simpson%27s_paradox): a third variable may reverse the correlation
+- [Selection bias](https://daviddliebowitz.github.io/EDUC643_23W/slides/EDUC643_4_correlation.html#30): due to the way in which the sample was constructed, observed relationships (or lack thereof) mask the true underlying relationship.
 - Also, **lack** of correlation `\(\neq\)` **lack** of causality
 
-&lt;img src="causalinf.jpg" width="40%" style="display: block; margin: auto;" /&gt;
+&lt;img src="causalinf.jpg" width="30%" style="display: block; margin: auto;" /&gt;
 h/t [@causalinf](https://twitter.com/causalinf)
 
 ---
@@ -387,16 +388,42 @@ class: middle, inverse
 - **By January 24**: LSWR Chapter 5.7
 
 ### Quiz: 
-- Due by 5pm tomorrow
+- Opens 3:45 Tuesday, Jan. 24 (closes 5pm on 1/25)
 
 ### Assignment 1:
 - Due Jan. 24, 11:59pm
 
 ### Next week: Regression assumptions
 
+---
+# No racial bias in policing?
 
+.pull-left[
+In 2016, Harvard economics professor Roland Fryer&lt;sup&gt;1&lt;/sup&gt; released a [study](https://www.journals.uchicago.edu/doi/full/10.1086/701423) that claimed to find that police were ***equally likely*** to use force (i.e., officer-involved shootings) on whether the individuals they stopped were Black or White.
+]
 
+.pull-right[
+&lt;img src="fryer.jpg" width="904" style="display: block; margin: auto;" /&gt;
+]
 
+As you can imagine, this drew substantial media attention and controversy. We read about (but did not discuss) this last term in Lily Hu's [article](https://www.bostonreview.net/articles/race-policing-and-the-limits-of-social-science/) in the *Boston Review*.
+
+.footnote[[1] Since this study's release, Fryer has been accused of improper behavior towards members of his research lab.]
+
+---
+# Selection bias
+
+As detailed in [Knox, Lowe and Mummolo (2020)](https://www.cambridge.org/core/journals/american-political-science-review/article/administrative-records-mask-racially-biased-policing/66BC0F9998543868BB20F241796B79B8#article), Fryer's results are a product of a fundamental statistical error: .red-pink[**selecting on the outcome** (dependent variable)]
+
+&lt;img src="EDUC643_4_correlation_files/figure-html/unnamed-chunk-18-1.png" style="display: block; margin: auto;" /&gt;
+
+---
+# Selection bias
+
+As detailed in [Knox, Lowe and Mummolo (2020)](https://www.cambridge.org/core/journals/american-political-science-review/article/administrative-records-mask-racially-biased-policing/66BC0F9998543868BB20F241796B79B8#article), Fryer's results are a product of a fundamental statistical error: .red-pink[**selecting on the outcome** (dependent variable)]
+
+&lt;img src="EDUC643_4_correlation_files/figure-html/unnamed-chunk-19-1.png" style="display: block; margin: auto;" /&gt;
+.footnote[Helpful [thread](https://twitter.com/bristimtom/status/1259458866015805440) with a nice illustration of how selecting on the dependent variable and collider bias are interrelated.]
     </textarea>
 <style data-target="print-only">@media screen {.remark-slide-container{display:block;}.remark-slide-scaler{box-shadow:none;}}</style>
 <script src="https://remarkjs.com/downloads/remark-latest.min.js"></script>
