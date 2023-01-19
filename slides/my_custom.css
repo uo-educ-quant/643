@@ -7720,3 +7720,33 @@
 .tiny2 {
   font-size: 50%;
 }
+
+
+/* Extra CSS */
+.red {
+  color: red;
+}
+.blue {
+  color: blue;
+}
+.red-pink {
+  color: red_pink;
+}
+.gray {
+  color: #B3B3B3;
+}
+.purple {
+  color: purple;
+}
+.small {
+  font-size: 90%;
+}
+.large {
+  font-size: 120%;
+}
+.tiny {
+  font-size: 70%;
+}
+.tiny2 {
+  font-size: 50%;
+}
