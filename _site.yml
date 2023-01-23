@@ -19,9 +19,9 @@ navbar:
       - text: "4. Correlation...and causality"
         href: ./slides/EDUC643_4_correlation.html
       - text: "5. Regression assumptions"
-        #href: ./slides/EDUC643_5_assumptions.html
+        href: ./slides/EDUC643_5_assumptions.html
       - text: "6. Regression assumptions"
-        #href: ./slides/EDUC643_5_assumptions.html
+        href: ./slides/EDUC643_5_assumptions.html
       - text: "7. Multiple regression"
         #href: ./slides/EDUC643_7_mult_regression.html
       - text: "8. Multi-collinearity"

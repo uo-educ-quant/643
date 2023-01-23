@@ -34,7 +34,8 @@ Please upload below two files on Canvas:
 #### 3.1. Assignment 1
 
 **Bivariate relationships**
-Objectives of this assignment
+
+Objectives of this assignment:
 
  * Create bivariate scatterplots and bivariate regression estimates
 
@@ -48,6 +49,20 @@ Deadline: Jan. 24, 11:59pm
 Download: [html file](./assignments/assignment_1.html) | [nerds dataset](./data/nerds.csv)
 
 #### 3.2. Assignment 2
+
+**Regression assumptions**
+
+Objectives of this assignment:
+
+ * Describe assumptions required of Ordinary Least Squares estimators
+ 
+ * Assess regression fit for extent to which it satisfies OLS assumptions
+ 
+ * Propose solutions to OLS assumption violations and discuss their potential merits and drawbacks 
+
+Deadline: Jan. 31, 11:59pm
+
+Download: [html file](./assignments/assignment_2.html) | [nerds dataset](./data/nerds.csv)
 
 #### 3.3. Assignment 3
 

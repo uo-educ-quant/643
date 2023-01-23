@@ -1,0 +1,77 @@
+---
+title: "EDUC 643 Assignment 2"
+subtitle: "Regression assumptions and diagnostics"
+output: html_document
+---
+```{R, setup, include = FALSE}
+if (!require(pacman)) install.packages('pacman', repos = 'https://cran.rstudio.com')
+pacman::p_load(here, tidyverse, xaringan, knitr, kableExtra)
+
+opts_chunk$set(include = FALSE)
+```
+
+
+### General Guidelines
+
+The purpose of this assignment is to practice the concepts and vocabulary we have been modeling in class and implement some of the techniques we have learned. You may work on your own or collaborate with one partner. Please make sure that you engage in a a full, fair and mutually-agreeable collaboration if you do choose to collaborate. If you do collaborate, you should plan, execute and write-up your analyses together, not simply divide the work. Please make sure to indicate clearly when your work is joint and any other individual or resource (outside of class material) you consulted in your responses.
+
+### Submission Requirements
+
+Please upload below two files on Canvas:  
+
+1. An .html, .doc(x) or .pdf file that includes your typed responses (in your own words and not identical to anybody else's except your partner), tables, and/or figures to the problems
+2. The .Rmd or .R file that you used to render the tables and figures in the above html/pdf. 
+
+**Please submit a complete memo that includes all figures/tables integrated into the memo, uses full sentences and does not include any code chunks interspersed (you will be graded on this). As a challenge, try to format your tables and figure following [APA 7 guidelines](https://owl.purdue.edu/owl/research_and_citation/apa_style/apa_formatting_and_style_guide/apa_tables_and_figures.html) (you will not be graded on this).** 
+
+
+### Objectives of this assignment
+
+ * Describe assumptions required of Ordinary Least Squares estimators
+ 
+ * Assess regression fit for extent to which it satisfies OLS assumptions
+ 
+ * Propose solutions to OLS assumption violations and discuss their potential merits and drawbacks 
+
+### Data Background
+
+#### National Education Resource Database on Schools (NERD$)
+
+As a country, the United States spends approximately $650 billion per year on its K-12 education system. While district-level expenditure data has been available for decades, considerable funding variation exists within districts, as a result of the different experience levels (and therefore salaries) of teachers employed in a school, the specialized services particular schools offer, and targeted efforts to make schools more equitable through differentiated funding. Starting in 2015, the Every Student Succeeds Act began requiring that states report school-level expenditures. Even so, differences in how states report finance data, costs of living and more make cross-state comparisons challenging. The Edunomics Lab at Georgetown University recently launched the National Education Resource Database on Schools (NERD\$), which allows for the first time a fully comparable, cross-state window into school-level spending. It contains rich variables including measures of academic achievement and achievement gaps for school districts and counties, as well as district-level measures of racial and socioeconomic composition, racial and socioeconomic segregation patterns, and other features of the schooling system. More details on the NERD\$ data and ways it has been used to inform policy and practice are available [here](https://edunomicslab.org/nerds/).
+
+**Analytic Sample**. Our data set includes school-level data expenditure data for SY 2018-19 for 1,193 Oregon public schools. This represents nearly the full universe of Oregon public schools, with some restrictions due to data availability. Observations with missing and/or unreliable values on any of the key variables were deleted for simplification reasons.
+
+**Key variables**. The data set contains 14 variables, detailed below.
+
+ * *schoolname*, school name
+ * *ncesid*, school identifier assigned by the National Center for Education Statistics (a department of IES at the U.S. Department of Education)
+ * *ncesdistid_geo*, district identifier, assigned by NCES
+ * *distname*, district name
+ * *level*, level of schooling (0 = Other; 1 = Early Education; 2 = Elementary; 3 = Middle School; 4 = High School)
+ * *ppe*, per-pupil expenditure
+ * *enroll*, total school enrollment
+ * *frpl*, proportion (0-1) of students in school receiving free- or reduced-price meals
+ * *sesavgall*, Census-based SES composite index for all families residing within school district
+ * *lninc50avgall*, Census-based log of median income for all families residing within school district
+ * *baplusavgall*, Census-based Bachelor's degree-plus rate for all adults in families residing within district
+ * *unempavgall*, Census-based unemployment rate for all families residing within district
+ * *snapavgall*, Census-based SNAP receipt rate for all families residing within the district
+ * *locale*, Census-based location of schools attended by majority/plurality of students (Urban, Suburb, Town, Rural)
+ 
+
+### Assignment Details
+
+**Data preparation**: Open your RStudio, create a project and save it. Go to the root directory of the project and create folders named: "Code", "Data", "Figures" and "Tables." Download the [nerds.csv dataset](../data/nerds.csv) and store it in the folder "Data". Create an R script (or .Rmd) file in the Code folder. Read the data into your R environment. You do not need to include this part of the response in your memo; only in your code.
+
+
+#### 1. Diagnostics and assumption checks
+
+1.1. Re-state your interpretation of the results of your hypothesis test from Assignment 1, Question 2.4 and add to it a paragraph in which you state the assumptions you have made in using an Ordinary Least Squares estimator to describe this relationship. **(2 points)**
+
+1.2. Examine the school called "South Eugene High School" (*ncesid* == 410474000573) in the NERD$ data. Characterize its observed values of per-pupil expenditure and the proportion of students at the school classified as low-family-income. How do these values differ from the predicted values for this school? **(2 points)**
+
+1.3. Assess the residuals from the linear regression you conducted in Assignment 1 for evidence on the fitted model's linearity, the normality and homoscedasticity of the residuals, and for the presence of outliers. In these assessments you should minimally present three different figures. **(3 points)**
+
+1.4. What are some ways in which you could imagine the residuals in this dataset not being independently distributed? In other words, what sort of clustering might be present in these data and how would this affect your inference? **(2 points)**
+
+1.5. Given what you have found in 1.3 and 1.4, to what extent do you feel like your OLS regression assumptions have been met in this analysis? Are there solutions you would consider implementing if any of the regression assumptions are not met? If so, what are they (*note: you do not need to actually implement any of the solutions, just describe what they might be*)? What are some of the reasons not to implement any "fixes" to violations to your assumptions? **(3 points)**

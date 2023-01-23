@@ -1,6 +1,6 @@
 ---
 title: "Regression assumptions and diagnostics"
-subtitle: "EDUC 643: Applied Statistics in Education and the Human Services II"
+subtitle: "EDUC 643: Unit 2"
 author: "David D. Liebowitz"
 #date: "`r format(Sys.time(), '%d %B %Y')`"
 output:
@@ -18,7 +18,7 @@ editor_options:
 
 ```{R, setup, include = F}
 library(pacman)
-p_load(here, tidyverse, ggplot2, xaringan, knitr, kableExtra, haven, broom, xaringanthemer)
+p_load(here, tidyverse, ggplot2, xaringan, knitr, kableExtra, haven, broom, xaringanthemer, modelsummary)
 
 i_am("slides/EDUC643_5_assumptions.rmd")
 
@@ -45,20 +45,35 @@ extra_css <- list(
 
 write_extra_css(css = extra_css, outfile = "my_custom.css")
 
-# Knitr options
-opts_chunk$set(
-  comment = "#>",
-  fig.align = "center",
-  fig.height = 6.75,
-  fig.width = 10.5,
-  warning = F,
-  message = F
-)
-opts_chunk$set(dev = "svg")
-options(device = function(file, width, height) {
-  svg(tempfile(), width = width, height = height)
+options(htmltools.dir.version = FALSE)
+
+hook_output <- knit_hooks$get("output")
+knit_hooks$set(output = function(x, options) {
+  lines <- options$output.lines
+  if (is.null(lines)) {
+    return(hook_output(x, options))  # pass to default hook
+  }
+  x <- unlist(strsplit(x, "\n"))
+  more <- "..."
+  if (length(lines)==1) {        # first n lines
+    if (length(x) > lines) {
+      # truncate the output, but add ....
+      x <- c(head(x, lines), more)
+    }
+  } else {
+    x <- c(more, x[lines], more)
+  }
+  # paste these lines together
+  x <- paste(c(x, ""), collapse = "\n")
+  hook_output(x, options)
 })
-options(knitr.table.format = "html")
+
+knitr::opts_chunk$set(warning = FALSE,
+                      message = FALSE,
+                      echo = FALSE,
+                      fig.align = "center",
+                      fig.height = 6.5,
+                      fig.width = 10)
 
 ```
 # Roadmap
@@ -76,21 +91,20 @@ include_graphics("Roadmap2.jpg")
 
 Using real-world data (generously provided by Nichole Kelly) about the dietary habits, health, and self-appraisals of males 18-30, we are going to attempt to answer a similar question. 
 
-However, before answering this question, we are going to explore **the relationship between dietary restraint behaviors** (self-reports on the extent to which participants consciously restricted/controlled their food intake) **and body-mass index (BMI).**
+However, before answering this question, we are exploring **the relationship between dietary restraint behaviors** (self-reports on the extent to which participants consciously restricted/controlled their food intake) **and body-mass index (BMI).**
 
-```{r, echo=F}
+```{r}
 do <- read_spss(here("data/male_do_eating.sav")) %>% 
-    select(Study_ID, BMI, age_year, income_group, OE_frequency, 
-         EDEQ_restraint, DERS_total, DMS_mean, EDS_total, MBAS_muscularity, MBAS_height,
-         SATAQ_total) %>%
-        drop_na()
+    select(OE_frequency, EDEQ_restraint, EDS_total,
+           BMI, age_year, income_group) %>%
+    mutate(EDS_total = ifelse(EDS_total==-99, NA, EDS_total)) %>%
+    drop_na()
 do <- rownames_to_column(do, "id")
-do <- select(do, -c(Study_ID))
 
 ```
 ---
 # Bivariate relationship
-```{r, echo=F}
+```{r}
 lm_plot <- ggplot(do, aes(x=EDEQ_restraint, y=BMI)) + 
   geom_point() +
   geom_smooth(method = "lm") +
@@ -103,23 +117,23 @@ lm_plot
 ---
 # Regression results
 
-(from last Unit)
-
-```{r, echo = T, }
+(from last unit)
+```{r, echo = T}
 fit <- lm(BMI ~ EDEQ_restraint, data=do)
-  tidy(fit)
+tidy(fit)
 ```
 
-
-- Each 1 unit difference in dietary restraint behaviors (*EDEQ_RESTRAINT*) is associated with a 1.03 unit difference in Body Mass Index (*BMI*).
- + This represents 1/6th of a standard deviation of the outcome (*BMI*), or a relatively large effect
-- Effect is statistically significant
+.small[
+- Each 1 unit difference in dietary restraint behaviors (*EDEQ_RESTRAINT*) is associated with a 1.04 unit difference in Body Mass Index (*BMI*).
+ + This represents 1/6th of a standard deviation of the outcome (*BMI*), or a relatively large magnitude relationship
+- Relationship is statistically significant
  + Unlikely that in the population of 18-30 yo males that there is no relationship between dietary restraint behaviors and BMI.
 - There is still a lot of residual variation
+]
 
 --
 
-.blue[**So should we believe these results???**]
+.blue[**Have we accurately characterized this relationship???**]
 
 ---
 # Goals of the unit
@@ -136,22 +150,32 @@ fit <- lm(BMI ~ EDEQ_restraint, data=do)
 ---
 class: middle, inverse
 
-# Regression fundamentals: the remix
+# Regression fundamentals: 
+## The remix
 
 ---
 # Some definitions
 
-When you conduct any kind of statistical analysis, there are three phenomenon you are interested in:
-- **The estimand**: the underlying quantity you are seeking to learn about in the population 
-  + "the dropout rate", "disordered eating", etc.
-- **The estimator**: the method used to obtain an approximation of this quantity
-  + "Ordinary Least Squares regression", "*t*-test", "LASSO", etc.)
-- **The estimate(s)**: the value obtained from conducting a particular statistical test in a particular set of data
-  + "38.1 scale points", "5.5 percentage points", "a log-odds ratio of 2.3", etc)
+When you conduct any kind of statistical analysis, there are four phenomenon you tend to be interested in:
+- .red-pink[**the parameter**]: the underlying substantive concept you are seeking to learn about ***in the population***
+  + "the effect of the program on the dropout rate", "disordered eating", etc.
+- .red-pink[**the estimand**]: the "true" distribution of the conceptual relationship ***in the population***; identified as a result of our research design
+  + "a randomized control trial of the program", "adjusting for demographics", etc.
+- .red-pink[**the estimator**]: the method used to obtain an approximation of this quantity ***in the sample***
+  + "Ordinary Least Squares regression", "*t*-test", "LASSO", etc.
+- .red-pink[**the estimate(s)**]: the value obtained from conducting a particular statistical test ***in a particular sample***
+  + "38.1 scale points", "5.5 percentage points", "a log-odds ratio of 2.3", etc
+
 
 --
 
-In estimating a model to data, you are seeking an estimator that will return a .blue[**BLUE**] estimate:
+If we posit a linear model, we are suggesting that the estimand we are attempting to recover via our analysis will be linear in nature.
+
+---
+# OLS is BLUE
+
+
+When fitting a linear model to data, we are seeking an estimator that will return a .blue[**BLUE**] estimate:
  + .blue[**B**]est
  + .blue[**L**]inear
  + .blue[**U**]nbiased
@@ -175,9 +199,9 @@ In estimating a model to data, you are seeking an estimator that will return a .
 ---
 # Key assumptions of regression
 
+At each value of X, there is a distribution of Y. These distributions have a mean $\mu_{Y|X}$ and a variance of $\sigma^2_{Y|X}$
 
 .pull-left[
-At each value of X, there is a distribution of Y. These distributions have a mean $\mu_{Y|X}$ and a variance of $\sigma^2_{Y|X}$
 1. **Measurement error**: Values of X are non-overlapping
 2. **Linearity**: The mean of each X distribution $(\mu_{Y|X})$ can be joined together by a straight line
 3. **Homoscedasticity**: Variance of each distribution $(\sigma^2_{Y|X})$ is identical
@@ -186,7 +210,7 @@ At each value of X, there is a distribution of Y. These distributions have a mea
 ]
 
 .pull-right[
-```{r, echo=F}
+```{r}
 include_graphics("reg_assumpt.png")
 ```
 (6. **Outliers** are baked into several of above)
@@ -194,7 +218,7 @@ include_graphics("reg_assumpt.png")
 
 --
 
-These assumptions are not about the sample, but are about the individual error terms *in the population*.
+These assumptions are not about the sample or the original variables, but are about the **individual error terms (residuals) *in the population***.
 
 ---
 class: middle, inverse
@@ -212,17 +236,67 @@ summary(lm(BMI ~ EDEQ_restraint, data=do))
 ---
 # Addding measurement error
 
-Classical measurement error (our predictor variable is measured imprecisely) will bias our results to zero and increase residual standard error (aka, RMSE).
+Classical measurement error (our predictor variable is measured imprecisely) will bias our results to zero and increase residual standard error.
 
 ```{r, echo=T, highlight.output=c(12,16)}
 do$EDEQ_noise <- jitter(do$EDEQ_restraint, factor = 5, amount = 1)
 summary(lm(BMI ~ EDEQ_noise, data=do))
 ```
+
 ---
-# Addressing measurement error
+# Measurement error in $x$
+
+```{r, fig.width = 10, fig.height = 7, overlay.plot = 1, interval=0.8, animation.hook='gifski', eval=T}
+library(scales)
+set.seed(123)
+n<-200
+x <- runif(n)
+error<-rnorm(n)
+y <- x
+errorfactor <- c(0:10)/10
+for (factor in errorfactor) {
+  x0<-x+factor*error
+  ols<-lm(y~x0)
+  plot(x0, y, col = alpha("#e64173",0.8), pch = 19, xlim = c(-0.5,2), ylim = c(-0.5,2))
+  text(x=0,y=2,adj=c(0,1),paste0(  "b_0=",round(ols$coefficients[1],2), "   b_1=",   round(ols$coefficients[2] ,2) ))
+  abline(0,1, col="gray", lwd = 3)
+  abline(lm(y~x0), col="#e64173", lwd = 3)
+}
+```
+
+.footnote[h/t Simon Hess ([@simonhhess](https://twitter.com/simonhhess))]
+
+---
+# Measurement error in $y$
+```{r, fig.width =10, fig.height = 7, animation.hook='gifski', interval=0.8, overlay.plot =1, eval=T}
+set.seed(123)
+n<-200
+x <- runif(n)
+error<-rnorm(n)
+y <- x 
+errorfactor <- c(0:10)/20
+for (factor in errorfactor) {
+  y0<-y+factor*error
+  ols<-lm(y0~x)
+  plot(x, y0, col = alpha("#e64173",0.8), pch = 19, xlim = c(-0.5,1.5), ylim = c(-0.5,2.5))
+  text(x=0,y=2.5,adj=c(0,1),paste0(  "b_0=",round(ols$coefficients[1],2), "   b_1=",   round(ols$coefficients[2] ,2) ))
+  abline(0,1, col="gray", lwd = 3)
+  abline(ols, col="#e64173", lwd = 3)
+}
+```
+
+.footnote[h/t Simon Hess ([@simonhhess](https://twitter.com/simonhhess))]
+
+---
+## Addressing measurement error
 
 - Test for presence of measurement error with reliability statistics
-- Solve by creating factors of underlying constructs, adjust standard errors post-hoc, SEM, get more data, improve design
+- Solve by:
+    + Creating factors of underlying constructs
+    + Adjusting standard errors post-hoc
+    + SEM
+    + Get more (better) data
+    + Improve research design
 
 #### We'll learn about reliability in EDUC 645 as well as in more advanced courses such as EDLD 667
 #### We will also learn about some solutions in 633/634 (SEM) and EDLD 650 and 679 (causal inference)
@@ -231,7 +305,9 @@ summary(lm(BMI ~ EDEQ_noise, data=do))
 ---
 class: middle, inverse
 
-# Regression diagnostics: residuals
+# Regression diagnostics: 
+
+## Residuals as tools to assess linearity, homoscedasticity, normality and independence
 
 ---
 # Residuals
@@ -242,23 +318,23 @@ lm_plot
 
 Our fitted regression line contains the "predicted" values of *BMI* for each value of *DIETARY_RESTRAINT*. But almost all of the "actual" values of *BMI* lie off the actual line regression line.
 ---
-# Example: Participant #1089
+# Example: Participant #1082
 
-```{r, echo=F, fig.height=5}
+```{r, fig.height=5}
 fit <- lm(BMI ~ EDEQ_restraint, data=do)
 do$predict <- predict(fit)
 do$resid <- residuals(fit)
 
-do1089 <- filter(do, id==1089)
+do1082 <- filter(do, id==1082)
  resid_c <- ggplot(do, aes(x = EDEQ_restraint, y = BMI)) + 
    geom_point() + 
    geom_smooth(method=lm, data=do) +
-   geom_point(aes(x = EDEQ_restraint, y = predict), data=do1089, col = "red", alpha=0.3) +
-   geom_point(data = do1089, aes(x = EDEQ_restraint, y = BMI),
+   geom_point(aes(x = EDEQ_restraint, y = predict), data=do1082, col = "red", alpha=0.3) +
+   geom_point(data = do1082, aes(x = EDEQ_restraint, y = BMI),
                      color = 'red',
                      size = 3) +
-   geom_segment(aes(xend = EDEQ_restraint, yend=predict), col = "red", alpha = 0.8, data= do1089) +
-   annotate('text', label = "#1089", x = 5.7, y = 23, color = "red", size = 5) +
+   geom_segment(aes(xend = EDEQ_restraint, yend=predict), col = "red", alpha = 0.8, data= do1082) +
+   annotate('text', label = "#1082", x = 5.7, y = 23, color = "red", size = 5) +
    xlab("Dietary restraint index") +
    theme_minimal(base_size = 16)
 resid_c
@@ -274,7 +350,7 @@ resid_c
 ---
 # What is a "residual"?
 
-#### The difference ("vertical distance") between the observed value of the outcome its predicted value is called the *residual*.
+The difference ("vertical distance") between the observed value of the outcome and its predicted value is called the .red-pink[**residual**].
 
 #### Residuals can be substantively and statistically useful:
 - Represent individual deviations from average trend
@@ -284,18 +360,18 @@ resid_c
 ---
 # Raw and studentized residuals
 
-Raw residuals give us information on how far each observed value is from its predicted value *in the original units of the outcome*. Sometimes it may be valuable to be able to quantify residuals in more standard units. 
+.small[Raw residuals give us information on how far each observed value is from its predicted value *in the original units of the outcome*. It may be valuable to quantify residuals in more standard units.] 
 
-- **Raw residuals**: Observed minus fitted values:
+- .red-pink[**Raw residuals**]: Observed minus fitted values:
 
 $$r_{i} = y_{i} - \hat{y_{i}}$$
 
-- **Standardized residuals**: Can transform raw residuals into standardized units by dividing by the Mean Square Error (estimate of standard deviation of the residuals).<sup>1</sup>
+- .red-pink[**Standardized residuals**]: Can transform raw residuals into standardized units by dividing by the Mean Square Error (estimate of standard deviation of the residuals).<sup>1</sup>
 
 $$stdr_{i} = \frac{r_{i}}{\sqrt{MSE}}$$
 
 
-- **Studentized residuals**: Raw residuals come from models that may be influenced by individual data points (esp. in small samples). To avoid this problem, it is helpful to estimate residuals that come from a model based on all data *except the case at hand (i)*. Here, $MSE_{i}$ is based on a regression fit without observation $i$. 
+- .red-pink[**Studentized residuals**]: Raw residuals come from models that may be influenced by individual data points (esp. in small samples). To avoid this problem, it is helpful to estimate residuals that come from a model based on all data *except the case at hand (i)*. Here, $MSE_{i}$ is based on a regression fit without observation $i$. 
 
 $$stur_{i} = \frac{r_{i}}{\sqrt{MSE_{-(i)}}}$$
 
@@ -310,6 +386,9 @@ Residuals can be valuable diagnostic tools to assessing the assumptions of the r
 - Noticing patterns to change your theory about the correct model or functional form to use
 - Inspecting particular cases to determine whether they are mis-measured or belong to a different population than the main one of your study
 - Improve your research design overall
+
+Our regression assumptions of .red-pink[**homscedasticity, normality** and **independence**] are all about the residuals. We often say as shorthand for this that the residuals are .red-pink[**independently and identically distributed**]:
+$$\varepsilon_i = \text{i.i.d. } N(0, \sigma^2)$$
 
 ---
 # Recovering residuals in R
@@ -329,54 +408,43 @@ do$std_resid <- rstandard(fit)
 do$stu_resid <- rstudent(fit)
 ```
 
-We can now treat these residual and predicted values as new variables in our dataset and examine using all the other univariate and multivariate analysis tools we have.
+We can now treat these residual and predicted values as new variables in our dataset and examine them using all the other univariate and multivariate analysis tools we have.
 
 ---
 # Examining the residuals
 
 ```{r, echo=T}
 summary(do$resid)
+sd(do$resid)
 ```
 
 - Sample mean of the residuals is *always* exactly zero
 - On a scale ranging from about 5 to 60, most of our residuals are within 6 BMI units. However, we've done a poor job of predicting BMI for some participants.
 
---
-
-
-```{r, echo=T}
-summary(do$std_resid)
-```
-
-- Compare to the standardized residuals. *How similar are they?*<sup>1</sup>
-- Note the minima and maxima values. .blue[*Given a sample of ~1100 individuals, what does this make you think?*]
-
-.footnote[[1] Our standardized and studentized residuals have means *close to* zero, but not quite because of "leverage" corrections (see slide 19)
-]
 
 ---
 # Examining the residuals
-Standard deviation of the raw residuals can be quite useful in checking our assumptions
-- .blue[*What assumption?*]
+
+- Compare to the raw residuals on the previous slide to the standardized residuals. *How similar are they?*<sup> 1</sup>
 
 ```{r, echo=T}
-sd(do$resid)
-```
-
---
-
-How does this compare to the standardized residual?
-
-```{r, echo=T}
+summary(do$std_resid)
 sd(do$std_resid)
 ```
+
+- Note the minima and maxima standardized residual values. .blue[*Given a sample of ~1100 individuals, what does this make you think?*]
+
+
+.footnote[[1] Our standardized and studentized residuals have means *close to* zero, but not quite because of "leverage" corrections (see slide 22)
+]
+
 
 ---
 # Non-linearity
 
 In addition to examining the original scatterplot to detect the presence of non-linearity...
 
-```{r, echo=F, fig.height=5.5}
+```{r, fig.height=5.5}
 set.seed(123)
 x <- seq(-100, 100)    
 y <- x^3 + rnorm(length(x), 0, 200000)     
@@ -393,7 +461,7 @@ ggplot(quad, aes(x, y)) +
 
 In addition to examining the original scatterplot to detect the presence of non-linearity...
 
-```{r, echo=F, fig.height=5.5}
+```{r, fig.height=5.5}
 ggplot(quad, aes(x, y)) +
   geom_point() +
   geom_smooth(method=lm, formula= y ~ poly(x,3), se=F) +
@@ -407,11 +475,11 @@ ggplot(quad, aes(x, y)) +
 **We can also examine the residuals to detect non-linearity!**
 
 ---
-# Non-linearity: residuals v. fitted
+## Non-linearity: residuals v. fitted plot
 
-Plotting the residual values against their fitted values can provide **EXTREMELY** informative insights to many of our regression assumptions. 
+Plotting the residual values against their fitted values can provide informative insights to many of our regression assumptions. 
 
-```{r, echo=F, fig.height=5}
+```{r, fig.height=5}
 quadfit <- lm(y ~ x, data=quad)
 quad$predict <- predict(quadfit)
 quad$resid <- resid(quadfit)
@@ -424,11 +492,11 @@ ggplot(quad, aes(x = predict, y = resid)) +
   theme(axis.text.y = element_blank())
 ```
 ---
-# Non-linearity: residuals v. fitted
+## Non-linearity: residuals v. fitted plot
 
-Plotting the residual values against their fitted values can provide **EXTREMELY** informative insights to many of our regression assumptions. 
+Plotting the residual values against their fitted values can provide informative insights to many of our regression assumptions. 
 
-```{r, echo=F, fig.height=5}
+```{r, fig.height=5}
 quadfit <- lm(y ~ x, data=quad)
 quad$predict <- predict(quadfit)
 quad$resid <- resid(quadfit)
@@ -443,10 +511,10 @@ ggplot(quad, aes(x = predict, y = resid)) +
   theme(axis.text.y = element_blank())
 ```
 ---
-# Non-linearity: residuals v. fitted
+## Non-linearity: residuals v. fitted plot
 
 Let's look at this for our estimates of disordered eating:
-```{r, echo=F, fig.height=5}
+```{r, fig.height=5}
 ggplot(do, aes(x = predict, y = resid)) + 
          geom_point() +
   geom_hline(yintercept = 0, color = "red", linetype="dashed") +
@@ -454,14 +522,28 @@ ggplot(do, aes(x = predict, y = resid)) +
   theme_minimal(base_size = 16)
 ```
 
-.red-pink[**What evidence do you observe of linearity or non-linearity in the residuals for our disordered eating sample?**]
+.blue[**What evidence do you observe of linearity or non-linearity in the residuals for our disordered eating sample?**]
+
+---
+## Non-linearity: residuals v. fitted plot
+
+Let's look at this for our estimates of disordered eating:
+```{r, echo=T, fig.height=4.25}
+ggplot(do, aes(x = predict, y = resid)) + 
+         geom_point() +
+  geom_hline(yintercept = 0, color = "red", linetype="dashed") +
+  ylab("Raw Residuals") + xlab("Fitted values") +
+  theme_minimal(base_size = 16)
+```
+
+
 
 ---
 # Heteroscedasticity
 
 **Heteroscedasticity**: when variance of Y conditional on X $(\sigma^2_{Y|X})$ differs as a function of X
 
-```{r, echo=F, fig.height=5.5}
+```{r, fig.height=5.5}
 set.seed(123)
 x <- seq(-100, 100)    
 y <- x + rnorm(length(x), 0, 100)
@@ -481,7 +563,7 @@ ggplot(het, aes(x, y2)) +
 
 **Heteroscedasticity**: when variance of Y conditional on X $(\sigma^2_{Y|X})$ differs as a function of X
 
-```{r, echo=F, fig.height=5.5}
+```{r, fig.height=5.5}
 ggplot(het, aes(x, y2)) +
   geom_point() +
   geom_smooth(method=lm, se=F) +
@@ -492,42 +574,50 @@ ggplot(het, aes(x, y2)) +
 ```
 ---
 # Residual heterodscedasticity
-```{r, echo=F, fig.height=5}
+```{r, fig.height=5}
 ggplot(do, aes(x = predict, y = resid)) + 
          geom_point() +
   geom_hline(yintercept = 0, color = "red", linetype="dashed") +
   ylab("Raw Residuals") + xlab("Fitted values") +
   theme_minimal(base_size = 16)
+
+
 ```
 
 .blue[**What evidence do you observe of homoscedasticity or heteroscedastictiy in the residuals for our disordered eating sample?**]
 
 ---
-# Solutions to heteroscedasticity
+## Solutions to heteroscedasticity
 
-Heteroscedasticity biases our standard errors. The standard deviation of the estimator $\hat{\beta_{1}}$ is inconsistent for the true value of $\sigma^2_{\hat{\beta_{1}}}$ when there is heteroscedasticity. The sample-based statistic do not follow a standard normal distribution (following the CLT). This would invalidate our inferencing.
+Heteroscedasticity biases our standard errors. The standard deviation of the estimator $\hat{\beta_{1}}$ is inconsistent for the true value of $\sigma^2_{\hat{\beta_{1}}}$ when there is heteroscedasticity. 
 
-However, we generally can correct for the presence of heteroscedasticity by the computation of .red[heteroscedasticity-robust standard errors]. There are several approaches that rely on the variance-covariance matrix of the errors and a good deal of matrix algebra. 
+If this were the case, the sample-based statistics do not follow a standard normal distribution (i.e., the CLT). This would invalidate our inferencing.
+
+However, we generally can correct for the presence of heteroscedasticity by the computation of .red-pink[**heteroscedasticity-robust standard errors**]. There are several approaches that rely on the variance-covariance matrix of the errors and a good deal of matrix algebra. 
 
 ---
-# Solutions to heteroscedasticity
-We won't spend time on these now, but know that if you are concerned about the presence of heteroscedasticity in your data, you will generally want to use heteroscedasticity-robust standard errors (sometimes called sandwich estimators or [Eicker-Huber-White standard errors](https://www.jstor.org/stable/1912934) ). Some R options include the `estimatr::lm_robust` command.
+## Solutions to heteroscedasticity
+
+.small[
+We won't spend time on these now, but know that if you are concerned about the presence of heteroscedasticity in your data, you will generally want to use heteroscedasticity- robust standard errors (sometimes called sandwich estimators or [Eicker-Huber-White standard errors](https://www.jstor.org/stable/1912934) ). Some R options include `estimatr::lm_robust` and `modelsummary`.
+]
 
 
 ```{r, echo=T, highlight.output=c(5)}
-tidy(lm(BMI ~ EDEQ_restraint, data=do))
+modelsummary(fit, 
+  stars=T,
+  gof_omit = "Adj.|AIC|BIC|Log|RMSE",
+  coef_rename = c("EDEQ_restraint" = "Dietary Restraint Index (0-6)"),
+  vcov =  list("iid", "robust"))
 ```
 
-```{r, echo=T, highlight.output=c(3)}
-tidy(estimatr::lm_robust(BMI ~ EDEQ_restraint, se_type="HC1", data=do))
-```
 
 ---
 # Residual normality: boxplot
 
 For the standard errors (and associated inference tests) that we conduct in the regression analysis to be correct, the residuals **must be normally distributed.** Here it makes most sense to use our *studentized residuals*. .blue[**Why?**]
 
-```{r, echo=T, fig.height=4}
+```{r, echo=T, fig.height=3.75}
 boxplot(rstudent(fit))
 ```
 
@@ -540,7 +630,7 @@ A few outliers, particularly in the positive direction... (means we are *under*-
 
 For the standard errors (and associated inference tests) that we conduct in the regression analysis to be correct, the residuals **must be normally distributed**
 
-```{r, echo=F, fig.height=4.5}
+```{r, fig.height=4.5}
 ggplot(do, aes(x = resid)) + 
   geom_histogram(binwidth = 1) +
   theme_minimal(base_size = 16)
@@ -556,7 +646,7 @@ All in all, though, these seem roughly normally distributed.
 
 
 ---
-# Residual normality: resid v. fitted 
+## Residual normality: resid v. fitted 
 
 For the standard errors (and associated inference tests) that we conduct in the regression analysis to be correct, the residuals **must be normally distributed**
 ```{r, echo=F, fig.height=4.5}
@@ -572,12 +662,16 @@ ggplot(do, aes(x = predict, y = stu_resid)) +
 ---
 # Residual normality: Q-Q plot
 
-For the standard errors (and associated inference tests) that we conduct in the regression analysis to be correct, the residuals **must be normally distributed**. A .red-pink[**quantile-quantile (Q-Q) plot**] compares where observed values in the sample--at specified percentiles of the distribution--fall in relation to where those same percentile values would fall in a normal distribution. A straight line indicates what a precisely normal distribution would look like.
+.small[For the standard errors (and associated inference tests) that we conduct in the regression analysis to be correct, the residuals **must be normally distributed**. A .red-pink[**quantile-quantile (Q-Q) plot**] compares where observed values in the sample--at specified percentiles of the distribution--fall in relation to where those same percentile values would fall in a normal distribution. A straight line indicates what a precisely normal distribution would look like.]
 
-```{r, echo=F, fig.height=4.5}
-ggplot(do) + 
-  stat_qq(aes(sample=stu_resid)) +
-  geom_abline(color=blue) +
+```{r, echo=T}
+qq <- ggplot(do) + 
+        stat_qq(aes(sample=stu_resid)) +
+        geom_abline(color=blue)
+```
+
+```{r, fig.height=4}
+qq +
   theme_minimal(base_size = 16)
 ```
 
@@ -590,9 +684,9 @@ ggplot(do) +
 
 If observations (and residuals) are correlated (i.e., there is some feature in our data that makes some observations have correlated outcomes), then our model is mis-specified and we will have biased standard errors.
 
-Imagine that most of the young men in our disordered eating sample lived in one of six cities. 
+.small[Imagine that most of the young men in our disordered eating sample lived in one of six cities.]
 
-```{r, echo=F, fig.height=4.5}
+```{r, fig.height=4.5}
 do <- do %>% mutate(city = case_when(predict<=25 & stu_resid>0 ~ "San Francisco",
                                      predict<=25 & stu_resid<=0 ~ "Portland",
                                      predict >25 & predict <=28 & stu_resid>0 ~ "Seattle",
@@ -606,11 +700,15 @@ lm_plot_city <- ggplot(do, aes(x=EDEQ_restraint, y=BMI, col=city)) +
   theme_minimal(base_size = 16)
 
 lm_plot_city
+
+lm_city <- lm(BMI ~ EDEQ_restraint + as.factor(city), data=do)
 ```
+
+
 ---
 # Residual independence
 
-```{r, echo=F, fig.height=4.5}
+```{r, fig.height=4.5}
 ggplot(do, aes(x = predict, y = stu_resid, col=city)) + 
          geom_point() +
   geom_hline(yintercept = 0, color = "red", linetype="dashed") +
@@ -619,35 +717,52 @@ ggplot(do, aes(x = predict, y = stu_resid, col=city)) +
 
 ```
 
+.small[It might seem like we have 1083 degrees of freedom, but actually there is far less independent variation in our data because one's membership in a particular group (in this case city) informs (some) of one's outcome value. Thus, our na&iuml;ve inference will be incorrect.]
+
 --
 
 **Depending on disciplinary perspective, we can address these concerns through multi-level modeling or standard error adjustment. More on this in EDUC 645 and EDLD 628/629 (HLM)**
 
+
+
+---
+## Solutions to residual independence
+
+.small[We won't spend time here, but if you are concerned about the presence of clusters in your data--*because you are worried it will affect your inference*--consider using cluster-robust standard errors, which inflate standard errors for the *k*<sup>th</sup> regressor by] $\tau_k$ .small[, where] $\tau_k = 1 + \rho_{kx} + \rho_{\mu}* (\text{avg. cluster size} - 1)$.
+
+```{r, echo=T}
+modelsummary(lm_city,
+  stars=T,
+  coef_omit = "city",
+  gof_omit = "Adj.|AIC|BIC|Log|RMSE",
+  coef_rename = c("EDEQ_restraint" = "Dietary Restraint Index (0-6)"),
+  vcov =  list("iid", ~ city))
+```
 ---
 # Outliers
 
-### Broadly defined as highly atypical and/or influential data point(s). 
+**Broadly defined as highly atypical and/or influential data point(s).**
 
 These could be a result of:
  + Coding (recording) error
- + Accurate observations of a rare case
+ + Accurate observations of a rare case(s)
  + Observation of an individual from a different population
  
 --
 
-### We can characterize outliers on three dimensions:
-1. Leverage
+**We can characterize outliers on three dimensions:**
+1. **Leverage**
  + How unusual is the case in the 'X' direction?
-2. Distance
+2. **Distance**
  + How unusual is the case in the 'Y' direction?
-3. Influence
+3. **Influence**
  + How much does the relationship (regression coefficient) change in the absence of the case?
  + Influence is roughly Leverage * Distance
  
 ---
 # Outliers
 
-```{r, echo=F, fig.height=5}
+```{r, fig.height=5}
 do11 <- filter(do, id==11)
 
 outlier <- ggplot(do, aes(x = EDEQ_restraint, y = BMI)) + 
@@ -665,7 +780,7 @@ outlier
 
 .blue[*How would you characterize participant #11 on leverage and distance?*]
 
- 
+
 ---
 # Outliers
 
@@ -680,15 +795,107 @@ tidy(lm(BMI ~ EDEQ_restraint, data=do_out))
 **Things don't change much in this case!**
 
 ---
+# Depends on context
+```{r, fig.width = 10, fig.height = 6}
+set.seed(1234)
+# generate the multivariate normal distribution
+df<-as.data.frame(MASS::mvrnorm(n=100, mu=c(10,5), Sigma=matrix(c(1, 0.6, 0.6, 1), nrow=2)))
+
+
+base <- ggplot(df, aes(x = V1, y = V2)) +
+  geom_point() +
+  geom_smooth(method = "lm", se = F) +
+  xlim(7, 15) +
+  ylim(2,8.5) +
+  theme_minimal() +
+  labs(caption = "N = 100")
+
+base
+```
+
+
+---
+# Depends on context
+```{r,  fig.width = 10, fig.height = 6}
+df2 <- df
+df2[101,] <- c(14.5, 2.5)
+
+out <-filter(df2, V1>13)
+
+out1 <- ggplot() +
+  geom_point(data=df2, aes(x = V1, y = V2)) +
+  geom_smooth(data=df2, aes(x = V1, y = V2), method = "lm", se = F) +
+  geom_smooth(data=df, aes(x = V1, y = V2), method = "lm", se = F, color="gray") +
+  geom_point(data=out, aes(x = V1, y = V2), color="red") +
+  xlim(7, 15) +
+  ylim(2,8.5) +
+  theme_minimal() +
+  labs(caption = "N = 100")
+
+out1
+```
+---
+# Depends on context
+```{r, fig.width = 10, fig.height = 6}
+df3 <-as.data.frame(MASS::mvrnorm(n=10000, mu=c(10,5), Sigma=matrix(c(1, 0.6, 0.6, 1), nrow=2)))
+
+df4 <- df3
+df4[10001,] <- c(14.5, 2.5)
+
+out <-filter(df4, V1>14)
+
+out2 <- ggplot() +
+  geom_point(data=df4, aes(x = V1, y = V2)) +
+  geom_smooth(data=df4, aes(x = V1, y = V2), method = "lm", se = F) +
+  geom_smooth(data=df3, aes(x = V1, y = V2), method = "lm", se = F, color="gray") +
+  geom_point(data=out, aes(x = V1, y = V2), color="red") +
+  xlim(7, 15) +
+  ylim(2,8.5) +
+  theme_minimal() +
+  labs(caption = "N = 10,000")
+
+out2
+```
+
+---
+# Depends on context
+```{r, fig.width = 10, fig.height = 6}
+
+df4[10002,] <- c(14.25, 2.25)
+df4[10003,] <- c(14.4, 2.4)
+df4[10004,] <- c(14.6, 2.1)
+
+out <-filter(df4, V1>14)
+
+out2 <- ggplot() +
+  geom_point(data=df4, aes(x = V1, y = V2)) +
+  geom_smooth(data=df4, aes(x = V1, y = V2), method = "lm", se = F) +
+  geom_smooth(data=df3, aes(x = V1, y = V2), method = "lm", se = F, color="gray") +
+  geom_point(data=out, aes(x = V1, y = V2), color="red") +
+  xlim(7, 15) +
+  ylim(2,8.5) +
+  theme_minimal() +
+  labs(caption = "N = 10,000")
+
+out2
+```
+---
 # Outlier best practices
 
 There are various tests and common "rules of thumb" you may hear to assess each of distance, leverage and influence:
  - Mahalanobis distance, studentized residuals, Cook's distance, etc.
  
-*Our recommendation*: address outliers substantively rather than with a particular statistic or "rule of thumb." Some recommendations:
+.purple[**Our recommendation**]: address outliers substantively rather than with a particular statistic or "rule of thumb." Some recommendations:
 - The more data you have, the less relevant outliers are
 - Analyze data with/without outliers to see whether results change
 - Use outlier identification to identify mis-coded data and/or individuals who are substantively different than the population of interest (e.g, a student who has 24 schools of enrollment in middle school is likely from a fundamentally different population than students who have between 1 and 6 schools)
+- Consider processes such as top-coding (aka, "[Winsorizing](https://en.wikipedia.org/wiki/Winsorizing)")
+- Do not simply exclude observations because they are above a certain threshold 
+
+---
+class: middle, inverse
+# Synthesis and wrap-up
+
 
 ---
 # Screening steps
@@ -702,15 +909,20 @@ There are various tests and common "rules of thumb" you may hear to assess each 
  - Check for linearity, skew, and normality
 3. **Test assumptions using residuals**
  - Graph residuals by predicted value. Check for linearity and heteroscedasticity
- - Graph residuals by a few other variable to think about independence
+    + We'll address non-linearity in unit 4
+ - Graph residuals by a few other variables to think about independence
  - Plot residual distribution and Q-Q plot to check for normality
  - Do not throw out data simply because it is a set number of SD away from mean
+4. **Apply corrections in presence of assumption violations**
+ - Generally a good idea to use heteroscedasticity-robust standard errors
+ - In clustered settings (schools, facilities, hospitals), generally a good idea to use cluster-robust inference
 
 ---
 # Putting it all together
 
+.small[
 Ordinary Least Squares (OLS) estimators return the Best Linear Unbiased Estimate (.blue[BLUE]) *as long as certain assumptions are met*.
-- Before accepting a set of results, examine these assumptions in turn to make sure they are tenable. .red[**You can't be sure the substantive interpretation of the results is correct until you have evaluated your assumptions!**]
+- Before accepting a set of results, examine these assumptions in turn to make sure they are tenable. .purple[**You can't be sure the substantive interpretation of the results is correct until you have evaluated your assumptions!**]
 - Residuals can be key tools in evaluating these assumptions
 
 Linear regression models assume that:
@@ -720,10 +932,31 @@ Linear regression models assume that:
 We can conduct a series of diagnostic steps and (sometimes) corrections to ensure our assumptions are met
 - Develop a set of regular best practices that you implement every time prior to fitting models to ensure the basic assumptions of regression are satisfied
 - Some assumption violations can be addressed via data management and statistical tools. Others are a feature of our research design that cannot be solved *post-hoc*.
+]
 
 ---
-class: middle, inverse
-# Synthesis and wrap-up
+# Goals of the unit
+
+- Articulate the assumptions of the General Linear Model broadly and least squares estimation and inference particularly
+- Describe sources of assumption violation in the regression model including: measurement error, non-linearity, heteroscedasticity, non-normally distributed residuals, correlated errors, and outliers.
+- Articulate properties of residuals and describe their centrality in understanding the regression model assumptions
+- Conduct diagnostic tests on regression model assumption violations
+- Implement a consistent screening protocol to identify regression model assumption violations
+- Implement solutions to regression model assumption violations, when appropriate
+
+---
+# To-Dos
+
+### Reading: 
+- **Finish by Jan. 31**: LSWR Chapter 15.8 - 15.9
+
+### Quiz 2: 
+- Opens 3:45 Tuesday, Jan. 31 (closes 5pm on 2/1)
+
+### Assignment 2:
+- Due Jan. 31, 11:59pm
+
+### Next week: Multiple regression
 
 
  

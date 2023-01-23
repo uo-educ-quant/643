@@ -49,8 +49,8 @@ Lectures:
 Assignment 1:
 
 - Due: Jan. 24, 11:59pm
-- [html file](./assignments/assignment_1.html)
-- [nerds.csv](./data/nerds.csv)
+- Assignment: [html file](./assignments/assignment_1.html)
+- Data: [nerds.csv](./data/nerds.csv)
 
 ## Unit 2: Assumptions & diagnostics
 
@@ -71,15 +71,15 @@ Readings:
 
 Lecture: 
 
-- Class 5-6 (1/24 and 1/26) slides: [html] | [pdf]
-- Data: [sav](./data/male_do_eating.sav)
-- R script: 
+- Class 5-6 (1/24 and 1/26) slides: [html](./slides/EDUC643_5_assumptions.html) | [pdf](./slides/EDUC643_5_assumptions.pdf)
+- Data: [male_do_eating.sav](./data/male_do_eating.sav)
+- R code: [R script](./slides/EDUC643_5_code.R)
 
 Assignment 2:
 
 - Due: Jan. 31, 11:59pm
-- [assignment](./assignments/assignment02.html)
-- Data:
+- Assignment: [html file](./assignments/assignment02.html)
+- Data: [nerds.csv](./data/nerds.csv)
 
  
 ## Unit 3: Multiple regression
@@ -108,7 +108,7 @@ Lecture:
 
 - Class 7 (1/31) slides: [html] | pdf
 - Class 8 (2/2) slides: [html] | pdf
-- Data: [sav](./data/male_do_eating.sav)
+- Data: [male_do_eating.sav](./data/male_do_eating.sav)
 - R script: 
  
 Assignment 3: 
