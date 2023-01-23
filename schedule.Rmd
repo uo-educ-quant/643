@@ -78,7 +78,7 @@ Lecture:
 Assignment 2:
 
 - Due: Jan. 31, 11:59pm
-- Assignment: [html file](./assignments/assignment02.html)
+- Assignment: [html file](./assignments/assignment_2.html)
 - Data: [nerds.csv](./data/nerds.csv)
 
  
