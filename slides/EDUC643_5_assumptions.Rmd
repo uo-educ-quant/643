@@ -950,11 +950,15 @@ We can conduct a series of diagnostic steps and (sometimes) corrections to ensur
 ### Reading: 
 - **Finish by Jan. 31**: LSWR Chapter 15.8 - 15.9
 
+### Quiz 1:
+- Open now, closes 1/25 at 5p
+
 ### Quiz 2: 
 - Opens 3:45 Tuesday, Jan. 31 (closes 5pm on 2/1)
 
 ### Assignment 2:
-- Due Jan. 31, 11:59pm
+- Due Feb 3., 11:59pm (**note extension!**)
+- I encourage you to complete by 1/31 so you can turn your attention to multiple regression
 
 ### Next week: Multiple regression
 

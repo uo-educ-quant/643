@@ -60,7 +60,7 @@ Objectives of this assignment:
  
  * Propose solutions to OLS assumption violations and discuss their potential merits and drawbacks 
 
-Deadline: Jan. 31, 11:59pm
+Deadline: Feb. 3, 11:59pm (but I encourage you to complete by 1/31)
 
 Download: [html file](./assignments/assignment_2.html) | [nerds dataset](./data/nerds.csv)
 
