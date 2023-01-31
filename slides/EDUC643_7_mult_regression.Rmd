@@ -428,10 +428,11 @@ two_d2
   + This is true at various car weights
 - **AND** on average, heavier cars have worse mpg
   + This is true across the distribution of cars' horsepower
-- Note that these lines are parallel (have a common slope)
+- These lines are parallel (have a common slope)
   + This is only true because we have assumed them to be; aka .red-pink[**the main effects assumption**]
   + We assume the relationship between each predictor and the outcome are equivalent, independent of the levels of the other predictors
-- This doesn't need to be true, and we will relax this assumption in Unit 5
+- Could be case that relationship between horsepower and mpg is different at different car weights
+  + We'll relax this assumption in Unit 5
 ]
 ]
 
@@ -746,7 +747,7 @@ Just as before:
 $$SS_\text{BMI} = \color{purple}{SS_\text{Model}} + \color{green}{SS_\text{Residual}}$$
 
 --
-The sum of the squares of the model are now calculated based on the distance each observation has from the fitted regression ***plane*** (or hyper-plane):
+The sum of the squares of the model are now calculated based on the distance each observation has from the fitted regression ***plane***:
 $$\color{purple}{SS_\text{Model} = \sum{(\hat{Y} - \bar{Y})^2}}$$
 
 --
