@@ -106,16 +106,15 @@ Readings:
 
 Lecture: 
 
-- Class 7 (1/31) slides: [html] | pdf
-- Class 8 (2/2) slides: [html] | pdf
+- Class 7-8 (1/31 and 2/2) slides: [html](./slides/EDUC643_7_mult_regression.html) | [pdf](./slides/EDU643_7_mult_regression.pdf)
 - Data: [male_do_eating.sav](./data/male_do_eating.sav)
 - R script: 
  
 Assignment 3: 
 
 - Due: Feb. 10, 11:59pm
-- [assignment]
-- Data: 
+- Assignment: [html file](./assignments/assignment_3.html)
+- Data: [nerds.csv](./data/nerds.csv)
 
  
 ## Unit 4: Categorical predictors

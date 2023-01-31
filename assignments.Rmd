@@ -68,6 +68,21 @@ Download: [html file](./assignments/assignment_2.html) | [nerds dataset](./data/
 
 #### 3.3. Assignment 3
 
+**Multiple regression**
+
+Objectives of this assignment:
+
+ * Fit multiple regression models and interpret results, including making appropriate inferences
+ 
+ * Plot and interpret an estimated bivariate relationship from a multiple regression model at prototypical values of a third variable
+ 
+ * Assess multiple regression results for assumptions violations
+
+Deadline: Feb. 10, 11:59pm
+
+Download: [html file](./assignments/assignment_3.html) | [nerds dataset](./data/nerds.csv)
+
+
 #### 3.4. Assignment 4
 
 #### 3.5. Assignment 5

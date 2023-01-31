@@ -22,10 +22,10 @@ navbar:
         href: ./slides/EDUC643_5_assumptions.html
       - text: "6. Regression assumptions"
         href: ./slides/EDUC643_5_assumptions.html
-      - text: "7. Multiple regression"
-        #href: ./slides/EDUC643_7_mult_regression.html
-      - text: "8. Multi-collinearity"
-        #href: ./slides/EDUC643_8_mult_collinearity.html
+      - text: "7. Multiple regression I"
+        href: ./slides/EDUC643_7_mult_regression.html
+      - text: "8. Multiple regression II"
+        href: ./slides/EDUC643_7_mult_regression.html
       - text: "9. Categorical predictors"
         #href: ./slides/EDUC643_9_categorical.html
       - text: "10. Two sample t-tests"
