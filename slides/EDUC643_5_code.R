@@ -11,7 +11,7 @@ library(pacman)
 p_load(here, haven, tidyverse, modelsummary)
 
 
-i_am("slides/EDUC643_1_code.R")
+i_am("slides/EDUC643_5_code.R")
 
 # Import the data and implement previously identified data-cleaning steps
 do <- read_spss(here("data/male_do_eating.sav")) %>% 
