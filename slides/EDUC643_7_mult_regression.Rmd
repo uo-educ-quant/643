@@ -970,7 +970,7 @@ If two predictors are "too highly" correlated, we can't adjust for one to evalua
 
 Multicollinearity occurs when predictor variables are highly related to each other.
 
-This can be a simple relationship, such as when two of our predictors are strongly related to one another. This is usually straightforward to recognize, interpret, and correct for:
+This can straightforward to detect, such as when two of our predictors are strongly related to one another:
 - Simple and adjusted slopes differ dramatically for two or more predictors
 - Estimated adjusted slopes seem substantively wrong
 - Standard errors *increase* with added predictors
@@ -978,7 +978,7 @@ This can be a simple relationship, such as when two of our predictors are strong
 
 --
 
-Sometimes multicollinearity is difficult to detect, such as when our variable of interest (e.g., $X_{1}$) is not strongly correlated with any one $X_{k}$, but the combination of the $X$s is a strong predictor of $X_{1}$.
+Sometimes multicollinearity is more difficult to detect, such as when our variable of interest (e.g., $X_{1}$) is not strongly correlated with any one $X_{k}$, but the combination of the $X$s is a strong predictor of $X_{1}$.
 
 --
 
@@ -1014,7 +1014,7 @@ include_graphics("venn2.png")
 ## How much do extra predictors help?
 .pull-left[
 .small[
-- **Highly correlated predictors**: joint explained proportion of "c" is large; independent proportions of "a" and "b" are quite small; adding the other predictor will not help much
+- **Highly correlated predictors**: jointly explained proportion of "c" is large; independent proportions of "a" and "b" are quite small; adding the other predictor will not help much
 - **Fairly uncorrelated predictors**: jointly explained proportion of "c" is relatively small; independent proportions of "a" and "b" are independently or both fairly meaningful; addign predictors will help
 ]
 ]
@@ -1111,6 +1111,25 @@ include_graphics("venn3.png")
 ]
 
 ---
+# Some thoughts on "collinearity"
+.small[There are different perspectives on how serious of a problem multicollinearity is and what to do about it. Some of these perspectives are more acceptable than others (I think):]
+
+.small[Some believe that any instances of multicollinearity in your predictors are cause for concern and you should determine whether any of your covariates have a high degree of collinearity with each other, and if so, you should correct for it] 
+
+--
+- .small[.red[I think this is clearly wrong.] Covariates are intended to elucidate the relationship between your predictor and your outcome, but they aren't to be interpreted themselves as subsantively meaningful (sometimes they are called "nuisance parameters"). If they approach collinearity with each other, ***but not with your central question predictor***, this isn't an issue. Coefficients on your covariates may be biased and your inference about them would be wrong, but that's ok: you don't really care about them.]
+  
+--
+
+.small[
+Others believe that a set of statistical tests and "rules of thumb" can guide whether there is a serious problem of collinearity with your ***question predictor***
+- You may encounter a statistic known as .red-pink[**variance inflation factor (VIF)**], and see guidelines that if VIF>5 or VIF>10, then you have a problem. You can estimate this via the `car::vif` function
+] 
+
+--
+- .small[.orange[This is more debatable.] My recommendation is not to use strict thresholds but to instead use sensible comparison of correlations, the standard errors with/without the potentially "over-correlated" covariate and then really clear documentation of your choices.]
+
+---
 ## Putting multicollinearity together
 
 1. **Statistical adjustments can help recover the "true" relationship in your data that is obscured by confounding variables.**
@@ -1119,8 +1138,11 @@ include_graphics("venn3.png")
 3. **Graphical representations (such as Venn diagrams) can help you conceptualize the potential for multicollinearity**
 4. **Use correlation matrices to detect for the phenomenon of highly correlated variables**
  - Consider visual representations to detect patterns more easily
-5. **Solutions to multicollinearity**:
- - Increase sample size, remove a variable, create a composite or factor score (more to come in EDUC 645 and beyond!)
+5. **Focus on correlations between your predictor variable and covariates**
+ - Correlations (and partial correlations) above 0.8 are especially concerning
+ - Examine how standard errors and signs/magnitude of coefficients change when including/excluding correlated predictors
+6. **Solutions to multicollinearity**:
+ - Change your research design, increase sample size, remove a variable, create a composite or factor score (more to come in EDUC 645 and beyond!)
 
 
 ---
