@@ -78,7 +78,11 @@ knitr::opts_chunk$set(warning = FALSE,
                       fig.width = 10)
 
 ```
-
+# Roadmap
+```{r, echo=F, out.width="90%"}
+include_graphics("Roadmap3.jpg")
+```
+---
 # A motivating question
 
 Researchers (including two from the .green[**University of Oregon**]), [Nichole Kelly, Elizabeth Cotter and Claire Guidinger (2018)](https://doi.org/10.1016/j.eatbeh.2018.07.003), set out to understand the extent to which young men who exhibit overeating behaviors have weight-related medical and psychological challenges.
