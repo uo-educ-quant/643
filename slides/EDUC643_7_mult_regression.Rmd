@@ -835,6 +835,16 @@ proto
 ```
 
 ---
+# Prototypical plots by hand
+.small[It can help build your understanding and intuition to build these prototypical plots by hand.]
+```{r, output.lines=-c(1:4)}
+summary(car)
+```
+
+--
+Fitted equation: $\hat{mpg} = 37.22727 + (-0.03177)*hp + (-3.87783)*wt$
+
+---
 # Communicating results III
 
 .pull-left[
@@ -1174,16 +1184,13 @@ class: middle, inverse
 # To-Dos
 
 ### Reading: 
-- **Finish by Feb. 2**: LSWR Chapter 15.3
-
-### Quiz 2: 
-- Opens 3:45 Tuesday, Jan. 31 (closes 5pm on 2/1)
+- **Finish by Feb. 2**: LSWR Chapter 15.3 if not done already!
 
 ### Assignment 2:
 - Due Feb 3., 11:59pm (**note extension!**)
 
 ### Assignment 3:
-- Due Feb. 10, 11:59pm
+- Due Feb. 14, 11:59pm (**note extension**)
 
 --
 

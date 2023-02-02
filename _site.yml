@@ -26,26 +26,26 @@ navbar:
         href: ./slides/EDUC643_7_mult_regression.html
       - text: "8. Multiple regression II"
         href: ./slides/EDUC643_7_mult_regression.html
-      - text: "9. Categorical predictors"
+      - text: "9. Multiple regression III"
+        href: ./slides/EDUC643_7_mult_regression.html#85
+      - text: "10. Categorical predictors"
         #href: ./slides/EDUC643_9_categorical.html
-      - text: "10. Two sample t-tests"
+      - text: "11. Two sample t-tests"
         #href: ./slides/EDUC643_10_ttests.html
-      - text: "11. ANOVA"
+      - text: "12. ANOVA"
         #href: ./slides/EDUC643_11_ANOVA.html
-      - text: "12. ANCOVA and GLM redux"
+      - text: "13. ANCOVA and GLM redux"
         #href: ./slides/EDUC643_12_ANCOVA.html
-      - text: "13. Non-linearity I"
+      - text: "14. Non-linearity I"
         #href: ./slides/EDUC643_13_nonlinearity.html
-      - text: "14. Non-linearity II"
+      - text: "15. Non-linearity II"
         #href: ./slides/EDUC643_13_nonlinearity.html
-      - text: "15. Interactions I"
+      - text: "16. Interactions I"
         #href: ./slides/EDUC643_15_interactions.html
-      - text: "16. Interactions II"
+      - text: "17. Interactions II"
         #href: ./slides/EDUC643_15_interactions.html
-      - text: "17. Simple imputation"
+      - text: "19. Simple imputation"
         #href: ./slides/EDUC643_17_modeling.html
-      - text: "18. Model building"
-        #href:
       - text: "19. Model building"
         #href:
       - text: "20. Model building"

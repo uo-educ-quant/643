@@ -106,13 +106,14 @@ Readings:
 
 Lecture: 
 
-- Class 7-8 (1/31 and 2/2) slides: [html](./slides/EDUC643_7_mult_regression.html) | [pdf](./slides/EDUC643_7_mult_regression.pdf)
+- Class 7-8 (1/31, 2/2 and 2/7) slides: [html](./slides/EDUC643_7_mult_regression.html) | [pdf](./slides/EDUC643_7_mult_regression.pdf)
 - Data: [male_do_eating.sav](./data/male_do_eating.sav)
 - R code: [R script](./slides/EDUC643_7_code.R)
+- Prototypical plots: [xlsx](./data/prototypical_plots.xlsx)
  
 Assignment 3: 
 
-- Due: Feb. 10, 11:59pm
+- Due: Feb. 14, 11:59pm
 - Assignment: [html file](./assignments/assignment_3.html)
 - Data: [nerds.csv](./data/nerds.csv)
 

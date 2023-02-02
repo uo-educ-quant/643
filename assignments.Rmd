@@ -78,7 +78,7 @@ Objectives of this assignment:
  
  * Assess multiple regression results for assumptions violations
 
-Deadline: Feb. 10, 11:59pm
+Deadline: Feb. 14, 11:59pm
 
 Download: [html file](./assignments/assignment_3.html) | [nerds dataset](./data/nerds.csv)
 
