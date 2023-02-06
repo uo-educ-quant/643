@@ -128,3 +128,123 @@ nerds <- nerds %>% drop_na()
 
 data.table::fwrite(nerds, "data/nerds.csv")
 
+
+#############################
+### DIBELS
+#############################
+
+mean      <- readxl::read_excel("data/dibels8_educ_data_deid.xlsx",
+                           sheet=1) %>%
+              rename(y1_boy_mean = y1_boy,
+                    y1_moy_mean = y1_moy,
+                    y2_boy_mean = y2_boy,
+                    y2_moy_mean = y2_moy)
+intensive <- readxl::read_excel("data/dibels8_educ_data_deid.xlsx",
+                                sheet=2) %>%
+              select(sch_deid, grade, y1_boy, y1_moy, y2_boy, y2_moy) %>%
+              rename(y1_boy_intense_prop = y1_boy,
+                     y1_moy_intense_prior = y1_moy,
+                     y2_boy_intense_prop = y2_boy,
+                     y2_moy_intense_prop = y2_moy)
+strategic <- readxl::read_excel("data/dibels8_educ_data_deid.xlsx",
+                                sheet=3) %>%
+              select(sch_deid, grade, y1_boy, y1_moy, y2_boy, y2_moy) %>%
+              rename(y1_boy_strat_prop = y1_boy,
+                     y1_moy_strat_prop = y1_moy,
+                     y2_boy_strat_prop = y2_boy,
+                     y2_moy_strat_prop = y2_moy)
+
+dibels <- left_join(mean, intensive, by = c("sch_deid", "grade"))
+dibels <- left_join(dibels, strategic, by=c("sch_deid", "grade"))
+
+dibels$pre <- rowMeans(dibels[ ,c("y1_boy_mean", "y1_moy_mean")], na.rm=T)
+dibels$post <- rowMeans(dibels[ ,c("y2_boy_mean", "y2_moy_mean")], na.rm=T)
+
+dibels <- dibels %>% mutate(across(c(a_ts, b_ts, h_ts ,w_ts),
+                                   .fns = ~.x / tr_ts,
+                                   .names = "{paste0({col},sept='_','prop')}"
+            ))
+
+dibels <- dibels %>% group_by(sch_deid) %>% mutate(school_enroll = sum(tr_ts))
+dibels <- dibels %>% mutate(frpl_prop = (school_lunch_free + school_lunch_reduced)/school_enroll)
+
+dibels <- dibels %>% select(-c(tab, subtest, summary, nces_year, school_virtual, lea_idea_count, lea_lep_count, school_lunch_free, school_lunch_reduced, school_lunch_missing, school_lunch_nocode, 
+                               school_lunch_na, aian_f:tr_us))
+
+dibels <- filter(dibels, !is.na(y1_boy_mean) & !is.na(y1_moy_mean) & !is.na(y2_boy_mean) & !is.na(y2_moy_mean) & !is.na(school_titlei))
+
+dibels <- filter(dibels, grade<6)
+
+# Check how many missing
+sapply(dibels, function(x) sum(is.na(x)))
+
+# Assign mean w/ noise
+dibels <- ungroup(dibels)
+
+# Asian
+dibels <- dibels %>% mutate(asian_temp = rnorm(nrow(dibels), mean= mean(a_ts_prop, na.rm=T), sd= sd(a_ts_prop, na.rm=T)))
+dibels <- dibels %>% mutate(asian_prop = case_when(!is.na(a_ts_prop) ~ a_ts_prop,
+                                                   is.na(a_ts_prop) ~ asian_temp)) %>%
+                     mutate(asian_prop = case_when(asian_prop<0 ~ 0,
+                                                   TRUE ~ asian_prop))
+# Black
+dibels <- dibels %>% mutate(black_temp = rnorm(nrow(dibels), mean= mean(b_ts_prop, na.rm=T), sd= sd(b_ts_prop, na.rm=T)))
+dibels <- dibels %>% mutate(black_prop = case_when(!is.na(b_ts_prop) ~ b_ts_prop,
+                                                   is.na(b_ts_prop) ~ black_temp)) %>%
+                      mutate(black_prop = case_when(black_prop<0 ~ 0,
+                                                    black_prop>1 ~ 1,
+                                                    TRUE ~ black_prop))
+# Hispanic
+dibels <- dibels %>% mutate(hisp_temp = rnorm(nrow(dibels), mean= mean(h_ts_prop, na.rm=T), sd= sd(h_ts_prop, na.rm=T)))
+dibels <- dibels %>% mutate(hisp_prop = case_when(!is.na(h_ts_prop) ~ h_ts_prop,
+                                                   is.na(h_ts_prop) ~ hisp_temp)) %>%
+                      mutate(hisp_prop = case_when(hisp_prop<0 ~ 0,
+                                                   hisp_prop>1 ~ 1,
+                                                   TRUE ~ hisp_prop))
+# White
+dibels <- dibels %>% mutate(white_temp = rnorm(nrow(dibels), mean= mean(w_ts_prop, na.rm=T), sd= sd(w_ts_prop, na.rm=T)))
+dibels <- dibels %>% mutate(white_prop = case_when(!is.na(w_ts_prop) ~ w_ts_prop,
+                                                   is.na(w_ts_prop) ~ white_temp)) %>%
+                      mutate(white_prop = case_when(white_prop<0 ~ 0,
+                                                    white_prop>1 ~ 1,
+                                                    TRUE ~ white_prop))
+# FRPL
+dibels <- dibels %>% mutate(frpl_temp = rnorm(nrow(dibels), mean= mean(frpl_prop, na.rm=T), sd= sd(frpl_prop, na.rm=T)))
+dibels <- dibels %>% mutate(frpl_prop = case_when(!is.na(frpl_prop) ~ frpl_prop,
+                                                   is.na(frpl_prop) ~ frpl_temp)) %>%
+                      mutate(frpl_prop = case_when(frpl_prop<0 ~ 0,
+                                                    TRUE ~ frpl_prop))
+# Enroll
+dibels <- dibels %>% mutate(enroll_temp = round(rnorm(nrow(dibels), mean= mean(school_enroll, na.rm=T), sd= sd(school_enroll, na.rm=T)),0))
+dibels <- dibels %>% mutate(school_enroll = case_when(!is.na(school_enroll) ~ school_enroll,
+                                                  is.na(school_enroll) ~ enroll_temp)) %>%
+                      mutate(school_enroll = case_when(school_enroll<26 ~ 25,
+                                                    TRUE ~ school_enroll))
+
+dibels <- select(dibels, -c(y1_boy_intense_prop:y2_moy_strat_prop, a_ts_prop:w_ts_prop, asian_temp, black_temp, hisp_temp, white_temp, frpl_temp, enroll_temp))
+
+# Check how many missing  -- NONE!
+sapply(dibels, function(x) sum(is.na(x)))
+
+# Check average values
+sapply(dibels, function(x) summary(x))
+
+
+data.table::fwrite(dibels, "data/dibels.csv")
+
+dibels_long <- dibels %>% 
+                  pivot_longer(
+                    cols = c("y1_boy_mean", "y1_moy_mean", "y2_boy_mean", "y2_moy_mean"),
+                    names_to = "period",
+                    names_pattern = "(.*)_mean",
+                    values_to = "mean_orf"
+                  )
+
+dibels_long$period <- factor(dibels_long$period)
+
+dibels_long <- dibels_long %>% select(-c(pre, post))
+
+dibels_long <- dibels_long %>% mutate(post = ifelse(period=="y1_boy" | period=="y1_moy", 1, 0))
+
+data.table::fwrite(dibels_long, "data/dibels_long.csv")
+

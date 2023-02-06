@@ -1,6 +1,6 @@
 ---
 title: "Categorical predictors and ANOVA/ANCOVA"
-subtitle: "EDUC 643: Applied Statistics in Education and the Human Services II"
+subtitle: "EDUC 643: Unit 4"
 author: "David D. Liebowitz"
 #date: "`r format(Sys.time(), '%d %B %Y')`"
 output:
@@ -11,14 +11,14 @@ output:
       highlightStyle: github
       highlightLines: true
       countIncrementalSlides: false
-
 ---
 
 ```{R, setup, include = F}
 library(pacman)
-p_load(here, tidyverse, ggplot2, xaringan, knitr, kableExtra, haven, broom, xaringanthemer, reshape2, car)
+p_load(here, tidyverse, xaringan, knitr, kableExtra, haven, broom, xaringanthemer, reshape2, car)
 
 i_am("slides/EDUC643_9_categorical.rmd")
+
 
 
 red_pink <- "#e64173"
@@ -36,31 +36,19 @@ slate = "#314f4f"
 extra_css <- list(
   ".red"   = list(color = "red"),
   ".blue"  =list(color = "blue"),
-  ".red-pink" = list(color= "red_pink"),
+  ".red-pink" = list(color= "#e64173"),
   ".gray" = list(color= "#B3B3B3"),
   ".purple" = list(color = "purple"),
+  ".orange" = list(color = "#FFA500"),
   ".small" = list("font-size" = "90%"),
   ".large" = list("font-size" = "120%"),
   ".tiny" = list("font-size" = "70%"),
   ".tiny2" = list("font-size" = "50%"))
 
+
 write_extra_css(css = extra_css, outfile = "my_custom.css")
 
-# Knitr options
-opts_chunk$set(
-  comment = "#>",
-  fig.align = "center",
-  fig.height = 6.75,
-  fig.width = 10.5,
-  warning = F,
-  message = F
-)
-opts_chunk$set(dev = "svg")
-options(device = function(file, width, height) {
-  svg(tempfile(), width = width, height = height)
-})
-options(knitr.table.format = "html")
-
+options(htmltools.dir.version = FALSE)
 
 hook_output <- knit_hooks$get("output")
 knit_hooks$set(output = function(x, options) {
@@ -83,33 +71,23 @@ knit_hooks$set(output = function(x, options) {
   hook_output(x, options)
 })
 
+knitr::opts_chunk$set(warning = FALSE,
+                      message = FALSE,
+                      echo = FALSE,
+                      fig.align = "center",
+                      fig.height = 6.5,
+                      fig.width = 10)
+
 
 ```
 
-
-
-```{r, data import, echo = F}
-do <- read_spss(here::here("data/male_do_eating.sav")) %>% 
-  select(Study_ID, BMI, marital_status_group, education_group, age_year) %>% 
-  rename(marital_status = marital_status_group) %>% 
-  mutate(marital_status = as.character(marital_status),
-         marital_status = case_when(marital_status == "1" ~ "single",
-                                    marital_status == "2" ~ "single but committed relationship",
-                                    marital_status == "4" ~ "engaged",
-                                    marital_status == "5" ~ "married but separated",
-                                    marital_status == "6" ~ "married",
-                                    marital_status == "7" ~ "widowed",
-                                    marital_status == "8" ~ "divorced"
-                                    ),
-         marital_status = relevel(as.factor(marital_status), ref = "single")) %>% 
-  drop_na()
-
-```
-
----
 # Roadmap
 ```{r, echo=F, out.width="90%"}
 include_graphics("Roadmap4.jpg")
+
+dibels <- read.csv(here("data/dibels.csv"))
+dibels_long <- read.csv(here("data/dibels_long.csv"))
+
 ```
 ---
 # Unit goals
@@ -131,21 +109,112 @@ class: middle, inverse
 # Categorical variables
 
 ---
-## Categorical Variables
-So far, we have only looked at regression equations involving continuous predictors. But what about **categorical predictors**?
+# Categorical variables
+So far, we have only looked at General Linear Models (and their associated OLS regression estimating equations) involving continuous predictors. But what about .red-pink[**categorical predictors**]?
 
 --
-Returning to our young men's disordered eating data, we want to know:
-* What is the effect of *marital status* on BMI?
-* What is the relationship between *educational level* and BMI?
+
+What are categorical predictors?
+- Categorical predictors are ***predictors whose values denote categories***.
+
+--
+Of course, this begs the question...
+
+---
+# Categorical predictors
+
+### Important distinctions and conventions:
+
+.small[
+.pull-left[
+**Nominal predictors**
+- These have *unordered* values
+- E.g., gender, religion, political party
+]
+
+.pull-left[
+**Ordinal predictors**
+- These have *ordered* values
+- E.g., grade, developmental stage, education level (?)
+]
+]
+
+--
+
+Another important distinction: .red-pink[**dichotomies**] (only 2 categories) vs. .red-pink[**polychotomies**] (>2 categories)
+
+---
+# Our (new!) motivating question
+.small[A team of researchers based at the .green[**University of Oregon**] aimed to understand the effects of the COVID-19 pandemic on students' early literacy skills.<sup>1</sup>]
+```{r}
+include_graphics("dibels_team.png")
+```
+
+.small[Ann Swindells Professor in Special Education [Gina Biancarosa](https://education.uoregon.edu/directory/faculty/all/ginab), former UO doctoral students David Fainstein, Chris Ives, and Dave Furjanic, along with CTL Research Manager Patrick Kennedy, used four waves of Dynamic Indicators of Basic Early Literacy Skills (DIBELS) data to analyze the extent to which students' Oral Reading Fluency (ORF) scores differed across four waves of DIBELS assessment prior-to and during the pandemic.]
+
+.small[Their study is now forthcoming at the *Elementary School Journal*.]
+
+.footnote[[1] For various reasons, the pandemic is a ["lousy natural experiment"](https://www.educationnext.org/covid-19-pandemic-lousy-natural-experiment-for-studying-the-effects-online-learning/) for examining the effects of a particular policy response (e.g, virtual schooling). However, it is quite possible to seek to understand its global effects via just the type of analysis Furjanic et al. conducted.]
+
+---
+# Our data
+```{r, echo=T}
+str(dibels)
+```
+
+---
+# Mean comparison
+```{r, echo=T}
+mean(dibels$pre)
+mean(dibels$post)
+```
+
+---
+## Understanding the distributions
+
+.pull-left[
+**Pre-pandemic**
+```{r}
+boxplot(dibels$pre,
+        ylim =c(0,170))
+```
+]
+
+.pull-right[
+**Post-pandemic onset**
+```{r}
+boxplot(dibels$post,
+        ylim =c(0,170))
+```
+]
+
+---
+# Testing for differences
+
+```{r, echo=T}
+t.test(dibels$pre, dibels$post,
+       var.equal=T, paired=T)
+```
+
+---
+# Data structure
+```{r}
+library(DT)
+datatable(dibels[,c(1:4, 11:12)], fillContainer = FALSE, 
+              options = list(pageLength = 9)) %>%
+              formatRound("y1_boy_mean", digits=1) %>%
+              formatRound("y1_moy_mean", digits=1) %>%
+              formatRound("pre", digits=1) %>%
+              formatRound("post", digits=1)
+```
 
 ---
 ## Categorical Variables - Levels
 
 A categorical variable is comprised of *K* levels.
 
-```{r, comment = NA}
-levels(do$marital_status)
+```{r, echo=T}
+#levels(do$grade)
 ```
 
 Here we have seven different levels of marital status.
@@ -235,9 +304,9 @@ $$\Large \hat{BMI} = b_0 + b_1\text{(Engaged)} + b_2\text{(Married)} + ...b_6\te
 ---
 ## Interpreting Coefficients
 
-```{r, echo = F, output.lines = -(1:8), highlight.output = 4, comment = NA}
-m_cat <- lm(BMI ~ marital_status, do)
-summary(m_cat)
+```{r, output.lines = -(1:8), highlight.output = 4, comment = NA}
+fit <- lm(mean_orf ~ period, dibels_long)
+summary(fit)
 ```
 
 **On average, individuals with a single martial status had an average BMI of 25.31.**
@@ -245,7 +314,7 @@ summary(m_cat)
 ---
 ## Interpreting Coefficients
 ```{r, echo = F, output.lines = -(1:8), highlight.output = 5, comment = NA}
-summary(m_cat)
+summary(fit)
 ```
 
 On average, individuals with a single martial status had an average BMI of 25.31.
@@ -258,7 +327,7 @@ On average, individuals with a single martial status had an average BMI of 25.31
 Coefficient significance tests still test the null hypothesis $\beta = 0$, but **we are testing against the reference group** implicit in our intercept.
 
 ```{r, echo = F, output.lines = -c(1:8, 18:24), comment = NA}
-summary(m_cat)
+summary(fit)
 ```
 
 **Which marital status group significantly differs from our reference group - "single"?**
@@ -273,7 +342,7 @@ So, this just a comparison of means, or an independent-samples t-test!
 --
 
 ```{r, echo = F, output.lines = -c(1:8, 18:24), highlight.output = 10, comment = NA}
-summary(m_cat)
+summary(fit)
 ```
 
 **Which marital status group significantly differs from our reference group - "single"?**
@@ -324,19 +393,8 @@ class: middle, inverse
 
 Since some of our marital status groups are poorly represented in our dataset (n < 20), we will only examine the differences between the following groups: a) single, b) engaged, c) married, and d) single in a committed relationship.
 
-```{r, echo = F}
-status <- c("single", "married", "engaged", "single but committed relationship")
-do2 <- do %>% 
-  filter(marital_status %in% status) %>% 
-  mutate(marital_status = as.factor(as.character(marital_status)))
-```
 
-```{r, echo = F, fig.height=4, fig.width=6}
-ggplot(do2, aes(x = marital_status, y = BMI, color = marital_status)) +
-  geom_jitter() +
-  ylim(0, 60) +
-  theme_minimal()
-```
+
 
 ---
 ## Partitioning Variance
@@ -366,71 +424,72 @@ $$SS_\text{total} = SS_\text{within} + SS_\text{between}$$
 ## Visualizing ANOVA
 
 ```{r, echo = F, fig.height=4, fig.width=6, echo = F}
-
-m <- lm(BMI ~ marital_status, do2)
-
-do2 <- do2 %>% 
-  group_by(marital_status) %>% 
-  mutate(group_mean = mean(BMI)) %>% 
-  ungroup()
-
-do_samp <- do2 %>% 
-  group_by(marital_status) %>% 
-  sample_n(20)
-
-do_samp$predict <- predict(m, do_samp)
-
-do_samp$jitter_marit <-
-  ave(as.numeric(do_samp$marital_status), 
-      do_samp$marital_status, 
-      FUN = function(x) x + rnorm(length(x), sd = .2))
-
-do_samp <- do_samp %>% 
-  mutate(jitmin = min(jitter_marit),
-         jitmax = max(jitter_marit))
-
+# 
+# m <- lm(BMI ~ marital_status, do2)
+# 
+# do2 <- do2 %>% 
+#   group_by(marital_status) %>% 
+#   mutate(group_mean = mean(BMI)) %>% 
+#   ungroup()
+# 
+# do_samp <- do2 %>% 
+#   group_by(marital_status) %>% 
+#   sample_n(20)
+# 
+# do_samp$predict <- predict(m, do_samp)
+# 
+# do_samp$jitter_marit <-
+#   ave(as.numeric(do_samp$marital_status), 
+#       do_samp$marital_status, 
+#       FUN = function(x) x + rnorm(length(x), sd = .2))
+# 
+# do_samp <- do_samp %>% 
+#   mutate(jitmin = min(jitter_marit),
+#          jitmax = max(jitter_marit))
+# 
+# ```
+# 
+# .pull-left[
+# ```{r, fig.height=3, fig.width=5, echo = F}
+# with_plot <- do_samp %>% 
+# ggplot(aes(x = jitter_marit, xend = jitter_marit,
+#                  y = BMI, yend = predict)) +
+#     geom_segment(color = "green") +
+#     geom_point() +
+#     scale_x_continuous("Marital Status", 
+#                        breaks = c(1,2,3,4),
+#                        labels = levels(do2$marital_status)) +
+#   geom_segment(aes(x = jitmin, xend = jitmax, y = predict, yend = predict),
+#                color = "darkgreen") +
+#   ylim(0, 40) +
+#   theme_minimal() +
+#   ggtitle("Within-Groups Variance")
+# 
+# with_plot
 ```
 
-.pull-left[
-```{r, fig.height=3, fig.width=5, echo = F}
-with_plot <- do_samp %>% 
-ggplot(aes(x = jitter_marit, xend = jitter_marit,
-                 y = BMI, yend = predict)) +
-    geom_segment(color = "green") +
-    geom_point() +
-    scale_x_continuous("Marital Status", 
-                       breaks = c(1,2,3,4),
-                       labels = levels(do2$marital_status)) +
-  geom_segment(aes(x = jitmin, xend = jitmax, y = predict, yend = predict),
-               color = "darkgreen") +
-  ylim(0, 40) +
-  theme_minimal() +
-  ggtitle("Within-Groups Variance")
-
-with_plot
-```
 This shows the residual variance around the group means. Just like the error term, it is all the remaining variance our predictor can't explain.
 ]
 
 .pull-right[
 ```{r, fig.height=3, fig.width=5, echo = F}
-btw_plot <- ggplot(do_samp, aes(x = marital_status, y = group_mean)) +
-  geom_point(aes(x = as.numeric(marital_status) + 0.5,
-                   y = group_mean), color = "darkgreen") +
-    geom_segment(aes(x = as.numeric(marital_status),
-                   xend = as.numeric(marital_status),
-                   y = group_mean,
-                   yend = mean(do2$BMI)),
-                 linetype = 2) +
-  geom_hline(yintercept = mean(do2$BMI), color = "black", linetype = 2) +
-      scale_x_continuous("Marital Status", 
-                       breaks = c(1, 2, 3, 4),
-                       labels = levels(do2$marital_status)) +
-  ylim(0, 40) +
-  theme_minimal() +
-  ggtitle("Between-Groups Variance")
-
-btw_plot
+# btw_plot <- ggplot(do_samp, aes(x = marital_status, y = group_mean)) +
+#   geom_point(aes(x = as.numeric(marital_status) + 0.5,
+#                    y = group_mean), color = "darkgreen") +
+#     geom_segment(aes(x = as.numeric(marital_status),
+#                    xend = as.numeric(marital_status),
+#                    y = group_mean,
+#                    yend = mean(do2$BMI)),
+#                  linetype = 2) +
+#   geom_hline(yintercept = mean(do2$BMI), color = "black", linetype = 2) +
+#       scale_x_continuous("Marital Status", 
+#                        breaks = c(1, 2, 3, 4),
+#                        labels = levels(do2$marital_status)) +
+#   ylim(0, 40) +
+#   theme_minimal() +
+#   ggtitle("Between-Groups Variance")
+# 
+# btw_plot
 ```
 
 This shows the group effect of marital status against the grand mean.
@@ -476,23 +535,23 @@ $$\large F = \frac{MS_\text{between}}{MS_\text{within}} = \frac{0.2}{1.5} = 0.13
 Let's find our F-statistic for our marital status variable. 
 
 ```{r, echo = F}
-do2$predicted_BMI <- predict(m, do2)
+#do2$predicted_BMI <- predict(m, do2)
 ```
 
 #### Within-Group (Residual) Variance $MS_\text{Within}$
 ```{r}
 # total n - number of groups (4)
-df_within <- 1079 - 4
+#df_within <- 1079 - 4
 
-sum((do2$BMI - do2$group_mean)^2) / df_within
+#sum((do2$BMI - do2$group_mean)^2) / df_within
 ```
 
 #### Between-Group Variance $MS_\text{Between}$
 ```{r}
 # number of groups (4) - 1
-df_btw <- 4-1
+#df_btw <- 4-1
 
-sum((mean(do2$BMI) - do2$group_mean)^2) / df_btw
+#sum((mean(do2$BMI) - do2$group_mean)^2) / df_btw
 ```
 
 ---
@@ -510,8 +569,8 @@ Our F-statistic is 1.125. Now that we see how it is calculated, let's run an ANO
 Because ANOVA is just a particular method of analyzing variance in GLMs, we can wrap `anova` around our `lm` model.
 
 ```{r, highlight.output = 6}
-m1 <- lm(BMI ~ marital_status, do2)
-car::Anova(m1, type = 3)
+# m1 <- lm(BMI ~ marital_status, do2)
+# car::Anova(m1, type = 3)
 ```
 Here we can see all the information for the residual and marital status we calculated earlier. Only the p-value is new!
 
@@ -558,16 +617,7 @@ $\beta_3$: The predicted difference in BMI between a single male and a married m
 ---
 ## ANCOVA
 
-Because we are assigning a linear slope to our continuous covariate, it is important to verify our assumption of linearity. 
 
-```{r, echo = F, fig.height = 4, fig.width=6}
-ggplot(do, aes(age_year, BMI)) +
-  geom_point() +
-  geom_smooth(method = "lm", se = F) +
-  theme_minimal()
-
-
-```
 
 ---
 ## ANCOVA Output
@@ -575,8 +625,7 @@ ggplot(do, aes(age_year, BMI)) +
 Now that we have an additional covariate in the model, we can expect a different residual sums of squares.
 
 ```{r, highlight.output = 8,}
-m2 <- lm(BMI ~ marital_status + age_year, do2)
-car::Anova(m2, type = 3)
+
 
 ```
 
@@ -588,7 +637,7 @@ car::Anova(m2, type = 3)
 ## ANCOVA Output
 
 ```{r, highlight.output = c(6, 8)}
-car::Anova(m2, type = 3)
+
 ```
 
 * Our F-test for marital status still regards the relationship between its SS and the residual SS, but we have now accounted for the variance associated with age.
@@ -603,7 +652,7 @@ car::Anova(m2, type = 3)
 We can compare our ANCOVA output to our regression output and see our dummy-coded, "unbatched", analysis of marital status effects. 
 
 ```{r, echo = F, highlight.output = c(12, 13, 14), comment = NA}
-summary(m2)
+
 ```
 ---
 
@@ -619,5 +668,45 @@ summary(m2)
 
 
 ---
-End of slides
+## It was the GLM the whole time...
+```{r}
+include_graphics("glm_scooby.png")
+```
 
+
+---
+## Putting categorical predictors together
+
+
+
+
+---
+class: middle, inverse
+# Synthesis and wrap-up
+
+---
+# Goals for the unit
+
+- Describe the relationship between dichotomous and polychotomous variables and convert variables between these forms, as necessary
+- Conduct a two-sample $t$-test
+- Describe the relationship between a two-sample $t$-test and regressing a continuous outcome on a dichotomous predictor
+- Estimate a regression with one dummy variable as a predictor and interpret the results (including when the reference category changes)
+- Estimate a multiple regression model with several continuous and dummy variables and interpret the results
+- Estimate an ANOVA model and interpret the within- and between-group variance
+ + Do the same for an ANCOVA model, adjusting for additional continuous predictors
+- Describe the similarities and differences of Ordinary-Least Squares regression analysis and ANOVA/ANCOVA, and when one would prefer one approach to another
+- Describe potential Type I error problems that arise from multiple group comparisons and potential solutions to these problems, including theory, pre-registration, ANOVA and *post-hoc* corrections
+- Describe the relationship between different modeling approaches with the General Linear Model family
+
+
+---
+# To-Dos
+
+### Reading: 
+- **Finish by Feb. 16**: LSWR Chapter 14 and 16.6
+
+### Assignment 3:
+- Due Feb. 14, 11:59pm (**note extension**)
+
+### Assignment 4:
+- Due Feb. 28, 11:59pm
