@@ -244,7 +244,7 @@ dibels_long$period <- factor(dibels_long$period)
 
 dibels_long <- dibels_long %>% select(-c(pre, post))
 
-dibels_long <- dibels_long %>% mutate(post = ifelse(period=="y1_boy" | period=="y1_moy", 1, 0))
+dibels_long <- dibels_long %>% mutate(post = ifelse(period=="y1_boy" | period=="y1_moy", 0, 1))
 
 data.table::fwrite(dibels_long, "data/dibels_long.csv")
 

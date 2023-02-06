@@ -421,9 +421,23 @@ $SS_\text{between}$ = Deviation of group mean from the grand mean $(\bar{Y}_k - 
 
 $$SS_\text{total} = SS_\text{within} + SS_\text{between}$$
 ---
-## Visualizing ANOVA
+# Visualizing ANOVA
+```{r}
+set.seed(1234)
+anova <- ggplot(dibels_long, aes(y=mean_orf, x=post, color=post)) +
+            geom_jitter() +
+            theme_minimal()
+anova
+```
+---
+# Visualizaing ANOVA
+```{r}
+set.seed(1234)
+anova + geom_smooth(method='lm')
+```
 
-```{r, echo = F, fig.height=4, fig.width=6, echo = F}
+---
+```{r}
 # 
 # m <- lm(BMI ~ marital_status, do2)
 # 
