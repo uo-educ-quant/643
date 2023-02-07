@@ -17,7 +17,7 @@ output:
 library(pacman)
 p_load(here, tidyverse, xaringan, knitr, kableExtra, haven, broom, xaringanthemer, reshape2, car)
 
-i_am("slides/EDUC643_9_categorical.rmd")
+i_am("slides/EDUC643_10_categorical.rmd")
 
 
 
