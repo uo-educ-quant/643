@@ -157,9 +157,6 @@ strategic <- readxl::read_excel("data/dibels8_educ_data_deid.xlsx",
 dibels <- left_join(mean, intensive, by = c("sch_deid", "grade"))
 dibels <- left_join(dibels, strategic, by=c("sch_deid", "grade"))
 
-dibels$pre <- rowMeans(dibels[ ,c("y1_boy_mean", "y1_moy_mean")], na.rm=T)
-dibels$post <- rowMeans(dibels[ ,c("y2_boy_mean", "y2_moy_mean")], na.rm=T)
-
 dibels <- dibels %>% mutate(across(c(a_ts, b_ts, h_ts ,w_ts),
                                    .fns = ~.x / tr_ts,
                                    .names = "{paste0({col},sept='_','prop')}"
@@ -177,6 +174,10 @@ dibels <- filter(dibels, grade<6)
 
 # Check how many missing
 sapply(dibels, function(x) sum(is.na(x)))
+
+# Create pre/post
+dibels$pre <- rowMeans(dibels[ ,c("y1_boy_mean", "y1_moy_mean")], na.rm=T)
+dibels$post <- rowMeans(dibels[ ,c("y2_boy_mean", "y2_moy_mean")], na.rm=T)
 
 # Assign mean w/ noise
 dibels <- ungroup(dibels)
@@ -237,9 +238,7 @@ dibels_long <- dibels %>%
                     cols = c("y1_boy_mean", "y1_moy_mean", "y2_boy_mean", "y2_moy_mean"),
                     names_to = "period",
                     names_pattern = "(.*)_mean",
-                    values_to = "mean_orf"
-                  )
-
+                    values_to = "mean_orf")
 dibels_long$period <- factor(dibels_long$period)
 
 dibels_long <- dibels_long %>% select(-c(pre, post))

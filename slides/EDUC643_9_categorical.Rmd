@@ -150,9 +150,9 @@ Another important distinction: .red-pink[**dichotomies**] (only 2 categories) vs
 include_graphics("dibels_team.png")
 ```
 
-.small[Ann Swindells Professor in Special Education [Gina Biancarosa](https://education.uoregon.edu/directory/faculty/all/ginab), former UO doctoral students David Fainstein, Chris Ives, and Dave Furjanic, along with CTL Research Manager Patrick Kennedy, used four waves of Dynamic Indicators of Basic Early Literacy Skills (DIBELS) data to analyze the extent to which students' Oral Reading Fluency (ORF) scores differed across four waves of DIBELS assessment prior-to and during the pandemic.]
+.small[Ann Swindells Professor in Special Education [Gina Biancarosa](https://education.uoregon.edu/directory/faculty/all/ginab), former UO doctoral students David Fainstein, Chris Ives, and Dave Furjanic, along with CTL Research Manager Patrick Kennedy, used data from assessments of 471,456 students on the Dynamic Indicators of Basic Early Literacy Skills (DIBELS) to analyze the extent to which students' Oral Reading Fluency (ORF) scores differed across four waves of DIBELS assessment prior-to and during the pandemic.]
 
-.small[Their study is now forthcoming at the *Elementary School Journal*.]
+.small[Their study is forthcoming at the *Elementary School Journal*.]
 
 .footnote[[1] For various reasons, the pandemic is a ["lousy natural experiment"](https://www.educationnext.org/covid-19-pandemic-lousy-natural-experiment-for-studying-the-effects-online-learning/) for examining the effects of a particular policy response (e.g, virtual schooling). However, it is quite possible to seek to understand its global effects via just the type of analysis Furjanic et al. conducted.]
 
@@ -168,6 +168,10 @@ str(dibels)
 mean(dibels$pre)
 mean(dibels$post)
 ```
+
+--
+
+Means are 4.5 words per-minute apart.
 
 ---
 ## Understanding the distributions
@@ -188,19 +192,48 @@ boxplot(dibels$post,
 ```
 ]
 
----
-# Testing for differences
+--
 
+But, as you may by now have anticipated, we are interested in knowing how likely we are to have gotten such a difference by idiosyncrasy of sampling from a population of school-grades in which there was no difference.
+
+--
+Fortunately, we just such a tool in our toolbox already. .blue[**What will the (asymptotic) distribution of means of repeatedly drawn samples from a given population be?**]
+
+---
+# Two-sample $t$-test
 ```{r, echo=T}
-t.test(dibels$pre, dibels$post,
-       var.equal=T, paired=T)
+t.test(dibels$pre, dibels$post)  
+# I'm allowing in this t-test for the possibility that my sample in 
+# each group is of different sizes and has different variance. 
+# These assumptions affect the precision of my estimates. In some 
+# settings, particularly experimental ones, I can impose stricter 
+# assumptions and get more precise estimates.
 ```
 
 ---
-# Data structure
+# Our old friend
+We can now answer a lingering question from last term, and avoid having to make some torturous assumptions about what the "true" population mean is:
+```{r}
+who <- rio::import(here("data", "life_expectancy.csv")) %>% 
+  janitor::clean_names() %>% 
+  filter(year == 2015) %>%
+  select(country, status, year, life_expectancy) %>% 
+  rename(region = country) %>% 
+  mutate(life_expectancy = round(life_expectancy, digits = 0))
+```
+
+```{r, echo=T}
+t.test(who$life_expectancy[who$status=="Developing"], 
+       who$life_expectancy[who$status=="Developed"])
+# The square braces [] allow me to subset my data
+# by the boolean operations within them
+```
+
+---
+# Waves of data
 ```{r}
 library(DT)
-datatable(dibels[,c(1:4, 11:12)], fillContainer = FALSE, 
+datatable(dibels[,c(1:4, 13:14)], fillContainer = FALSE, 
               options = list(pageLength = 9)) %>%
               formatRound("y1_boy_mean", digits=1) %>%
               formatRound("y1_moy_mean", digits=1) %>%
@@ -209,60 +242,182 @@ datatable(dibels[,c(1:4, 11:12)], fillContainer = FALSE,
 ```
 
 ---
-## Categorical Variables - Levels
-
-A categorical variable is comprised of *K* levels.
-
-```{r, echo=T}
-#levels(do$grade)
+# Waves of data
+```{r}
+library(DT)
+datatable(dibels[,c(1:4, 13:14)], fillContainer = FALSE, 
+              options = list(pageLength = 6)) %>%
+              formatRound("y1_boy_mean", digits=1) %>%
+              formatRound("y1_moy_mean", digits=1) %>%
+              formatRound("pre", digits=1) %>%
+              formatRound("post", digits=1)
 ```
 
-Here we have seven different levels of marital status.
+I actually have the same outcome stored across multiple variables.
 
 --
-
-We need to represent them using numerical values, but these levels don't inherently have a numerical structure.
+.blue[**What is it?**]
 
 --
-
-So... we use **dummy coding**.
+This is a classic example of a phenomenon you will come to know and hate: the curse of .red-pink[**wide**] and .red-pink[**long**] data structures.
 
 ---
-## Dummy Coding
+# Wide and long data
+Various types of analyses will necessitate different data structures:
+
+.pull-left[
+**Long to wide**
+```{r}
+include_graphics("pivot_wider.png")
+```
+]
+
+.pull-right[
+**Wide to long**
+```{r}
+include_graphics("pivot_longer.png")
+```
+]
+
+--
+
+Understanding exactly how to do this will take repeated time and practice, and you will nearly always need to look up how to do it. Bookmark and get familiar with this vignette: [https://tidyr.tidyverse.org/articles/pivot.html](https://tidyr.tidyverse.org/articles/pivot.html)!
+
+--
+
+I'm going to show you the code to do it, but you don't need to understand nor be able to do this for our purposes.
+
+---
+# Pivot wider
+```{r, echo=T}
+dibels_long <- dibels %>% 
+                  pivot_longer(
+                    cols = c("y1_boy_mean", "y1_moy_mean", 
+                             "y2_boy_mean", "y2_moy_mean"),
+                    names_to = "period",
+                    names_pattern = "(.*)_mean",
+                    values_to = "mean_orf")
+dibels_long$period <- factor(dibels_long$period)
+```
+
+---
+# Long DIBELS
+```{r}
+datatable(dibels_long[,c("sch_deid", "grade", "period", "mean_orf", "pre", "post")], fillContainer = FALSE, 
+              options = list(pageLength = 9)) %>%
+              formatRound("mean_orf", digits=1) %>%
+              formatRound("pre", digits=1) %>%
+              formatRound("post", digits=1)
+```
+
+---
+# Dummy coding
+
+The mean values for pre-pandemic and post-pandemic onset are no longer helpful:
+```{r, echo=T}
+dibels_long <- select(dibels_long, -c(pre, post))
+```
+
+--
+
+But it will be helpful for us to be able to designate which observations refer to a time period before the pandemic, and which refer to a time period post-onset:
+```{r, echo=T}
+dibels_long <- mutate(dibels_long,
+               post = ifelse(period=="y1_boy" | 
+                             period=="y1_moy", 0, 1))
+```
+
+---
+# Dummy variables
+
+Dummy (or indicator variables) distinguish between categories, but offer no meaningful quantitative information ***on their own***.
+
+By convention, the variable name corresponds to the category given by the value==1, e.g.:
+$$post=1 \text{ if after pandemic onset}$$
+
+$$post=0 \text{ if pre-pandemic}$$
+The category given the value 0 is called the .red-pink[**reference category**]. Good data management practice: call the categorical variable the value implied by its substantive meaning when equal to 1 (i.e., "*post*" rather than "*pandemic*"; "*treat*" rather than "*condition*").
+
+---
+# Polychotomies
+In fact, dummy coding will prove essential for categorical variables with more than two categories as well, especially those that are nominal (i.e., unordered):
+
+```{r, echo=T}
+table(dibels_long$school_titlei)
+```
+
+---
+# Polychotomies
+Here we have seven different levels of school's Title I status. We can probably simplify these, but we need to be able to represent them using numerical values, when these levels don't inherently have a numerical structure.
+
+--
+So... we use **dummy coding**.
+
+--
+First, let's simplify the categories:
+
+```{r, echo=T}
+dibels_long <- dibels_long %>%
+      mutate(title1 = case_when(school_titlei=="Missing" ~ "Missing",
+                                school_titlei=="Not a Title I school" ~ "Not Title I",
+                                school_titlei=="Title I schoolwide eligible-Title I targeted assistance program" |
+                                school_titlei=="Title I schoolwide eligible school-No program" |
+                                school_titlei=="Title I schoolwide school" ~ "Title I schoolwide",
+                                school_titlei=="Title I targeted assistance eligible school-No program" |
+                                school_titlei=="Title I targeted assistance school" ~ "Title I targeted"))
+table(dibels_long$title1, exclude=NULL)
+```
+---
+# Dummy coding
 
 The most common process for representing categorical variables in regression is dummy coding. 
 
-* In short, dummy coding essentially creates a new (dummy-coded) variable for each level.
+* Dummy coding essentially creates a new (dummy-coded) variable for each level.
 
-|Marital Status   |D1   |D2   |D3   | ...
-|------------------------------------------------
-|Single           |0    |0    |0    |...
-|Engaged          |1    |0    |0    |...
-|Married          |0    |1    |0    |...
-|...              |0    |0    |1    |...
+|School Status      |D1   |D2   |D3 
+|-------------------------------------
+|Not Title I        |0    |0    |0    
+|Title I schoolwide |1    |0    |0    
+|Title I targeted   |0    |1    |0    
+|Missing            |0    |0    |1    
 
 
-* One group becomes the reference group (in this case "Single").
+* One group becomes the reference group (in this case "Not Title I").
 
 * The dummy-coded variables are then coded "1" for their corresponding level, and 0 for all other levels.
 
 ---
-## Dummy Coding
+# Dummy coding
 
 In a sample dataset, we could visualize the dummy coding scheme like this:
 
-|Name    |Marital Status   |D1 (Engaged) |D2 (Married) |...
-|------------------------------------------------
-|Jacob   |Single           |0            |0             |...
-|Mitsuo  |Married          |0            |1             |...
-|Eduardo |Engaged          |1            |0             |...
-|Yasir   |Single           |0            |0             |...
+|School    |Title I status     |D1 (Schoolwide) |D2 (Targeted) |...
+|------------------------------------------------------------------
+|10001     |Not Title I        |0               |0             |...
+|10002     |Title I schoolwide |1               |0             |...
+|10003     |Title I targeted   |0               |1             |...
+|10004     |Missing            |0               |0             |...
+|10005     |Title I schoolwide |1               |0             |
 
 
-Since "Single" is our reference, we don't create a column (its implied by 0's in all other groups).
+Since "Not Title I" is our reference, we don't create a column (its implied by 0s in all other groups).
 
-Hence, we have *K*-1 dummy-coded variables. 
+Hence, for $K$ categories in our original variable, we have $K-1$ dummy-coded variables. 
 
+---
+# Dummies in R
+From our polychotomous categorical variable, we can hand-create dummies:
+```{r, echo=T}
+dibels_long <- dibels_long %>%
+  mutate(title1_school = ifelse(title1=="Title I schoolwide", 1, 0)) %>%
+  mutate(title1_target = ifelse(title1=="Title I targeted", 1, 0)) %>%
+  mutate(title1_miss = ifelse(title1=="Missing", 1, 0))
+```
+
+But, R is actually really smart, so the most straightforward way is to turn our original variable into a factor and then let R automatically convert it into a series of dummies when we need:
+```{r, echo=T}
+dibels_long$title1 <- factor(dibels_long$title1)
+```
 
 ---
 class: middle, inverse
@@ -270,96 +425,298 @@ class: middle, inverse
 # Categorical predictors in regression
 
 ---
-# Categorical predictors in regression
+## Categorical predictors in regression
 
+In our standard multiple regression model, we have noted that we've made several strong assumptions about our outcome $(Y_i)$ and residuals $(\varepsilon_i)$:
+$$\color{red}{Y_i} = \beta_0 + \beta_1 X_{1i} + \beta_2 X_{2i} + ... + \beta_k X_{ki} + \color{red}{\varepsilon_i}$$
+
+--
+but, we haven't made any assumptions about the form of the $X$s. In fact, regression models can easily accommodate categorical variables (both dichotomous and polychotomous)!
+
+---
+# Pre/post in regression
+We can now estimate whether there was a difference in ORF scores pre- and post-pandemic onset in regression:
+```{r, echo=T}
+fit1 <- lm(mean_orf ~ post, data=dibels_long)
+summary(fit1)
+```
+
+---
+# Pre/post
+```{r, echo=F}
+summary(fit1)
+```
+Our point estimate is identical to our [original two-sample $t$-test](https://daviddliebowitz.github.io/EDUC643_23W/slides/EDUC643_9_categorical.html#17), though our inference has changed slightly.
+
+
+---
+## Regression w. categorical predictors
+```{r, fig.height=6}
+set.seed(1234)
+plot1 <- ggplot(dibels_long, aes(y=mean_orf, x=post, color=post)) +
+            geom_jitter() +
+            theme_minimal(base_size=16) +
+            theme(legend.position = "none")
+plot1
+```
+---
+## Regression w. categorical predictors
+```{r, fig.height=6}
+set.seed(1234)
+plot1 + geom_smooth(method='lm') +
+        ggpubr::stat_regline_equation(data=dibels_long, aes(x=post, y=mean_orf), label.x=.75, label.y=85, size=10) 
+```
+
+--
+.small[***y*-intercept**: estimated value of *Y* when dichotomous predictor=0]
+
+.small[**slope**: estimated difference in *Y* between categories of predictor]
+
+---
+# Reference category
+What happens if we change the reference category?
+```{r, echo=T}
+dibels_long <- mutate(dibels_long,
+               pre = ifelse(period=="y1_boy" | 
+                             period=="y1_moy", 1, 0))
+fit2 <- lm(mean_orf ~ pre, data=dibels_long)
+```
+
+---
+# Reference category
+What happens if we change the reference category?
+```{r, output.lines = -(1:8)}
+summary(fit2)
+```
+.small[
+- Sign of slope is reversed
+- Y-intercept is value of reference category
+- SE and inference remain exact same
+]
+
+---
+# What about the waves?
+Up until now, we've focused on a simple comparison of pre- and post-pandemic onset scores. But this glosses over the facts that:
+.small[
+- Students typically improve substantially over the course of the year (we're lumping these time points together)
+- We aren't able to capture the dynamic ways in which performance may have evolved over the early parts of the pandemic
+]
+
+--
+
+We can use our multiple wave collection (now captured in our categorical polychotomous variable *period*) to address this.
+```{r, echo=T}
+table(dibels_long$period, exclude=NULL)
+```
+
+---
+# Categorical predictors
+
+.small[
+.pull-left[
+**Nominal predictors**
+- These have *unordered* values
+- E.g., gender, religion, political party, state of residence
+- .red[**NEVER** include a nominal predictor directly in a regression model]
+  + You end up with the problem of "country-ness" as a predictor
+]
+
+.pull-left[
+**Ordinal predictors**
+- These have *ordered* values
+- E.g., grade, developmental stage, education level (?)
+- .orange[**CAN** include an ordinal predictor directly in regression, but make sure this is what you want!]
+  + Should you convert a political view scale (1=progressive, 2=liberal, 3=moderate, 4=conservative, 5=libertarian) to a series of dummies?
+  + What about education (1=HS dropout, 2=HS grad, 3=some college, 4=college grad)?
+]
+]
+
+---
+# Polychotomies in regression
 In a regression model, categorical predictors are typically entered in their dummy-coded format.
 
-$$\hat{Y} = b_0 + b_1D_2 + b_2D_3 + b_3D_2...$$
+$$\hat{Y} = \beta_0 + \beta_1 D_2 + \beta_2 D_3 + \beta_3 D_3+...+\varepsilon$$
 --
 
-In our marital status regression, we can think of the equation like this:
+In our four-wave ORF regression, we can think of the equation like this:
 
-$$\hat{BMI} = b_0 + b_1\text{(Engaged)} + b_2\text{(Married)} + b_3\text{(Widowed)}...b_6\text{(Divorced)}$$
-With seven levels of marital status, our equation has only six betas because one group ("Single") is our reference.
+$$MEAN\_ORF_j = \beta_0 + \beta_1 Y1\_MOY_j + \beta_2 Y2\_BOY_j + \beta_3 Y2\_MOY_j + \varepsilon_j$$
+
+--
+.blue[**where did *Y1_BOY* (year 1, beginning of year) go?**]
+
+--
+
+.blue[**How should we interpret each of the coefficients?**]
+
+--
+
+.blue[**How should we interpret the intercept?**]
+
 
 ---
-# Categorical Coefficients
-
-$$\Large \hat{BMI} = b_0 + b_1\text{(Engaged)} + b_2\text{(Married)} + ...b_6\text{(Divorced)}$$
-
-* **If "Single" is our reference, what might the intercept $(b_0)$ mean?**
-
---
-
-> The intercept $(b_0)$ is the value of $\hat{Y}$ when all predictors = 0. With only dummy codes in our equation, the intercept is the mean of the reference group ("Single").
-
---
-
-* **How might you interpet the slope coefficients, such as $b_1$?**
-
---
-
-> $b_1$ represents the average effect, or change in BMI, from being in the Engaged group... **relative to the reference group.**
-
----
-## Interpreting Coefficients
-
-```{r, output.lines = -(1:8), highlight.output = 4, comment = NA}
-fit <- lm(mean_orf ~ period, dibels_long)
-summary(fit)
+# Why does this work?
+```{r}
+ggplot(dibels_long, aes(x=period, y=mean_orf, color=period, fill=period, alpha=0.4)) +
+   geom_boxplot() +
+   xlab("Period") + ylab("Mean ORF score") +
+   theme_minimal(base_size=16) +
+   theme(legend.position = "none")
 ```
-
-**On average, individuals with a single martial status had an average BMI of 25.31.**
-
 ---
-## Interpreting Coefficients
-```{r, echo = F, output.lines = -(1:8), highlight.output = 5, comment = NA}
-summary(fit)
+# Interpreting coefficients
+
+```{r, output.lines = (9:18), highlight.output = 4, comment = NA}
+fit3 <- lm(mean_orf ~ period, dibels_long)
+summary(fit3)
 ```
-
-On average, individuals with a single martial status had an average BMI of 25.31.
-
-**Participants with divorced marital status had an average BMI that was 2.97 higher than those with a single marital status.**
+.tiny[**On average, when measured in Fall 2019, grades in schools had a mean ORF score of 62.3**]
 
 ---
-## Interpreting Coefficient Significance
+# Interpreting coefficients
+```{r, output.lines = (9:18), highlight.output = 5, comment = NA}
+summary(fit3)
+```
+.tiny[On average, when measured in Fall 2019, grades in schools had a mean ORF score of 62.3]
 
-Coefficient significance tests still test the null hypothesis $\beta = 0$, but **we are testing against the reference group** implicit in our intercept.
+.tiny[**On average, when measured in Winter 2020, grades in schools had a mean ORF score of 87.9 (62.3 + 25.6)**]
+
+---
+# Interpreting coefficients
+```{r, echo = F, output.lines = (9:18), highlight.output = 6, comment = NA}
+summary(fit3)
+```
+.tiny[On average, when measured in Fall 2019, grades in schools had a mean ORF score of 62.3]
+
+.tiny[On average, when measured in Winter 2020, grades in schools had a mean ORF score of 87.9 (62.3 + 25.6)]
+
+.tiny[**On average, when measured in Fall 2020, grades in schools had a mean ORF score of 59.6 (62.3 + (-2.8))**]
+
+---
+# Interpreting coefficients
+```{r, echo = F, output.lines = (9:18), highlight.output = 7, comment = NA}
+summary(fit3)
+```
+.tiny[On average, when measured in Fall 2019, grades in schools had a mean ORF score of 62.3]
+
+.tiny[On average, when measured in Winter 2020, grades in schools had a mean ORF score of 87.9 (62.3 + 25.6)]
+
+.tiny[On average, when measured in Fall 2020, grades in schools had a mean ORF score of 59.6 (62.3 + (-2.8))]
+
+.tiny[**On average, when measured in Winter 2021, grades in schools had a mean ORF score of 81.79 (62.3 + 19.5)**]
+
+---
+## Interpreting coefficient significance
+Coefficient significance tests still test the null hypothesis $\beta_k = 0$, but **we are testing against the reference group** implicit in our intercept.
 
 ```{r, echo = F, output.lines = -c(1:8, 18:24), comment = NA}
-summary(fit)
+summary(fit3)
 ```
 
-**Which marital status group significantly differs from our reference group - "single"?**
-
----
-## Interpreting Coefficient Significance
-
-Coefficient significance tests still test the null hypothesis $\beta = 0$, but **we are testing against the reference group** implicit in our intercept.
-
-So, this just a comparison of means, or an independent-samples t-test!
+.blue[**Which DIBELS test wave differs significantly from our reference group - "Y1_BOY"?**]
 
 --
 
-```{r, echo = F, output.lines = -c(1:8, 18:24), highlight.output = 10, comment = NA}
-summary(fit)
-```
-
-**Which marital status group significantly differs from our reference group - "single"?**
- 
-> Widowed participants significantly differed from individuals with a single marital status by an average BMI of 16.61 (p <.001).
+So, this is just a comparison of means, or a series of independent-sample $t$-tests!
 
 ---
-## Prediction with Categorical Variables
+# Changing reference category
+If we change the model's reference category with a polychotomous variable, we will change the parameter estimates and associated tests. Each refers to the estimated mean difference for that group and the reference category. There can be significant variation from one group (e.g., time period) to another, but not all groups are different from each other.
+```{r, echo=T, output.lines = -c(1:8)}
+summary(lm(mean_orf ~ relevel(period, ref="y2_boy"), data=dibels_long))
+```
 
-Using the coefficients from our R output, we have the following regression equation (abbreviated for space):
+---
+## Prediction with categorical variables
+Using the coefficients from our output, we have the following fitted regression equation:
 
-$$\hat{BMI} = 25.31 + -2.32\text{(Engaged)} + 0.30\text{(Married)} + ...+ 16.61\text{(Widowed)}$$
-**What is the predicted BMI for participants in the married category?**
+$$\hat{MEAN\_ORF}_{j} = 62.3 + 25.6 (Y1\_MOY_{j}) + (-2.8)(Y2\_BOY)_{j}) + 19.6(Y2\_MOY_{j})$$
+.blue[**What is the predicted ORF for school grades in the middle of the 2020-21 school year?**]
 
 --
-$$\hat{BMI} = 25.31 + -2.32\text{(0)} + 0.30\text{(1)} + ...+ 16.61\text{(0)} = 25.31 + 0.30 = 25.61$$
+$$\hat{MEAN\_ORF}_{j} = 62.3 + 25.6 (0) + (-2.8)(0) + 19.6(1)=62.3+19.6=81.9$$
 For dummy coded variables, we just add the appropriate effects for the group we are interested in, or omit them if they are in our reference group.
+
+
+---
+# So many tests
+
+|Reference group | Y1_BOY | Y1_MOY | Y2_BOY | Y2_MOY
+|-------------------------------------------------------
+|**Y1_BOY**      |        | 1      | 2      | 3
+|**Y1_MOY**      | 4      |        | 5      | 6
+|**Y2_BOY**      | 7      | 8      |        | 9
+|**Y2_MOY**      | 10     | 11     | 12     |
+
+.red[**DANGER**]: we're back in the land of multiple hypothesis testing, and we may be inadvertently committing .red-pink[**Type I error**]!
+
+---
+## Dangers of multiple hypothesis tests
+
+If your goal is to find a "statistically significant" result, you will detect such a relationship 1 out of 20 times (on average).
+
+Imagine rolling a die. .blue[What is the probability you roll a 1?]
+
+--
+$1/6 = 0.167$
+
+--
+
+Now, roll it twice, .blue[what is the probability **at least** one of your rolls is a 1?]
+
+--
+$1 - (5/6 * 5/6) = 0.306$
+
+--
+
+If you conduct enough tests, you'll detect a relationship eventually.
+
+---
+# One fix
+
+Instead of using $\alpha=0.05$ for each individual test, use $\alpha=0.05$ for the **family of tests** when we examine multiple contrasts to test a single hypothesis. 
+
+.pull-left[
+### Bonferroni method
+Take a given $\alpha$-threshold and "split it" across the entire family of tests. Assuming $\alpha = 0.05$:
+- For 2 tests, conduct each at 0.025 level;
+- For 3 tests, conduct each at 0.0167 level; etc. ...
+
+Use this new threshold to identify the critical $t$-statistic given the number of degrees of freedom.
+
+.red-pink[*Other approaches exist! Bonferroni is an extremely conservative one--beware!*]
+]
+
+.pull-right[
+As tests increase, so do critical $t$-values:
+
+| # tests | # new $\alpha$ | $t$-statistic (df = $\infty$)
+|-------------------------------------------------------------
+| 1 | 0.0500 | 1.96
+| 2 | 0.0250 | 2.24
+| 3 | 0.0167 | 2.39
+| 4 | 0.0125 | 2.50
+| 5 | 0.0100 | 2.58
+| 6 | 0.0083 | 2.64
+| 10| 0.0050 | 2.81
+| 20| 0.0025 | 3.02
+| 50| 0.0010 | 3.29
+|100| 0.0005 | 3.48
+
+]
+---
+# Bonferroni correction in R
+```{r, echo=T}
+pairwise.t.test(dibels_long$mean_orf, dibels_long$period,
+                p.adjust.method = "bonferroni")
+```
+
+--
+
+We can see that our inference has become slightly weaker for our *Y1_BOY* vs. *Y2_BOY* comparison, though still smaller than most traditional thresholds.
+
+--
+But perhaps, there are more general ways to address this same challenge!
 
 ---
 class: middle, inverse
@@ -367,7 +724,7 @@ class: middle, inverse
 # ANOVA
 
 ---
-## ANOVA
+# ANOVA
 
 * Analysis of variance, or ANOVA, is a special case of the general linear model.
 
@@ -387,12 +744,6 @@ class: middle, inverse
 
 * In ANOVA, we can have one or more F-tests where we "batch test" a group of coefficients.
   + Example: Assuming we had multiple variables in our model, we could test the main effect of marital status against the residual rather than examine each individual coefficient.
-
----
-## Disordered Eating Data
-
-Since some of our marital status groups are poorly represented in our dataset (n < 20), we will only examine the differences between the following groups: a) single, b) engaged, c) married, and d) single in a committed relationship.
-
 
 
 
@@ -420,21 +771,7 @@ $SS_\text{between}$ = Deviation of group mean from the grand mean $(\bar{Y}_k - 
 --
 
 $$SS_\text{total} = SS_\text{within} + SS_\text{between}$$
----
-# Visualizing ANOVA
-```{r}
-set.seed(1234)
-anova <- ggplot(dibels_long, aes(y=mean_orf, x=post, color=post)) +
-            geom_jitter() +
-            theme_minimal()
-anova
-```
----
-# Visualizaing ANOVA
-```{r}
-set.seed(1234)
-anova + geom_smooth(method='lm')
-```
+
 
 ---
 ```{r}
