@@ -1215,6 +1215,64 @@ Mean Oral Reading Fluency score across different administrations of the DIBELS 8
 *Adjusted mean = adjusting for grade and school size.
 
 ---
+# An aside
+**If our question predictor were continuous, and we wanted to adjust for a categorical, how might we do so?**
+
+--
+**With just one other predictor?**
+
+```{r, fig.height=6}
+ggplot(data=dibels_long, aes(x=school_enroll, y=mean_orf)) +
+                geom_point() + 
+                geom_smooth(method='lm') +
+                theme_minimal(base_size=16)
+
+```
+
+---
+# An aside
+**If our question predictor were continuous, and we wanted to adjust for a categorical, how might we do so? With just one other predictor?**
+
+```{r, fig.height=6}
+ggplot(dibels_long, aes(x=school_enroll, y=mean_orf, color=period)) +
+            geom_point() + 
+            geom_smooth(method='lm') +
+            theme_minimal(base_size=16)
+```
+
+--
+.blue[**What multiple regression assumption is being relaxed here?**]
+
+---
+# An aside
+**If our question predictor were continuous, and we wanted to adjust for a categorical, how might we do so? With multiple predictors?**
+```{r, echo=T}
+df3 <- margins::margins(fit4,
+            at = list(period=c("y1_boy", "y1_moy", 
+                               "y2_boy", "y2_moy")))
+
+# Use prototypical values in resulting dataset to show results
+proto <-ggplot(data=df3, aes(x=school_enroll, y=fitted,color=period)) + 
+   geom_smooth(method='lm') +
+   xlab("School Enrollment") + ylab("Predicted ORF") +
+   scale_color_discrete(name = "Period",
+                       breaks=c("y1_boy", "y1_moy", 
+                               "y2_boy", "y2_moy"),
+                       labels=c("Fall 2019","Winter 2020",
+                                "Fall 2020", "Winter 2021")) +
+   theme_minimal(base_size=16)
+```
+
+---
+# An aside
+**If our question predictor were continuous, and we wanted to adjust for a categorical, how might we do so? With multiple predictors?**
+```{r, fig.height=6.5}
+proto
+```
+
+
+
+---
 # Alongside previous results
 ```{r, echo=T, results=F}
 modelsummary(list(fit3, fit4),
@@ -1341,6 +1399,7 @@ include_graphics("glm_scooby.png")
 2. All assumptions are about Y at particular values of X (or Xs)—no assumptions about the distribution of the predictors
 3. The same toolkit we’ve developed for continuous predictors can be used for dichotomous and polychotomous predictors (including hypothesis tests, correlations and plots)
 4. Be aware that when you introduce many categorical predictors you are implicitly engaging in multiple hypothesis testing
+  - ANOVA/ANCOVA can help you address this, but be careful not to focus on just interpreting $p$-values
 5. ANOVA/ANCOVA are just special cases of multiple regression
   - Can be useful to avoid problems of multiple hypothesis testing and understanding within- and between-variation
   - Can tell you little to nothing about the magnitude of group differences
