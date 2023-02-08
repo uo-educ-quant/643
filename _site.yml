@@ -29,11 +29,11 @@ navbar:
       - text: "9. Multiple regression III"
         href: ./slides/EDUC643_7_mult_regression.html#85
       - text: "10. Categorical predictors I"
-        #href: ./slides/EDUC643_10_categorical.html
+        href: ./slides/EDUC643_10_categorical.html
       - text: "11. Categorical predictors II"
-        #href: ./slides/EDUC643_10_categorical.html
+        href: ./slides/EDUC643_10_categorical.html
       - text: "12. Categorical predictors III"
-        #href: ./slides/EDUC643_10_categorical.html
+        href: ./slides/EDUC643_10_categorical.html
       - text: "13. Non-linearity I"
         #href: ./slides/EDUC643_13_nonlinearity.html
       - text: "14. Non-linearity II"

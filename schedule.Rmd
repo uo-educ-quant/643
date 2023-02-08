@@ -141,11 +141,8 @@ Readings:
 
 Lecture: 
 
-- Class 9 (2/7) slides: [html] | pdf
-- Class 10 (2/9) slides: [html] | pdf
-- Class 11 (2/14) slides: [html] | pdf
-- Class 12 (2/16) slides: [html] | pdf
-- Data: 
+- Class 10 - 12 (2/9, 2/14 and 2/16) slides: [html](./slides/EDUC643_10_categorical.html) | pdf
+- Data: [dibels.csv](./data/dibels.csv) | [codebook](./data/dibels_codebook.pdf)
 - R script: 
 
 Assignment 4:

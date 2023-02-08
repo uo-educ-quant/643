@@ -15,7 +15,7 @@ output:
 
 ```{R, setup, include = F}
 library(pacman)
-p_load(here, tidyverse, xaringan, knitr, kableExtra, haven, broom, xaringanthemer, reshape2, car)
+p_load(here, tidyverse, xaringan, knitr, kableExtra, haven, broom, xaringanthemer, reshape2, car, modelsummary)
 
 i_am("slides/EDUC643_10_categorical.rmd")
 
@@ -42,7 +42,7 @@ extra_css <- list(
   ".orange" = list(color = "#FFA500"),
   ".small" = list("font-size" = "90%"),
   ".large" = list("font-size" = "120%"),
-  ".tiny" = list("font-size" = "70%"),
+  ".tiny" = list("font-size" = "75%"),
   ".tiny2" = list("font-size" = "50%"))
 
 
@@ -197,7 +197,7 @@ boxplot(dibels$post,
 But, as you may by now have anticipated, we are interested in knowing how likely we are to have gotten such a difference by idiosyncrasy of sampling from a population of school-grades in which there was no difference.
 
 --
-Fortunately, we just such a tool in our toolbox already. .blue[**What will the (asymptotic) distribution of means of repeatedly drawn samples from a given population be?**]
+Fortunately, we have just such a tool in our toolbox already. .blue[**What will the (asymptotic) distribution of means of repeatedly drawn samples from a given population be?**]
 
 ---
 # Two-sample $t$-test
@@ -281,11 +281,11 @@ include_graphics("pivot_longer.png")
 
 --
 
-Understanding exactly how to do this will take repeated time and practice, and you will nearly always need to look up how to do it. Bookmark and get familiar with this vignette: [https://tidyr.tidyverse.org/articles/pivot.html](https://tidyr.tidyverse.org/articles/pivot.html)!
+Understanding exactly how to do this will take repeated time and practice, and you will nearly always need to look up and remind yourself how to do it. Bookmark and get familiar with this vignette: [https://tidyr.tidyverse.org/articles/pivot.html](https://tidyr.tidyverse.org/articles/pivot.html)!
 
 --
 
-I'm going to show you the code to do it, but you don't need to understand nor be able to do this for our purposes.
+I'm going to show you the code to reshape your data (here from wide to long), but you don't need to be able to do this for assignments in this class. You should aim to understand substantively what is going on.
 
 ---
 # Pivot wider
@@ -336,7 +336,9 @@ By convention, the variable name corresponds to the category given by the value=
 $$post=1 \text{ if after pandemic onset}$$
 
 $$post=0 \text{ if pre-pandemic}$$
-The category given the value 0 is called the .red-pink[**reference category**]. Good data management practice: call the categorical variable the value implied by its substantive meaning when equal to 1 (i.e., "*post*" rather than "*pandemic*"; "*treat*" rather than "*condition*").
+The category given the value 0 is called the .red-pink[**reference category**]. 
+
+Good data management practice: call the categorical variable the value implied by its substantive meaning when equal to 1 (i.e., "*post*" rather than "*pandemic*"; "*treat*" rather than "*condition*") so that you are clear on what 0 and 1 represent.
 
 ---
 # Polychotomies
@@ -348,7 +350,7 @@ table(dibels_long$school_titlei)
 
 ---
 # Polychotomies
-Here we have seven different levels of school's Title I status. We can probably simplify these, but we need to be able to represent them using numerical values, when these levels don't inherently have a numerical structure.
+Here we have seven different levels of a school's Title I status. We can probably simplify these, but we need to be able to represent them using numerical values, when these levels don't inherently have a numerical structure.
 
 --
 So... we use **dummy coding**.
@@ -389,7 +391,7 @@ The most common process for representing categorical variables in regression is 
 ---
 # Dummy coding
 
-In a sample dataset, we could visualize the dummy coding scheme like this:
+In a sample dataset, we could conceive of the dummy coding scheme like this:
 
 |School    |Title I status     |D1 (Schoolwide) |D2 (Targeted) |...
 |------------------------------------------------------------------
@@ -400,7 +402,7 @@ In a sample dataset, we could visualize the dummy coding scheme like this:
 |10005     |Title I schoolwide |1               |0             |
 
 
-Since "Not Title I" is our reference, we don't create a column (its implied by 0s in all other groups).
+Since "Not Title I" is our reference, we don't create a new column for it (it's implied by 0s in all other groups).
 
 Hence, for $K$ categories in our original variable, we have $K-1$ dummy-coded variables. 
 
@@ -414,7 +416,7 @@ dibels_long <- dibels_long %>%
   mutate(title1_miss = ifelse(title1=="Missing", 1, 0))
 ```
 
-But, R is actually really smart, so the most straightforward way is to turn our original variable into a factor and then let R automatically convert it into a series of dummies when we need:
+But, R is actually really smart, so the most straightforward way is to turn our original variable into a factor and then let R automatically convert it into a series of dummies when we need them:
 ```{r, echo=T}
 dibels_long$title1 <- factor(dibels_long$title1)
 ```
@@ -427,11 +429,11 @@ class: middle, inverse
 ---
 ## Categorical predictors in regression
 
-In our standard multiple regression model, we have noted that we've made several strong assumptions about our outcome $(Y_i)$ and residuals $(\varepsilon_i)$:
+In our standard multiple regression model, we have noted that we've made several important assumptions about our outcome $(Y_i)$ and residuals $(\varepsilon_i)$:
 $$\color{red}{Y_i} = \beta_0 + \beta_1 X_{1i} + \beta_2 X_{2i} + ... + \beta_k X_{ki} + \color{red}{\varepsilon_i}$$
 
 --
-but, we haven't made any assumptions about the form of the $X$s. In fact, regression models can easily accommodate categorical variables (both dichotomous and polychotomous)!
+but, we haven't made any particular assumptions about the form of the $X$s. In fact, regression models can easily accommodate categorical variables (both dichotomous and polychotomous)!
 
 ---
 # Pre/post in regression
@@ -442,8 +444,8 @@ summary(fit1)
 ```
 
 ---
-# Pre/post
-```{r, echo=F}
+# Pre/post in regression
+```{r, echo=F, highlight.output=c(12)}
 summary(fit1)
 ```
 Our point estimate is identical to our [original two-sample $t$-test](https://daviddliebowitz.github.io/EDUC643_23W/slides/EDUC643_9_categorical.html#17), though our inference has changed slightly.
@@ -476,23 +478,28 @@ plot1 + geom_smooth(method='lm') +
 # Reference category
 What happens if we change the reference category?
 ```{r, echo=T}
+# Create a new dummy variable called "pre", coded
+# as one if test is prior to pandemic onset
 dibels_long <- mutate(dibels_long,
                pre = ifelse(period=="y1_boy" | 
                              period=="y1_moy", 1, 0))
+
+# Fit the model
 fit2 <- lm(mean_orf ~ pre, data=dibels_long)
 ```
 
 ---
 # Reference category
 What happens if we change the reference category?
-```{r, output.lines = -(1:8)}
+```{r, output.lines = -(1:8), highlight.output=c(4:5, 9:11)}
 summary(fit2)
 ```
-.small[
+
 - Sign of slope is reversed
-- Y-intercept is value of reference category
+- Y-intercept is value of new reference category
 - SE and inference remain exact same
-]
+- Full model statistics are the same
+
 
 ---
 # What about the waves?
@@ -504,7 +511,7 @@ Up until now, we've focused on a simple comparison of pre- and post-pandemic ons
 
 --
 
-We can use our multiple wave collection (now captured in our categorical polychotomous variable *period*) to address this.
+We can use our multiple wave collection (now captured in our categorical polychotomous variable ***period***) to address this.
 ```{r, echo=T}
 table(dibels_long$period, exclude=NULL)
 ```
@@ -526,21 +533,22 @@ table(dibels_long$period, exclude=NULL)
 - These have *ordered* values
 - E.g., grade, developmental stage, education level (?)
 - .orange[**CAN** include an ordinal predictor directly in regression, but make sure this is what you want!]
-  + Should you convert a political view scale (1=progressive, 2=liberal, 3=moderate, 4=conservative, 5=libertarian) to a series of dummies?
+  + Should you convert a political view scale (1=progressive, 2=liberal, 3=moderate, 4=conservative, 5=right-wing) to a series of dummies?
   + What about education (1=HS dropout, 2=HS grad, 3=some college, 4=college grad)?
 ]
 ]
 
 ---
 # Polychotomies in regression
-In a regression model, categorical predictors are typically entered in their dummy-coded format.
+In a regression model, categorical predictors are typically entered in their dummy-coded format:
 
-$$\hat{Y} = \beta_0 + \beta_1 D_2 + \beta_2 D_3 + \beta_3 D_3+...+\varepsilon$$
+$$Y = \beta_0 + \beta_1 D_2 + \beta_2 D_3 + \beta_3 D_3+...+ \varepsilon$$
 --
 
-In our four-wave ORF regression, we can think of the equation like this:
+In our four-wave ORF regression, we can think of the equation like this:<sup>1</sup>
 
 $$MEAN\_ORF_j = \beta_0 + \beta_1 Y1\_MOY_j + \beta_2 Y2\_BOY_j + \beta_3 Y2\_MOY_j + \varepsilon_j$$
+.footnote[[1] Following convention, I'm subscripting this equation with "*j*" because our data does not represent individual observations (which we typically subscript with "*i*"), but mean values, aggregate at the school-grade level.]
 
 --
 .blue[**where did *Y1_BOY* (year 1, beginning of year) go?**]
@@ -613,7 +621,7 @@ Coefficient significance tests still test the null hypothesis $\beta_k = 0$, but
 summary(fit3)
 ```
 
-.blue[**Which DIBELS test wave differs significantly from our reference group - "Y1_BOY"?**]
+.blue[**Which DIBELS test wave differs significantly from our reference group: "Y1_BOY"?**]
 
 --
 
@@ -621,8 +629,9 @@ So, this is just a comparison of means, or a series of independent-sample $t$-te
 
 ---
 # Changing reference category
-If we change the model's reference category with a polychotomous variable, we will change the parameter estimates and associated tests. Each refers to the estimated mean difference for that group and the reference category. There can be significant variation from one group (e.g., time period) to another, but not all groups are different from each other.
+.small[If we change the model's reference category with a polychotomous variable, we ***will*** change the parameter estimates and associated tests. Each refers to the estimated mean difference for that group and the reference category. There can be significant variation from one group (e.g., time period) to another, but not all groups are different from each other.]
 ```{r, echo=T, output.lines = -c(1:8)}
+# I can specify directly in my call which group to serve as reference
 summary(lm(mean_orf ~ relevel(period, ref="y2_boy"), data=dibels_long))
 ```
 
@@ -672,6 +681,20 @@ $1 - (5/6 * 5/6) = 0.306$
 If you conduct enough tests, you'll detect a relationship eventually.
 
 ---
+# Multiple tests in the wild
+
+.pull-left[
+- How many tests?
+$$\frac{(n \text{ categories})(n \text{ categories} - 1)}{2}$$
+- ~ 80 counties, so 3160 tests
+]
+
+.pull-right[
+```{r}
+include_graphics("pisa.png")
+```
+]
+---
 # One fix
 
 Instead of using $\alpha=0.05$ for each individual test, use $\alpha=0.05$ for the **family of tests** when we examine multiple contrasts to test a single hypothesis. 
@@ -679,10 +702,13 @@ Instead of using $\alpha=0.05$ for each individual test, use $\alpha=0.05$ for t
 .pull-left[
 ### Bonferroni method
 Take a given $\alpha$-threshold and "split it" across the entire family of tests. Assuming $\alpha = 0.05$:
+
+.small[
 - For 2 tests, conduct each at 0.025 level;
 - For 3 tests, conduct each at 0.0167 level; etc. ...
+]
 
-Use this new threshold to identify the critical $t$-statistic given the number of degrees of freedom.
+.small[Use this new threshold to identify the critical *t*-statistic given the number of degrees of freedom. For the PISA example this would be *p*=0.05/3160=0.000016]
 
 .red-pink[*Other approaches exist! Bonferroni is an extremely conservative one--beware!*]
 ]
@@ -713,7 +739,7 @@ pairwise.t.test(dibels_long$mean_orf, dibels_long$period,
 
 --
 
-We can see that our inference has become slightly weaker for our *Y1_BOY* vs. *Y2_BOY* comparison, though still smaller than most traditional thresholds.
+We can see that our inference has become slightly weaker for our *Y1_BOY* vs. *Y2_BOY* comparison, though still smaller than most traditional thresholds. Note that the others have become weaker too, but they were so small to begin with that we don't see this change.
 
 --
 But perhaps, there are more general ways to address this same challenge!
@@ -726,47 +752,158 @@ class: middle, inverse
 ---
 # ANOVA
 
-* Analysis of variance, or ANOVA, is a special case of the general linear model.
+* .red-pink[**Analysis of variance (ANOVA)**] is a special case of the general linear model
 
-* The primary goal of ANOVA is a comparison of means across different groups.
+* The primary goal of ANOVA is a comparison of means across different groups
   + $H_0: \mu_1 = \mu_2 = \mu_3... \mu_K$
   
-* Although regression frameworks are more the norm across most disciplines, the ANOVA approach can be useful for:
-  + Testing the main effects of categorical variables
-  + Exploring their associated variance in the outcome
+* Although regression frameworks are more the norm across most disciplines, the ANOVA approach can be especially useful for:
+  + Exploring and comparing the within- and between-group variation in the outcome
+  + Simultaneously testing the main effects of categorical variables *(and avoiding some of the problems of multiple hypothesis testing)*
 
 ---
-## ANOVA vs. Regression
+# Within and between
+```{r, fig.height=5.75}
+violin <-    ggplot(dibels_long, aes(x=period, y=mean_orf, fill=period, color=period, alpha=0.4)) +
+                geom_violin() +
+                stat_summary(fun = "mean",
+                             geom = "crossbar", 
+                             width = 0.5,
+                             colour = "red") +
+                theme_minimal(base_size=16) +
+                theme(legend.position = "none")
+violin
+```
 
-* A regression with dummy indicator variables is mathematically identical to ANOVA.
+.footnote[Check out the podcast [Within & Between](http://www.withinandbetweenpod.com/) on quant methods and unpacking the hidden curriculum of academia hosted by Jessica Logan and Sara Hart (takes a developmental science perspective).]
 
-* The F-test in a regression model represents a test of the model's variance against the residual.
-
-* In ANOVA, we can have one or more F-tests where we "batch test" a group of coefficients.
-  + Example: Assuming we had multiple variables in our model, we could test the main effect of marital status against the residual rather than examine each individual coefficient.
-
+--
+.blue[**Can you describe the variability within- and between-test periods?**]
 
 
 ---
-## Partitioning Variance
+# Within and between
+```{r, fig.height=5.75}
+violin
+```
 
-In regression, we partition our total variance $SS_\text{total}$ into our $SS_\text{model}$ and $SS_\text{error}$.
+.small[
+Questions we might want to answer about group differences:
+1. Are observed differences between groups "real"?
+2. In what context can we place these differences to evaluate their magnitude?
+]
 
-$SS_\text{model}$ = Deviation of observed value from the predicted value $(Y_{i}-\hat{Y}_i)$.
+---
+# Within and between
+.small[Let's imagine a slightly simpler example. Imagine three different data sets with a four-level categorical predictor and across each data set, the mean value of each category was the same.]
+```{r, fig.height=5}
+set.seed(1234)
+# Make the little variability plot
+p1 <- rnorm(50, mean=125, sd=7)
+p2 <- rnorm(50, mean=110, sd=7)
+p3 <- rnorm(50, mean=95, sd=7)
+p4 <- rnorm(50, mean=80, sd=7)
 
- $SS_\text{error}$ = Deviation of predicted value from the grand mean $(\hat{Y} - \bar{Y}_i)$.
+df <- cbind(as.data.frame(c(p1, p2, p3, p4)))
+df <- rename(df, mean_orf = "c(p1, p2, p3, p4)")
+df <- rownames_to_column(df, "id")
+df <- mutate(df, period = case_when(id %in% c(1:50) ~ "p1",
+                                    id %in% c(51:100) ~ "p2",
+                                    id %in% c(101:150) ~ "p3",
+                                    id %in% c(151:200) ~ "p4"))
+
+little <- ggplot(df, aes(x=period, y=mean_orf, color=period)) +
+              geom_jitter(width=0.05, height=0) +
+              labs("Little variability") +
+              ylim(0, 225) +
+              stat_summary(fun = "mean",
+                                 geom = "crossbar", 
+                                 width = 0.5,
+                                 colour = "red") +
+              theme_minimal(base_size=16) +
+              theme(legend.position = "none")
+
+# Make the mid variability plot
+p1 <- rnorm(50, mean=125, sd=20)
+p2 <- rnorm(50, mean=110, sd=20)
+p3 <- rnorm(50, mean=95, sd=20)
+p4 <- rnorm(50, mean=80, sd=20)
+
+df2 <- cbind(as.data.frame(c(p1, p2, p3, p4)))
+df2 <- rename(df2, mean_orf = "c(p1, p2, p3, p4)")
+df2 <- rownames_to_column(df2, "id")
+df2 <- mutate(df2, period = case_when(id %in% c(1:50) ~ "p1",
+                                    id %in% c(51:100) ~ "p2",
+                                    id %in% c(101:150) ~ "p3",
+                                    id %in% c(151:200) ~ "p4"))
+
+mid <- ggplot(df2, aes(x=period, y=mean_orf, color=period)) +
+              geom_jitter(width=0.05, height=0) +
+              labs("Moderate variability") +
+              ylim(0, 225) +
+              stat_summary(fun = "mean",
+                                 geom = "crossbar", 
+                                 width = 0.5,
+                                 colour = "red") +
+              theme_minimal(base_size=16) +
+              theme(legend.position = "none")
+
+# Make the wide variability plot
+p1 <- rnorm(50, mean=125, sd=40)
+p2 <- rnorm(50, mean=110, sd=40)
+p3 <- rnorm(50, mean=95, sd=40)
+p4 <- rnorm(50, mean=80, sd=40)
+
+df3 <- cbind(as.data.frame(c(p1, p2, p3, p4)))
+df3 <- rename(df3, mean_orf = "c(p1, p2, p3, p4)")
+df3 <- rownames_to_column(df3, "id")
+df3 <- mutate(df3, period = case_when(id %in% c(1:50) ~ "p1",
+                                    id %in% c(51:100) ~ "p2",
+                                    id %in% c(101:150) ~ "p3",
+                                    id %in% c(151:200) ~ "p4"))
+
+large <- ggplot(df3, aes(x=period, y=mean_orf, color=period)) +
+              geom_jitter(width=0.05, height=0) +
+              labs("Large variability") +
+              ylim(0, 225) +
+              stat_summary(fun = "mean",
+                                 geom = "crossbar", 
+                                 width = 0.5,
+                                 colour = "red") +
+              theme_minimal(base_size=16) +
+              theme(legend.position = "none")
+
+gridExtra::grid.arrange(little, mid, large, nrow = 1)
+```
+
+
+--
+.blue[**How important are the differences in these group means across each dataset?**]
+
+--
+**Within-group variation provides important context for evaluationg magnitude of between-group variation!**
+
+---
+# Partitioning variance
+
+In regression, we partition our total variance $SS_\text{total}$ into our $SS_\text{model}$ and $SS_\text{residual}$ :
+
+$SS_\text{model}$ = Deviation of observed value from the predicted value $(Y_{i}-\hat{Y}_i)$
+
+$SS_\text{residual}$ = Deviation of predicted value from the grand mean $(\hat{Y} - \bar{Y}_i)$
 
 --
 
 In ANOVA, we apply a similar but slightly different conceptual process.
+
 ---
-## Partioning Variance in ANOVA
+# Partioning variance in ANOVA
 
-In ANOVA, we separate variance into between-group and within-group variance.
+In ANOVA, we separate variance into between-group and within-group variance:
 
-$SS_\text{within}$ = Deviation of observed value from its group mean $(Y_{ik}-\bar{Y}_k)$.
+$SS_\text{within}$ = Deviation of observed value from its group mean $(Y_{ik}-\bar{Y}_k)$
 
-$SS_\text{between}$ = Deviation of group mean from the grand mean $(\bar{Y}_k - \bar{Y})$.
+$SS_\text{between}$ = Deviation of group mean from the grand mean $(\bar{Y}_k - \bar{Y})$
 
 --
 
@@ -774,87 +911,86 @@ $$SS_\text{total} = SS_\text{within} + SS_\text{between}$$
 
 
 ---
+# Visualized variance partition
 ```{r}
-# 
-# m <- lm(BMI ~ marital_status, do2)
-# 
-# do2 <- do2 %>% 
-#   group_by(marital_status) %>% 
-#   mutate(group_mean = mean(BMI)) %>% 
-#   ungroup()
-# 
-# do_samp <- do2 %>% 
-#   group_by(marital_status) %>% 
-#   sample_n(20)
-# 
-# do_samp$predict <- predict(m, do_samp)
-# 
-# do_samp$jitter_marit <-
-#   ave(as.numeric(do_samp$marital_status), 
-#       do_samp$marital_status, 
-#       FUN = function(x) x + rnorm(length(x), sd = .2))
-# 
-# do_samp <- do_samp %>% 
-#   mutate(jitmin = min(jitter_marit),
-#          jitmax = max(jitter_marit))
-# 
-# ```
-# 
-# .pull-left[
-# ```{r, fig.height=3, fig.width=5, echo = F}
-# with_plot <- do_samp %>% 
-# ggplot(aes(x = jitter_marit, xend = jitter_marit,
-#                  y = BMI, yend = predict)) +
-#     geom_segment(color = "green") +
-#     geom_point() +
-#     scale_x_continuous("Marital Status", 
-#                        breaks = c(1,2,3,4),
-#                        labels = levels(do2$marital_status)) +
-#   geom_segment(aes(x = jitmin, xend = jitmax, y = predict, yend = predict),
-#                color = "darkgreen") +
-#   ylim(0, 40) +
-#   theme_minimal() +
-#   ggtitle("Within-Groups Variance")
-# 
-# with_plot
+set.seed(1234)
+m <- lm(mean_orf ~ period, dibels_long)
+dibels_long <- dibels_long %>% 
+   group_by(period) %>% 
+   mutate(group_mean = mean(mean_orf)) %>% 
+   ungroup()
+ 
+dib_samp <- dibels_long %>% 
+   group_by(period) %>% 
+   sample_n(20)
+ 
+dib_samp$predict <- predict(m, dib_samp)
+ 
+dib_samp$jitter_orf <-
+   ave(as.numeric(dib_samp$period), 
+       dib_samp$period, 
+       FUN = function(x) x + rnorm(length(x), sd = .2))
+ 
+dib_samp <- dib_samp %>% 
+   mutate(jitmin = min(jitter_orf),
+          jitmax = max(jitter_orf))
 ```
 
-This shows the residual variance around the group means. Just like the error term, it is all the remaining variance our predictor can't explain.
+
+.pull-left[
+```{r, fig.height=3, fig.width=5, echo = F}
+set.seed(1234)
+with_plot <- dib_samp %>% 
+ggplot(aes(x = jitter_orf, xend = jitter_orf,
+                  y = mean_orf, yend = predict)) +
+     geom_segment(color = "green") +
+     geom_point() +
+     scale_x_continuous("Period", 
+                        breaks = c(1,2,3,4),
+                        labels = levels(dibels_long$period)) +
+   geom_segment(aes(x = jitmin, xend = jitmax, y = predict, yend = predict),
+                color = "darkgreen") +
+   theme_minimal() +
+   ggtitle("Within-Groups Variance")
+ 
+with_plot
+```
+
+.small[We can represent the residual variance around the group means (here on just a random selection of 20 observations from each period). Just like the error term in our regression model, it is all the remaining variance our predictor (***period***) can't explain.]
 ]
 
 .pull-right[
 ```{r, fig.height=3, fig.width=5, echo = F}
-# btw_plot <- ggplot(do_samp, aes(x = marital_status, y = group_mean)) +
-#   geom_point(aes(x = as.numeric(marital_status) + 0.5,
-#                    y = group_mean), color = "darkgreen") +
-#     geom_segment(aes(x = as.numeric(marital_status),
-#                    xend = as.numeric(marital_status),
-#                    y = group_mean,
-#                    yend = mean(do2$BMI)),
-#                  linetype = 2) +
-#   geom_hline(yintercept = mean(do2$BMI), color = "black", linetype = 2) +
-#       scale_x_continuous("Marital Status", 
-#                        breaks = c(1, 2, 3, 4),
-#                        labels = levels(do2$marital_status)) +
-#   ylim(0, 40) +
-#   theme_minimal() +
-#   ggtitle("Between-Groups Variance")
-# 
-# btw_plot
+set.seed(1234)
+btw_plot <- ggplot(dib_samp, aes(x = period, y = group_mean)) +
+   geom_point(aes(x = as.numeric(period),
+                    y = group_mean), color = "darkgreen") +
+     geom_segment(aes(x = as.numeric(period),
+                    xend = as.numeric(period),
+                    y = group_mean,
+                    yend = mean(dibels_long$mean_orf)),
+                  linetype = 2) +
+   geom_hline(yintercept = mean(dibels_long$mean_orf), color = "black", linetype = 2) +
+       scale_x_continuous("Period", 
+                        breaks = c(1, 2, 3, 4),
+                        labels = levels(dibels_long$period)) +
+   theme_minimal() +
+   ggtitle("Between-Groups Variance")
+ 
+btw_plot
 ```
 
-This shows the group effect of marital status against the grand mean.
+.small[In addition to each individual observation's deviation from its group mean, each group's mean also deviates from the grand mean of Oral Reading Fluency.]
 ]
 
 
 ---
-## ANOVA Test Statistic
-
-When we conduct an ANOVA we are testing the significance of an F statistic using the following formula:
+# ANOVA test statistic
+When we conduct an ANOVA we are testing the significance of an $F$-statistic using the following formula:
 
 $$\large F = \frac{MS_\text{between}}{MS_\text{within}}$$
 
-The mean squares (MS) of between- and within-group variance is just their Sums of Squares divided by their degrees of freedom.
+The mean squares (MS) of between- and within-group variance is just the Sum of the Squares $(SS)$ for each group, divided by its degrees of freedom $(df)$:
 
 .pull-left[
 $$\large MS_w = \frac{SS_w}{df_w}$$
@@ -865,71 +1001,277 @@ $$\large df_w = N-G$$
 $$\large MS_b = \frac{SS_b}{df_b}$$
 $$\large df_b = G-1$$
 ]
+
+where $w$ subscripts within, $b$ subscripts between, $N$ is the number of observations and $G$ the number of groups.
+
 ---
-## ANOVA Significance Test
+## ANOVA significance test
 
-The null hypothesis of an ANOVA regards the ratio of between- to within-group variance.
+The null hypothesis of an ANOVA is about the ratio of between- to within-group variance.
 
-Essentially, we are asking if the mean square variance of the group means around the grand mean is significantly greater than the mean square variance of observations around their group mean.
+Essentially, when we state $H_0: \mu_1 = \mu_2 = \mu_3... \mu_K$, we are asking if the mean square variance of the group means around the grand mean is greater than the mean square variance of observations around their group mean.
+
 --
-If the between-group variance were much larger than the within-group variance, than the F-statistic would exceed 1.
+If the between-group variance were much larger than the within-group variance, then the $F$-statistic would exceed 1.
 
 $$\large F = \frac{MS_\text{between}}{MS_\text{within}} = \frac{4.3}{1.5} = 2.87$$
 
-If the between-group variance is equal to or much smaller than the within-group variance, than our F statistic will be $\le$ 1.
+If the between-group variance is equal to or smaller than the within-group variance, then our $F$-statistic will be $\le$ 1.
 
 $$\large F = \frac{MS_\text{between}}{MS_\text{within}} = \frac{0.2}{1.5} = 0.13$$
 
 ---
-## Calculating the F-Statistic
-
-Let's find our F-statistic for our marital status variable. 
-
-```{r, echo = F}
-#do2$predicted_BMI <- predict(m, do2)
-```
+# Calculating the $F$-statistic
+Let's find our $F$-statistic for our ***period*** variable. 
 
 #### Within-Group (Residual) Variance $MS_\text{Within}$
-```{r}
+```{r, echo=T}
 # total n - number of groups (4)
-#df_within <- 1079 - 4
+nrow(dibels_long)
+df_within <- 21584 - 4
 
-#sum((do2$BMI - do2$group_mean)^2) / df_within
+sum((dibels_long$mean_orf - dibels_long$group_mean)^2) / df_within
 ```
+
+
+---
+# Calculating the $F$-statistic
+Let's find our $F$-statistic for our ***period*** variable. 
 
 #### Between-Group Variance $MS_\text{Between}$
-```{r}
+```{r, echo=T}
 # number of groups (4) - 1
-#df_btw <- 4-1
+df_btw <- 4-1
 
-#sum((mean(do2$BMI) - do2$group_mean)^2) / df_btw
+sum((mean(dibels_long$mean_orf) - dibels_long$group_mean)^2) / df_btw
 ```
 
 ---
-## Calculating the F-Statistic
+# Calculating the $F$-statistic
 
-$$MS_\text{Between} = 41.76$$
-$$MS_\text{Within} = 37.12$$
+$$MS_\text{Between} = 1,068,298$$
+$$MS_\text{Within} = 1,306$$
 
-$$F = \frac{MS_\text{Between}}{MS_\text{Within}} = \frac{41.76}{37.12} = 1.125$$ 
-Our F-statistic is 1.125. Now that we see how it is calculated, let's run an ANOVA in R to get our p-value and review the output.
+$$F = \frac{MS_\text{Between}}{MS_\text{Within}} = \frac{1,068,298}{1306} = 817.99$$ 
+Our $F$-statistic is 818. Now that we see how it is calculated, let's fit an ANOVA in R to review the output and make an inference (note that we could now also consult an $F$-statistic lookup table to get the same info!).
 
 ---
-## ANOVA Output
+# ANOVA in R
+Because ANOVA is just a particular method of analyzing variance in GLMs, we can wrap the `anova` command around our `lm` model fit.
 
-Because ANOVA is just a particular method of analyzing variance in GLMs, we can wrap `anova` around our `lm` model.
+```{r, echo=T, highlight.output = c(5:6)}
+fit3 <- lm(mean_orf ~ period, dibels_long)
 
-```{r, highlight.output = 6}
-# m1 <- lm(BMI ~ marital_status, do2)
-# car::Anova(m1, type = 3)
+anova(fit3)
 ```
-Here we can see all the information for the residual and marital status we calculated earlier. Only the p-value is new!
+
+.small[We can see all the information we calculated earlier. With a *p*-value] $<2.2 \times 10^{-16}$, .small[our *F*-statistic highly unlikely to be a product of a population in which the population means across the four waves of ORF administration were equal. Therefore we reject the null hypothesis and conclude that, on average in the population, the mean ORF scores differed significantly across the waves of assessment administration.]
+
+ 
+---
+# Variance decomposition
+
+.large[
+- In addition to using ANOVA to "batch test" group differences, as we've seen it can be a useful tool to decompose the variance of your outcome into between and within group variation
+- We can, in fact, extend this analysis to understand how much of the variation in an individual's outcome occurs across **different** groups. For example:
+    + What proportion of the variation in child outcomes occurs within classrooms, compared to schools, compared to neighborhoods?
+    + Are differences in school funding greater between schools, between districts or between states?
+- You can explore more about these topics in our HLM sequence (EDLD 628/629)
+]
+
+
+---
+# ANOVA vs. regression
+
+- Both are implementations of the General Linear Model
+- A regression with dummy indicator variables is statistically identical to ANOVA
+- The $F$-test in a regression model represents a test of the model's variance against the residual
+- In ANOVA, we can have one or more $F$-tests where we "batch test" a group of coefficients
+  + This can help avoid Type I errors (rejecting the null when it is in fact true)
+  + ANOVA doesn't tell you anything about the magnitude of the difference...which seems important?
+- Learning regression is the more general approach, of which ANOVA is a special implementation; by learning regression you have a more flexible tool kit
+ 
+
+---
+# Presenting our results
+```{r, echo=T, results=F}
+modelsummary(list(fit1, fit3),
+            stars=T,
+            vcov = "robust",
+            gof_omit = "Adj.|AIC|BIC|Log|RMSE|RSE|Std.Err",
+            coef_rename = c("post" = "Post-Pandemic Onset", 
+                            "periody1_moy" = "Winter 2020",
+                            "periody2_boy" = "Fall 2020",
+                            "periody2_moy" = "Winter 2021"))
+```
+
+---
+**Table 1.** Estimates of grade-level average Oral Reading Fluency (ORF) score across waves of DIBELS administration, 2019-2021
+```{r, echo=F}
+modelsummary(list(fit1, fit3),
+            stars=T,
+            vcov = "robust",
+            gof_omit = "Adj.|AIC|BIC|Log|RMSE|RSE|Std.Err",
+            coef_rename = c("post" = "Post-Pandemic Onset", 
+                            "periody1_moy" = "Winter 2020",
+                            "periody2_boy" = "Fall 2020",
+                            "periody2_moy" = "Winter 2021"),
+            notes=c("Cells report coefficients and heteroscedastic-robust standard errors in parentheses. Each observation is a school-grade-test       value."))
+
+```
+
+---
+class: middle, inverse
+
+# Multiple regression with categorical variables
+
+---
+# Mawwrr predictors
+
+Now that we've learned the basic concept of multiple regression, it's a fairly simple task to add additional covariates (either continuous or categorical) to our equation.
+
+.blue[**What theoretically justified covariates might be sensible to include? How would we make such a determination?**]
 
 --
 
-With a p-value of .34, our F-statistic is not that unusual. Therefore we fail to reject the null hypothesis. The marital status group means do not significantly differ in terms of BMI.
+Preliminarily, let's look at three: *GRADE* and *SCHOOL_ENROLL*:
+
+$$
+\begin{aligned}
+MEAN\_ORF_j = & \beta_0 + \beta_1 Y1\_MOY_j + \beta_2 Y2\_BOY_j + \beta_3 Y2\_MOY_j + \\
+              & \beta_4 GRADE_j + \beta_5 SCHOOL\_ENROLL_j +...+ \varepsilon_j
+\end{aligned}
+$$
+---
+# Mawwrr predictors
+
+$$
+\begin{aligned}
+MEAN\_ORF_j = & \beta_0 + \beta_1 Y1\_MOY_j + \beta_2 Y2\_BOY_j + \beta_3 Y2\_MOY_j + \\
+              & \beta_4 GRADE_j + \beta_5 SCHOOL\_ENROLL_j +...+ \varepsilon_j
+\end{aligned}
+$$
+
+Before fitting any models, .blue[**can we interpret what each of these coefficients will now represent?**]
+
+--
+
+.blue[**To what do I need to attend when specifying the predictor*GRADE* in my model?**]
 
 
+---
+# MR with categoricals
+```{r, echo=T, output.lines=-c(1:8)}
+fit4<-lm(mean_orf ~ period + as.factor(grade) + 
+                    school_enroll, data=dibels_long)
+summary(fit4)
+```
+
+---
+```{r}
+summary(fit4)
+```
+.small[
+- Our R2 is now quite high
+- Our intercept is now no longer directly interpretable
+- The estimates on our coefficients have barely changed
+]
+---
+# Show what you know
+Use the .red-pink[**adjusted means**] to show your findings when your question predictor is categorical. Set all predictors to their sample means or to the value of the category and then compute the predicted value of your outcome at each level of your categorical question predictor:
+```{r, echo=T}
+mean(dibels_long$school_enroll)
+prop.table(table(dibels_long$grade))
+```
+
+---
+# Show what you know
+Use the .red-pink[**adjusted means**] to show your findings when your question predictor is categorical. Set all predictors to their sample means or to the value of the category and then compute the predicted value of your outcome at each level of your categorical question predictor:
+
+**For Y1_MOY:**
+$$\scriptsize{\hat{MEAN\_ORF}_j = 16.06 + 25.56(1) + (-2.79)(0) + 19.45(0) + 38.95(0.25) + 60.29(0.19) + 81.96(0.15) + 82.74(0.14) + 0.003(337.33) =87.70}$$
+**For Y2_BOY:**
+$$\scriptsize{\hat{MEAN\_ORF}_j = 16.06 + 25.56(0) + (-2.79)(1) + 19.45(0) + 38.95(0.25) + 60.29(0.19) + 81.96(0.15) + 82.74(0.14) + 0.003(337.33) =59.35}$$
+**For Y2_MOY:**
+$$\scriptsize{\hat{MEAN\_ORF}_j = 16.06 + 25.56(0) + (-2.79)(0) + 19.45(1) + 38.95(0.25) + 60.29(0.19) + 81.96(0.15) + 82.74(0.14) + 0.003(337.33) =81.59}$$
+
+--
+**For Y1_BOY:**
+$$\scriptsize{\hat{MEAN\_ORF}_j = 16.06 + 25.56(0) + (-2.79)(0) + 19.45(0) + 38.95(0.25) + 60.29(0.19) + 81.96(0.15) + 82.74(0.14) + 0.003(337.33) =62.14}$$
+
+---
+## Present in simple tabular format
+
+**Table 1**. 
+
+Mean Oral Reading Fluency score across different administrations of the DIBELS 8
+
+| Wave              | Unadjusted  |  Adjusted
+| ---------------------------------------------------
+| Fall 2019         | 62.3        | 62.1
+| Winter 2020       | 87.9        | 87.7
+| Fall 2020         | 59.6        | 62.1
+| Winter 2021       | 81.8        | 81.6
+*Adjusted mean = adjusting for grade and school size.
+
+---
+# Alongside previous results
+```{r, echo=T, results=F}
+modelsummary(list(fit3, fit4),
+            stars=T,
+            vcov = "robust",
+            gof_omit = "Adj.|AIC|BIC|Log|RMSE|RSE|Std.Err",
+            coef_rename = c("periody1_moy" = "Winter 2020",
+                            "periody2_boy" = "Fall 2020",
+                            "periody2_moy" = "Winter 2021",
+                            "as.factor(grade)2" = "2nd Grade",
+                            "as.factor(grade)3" = "3rd Grade",
+                            "as.factor(grade)4" = "4th Grade",
+                            "as.factor(grade)5" = "5th Grade",
+                            "school_enroll" = "School Enrollment (#)"))
+```
+
+---
+# Alongside previous results
+```{r}
+modelsummary(list(fit3, fit4),
+            stars=T,
+            vcov = "robust",
+            gof_omit = "Adj.|AIC|BIC|Log|RMSE|RSE|Std.Err",
+            coef_rename = c("periody1_moy" = "Winter 2020",
+                            "periody2_boy" = "Fall 2020",
+                            "periody2_moy" = "Winter 2021",
+                            "as.factor(grade)2" = "2nd Grade",
+                            "as.factor(grade)3" = "3rd Grade",
+                            "as.factor(grade)4" = "4th Grade",
+                            "as.factor(grade)5" = "5th Grade",
+                            "school_enroll" = "School Enrollment (#)"))
+
+```
+
+---
+## Alongside previous results: alternative
+```{r}
+row <- tribble(~term, ~Bivariate, ~Multivariate,
+               "<b>Covariates?</b>", "<b>No</b>", "<b>Yes</b>")
+attr(row, 'position') <- c(9)
+modelsummary(list(fit3, fit4),
+            stars=T,
+            vcov = "robust",
+            gof_omit = "Adj.|AIC|BIC|Log|RMSE|RSE|Std.Err",
+            coef_omit = "grade|school_enroll",
+            coef_rename = c("periody1_moy" = "Winter 2020",
+                            "periody2_boy" = "Fall 2020",
+                            "periody2_moy" = "Winter 2021"),
+            add_rows = row
+            )
+
+```
+
+---
+# Putting into words
+
+> 
 ---
 class: middle, inverse
 
@@ -938,85 +1280,51 @@ class: middle, inverse
 ---
 # ANCOVA
 
-* Analysis of covariance (ANCOVA) is an extension of ANOVA.
-* Essentially, it is the an ANOVA that controls for the effects of other **continuous** independent variables.
-* The null hypothesis is still the same as ANOVA $(\mu_1 = \mu_2 = \mu_K)$.
-
-Sample Research Question: What is the difference in BMI among different marital status groups, **after controlling for age?**
-
----
-## ANCOVA as Regression
-
-Research Question: What is the difference in BMI among different marital status groups, **after controlling for age?**
-
-
-In a regression equation, categorical variables would still be represented as a dummy-coded variable. We are just adding an additional $\beta$ for our covariate.
-
---
-
-$$BMI_i = \beta_0 + \beta_1\text{Marital Status}_i + \beta_2\text{Age}_i + \epsilon_i$$
-
---
-
-$$BMI_i = \beta_0 + \beta_1\text{Single_Commited}_i + \beta_2\text{Engaged}_i + \beta_3\text{Married}_i + \beta_4\text{Age}_i + \epsilon_i$$
---
-
-Now we have to remember to qualify our interpretations given our covariates, or control variables.
-
-$\beta_3$: The predicted difference in BMI between a single male and a married male, after controlling for age.
-
----
-## ANCOVA
-
+- .red-pink[**Analysis of covariance (ANCOVA)**] is an extension of ANOVA and multiple regression
+- It is also a part of the broader family of General Linear Models
+- The model relates categorical predictors to a continuous outcome, adjusting for the effects of other covariates
+  + Note: you may see in some (older) sources the statement that ANCOVA models can only adjust for the effects of other categorical covariates. This is not true as long as you are careful to specify your categorical covariates as dummy indicators
+- The null hypothesis is still the same as ANOVA $(\mu_1 = \mu_2 = \mu_K)$.
 
 
 ---
-## ANCOVA Output
-
-Now that we have an additional covariate in the model, we can expect a different residual sums of squares.
-
-```{r, highlight.output = 8,}
-
-
+# ANCOVA results
+We can examine whether there are differences in the ORF scores by when students sat for the test, while adjusting for students' grade level and their school's size
+```{r, echo=T}
+anova(fit4)
 ```
 
-* In our basic ANOVA, our residual SS was 39,907. Now we see the residual is 39,224. 
-
-* Our variance has been "reorganized" with the addition of `age_year`. 
+--
+- As before, we reject the null and conclude that there is a difference, on average in the population, between waves of the ORF administration, *adjusting for the effects of students' grade and school size*
+- However, our $F$-statistic is now **MUCH** bigger
+- We've dramatically shrunk the RSS (28,193,461 vs. 6,431,752)
 
 ---
-## ANCOVA Output
+# ANOVA v. ANCOVA
+Let's contrast an ANOVA with an ANCOVA test:
 
-```{r, highlight.output = c(6, 8)}
-
+```{r, echo=T}
+anova(fit3, fit4)
 ```
 
-* Our F-test for marital status still regards the relationship between its SS and the residual SS, but we have now accounted for the variance associated with age.
+- In our basic ANOVA, our residual SS was 28,193,461 (it still is now). Now we see the residual SS for our ANCOVA fit is 6,431,752, or meaningfully (and statistically significantly smaller)
+- Our variance has been "reorganized" with the addition of **school_enroll**.
+- We can compare the two model fits with a new $F$-statistic that assesses whether one explains more of the variance ("is a better fit") than the other. It is.
 
-* Still, our resulting F-value is not significant (p = 0.28), meaning marital status does not significantly account for BMI after controlling for age.
-
-* On the other hand, the main effect of age is significant (p < .001)
 
 ---
-## Regression Output
-
-We can compare our ANCOVA output to our regression output and see our dummy-coded, "unbatched", analysis of marital status effects. 
-
-```{r, echo = F, highlight.output = c(12, 13, 14), comment = NA}
-
+# ANCOVA v. MR
+We can also compare our ANCOVA output to our regression output and see our dummy-coded, "unbatched" analysis: 
+```{r, output.lines=-c(1:8)}
+summary(fit4)
 ```
+
 ---
+### [Common statistical tests are linear models](https://lindeloev.github.io/tests-as-linear/)
 
-# Variance decomposition
-
-* ANOVA (and ANCOVA) are typically used as methods for analyzing variance associated with group or categorical effects.
-
-* Repeated Measures ANOVA is a similar process, but we define our "groups" as conditions within an individual.
-  + e.g., Baseline, Treatment 1, Treatment 2
-
-* ANOVA can be particularly useful for analyzing a regression model's terms, rather than its individual coefficients.
-
-
+```{r, out.height="90%"}
+include_graphics("glm.png")
+```
 
 ---
 ## It was the GLM the whole time...
@@ -1026,9 +1334,16 @@ include_graphics("glm_scooby.png")
 
 
 ---
-## Putting categorical predictors together
+### Putting categorical predictors together
 
-
+1. Regression models can easily include dichotomous and polychotomous predictors
+  - Can be used for either nominal or ordinal predictors with sensible planning around dummy variables and the omitted reference category
+2. All assumptions are about Y at particular values of X (or Xs)—no assumptions about the distribution of the predictors
+3. The same toolkit we’ve developed for continuous predictors can be used for dichotomous and polychotomous predictors (including hypothesis tests, correlations and plots)
+4. Be aware that when you introduce many categorical predictors you are implicitly engaging in multiple hypothesis testing
+5. ANOVA/ANCOVA are just special cases of multiple regression
+  - Can be useful to avoid problems of multiple hypothesis testing and understanding within- and between-variation
+  - Can tell you little to nothing about the magnitude of group differences
 
 
 ---
