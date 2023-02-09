@@ -150,7 +150,7 @@ Another important distinction: .red-pink[**dichotomies**] (only 2 categories) vs
 include_graphics("dibels_team.png")
 ```
 
-.small[Ann Swindells Professor in Special Education [Gina Biancarosa](https://education.uoregon.edu/directory/faculty/all/ginab), former UO doctoral students David Fainstein, Chris Ives, and Dave Furjanic, along with CTL Research Manager Patrick Kennedy, used data from assessments of 471,456 students on the Dynamic Indicators of Basic Early Literacy Skills (DIBELS) to analyze the extent to which students' Oral Reading Fluency (ORF) scores differed across four waves of DIBELS assessment prior-to and during the pandemic.]
+.small[Ann Swindells Professor in Special Education [Gina Biancarosa](https://education.uoregon.edu/directory/faculty/all/ginab), former UO doctoral students David Fainstein, Chris Ives, and Dave Furjanic, along with CTL Research Manager Patrick Kennedy, used data from assessments of 471,456 students across 1,684 schools on the Dynamic Indicators of Basic Early Literacy Skills (DIBELS) to analyze the extent to which students' Oral Reading Fluency (ORF) scores differed across four waves of DIBELS assessment prior-to and during the pandemic.]
 
 .small[Their study is forthcoming at the *Elementary School Journal*.]
 
@@ -160,6 +160,17 @@ include_graphics("dibels_team.png")
 # Our data
 ```{r, echo=T}
 str(dibels)
+```
+
+---
+# How similar is our data?
+
+```{r, echo=T}
+# How many unique schools are represented?
+length(unique(dibels$sch_deid))
+
+# How many total students contribute test-scores?
+sum(dibels$tr_ts)
 ```
 
 ---
@@ -288,7 +299,7 @@ Understanding exactly how to do this will take repeated time and practice, and y
 I'm going to show you the code to reshape your data (here from wide to long), but you don't need to be able to do this for assignments in this class. You should aim to understand substantively what is going on.
 
 ---
-# Pivot wider
+# Pivot longer
 ```{r, echo=T}
 dibels_long <- dibels %>% 
                   pivot_longer(
@@ -881,7 +892,7 @@ gridExtra::grid.arrange(little, mid, large, nrow = 1)
 .blue[**How important are the differences in these group means across each dataset?**]
 
 --
-**Within-group variation provides important context for evaluationg magnitude of between-group variation!**
+**Within-group variation provides important context for evaluating magnitude of between-group variation!**
 
 ---
 # Partitioning variance
@@ -1118,6 +1129,25 @@ modelsummary(list(fit1, fit3),
                             "periody2_moy" = "Winter 2021"),
             notes=c("Cells report coefficients and heteroscedastic-robust standard errors in parentheses. Each observation is a school-grade-test       value."))
 
+```
+
+---
+# Visualizing results
+```{r, echo=T}
+coef_plot <- modelplot(fit3,
+                coef_rename = c("(Intercept)" = "Fall 2019 (Intercept)", 
+                                  "periody1_moy" = "Winter 2020",
+                                  "periody2_boy" = "Fall 2020",
+                                  "periody2_moy" = "Winter 2021"),
+                vcov = "robust") +
+                coord_flip() +
+                theme_minimal(base_size = 16)
+```
+
+---
+# Visualizing results
+```{r}
+coef_plot
 ```
 
 ---
