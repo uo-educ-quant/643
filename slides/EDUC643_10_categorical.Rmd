@@ -110,12 +110,12 @@ class: middle, inverse
 
 ---
 # Categorical variables
-So far, we have only looked at General Linear Models (and their associated OLS regression estimating equations) involving continuous predictors. But what about .red-pink[**categorical predictors**]?
+So far, we have only looked at General Linear Models (and their associated OLS regression estimating equations) involving .red-pink[**continuous predictors**]. But what about .red-pink[**categorical predictors**]?
 
 --
 
 What are categorical predictors?
-- Categorical predictors are ***predictors whose values denote categories***.
+- Categorical predictors are ***predictors in statistical models whose values denote categories***.
 
 --
 Of course, this begs the question...
@@ -163,7 +163,7 @@ str(dibels)
 ```
 
 ---
-# How similar is our data?
+## How similar is our data to Furjanic?
 
 ```{r, echo=T}
 # How many unique schools are represented?
@@ -203,12 +203,18 @@ boxplot(dibels$post,
 ```
 ]
 
+---
+## Understanding the distributions
+```{r, echo=T, fig.height=4}
+plot(density(dibels$pre), main=" ", sub=NULL, ylim=range(0,0.011))
+lines(density(dibels$post), col="red")
+legend(150, .008, legend=c("pre", "post"), fill=c("black", "red"))
+```
 --
-
-But, as you may by now have anticipated, we are interested in knowing how likely we are to have gotten such a difference by idiosyncrasy of sampling from a population of school-grades in which there was no difference.
+.small[But, as you may by now have anticipated, we are interested in knowing how likely we are to have gotten such a difference by idiosyncrasy of sampling from a population of school-grades in which there was no difference.]
 
 --
-Fortunately, we have just such a tool in our toolbox already. .blue[**What will the (asymptotic) distribution of means of repeatedly drawn samples from a given population be?**]
+.small[Fortunately, we have just such a tool in our toolbox already. .blue[**What will the (asymptotic) distribution of means of repeatedly drawn samples from a given population be?**]]
 
 ---
 # Two-sample $t$-test
@@ -752,8 +758,20 @@ pairwise.t.test(dibels_long$mean_orf, dibels_long$period,
 
 We can see that our inference has become slightly weaker for our *Y1_BOY* vs. *Y2_BOY* comparison, though still smaller than most traditional thresholds. Note that the others have become weaker too, but they were so small to begin with that we don't see this change.
 
+
+
+---
+# Another potential solution
+.blue[**Is there another way we could conceive of the assessment data collection wave variable that is *not* categorical?**]
+
 --
-But perhaps, there are more general ways to address this same challenge!
+```{r, echo=T, output.lines=-c(1:8)}
+dibels_long$time <- as.numeric(dibels_long$period)
+summary(lm(mean_orf ~ time, dibels_long))
+```
+
+--
+But perhaps, there are more satisfying ways to address this challenge!
 
 ---
 class: middle, inverse
@@ -1135,13 +1153,13 @@ modelsummary(list(fit1, fit3),
 # Visualizing results
 ```{r, echo=T}
 coef_plot <- modelplot(fit3,
-                coef_rename = c("(Intercept)" = "Fall 2019 (Intercept)", 
-                                  "periody1_moy" = "Winter 2020",
-                                  "periody2_boy" = "Fall 2020",
-                                  "periody2_moy" = "Winter 2021"),
-                vcov = "robust") +
-                coord_flip() +
-                theme_minimal(base_size = 16)
+               coef_rename = c("(Intercept)" = "Fall 2019 (Intercept)", 
+                                "periody1_moy" = "Winter 2020",
+                                "periody2_boy" = "Fall 2020",
+                                "periody2_moy" = "Winter 2021"),
+               vcov = "robust") +
+               coord_flip() +
+               theme_minimal(base_size = 16)
 ```
 
 ---
@@ -1422,6 +1440,10 @@ include_graphics("glm_scooby.png")
 
 
 ---
+class: middle, inverse
+# Synthesis and wrap-up
+
+---
 ### Putting categorical predictors together
 
 1. Regression models can easily include dichotomous and polychotomous predictors
@@ -1435,9 +1457,6 @@ include_graphics("glm_scooby.png")
   - Can tell you little to nothing about the magnitude of group differences
 
 
----
-class: middle, inverse
-# Synthesis and wrap-up
 
 ---
 # Goals for the unit
