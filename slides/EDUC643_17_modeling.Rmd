@@ -1,11 +1,11 @@
 ---
 title: "Model Building"
-subtitle: "EDUC 643: Applied Statistics in Education and the Human Services II"
+subtitle: "EDUC 643: Unit 5"
 author: "David D. Liebowitz"
 #date: "`r format(Sys.time(), '%d %B %Y')`"
 output:
   xaringan::moon_reader:
-    css: ['default','new.css']
+    css: ['default', 'uo', 'ki-fonts', 'my_custom.css', 'xaringanthemer.css']
     # self_contained: true
     nature:
       highlightStyle: github
@@ -16,7 +16,7 @@ output:
 
 ```{R, setup, include = F}
 library(pacman)
-p_load(here, tidyverse, ggplot2, xaringan, knitr, kableExtra)
+p_load(here, tidyverse, xaringan, knitr, kableExtra)
 
 i_am("slides/EDUC643_17_modeling.rmd")
 

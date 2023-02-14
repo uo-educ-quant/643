@@ -1,6 +1,6 @@
 ---
 title: "EDUC 643 Assignment 4"
-subtitle: "Continuous relationships and bivariate regression"
+subtitle: "Categorical predictors"
 output: html_document
 ---
 ```{R, setup, include = FALSE}
@@ -22,33 +22,65 @@ Please upload below two files on Canvas:
 1. An .html, .doc(x) or .pdf file that includes your typed responses (in your own words and not identical to anybody else's except your partner), tables, and/or figures to the problems
 2. The .Rmd or .R file that you used to render the tables and figures in the above html/pdf. 
 
-*Polished product*  
+**Please submit a complete memo that includes all figures/tables integrated into the memo, uses full sentences and does not include any code chunks interspersed (you will be graded on this). As a challenge, try to format your tables and figure following [APA 7 guidelines](https://owl.purdue.edu/owl/research_and_citation/apa_style/apa_formatting_and_style_guide/apa_tables_and_figures.html) (you will not be graded on this).** 
 
 
 ### Objectives of this assignment
 
-- 
-
-### 4. Data Background
-
-#### Teacher Professional Development Study (PDS) 
-
-The data set we'll be using for this assignment is drawn from the NCRECE [Teacher Professional Development Study (PDS)](https://www.icpsr.umich.edu/web/ICPSR/studies/34848) data. This study was a randomized controlled evaluation of two forms of professional development (PD) - coursework (phase 1) and consultancy (phase 2) - delivered to about 490 early childhood education teachers across the nation. These PD supports aimed to improve teachers' implementation of language/literacy activities and interactions with children, as well as promote gains in children's social and academic development. 
-
-**Analytic Sample**. Our data set is student-level data for 440 preschool students. Since PDS student outcome data has not been collected during phase 1, we focus on phase 2 intervention. Specifically, the sample students were in phase 1 treatment group and in either the treatment or control group during phase 2. Observations with missing values on any of the key variables were deleted for simplification reasons.
-
-**Key variables**. The data set contains 11 variables, detailed below.
-
- * *childid*, unique identification number for the student
- * *tchid*, unique identification number for the student's teacher
- * *schid*, unique identification number for the student's school
- * *cohort*, coded 1 for cohort 1 students (who started the experiment in spring 08) and 2 for cohort 2 students (who started the experiment in spring 09)
- * *treat*, coded 1 for students in phase 2 treatment group and 0 for those in phase 2 control group
- * *vocabulary*, the student's post phase 2 score on a receptive vocabulary test (Peabody Picture Vocabulary Test-3rd edition) 
- * *female*, coded 1 for female students and 0 for male students
- * *language_eng*, coded 1 for students whose primary language is English and 0 otherwise
- * *disability*, coded 1 for students with a disability and 0 otherwise
- * *ethnicity*, eight-category variable documenting the student's ethnicity
- * *mother_edu*, the student's mother's total years of education
+ * Fit, visualize and interpret bivariate and multiple regression models including categorical predictors
  
-**Download the [pd_stu.csv data set](./data/pd_stu.csv)**
+ * Use ANOVA as a mechanism to conduct an omnibus test of between-group variation
+ 
+ * Use categorical predictors as covariates and use them to plot prototypical values of continuous relationships
+
+### Data Background
+
+#### National Education Resource Database on Schools (NERD$)
+
+As a country, the United States spends approximately $650 billion per year on its K-12 education system. While district-level expenditure data has been available for decades, considerable funding variation exists within districts, as a result of the different experience levels (and therefore salaries) of teachers employed in a school, the specialized services particular schools offer, and targeted efforts to make schools more equitable through differentiated funding. Starting in 2015, the Every Student Succeeds Act began requiring that states report school-level expenditures. Even so, differences in how states report finance data, costs of living and more make cross-state comparisons challenging. The Edunomics Lab at Georgetown University recently launched the National Education Resource Database on Schools (NERD\$), which allows for the first time a fully comparable, cross-state window into school-level spending. It contains rich variables including measures of academic achievement and achievement gaps for school districts and counties, as well as district-level measures of racial and socioeconomic composition, racial and socioeconomic segregation patterns, and other features of the schooling system. More details on the NERD\$ data and ways it has been used to inform policy and practice are available [here](https://edunomicslab.org/nerds/).
+
+**Analytic Sample**. Our data set includes school-level data expenditure data for SY 2018-19 for 1,193 Oregon public schools. This represents nearly the full universe of Oregon public schools, with some restrictions due to data availability. Observations with missing and/or unreliable values on any of the key variables were deleted for simplification reasons.
+
+**Key variables**. The data set contains 14 variables, detailed below.
+
+ * *schoolname*, school name
+ * *ncesid*, school identifier assigned by the National Center for Education Statistics (a department of IES at the U.S. Department of Education)
+ * *ncesdistid_geo*, district identifier, assigned by NCES
+ * *distname*, district name
+ * *level*, level of schooling (0 = Other; 1 = Early Education; 2 = Elementary; 3 = Middle School; 4 = High School)
+ * *ppe*, per-pupil expenditure
+ * *enroll*, total school enrollment
+ * *frpl*, proportion (0-1) of students in school receiving free- or reduced-price meals
+ * *sesavgall*, Census-based SES composite index for all families residing within school district
+ * *lninc50avgall*, Census-based log of median income for all families residing within school district
+ * *baplusavgall*, Census-based Bachelor's degree-plus rate for all adults in families residing within district
+ * *unempavgall*, Census-based unemployment rate for all families residing within district
+ * *snapavgall*, Census-based SNAP receipt rate for all families residing within the district
+ * *locale*, Census-based location of schools attended by majority/plurality of students (Urban, Suburb, Town, Rural)
+ 
+
+### Assignment Details
+
+**Data preparation**: Open your RStudio, create a project and save it. Go to the root directory of the project and create folders named: "Code", "Data", "Figures" and "Tables." Download the [nerds.csv dataset](../data/nerds.csv) and store it in the folder "Data". Create an R script (or .Rmd) file in the Code folder. Read the data into your R environment. You do not need to include this part of the response in your memo; only in your code.
+
+### 1. Descriptive statistics
+
+1.1 Summarize the two categorical variables in your data set ($level$ and $locale$). **(1 point)**
+
+1.2 Create one figure describing how per-pupil expenditures differs across different levels of schooling and another figure showing how per-pupil expenditures differ by schooling locale. Interpret these figures. **(2 points)**
+
+### 2. Do schools that serve different educational grade-band levels spend differing amounts on their students?
+
+2.1 State your null hypothesis regarding the above research question. **(1 point)**
+
+2.2 Test your null hypothesis using the statistical test that most directly *and efficiently* answers the above research question. Interpret the results of this test. **(2 points)**
+
+2.3 State the magnitude by which schools at each of the different grade-bands differ from each other in their per-pupil spending. Select (and justify) the most sensible group to serve as the comparison type of school. **(2 points)**
+
+2.4 High schools are generally understood to have greater resource needs than other K-12 schools due to fundings items such as science laboratories, extra-curriculars and specialized classes. Test whether high schools spend more per-pupil than all other schools and interpret your results. **(1 point)**
+
+### 3. Do schools that educate a larger proportion of students with financial need spend more per student on their education, after accounting for other school-level variation?
+
+3.1 Review the variables you have at your disposal and select a set of substantively sensible (and non multi-collinear) ***continuous*** and ***categorical*** covariates that might explain schools' per-pupil expenditure and help clarify the relationship between $ppe$ and $frpl$. **(1 point)**
+
+3.2 Present a **table** and **plot** characterizing the regression-adjusted relationship between $frpl$ and $ppe$. Substantively interpret these results as you would for an academic journal article. **(2 points)**

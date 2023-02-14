@@ -1,0 +1,149 @@
+---
+title: "Interactions and non-linearity"
+subtitle: "EDUC 643: Unit 5 Part I"
+author: "David D. Liebowitz"
+#date: "`r format(Sys.time(), '%d %B %Y')`"
+output:
+  xaringan::moon_reader:
+    css: ['default', 'uo', 'ki-fonts', 'my_custom.css', 'xaringanthemer.css']
+    # self_contained: true
+    nature:
+      highlightStyle: github
+      highlightLines: true
+      countIncrementalSlides: false
+---
+
+```{R, setup, include = F}
+library(pacman)
+p_load(here, tidyverse, xaringan, knitr, kableExtra, haven, broom, xaringanthemer, reshape2, car, modelsummary)
+
+i_am("slides/EDUC643_13_interactions.Rmd")
+
+
+
+red_pink <- "#e64173"
+turquoise = "#20B2AA"
+orange = "#FFA500"
+red = "#fb6107"
+blue = "#3b3b9a"
+green = "#8bb174"
+grey_light = "#B3B3B3"
+grey_mid = "#7F7F7F"
+grey_dark = "grey20"
+purple = "#6A5ACD"
+slate = "#314f4f"
+
+extra_css <- list(
+  ".red"   = list(color = "red"),
+  ".blue"  =list(color = "blue"),
+  ".red-pink" = list(color= "#e64173"),
+  ".gray" = list(color= "#B3B3B3"),
+  ".purple" = list(color = "purple"),
+  ".orange" = list(color = "#FFA500"),
+  ".small" = list("font-size" = "90%"),
+  ".large" = list("font-size" = "120%"),
+  ".tiny" = list("font-size" = "75%"),
+  ".tiny2" = list("font-size" = "50%"))
+
+
+write_extra_css(css = extra_css, outfile = "my_custom.css")
+
+options(htmltools.dir.version = FALSE)
+
+hook_output <- knit_hooks$get("output")
+knit_hooks$set(output = function(x, options) {
+  lines <- options$output.lines
+  if (is.null(lines)) {
+    return(hook_output(x, options))  # pass to default hook
+  }
+  x <- unlist(strsplit(x, "\n"))
+  more <- "..."
+  if (length(lines)==1) {        # first n lines
+    if (length(x) > lines) {
+      # truncate the output, but add ....
+      x <- c(head(x, lines), more)
+    }
+  } else {
+    x <- c(more, x[lines], more)
+  }
+  # paste these lines together
+  x <- paste(c(x, ""), collapse = "\n")
+  hook_output(x, options)
+})
+
+knitr::opts_chunk$set(warning = FALSE,
+                      message = FALSE,
+                      echo = FALSE,
+                      fig.align = "center",
+                      fig.height = 6.5,
+                      fig.width = 10)
+
+
+```
+
+# Roadmap
+```{r, echo=F, out.width="90%"}
+include_graphics("Roadmap5.jpg")
+
+dibels <- read.csv(here("data/dibels.csv"))
+dibels_long <- read.csv(here("data/dibels_long.csv"))
+
+```
+---
+
+---
+# Goals of the unit
+
+- Describe in writing and verbally the assumptions we violate when we fit a non-linear relationship in a linear model
+- Transform non-linear relationships into linear ones by using logarithmic scales 
+- Estimate regression models using logarithmic scales and interpret the results
+- Describe in writing and verbally the concept of statistical interaction
+- Estimate and interpret regression models with interactions between categorical and continuous predictors
+- Visualize interaction effects graphically
+- Describe statistical power and Type II error challenges resulting from interactions
+- Estimate models with quadratic and higher-order polynomial terms
+
+
+---
+class: middle, inverse
+
+# Interactions: continuous and categorical
+
+---
+class: middle, inverse
+
+# Interactions: continuous and continuous
+
+
+---
+class: middle, inverse
+# Synthesis and wrap-up
+
+---
+### Synthesize interactions & non-linearity
+
+
+---
+# Goals of the unit
+
+- Describe in writing and verbally the assumptions we violate when we fit a non-linear relationship in a linear model
+- Transform non-linear relationships into linear ones by using logarithmic scales 
+- Estimate regression models using logarithmic scales and interpret the results
+- Describe in writing and verbally the concept of statistical interaction
+- Estimate and interpret regression models with interactions between categorical and continuous predictors
+- Visualize interaction effects graphically
+- Describe statistical power and Type II error challenges resulting from interactions
+- Estimate models with quadratic and higher-order polynomial terms
+
+
+---
+# To-Dos
+
+### Reading: 
+- **Finish by **: LSWR Chapter 
+
+### Assignment 4:
+- Due Feb. 28, 11:59pm
+
+### Assignment 5:
+- Due

@@ -87,6 +87,21 @@ Download: [html file](./assignments/assignment_3.html) | [nerds dataset](./data/
 
 #### 3.4. Assignment 4
 
+**Categorical predictors**
+
+Objectives of this assignment:
+
+ * Fit, visualize and interpret bivariate and multiple regression models including categorical predictors
+ 
+ * Use ANOVA as a mechanism to conduct an omnibus test of between-group variation
+ 
+ * Use categorical predictors as covariates and use them to plot prototypical values of continuous relationships
+
+Deadline: Feb. 24, 11:59pm
+
+Download: [html file](./assignments/assignment_4.html) | [nerds dataset](./data/nerds.csv)
+
+
 #### 3.5. Assignment 5
 
 #### 3.6. Final Project
