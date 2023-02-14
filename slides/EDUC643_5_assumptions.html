@@ -149,7 +149,7 @@ At each value of X, there is a distribution of Y. These distributions have a mea
 
 .pull-left[
 1. **Measurement error**: Values of X are non-overlapping
-2. **Linearity**: The mean of each X distribution `\((\mu_{Y|X})\)` can be joined together by a straight line
+2. **Linearity**: The mean of the Y distributions at each value of X `\((\mu_{Y|X})\)` can be joined together by a straight line
 3. **Homoscedasticity**: Variance of each distribution `\((\sigma^2_{Y|X})\)` is identical
 4. **Normality**: At each given value of X, the values of Y are normally distributed
 5. **Independence**: Conditional on values of X, the values of Y are independent of each other
@@ -217,18 +217,18 @@ summary(lm(BMI ~ EDEQ_noise, data=do))
 ## 
 ## Residuals:
 ##     Min      1Q  Median      3Q     Max 
-## -18.340  -3.941  -1.055   2.796  33.290 
+## -18.849  -3.890  -1.089   2.693  33.623 
 ## 
 ## Coefficients:
 ##             Estimate Std. Error t value Pr(&gt;|t|)    
-## (Intercept)  24.2509     0.2560  94.728  &lt; 2e-16 ***
-*## EDEQ_noise    0.8020     0.1275   6.291 4.57e-10 ***
+## (Intercept)  24.1764     0.2559  94.469  &lt; 2e-16 ***
+*## EDEQ_noise    0.8442     0.1259   6.703 3.29e-11 ***
 ## ---
 ## Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
 ## 
-*## Residual standard error: 6.137 on 1083 degrees of freedom
-## Multiple R-squared:  0.03526,	Adjusted R-squared:  0.03436 
-## F-statistic: 39.58 on 1 and 1083 DF,  p-value: 4.569e-10
+*## Residual standard error: 6.122 on 1083 degrees of freedom
+## Multiple R-squared:  0.03983,	Adjusted R-squared:  0.03894 
+## F-statistic: 44.92 on 1 and 1083 DF,  p-value: 3.288e-11
 ```
 
 ---
@@ -505,8 +505,8 @@ modelsummary(fit,
  &lt;thead&gt;
   &lt;tr&gt;
    &lt;th style="text-align:left;"&gt;   &lt;/th&gt;
-   &lt;th style="text-align:center;"&gt; Model 1 &lt;/th&gt;
-   &lt;th style="text-align:center;"&gt; Model 2 &lt;/th&gt;
+   &lt;th style="text-align:center;"&gt;  (1) &lt;/th&gt;
+   &lt;th style="text-align:center;"&gt;   (2) &lt;/th&gt;
   &lt;/tr&gt;
  &lt;/thead&gt;
 &lt;tbody&gt;
@@ -650,8 +650,8 @@ modelsummary(lm_city,
  &lt;thead&gt;
   &lt;tr&gt;
    &lt;th style="text-align:left;"&gt;   &lt;/th&gt;
-   &lt;th style="text-align:center;"&gt; Model 1 &lt;/th&gt;
-   &lt;th style="text-align:center;"&gt; Model 2 &lt;/th&gt;
+   &lt;th style="text-align:center;"&gt;  (1) &lt;/th&gt;
+   &lt;th style="text-align:center;"&gt;   (2) &lt;/th&gt;
   &lt;/tr&gt;
  &lt;/thead&gt;
 &lt;tbody&gt;

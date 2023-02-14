@@ -74,7 +74,7 @@ modelsummary(fit,
              gof_omit = "Adj.|AIC|BIC|Log",
              coef_rename = c("frpl" = "Free- or reduced-price lunch (0-1)"),
              notes = c("Notes: Cells represent coefficients and standard errors in parentheses."),
-             output = "Assignments/keys/assignment_1_table2.docx")
+             output = "assignments/keys/assignment_1_table2.docx")
 
 # 2.6 Can include confidence intervals directly in modelsummary output
 modelsummary(fit, 

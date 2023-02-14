@@ -66,6 +66,8 @@ Deadline: Feb. 3, 11:59pm (but I encourage you to complete by 1/31)
 
 Download: [html file](./assignments/assignment_2.html) | [nerds dataset](./data/nerds.csv)
 
+Key: [doc file](./assignments/keys/assignment_2_key.docx) | [R script](assignments/keys/assignment_2_key.R)
+
 #### 3.3. Assignment 3
 
 **Multiple regression**
