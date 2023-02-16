@@ -410,13 +410,13 @@ The most common process for representing categorical variables in regression is 
 
 In a sample dataset, we could conceive of the dummy coding scheme like this:
 
-|School    |Title I status     |D1 (Schoolwide) |D2 (Targeted) |...
+|School    |Title I status     |D1 (Schoolwide) |D2 (Targeted) |D3 (Missing)
 |------------------------------------------------------------------
-|10001     |Not Title I        |0               |0             |...
-|10002     |Title I schoolwide |1               |0             |...
-|10003     |Title I targeted   |0               |1             |...
-|10004     |Missing            |0               |0             |...
-|10005     |Title I schoolwide |1               |0             |
+|10001     |Not Title I        |0               |0             |0
+|10002     |Title I schoolwide |1               |0             |0
+|10003     |Title I targeted   |0               |1             |0
+|10004     |Missing            |0               |0             |1
+|10005     |Title I schoolwide |1               |0             |0
 
 
 Since "Not Title I" is our reference, we don't create a new column for it (it's implied by 0s in all other groups).
@@ -559,7 +559,7 @@ table(dibels_long$period, exclude=NULL)
 # Polychotomies in regression
 In a regression model, categorical predictors are typically entered in their dummy-coded format:
 
-$$Y = \beta_0 + \beta_1 D_2 + \beta_2 D_3 + \beta_3 D_3+...+ \varepsilon$$
+$$Y = \beta_0 + \beta_1 D_1 + \beta_2 D_2 + \beta_3 D_3+...+ \varepsilon$$
 --
 
 In our four-wave ORF regression, we can think of the equation like this:<sup>1</sup>
@@ -656,7 +656,7 @@ summary(lm(mean_orf ~ relevel(period, ref="y2_boy"), data=dibels_long))
 ## Prediction with categorical variables
 Using the coefficients from our output, we have the following fitted regression equation:
 
-$$\hat{MEAN\_ORF}_{j} = 62.3 + 25.6 (Y1\_MOY_{j}) + (-2.8)(Y2\_BOY)_{j}) + 19.6(Y2\_MOY_{j})$$
+$$\hat{MEAN\_ORF}_{j} = 62.3 + 25.6 (Y1\_MOY_{j}) + (-2.8)(Y2\_BOY_{j}) + 19.6(Y2\_MOY_{j})$$
 .blue[**What is the predicted ORF for school grades in the middle of the 2020-21 school year?**]
 
 --
@@ -667,12 +667,12 @@ For dummy coded variables, we just add the appropriate effects for the group we 
 ---
 # So many tests
 
-|Reference group | Y1_BOY | Y1_MOY | Y2_BOY | Y2_MOY
+|Reference group | Y1_BOY  | Y1_MOY | Y2_BOY | Y2_MOY
 |-------------------------------------------------------
-|**Y1_BOY**      |        | 1      | 2      | 3
-|**Y1_MOY**      | 4      |        | 5      | 6
-|**Y2_BOY**      | 7      | 8      |        | 9
-|**Y2_MOY**      | 10     | 11     | 12     |
+|**Y1_BOY**      |   .     | 1      | 2      | 3
+|**Y1_MOY**      |         |  .     | 4      | 5
+|**Y2_BOY**      |         |        |   .    | 6
+|**Y2_MOY**      |         |        |        | .
 
 .red[**DANGER**]: we're back in the land of multiple hypothesis testing, and we may be inadvertently committing .red-pink[**Type I error**]!
 
