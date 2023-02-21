@@ -147,7 +147,7 @@ Lecture:
 
 Assignment 4:
 
-- Due: Feb. 24, 11:59pm
+- Due: Feb. 27, 9:00am
 - Assignment: [html file](./assignments/assignment_4.html)
 - Data: [nerds.csv](./data/nerds.csv)
 
@@ -181,7 +181,7 @@ Lecture:
 
 Assignment 5:
 
-- Due: March 10, 11:59pm
+- Due: March 8, 11:59pm
 - [assignment]
 - Data: 
 

@@ -99,7 +99,7 @@ Objectives of this assignment:
  
  * Use categorical predictors as covariates and use them to plot prototypical values of continuous relationships
 
-Deadline: Feb. 24, 11:59pm
+Deadline: Feb. 27, 9:00am
 
 Download: [html file](./assignments/assignment_4.html) | [nerds dataset](./data/nerds.csv)
 

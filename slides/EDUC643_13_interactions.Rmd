@@ -707,7 +707,8 @@ class: middle, inverse
 - **Finish by Feb. 28**: LSWR Chapter 16.2
 
 ### Assignment 4:
-- Due Feb. 28, 11:59pm
+- Due Feb. 27, 9:00am
 
 ### Assignment 5:
-- Due Mar. 10, 11:59pm
+- Just on interactions (not non-linearity)
+- Due Mar. 8, 11:59pm
