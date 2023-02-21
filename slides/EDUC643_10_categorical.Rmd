@@ -40,6 +40,7 @@ extra_css <- list(
   ".gray" = list(color= "#B3B3B3"),
   ".purple" = list(color = "purple"),
   ".orange" = list(color = "#FFA500"),
+  ".green" = list(color = "#8bb174"),
   ".small" = list("font-size" = "90%"),
   ".large" = list("font-size" = "120%"),
   ".tiny" = list("font-size" = "75%"),
@@ -1145,7 +1146,7 @@ modelsummary(list(fit1, fit3),
                             "periody1_moy" = "Winter 2020",
                             "periody2_boy" = "Fall 2020",
                             "periody2_moy" = "Winter 2021"),
-            notes=c("Cells report coefficients and heteroscedastic-robust standard errors in parentheses. Each observation is a school-grade-test       value."))
+            notes=c("Cells report coefficients and heteroscedastic-robust standard errors in parentheses. Each observation is a school-grade-test value."))
 
 ```
 
@@ -1356,7 +1357,7 @@ modelsummary(list(fit3, fit4),
 ```
 
 ---
-## Alongside previous results: alternative
+# Alternative format
 ```{r}
 row <- tribble(~term, ~Bivariate, ~Multivariate,
                "<b>Covariates?</b>", "<b>No</b>", "<b>Yes</b>")
@@ -1369,8 +1370,8 @@ modelsummary(list(fit3, fit4),
             coef_rename = c("periody1_moy" = "Winter 2020",
                             "periody2_boy" = "Fall 2020",
                             "periody2_moy" = "Winter 2021"),
-            add_rows = row
-            )
+            add_rows = row,
+            notes=c("Cells report coefficients and heteroscedastic-robust standard errors in parentheses. Each observation is a school-grade-test value. Covariates include grade-level and total school enrollment."))
 
 ```
 

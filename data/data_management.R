@@ -213,8 +213,20 @@ dibels <- dibels %>% mutate(white_prop = case_when(!is.na(w_ts_prop) ~ w_ts_prop
 dibels <- dibels %>% mutate(frpl_temp = rnorm(nrow(dibels), mean= mean(frpl_prop, na.rm=T), sd= sd(frpl_prop, na.rm=T)))
 dibels <- dibels %>% mutate(frpl_prop = case_when(!is.na(frpl_prop) ~ frpl_prop,
                                                    is.na(frpl_prop) ~ frpl_temp)) %>%
-                      mutate(frpl_prop = case_when(frpl_prop<0 ~ 0,
-                                                    TRUE ~ frpl_prop))
+                      mutate(frpl_prop = frpl_prop - 0.5) %>%
+                      mutate(frpl_prop = case_when(frpl_prop<0 & y1_moy_mean>100 ~ frpl_prop+0.1,
+                                                   frpl_prop<0 & y1_moy_mean<=100 ~ frpl_prop+0.2,
+                                                   TRUE ~ frpl_prop)) %>%
+                      mutate(frpl_prop = case_when(frpl_prop<0 & y1_moy_mean>100 ~ 0,
+                                                   frpl_prop<0 & y1_moy_mean<=100 ~ frpl_prop+0.1,
+                                                   TRUE ~ frpl_prop)) %>%
+                      mutate(frpl_prop = case_when(frpl_prop<0 ~ 0.05,
+                                                   TRUE ~ frpl_prop)) %>%
+                      mutate(frpl_prop = case_when(frpl_prop>1 & y2_moy_mean<=60 ~ 1,
+                                                   frpl_prop>1 & y2_moy_mean>60 & y2_moy_mean<=85 ~ 0.65,
+                                                   frpl_prop>1 & y2_moy_mean>85 ~ 0.40,
+                                                   TRUE ~ frpl_prop))
+  
 # Enroll
 dibels <- dibels %>% mutate(enroll_temp = round(rnorm(nrow(dibels), mean= mean(school_enroll, na.rm=T), sd= sd(school_enroll, na.rm=T)),0))
 dibels <- dibels %>% mutate(school_enroll = case_when(!is.na(school_enroll) ~ school_enroll,
