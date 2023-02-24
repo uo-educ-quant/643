@@ -1,6 +1,6 @@
 ---
 title: "Model Building"
-subtitle: "EDUC 643: Unit 5"
+subtitle: "EDUC 643: Unit 6"
 author: "David D. Liebowitz"
 #date: "`r format(Sys.time(), '%d %B %Y')`"
 output:
@@ -18,7 +18,7 @@ output:
 library(pacman)
 p_load(here, tidyverse, xaringan, knitr, kableExtra)
 
-i_am("slides/EDUC643_17_modeling.rmd")
+i_am("slides/EDUC643_19_modeling.rmd")
 
 # Define color
 red_pink <- "#e64173"
