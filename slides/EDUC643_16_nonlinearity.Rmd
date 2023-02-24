@@ -17,7 +17,7 @@ output:
 library(pacman)
 p_load(here, tidyverse, xaringan, knitr, kableExtra, haven, broom, xaringanthemer, reshape2, car, modelsummary)
 
-i_am("slides/EDUC643_15_nonlinearity.Rmd")
+i_am("slides/EDUC643_16_nonlinearity.Rmd")
 
 
 
@@ -108,16 +108,79 @@ class: middle, inverse
 # Non-linearity
 
 ---
-## Relationship between $ and scores?
+# $ and learning
+```{r}
+pisa <- read.csv(here("data/pisa.csv")) %>% select(c("Country", "total_spending", "read_score"))
+pisa$total_spending <- as.numeric(gsub(",", "", pisa$total_spending))
+
+lin <- ggplot(pisa, aes(total_spending, read_score)) + 
+          geom_point() +
+          theme(panel.background = element_rect(fill = 'lightblue', colour = 'lightblue'),
+          plot.background = element_rect(fill = "lightblue"),
+          panel.grid.major = element_blank(), panel.grid.minor = element_blank(),
+          axis.line = element_line(size = .6, colour = "black")) +
+          ylim(300, 600) +
+          ylab("PISA reading score") + xlab("Total spending, age 6-15 ($)") + 
+          scale_x_continuous(label=scales::comma)
+lin
+```
+
+---
+# $ and learning
+```{r}
+lin + 
+      geom_smooth(method='lm', se=F)
+```
+
+---
+# $ and learning
+```{r}
+lm_eqn <- function(pisa){
+    m <- lm(read_score ~ total_spending, pisa);
+    eq <- substitute(italic(y) == a + b %.% italic(x)*","~~italic(r)^2~"="~r2, 
+         list(a = format(unname(coef(m)[1]), digits = 2),
+              b = format(unname(coef(m)[2]), digits = 2),
+             r2 = format(summary(m)$r.squared, digits = 3)))
+    as.character(as.expression(eq));
+}
+
+lin + 
+      geom_smooth(method='lm', se=F) +
+      geom_text(x = 275000, y = 500, label = lm_eqn(pisa), parse=TRUE)
+```
+
+--
+.small[***If assumptions hold***, each $10,000 diff in total spending associated, on average, with 4.3 scale score point difference in reading scores.]
+
+--
+.small[.blue[**But do they?**]]
+
+---
+# Linear?
+```{r, echo=T, fig.height=4}
+# Fit the model
+fit <- lm(read_score ~ total_spending, data=pisa)
+# Generate residual vs fitted plot
+pisa$resid <- resid(fit)
+pisa$fitted <- fitted(fit)
+ggplot(pisa, aes(fitted, resid)) + geom_point() +
+  geom_hline(yintercept = 0, color = "red", linetype="dashed")
+```
+
+---
+```{r}
+include_graphics("pisa_spending.png")
+```
+
+---
+# Make it nice
 ```{r}
 library(ggflags)
 library(countrycode)
-pisa <- read.csv(here("data/pisa.csv")) %>% select(c("Country", "total_spending", "read_score"))
-pisa$total_spending <- as.numeric(gsub(",", "", pisa$total_spending))
 pisa$iso2 <- countrycode::countrycode(pisa$Country, "country.name", "iso2c")
     pisa$iso2 <- tolower(pisa$iso2)
 
-lin <- ggplot(pisa, aes(total_spending, read_score)) + 
+flag <- ggplot(pisa, aes(total_spending, read_score)) + 
     geom_point() + geom_flag(aes(country=iso2), show.legend=F) +
     theme(panel.background = element_rect(fill = 'lightblue', colour = 'lightblue'),
           plot.background = element_rect(fill = "lightblue"),
@@ -126,28 +189,75 @@ lin <- ggplot(pisa, aes(total_spending, read_score)) +
     ylab("PISA reading score") + xlab("Total spending, age 6-15 ($)") + 
     scale_x_continuous(label=scales::comma)
 
-lin
+flag
 ```
 
----
-## Relationship between $ and scores?
-```{r}
-### fix this
-lin +
-    geom_smooth(method='lm', formula = y ~ splines::bs(x))
-
-fit <- lm(read_score ~ total_spending, data=pisa)
-pisa$resid <- resid(fit)
-pisa$fitted <- fitted(fit)
-ggplot(pisa, aes(fitted, resid)) + geom_point()
-```
+--
+At low levels of spending the relationship between ***total_spending*** and ***read_score*** has a big magnitude. At higher levels of spending, it seems much more modest (negative?).
 
 ---
-## Relationship between $ and scores?
+class: middle, inverse
+
+# Logarithmic transformations in X
+
+---
+# Log transformations
+
+
+We can posit a non-linear relationship between X and Y in the population
+Any non-linear relationship implies that the relationship between X and Y is relative, not absolute (the slope is non-constant)
+Transformations allow us to fit non-linear relationship with machinery of linear model
+
+---
+# Log transformations in life
+
+---
+# A log `r emo::ji("wood")` you say??
+
+Expressed as: “Log base 2 of 32 is 5” or “Log base 10 of 1,000 is 3”
+
+Log base anything(1) is = 0
+
+Taking logs is a monotonic transformation, doesn’t change the order
+
+
+---
+# $ and scores?
 ```{r}
-lin +
+flag +
   scale_x_log10(breaks=c(10000, 50000, 100000, 300000), label=scales::comma)
 ```
+
+---
+## Regress reading on log(*total_spending*)
+```{r}
+summary(lm(read_score ~ log(total_spending), data=pisa))
+```
+
+---
+# Conceptually
+
+In ed/dev psych this kind of curve is called “learning curve” –represents standard rate of learning
+More broadly, increasing exponential decay or diminishing marginal returns
+
+---
+# Interpret
+
+---
+class: middle, inverse
+
+# Log transformations in Y
+
+## aka Exponential growth curve
+
+
+---
+class: middle, inverse
+
+# Log-log transformations
+
+## aka proportional growth
+
 
 
 ---
@@ -160,10 +270,27 @@ class: middle, inverse
 
 # Higher-order polynomials
 
+
+---
+# Other approaches
+```{r}
+### fix this
+flag +
+    geom_smooth(method='lm', formula = y ~ splines::bs(x))
+
+
+```
+
 ---
 class: middle, inverse
 # Synthesis and wrap-up
 
+
+---
+# Different models
+
+---
+# Rule of the Bulge
 ---
 ## Putting non-linearity together
 

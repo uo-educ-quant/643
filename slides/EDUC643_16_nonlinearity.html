@@ -4,10 +4,10 @@
     <title>Interactions and non-linearity</title>
     <meta charset="utf-8" />
     <meta name="author" content="David D. Liebowitz" />
-    <script src="EDUC643_15_nonlinearity_files/header-attrs/header-attrs.js"></script>
-    <link href="EDUC643_15_nonlinearity_files/remark-css/default.css" rel="stylesheet" />
-    <link href="EDUC643_15_nonlinearity_files/remark-css/uo.css" rel="stylesheet" />
-    <link href="EDUC643_15_nonlinearity_files/remark-css/ki-fonts.css" rel="stylesheet" />
+    <script src="EDUC643_16_nonlinearity_files/header-attrs/header-attrs.js"></script>
+    <link href="EDUC643_16_nonlinearity_files/remark-css/default.css" rel="stylesheet" />
+    <link href="EDUC643_16_nonlinearity_files/remark-css/uo.css" rel="stylesheet" />
+    <link href="EDUC643_16_nonlinearity_files/remark-css/ki-fonts.css" rel="stylesheet" />
     <link rel="stylesheet" href="my_custom.css" type="text/css" />
     <link rel="stylesheet" href="xaringanthemer.css" type="text/css" />
   </head>
@@ -51,16 +51,126 @@ class: middle, inverse
 # Non-linearity
 
 ---
-## Relationship between $ and scores?
-&lt;img src="EDUC643_15_nonlinearity_files/figure-html/unnamed-chunk-2-1.png" style="display: block; margin: auto;" /&gt;
+# $ and learning
+&lt;img src="EDUC643_16_nonlinearity_files/figure-html/unnamed-chunk-2-1.png" style="display: block; margin: auto;" /&gt;
 
 ---
-## Relationship between $ and scores?
-&lt;img src="EDUC643_15_nonlinearity_files/figure-html/unnamed-chunk-3-1.png" style="display: block; margin: auto;" /&gt;&lt;img src="EDUC643_15_nonlinearity_files/figure-html/unnamed-chunk-3-2.png" style="display: block; margin: auto;" /&gt;
+# $ and learning
+&lt;img src="EDUC643_16_nonlinearity_files/figure-html/unnamed-chunk-3-1.png" style="display: block; margin: auto;" /&gt;
 
 ---
-## Relationship between $ and scores?
-&lt;img src="EDUC643_15_nonlinearity_files/figure-html/unnamed-chunk-4-1.png" style="display: block; margin: auto;" /&gt;
+# $ and learning
+&lt;img src="EDUC643_16_nonlinearity_files/figure-html/unnamed-chunk-4-1.png" style="display: block; margin: auto;" /&gt;
+
+--
+.small[***If assumptions hold***, each $10,000 diff in total spending associated, on average, with 4.3 scale score point difference in reading scores.]
+
+--
+.small[.blue[**But do they?**]]
+
+---
+# Linear?
+
+```r
+# Fit the model
+fit &lt;- lm(read_score ~ total_spending, data=pisa)
+# Generate residual vs fitted plot
+pisa$resid &lt;- resid(fit)
+pisa$fitted &lt;- fitted(fit)
+ggplot(pisa, aes(fitted, resid)) + geom_point() +
+  geom_hline(yintercept = 0, color = "red", linetype="dashed")
+```
+
+&lt;img src="EDUC643_16_nonlinearity_files/figure-html/unnamed-chunk-5-1.png" style="display: block; margin: auto;" /&gt;
+
+---
+&lt;img src="pisa_spending.png" width="1052" style="display: block; margin: auto;" /&gt;
+
+---
+# Make it nice
+&lt;img src="EDUC643_16_nonlinearity_files/figure-html/unnamed-chunk-7-1.png" style="display: block; margin: auto;" /&gt;
+
+--
+At low levels of spending the relationship between ***total_spending*** and ***read_score*** has a big magnitude. At higher levels of spending, it seems much more modest (negative?).
+
+---
+class: middle, inverse
+
+# Logarithmic transformations in X
+
+---
+# Log transformations
+
+
+We can posit a non-linear relationship between X and Y in the population
+Any non-linear relationship implies that the relationship between X and Y is relative, not absolute (the slope is non-constant)
+Transformations allow us to fit non-linear relationship with machinery of linear model
+
+---
+# Log transformations in life
+
+---
+# A log 🌳 you say??
+
+Expressed as: “Log base 2 of 32 is 5” or “Log base 10 of 1,000 is 3”
+
+Log base anything(1) is = 0
+
+Taking logs is a monotonic transformation, doesn’t change the order
+
+
+---
+# $ and scores?
+&lt;img src="EDUC643_16_nonlinearity_files/figure-html/unnamed-chunk-8-1.png" style="display: block; margin: auto;" /&gt;
+
+---
+## Regress reading on log(*total_spending*)
+
+```
+## 
+## Call:
+## lm(formula = read_score ~ log(total_spending), data = pisa)
+## 
+## Residuals:
+##     Min      1Q  Median      3Q     Max 
+## -136.50  -20.83   11.00   22.42   59.11 
+## 
+## Coefficients:
+##                     Estimate Std. Error t value Pr(&gt;|t|)    
+## (Intercept)          -78.035     69.139  -1.129    0.263    
+## log(total_spending)   48.961      6.279   7.798 8.06e-11 ***
+## ---
+## Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
+## 
+## Residual standard error: 35.59 on 63 degrees of freedom
+## Multiple R-squared:  0.4911,	Adjusted R-squared:  0.4831 
+## F-statistic:  60.8 on 1 and 63 DF,  p-value: 8.062e-11
+```
+
+---
+# Conceptually
+
+In ed/dev psych this kind of curve is called “learning curve” –represents standard rate of learning
+More broadly, increasing exponential decay or diminishing marginal returns
+
+---
+# Interpret
+
+---
+class: middle, inverse
+
+# Log transformations in Y
+
+## aka Exponential growth curve
+
+
+---
+class: middle, inverse
+
+# Log-log transformations
+
+## aka proportional growth
+
 
 
 ---
@@ -73,10 +183,21 @@ class: middle, inverse
 
 # Higher-order polynomials
 
+
+---
+# Other approaches
+&lt;img src="EDUC643_16_nonlinearity_files/figure-html/unnamed-chunk-10-1.png" style="display: block; margin: auto;" /&gt;
+
 ---
 class: middle, inverse
 # Synthesis and wrap-up
 
+
+---
+# Different models
+
+---
+# Rule of the Bulge
 ---
 ## Putting non-linearity together
 

@@ -399,6 +399,7 @@ summary(lm(mean_orf ~ period + frpl_prop, dibels_long))
 
 1\. **Create a cross-product term**, which is the product (the interaction) of the two predictors whose interaction you want to test
   + We can create this term by hand or we can ask R to do this for us within our estimating equation
+
 2\. **Include the cross-product in a multiple-regression model** ***alongside the constituent main effects*** of the variables that make up the cross-product term
 
 `$$MEAN\_ORF_j = \beta_0 + \beta_1 FRPL_j + \beta_2 PERIOD_j  + \color{red}{\beta_3 FRPL \times PERIOD_j} + \varepsilon_j$$`
