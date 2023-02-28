@@ -1,6 +1,6 @@
 ---
-title: "EDUC 643 Assignment 4"
-subtitle: "Categorical predictors"
+title: "EDUC 643 Assignment 5"
+subtitle: "Interactions"
 output: html_document
 ---
 ```{R, setup, include = FALSE}
@@ -27,12 +27,9 @@ Please upload below two files on Canvas:
 
 ### Objectives of this assignment
 
- * Fit, visualize and interpret bivariate and multiple regression models including categorical predictors
+ * Fit and interpret statistical interaction models
  
- * Use ANOVA as a mechanism to conduct an omnibus test of between-group variation
- 
- * Use categorical predictors as covariates and use them to plot prototypical values of continuous relationships
- 
+ * Construct plots conveying substantively accessible results of interaction models
 
 ### Data Background
 
@@ -64,24 +61,20 @@ As a country, the United States spends approximately $650 billion per year on it
 
 **Data preparation**: Open your RStudio, create a project and save it. Go to the root directory of the project and create folders named: "Code", "Data", "Figures" and "Tables." Download the [nerds.csv dataset](../data/nerds.csv) and store it in the folder "Data". Create an R script (or .Rmd) file in the Code folder. Read the data into your R environment. You do not need to include this part of the response in your memo; only in your code.
 
-### 1. Descriptive statistics
+### 1. Does the relationship between school spending and school poverty rates differ across school grade-band levels?
 
-1.1 Summarize the two categorical variables in your data set ($level$ and $locale$). **(1 point)**
+1.1 State your null hypothesis regarding the above research question. **(1 point)**
 
-1.2 Create one figure describing how per-pupil expenditures differs across different levels of schooling and another figure showing how per-pupil expenditures differ by schooling locale. Interpret these figures. **(2 points)**
+1.2 Test your null hypothesis and present a table displaying the results of this test. Construct a fitted equation for each school level in order to interpret the results of your analysis. **(2 points)**
 
-### 2. Do schools that serve different educational grade-band levels spend differing amounts on their students?
+1.3 Construct a plot of the (potentially) differing relationship between $ppe$ and $frpl$ by school-grade-band level. Include confidence intervals on the plot. Interpret the plot. **(2 points)**
+
+1.4 Describe how the results of your analysis in these questions differ from your analysis in Questions 2.1 - 2.4 on your previous assignment. **(1 point)**
+
+### 2. Does the relationship between school spending and school poverty rates differ by school size (enrollment)?
 
 2.1 State your null hypothesis regarding the above research question. **(1 point)**
 
-2.2 Test your null hypothesis using the statistical test that most directly *and efficiently* answers the above research question. Interpret the results of this test. **(2 points)**
+2.2 Test your null hypothesis,  present a table displaying the results of this test, and interpret those results **(2 points)**
 
-2.3 State the magnitude by which schools at each of the different grade-bands differ from each other in their per-pupil spending. Select (and justify) the most sensible group to serve as the comparison type of school. **(2 points)**
-
-2.4 High schools are generally understood to have greater resource needs than other K-12 schools due to fundings items such as science laboratories, extra-curriculars and specialized classes. Test whether high schools spend more per-pupil than all other schools and interpret your results. **(1 point)**
-
-### 3. Do schools that educate a larger proportion of students with financial need spend more per student on their education, after accounting for other school-level variation?
-
-3.1 Review the variables you have at your disposal and select a set of substantively sensible (and non multi-collinear) ***continuous*** and ***categorical*** covariates that might explain schools' per-pupil expenditure and help clarify the relationship between $ppe$ and $frpl$. **(1 point)**
-
-3.2 Present a **table** and **plot** characterizing the regression-adjusted relationship between $frpl$ and $ppe$. Substantively interpret these results as you would for an academic journal article. **(2 points)**
+2.3 Select (and justify) some prototypical values of school size for which to display the (potentially) differing relationship between $ppe$ and $frpl$. Construct and interpret a plot of these prototypical values **(3 points)**

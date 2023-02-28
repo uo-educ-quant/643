@@ -175,15 +175,15 @@ Readings:
 Lecture: 
 
 - Class 13-15 (2/21, 2/23 and 2/28) slides: [html](./slides/EDUC643_13_interactions.html) | [pdf](./slides/EDUC643_13_interactions.pdf)
-- Class 15-16 (2/28 and 3/2) slides: [html] | pdf
-- Data: [nerds.csv](./data/nerds.csv)
-- R script: [interactions](./slides/EDUC643_13_code.R)
+- Class 16-18 (3/2, 3/7 and 3/9) slides: [html] | pdf
+- Data: [dibels.csv](./data/dibels.csv) | [pisa.csv] | [oecd_2022.xlsx]
+- R script: [interactions](./slides/EDUC643_13_code.R) | [non-linearity]
 
 Assignment 5:
 
 - Due: March 8, 11:59pm
-- [assignment]
-- Data: 
+- Assignment: [html file](./assignments/assignment_5.html)
+- Data: [nerds.csv](./data/nerds.csv)
 
 
 ## Unit 6: Model building
@@ -207,7 +207,7 @@ Readings:
 
 Lecture: 
 
-- Slides: [html]
+- Class 19-20 slides: [html]
 - Data: 
 - R script: 
 
@@ -215,4 +215,6 @@ Lecture:
 ## Final:
 
 - Due: Mar. 23, 12:01pm
+- Assignment: [html file](./assignments/assignment_6.html)
+- Data: [seda.csv](./data/seda.csv)
 

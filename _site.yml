@@ -44,10 +44,12 @@ navbar:
         #href: ./slides/EDUC643_16_nonlinearity.html
       - text: "17. Non-linearity II"
         #href: ./slides/EDUC643_16_nonlinearity.html
-      - text: "19. Simple imputation and model building"
-        #href: ./slides/EDUC643_17_modeling.html
+      - text: "18. Non-linearity III"
+        #href: ./slides/EDUC643_16_nonlinearity.html
+      - text: "19. Model building"
+        #href: ./slides/EDUC643_19_modeling.html
       - text: "20. Model building"
-        #href:
+        #href: ./slides/EDUC643_19_modeling.html
 
 
   right:

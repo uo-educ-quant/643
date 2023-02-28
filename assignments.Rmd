@@ -106,4 +106,30 @@ Download: [html file](./assignments/assignment_4.html) | [nerds dataset](./data/
 
 #### 3.5. Assignment 5
 
+**Interactions**
+
+Objectives of this assignment:
+
+ * Fit and interpret statistical interaction models
+ 
+ * Construct plots conveying substantively accessible results of interaction models
+ 
+Deadline: March 8, 11:59pm
+
+Download: [html file](./assignments/assignment_5.html) | [nerds dataset](./data/nerds.csv)
+
 #### 3.6. Final Project
+
+**The Works**
+
+Objectives of this assignment:
+
+ * Calculate and interpret descriptive statistics about categorical and continuous quantitative data
+ 
+ * Use the General Linear Model framework to answer relational research questions that are amenable to the use of quantitative methods to respond to these questions
+ 
+ * Using tables, figures and words, interpret the results of your analysis for an academic research audience
+
+Deadline: March 23, 12:01pm
+
+Download: [html file](./assignments/assignment_6.html) | [seda dataset](./data/seda.csv)
