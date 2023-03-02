@@ -41,11 +41,11 @@ navbar:
       - text: "15. Interactions III"
         href: ./slides/EDUC643_13_interactions.html
       - text: "16. Non-linearity I"
-        #href: ./slides/EDUC643_16_nonlinearity.html
+        href: ./slides/EDUC643_16_nonlinearity.html
       - text: "17. Non-linearity II"
-        #href: ./slides/EDUC643_16_nonlinearity.html
+        href: ./slides/EDUC643_16_nonlinearity.html
       - text: "18. Non-linearity III"
-        #href: ./slides/EDUC643_16_nonlinearity.html
+        href: ./slides/EDUC643_16_nonlinearity.html
       - text: "19. Model building"
         #href: ./slides/EDUC643_19_modeling.html
       - text: "20. Model building"

@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="" xml:lang="">
   <head>
-    <title>Interactions and non-linearity</title>
+    <title>Non-linearity</title>
     <meta charset="utf-8" />
     <meta name="author" content="David D. Liebowitz" />
     <script src="EDUC643_16_nonlinearity_files/header-attrs/header-attrs.js"></script>
@@ -16,7 +16,7 @@
 class: center, middle, inverse, title-slide
 
 .title[
-# Interactions and non-linearity
+# Non-linearity
 ]
 .subtitle[
 ## EDUC 643: Unit 5 Part II
@@ -160,7 +160,7 @@ class: middle, inverse
 ]
 
 ---
-# A log 🌳 you say??
+# A log 🌲 you say??
 
 Logs are the function we can perform to "undo" raising a number to a power. If a number is equal to a base raised to a power `\((x = base^{power})\)`, then a logarithim of a given base is the number you would have to raise to that power to get `\(x\)`:
 
@@ -448,7 +448,7 @@ class: middle, inverse
 
 
 ---
-# Which 🌳 to harvest?
+# Which 🌲 to harvest?
 
 - Could theoretically select a log of any base to transform outcome or predictor or both to a linear relationship
 - Much more sensible to restrict yourself to base_10, base_2 or the .red-pink[**natural log**]; comes from Euler's number `\((e)\)`
@@ -640,22 +640,122 @@ Can point upwards or downwards, but **all quadratic relationships are .red-pink[
 &lt;img src="EDUC643_16_nonlinearity_files/figure-html/unnamed-chunk-41-1.png" style="display: block; margin: auto;" /&gt;
 
 --
-Focus only on shape of quadratic within range of data (don't extrapolate negative here)!
+
+.blue[**Which direction will the quadratic line of best fit point?**]
 
 ---
 # A quadratic relationship
 &lt;img src="EDUC643_16_nonlinearity_files/figure-html/unnamed-chunk-42-1.png" style="display: block; margin: auto;" /&gt;
 
+---
+# A quadratic relationship
+&lt;img src="EDUC643_16_nonlinearity_files/figure-html/unnamed-chunk-43-1.png" style="display: block; margin: auto;" /&gt;
+
+--
+We can represent quadratic fits mathematically in generic form: `\(y = \beta_0 + \beta_1 x + \beta_3 x^2\)`.
+
+--
+.blue[**Challenge: what signs will each of the three coefficients take for the above relationship?**]
+
+---
+# Fitting the quadratic
+
+```r
+summary(lm(read_score ~ poly(total_spending, 2), pisa))
+```
+
+```
+...
+## Residuals:
+##     Min      1Q  Median      3Q     Max 
+## -98.511 -15.722   3.806  22.651  59.394 
+## 
+## Coefficients:
+##                          Estimate Std. Error t value Pr(&gt;|t|)    
+## (Intercept)               459.985      3.887 118.327  &lt; 2e-16 ***
+## poly(total_spending, 2)1  177.680     31.341   5.669  4.0e-07 ***
+## poly(total_spending, 2)2 -253.728     31.341  -8.096  2.7e-11 ***
+## ---
+## Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
+## 
+## Residual standard error: 31.34 on 62 degrees of freedom
+## Multiple R-squared:  0.6117,	Adjusted R-squared:  0.5992 
+## F-statistic: 48.84 on 2 and 62 DF,  p-value: 1.834e-13
+...
+```
+
+--
+Fitted equation: `\(\hat{read} = 460.0 + 177.7 * spend - 253.8 * spend^2\)`. 
+
+--
+.blue[**How do our model fit statistics compare to the linear version?**]
+
+---
+# Stay within the lines!
+
+.pull-left[
+&lt;img src="EDUC643_16_nonlinearity_files/figure-html/unnamed-chunk-45-1.png" style="display: block; margin: auto;" /&gt;
+]
+
+.pull-right[
+- Don't extrapolate the shape of the parabola to the left of the y-axis
+- Shouldn't assume it will go up
+]
 
 ---
 class: middle, inverse
 
 # Higher-order polynomials
 
+---
+# Cubics
+.small[We needn't restrict ourselves to transformations to normality to only quadratic relationships. Many relationships, for example are cubic (third-power) in nature.]
+
+.pull-left[
+**Strong cubic**
+&lt;img src="EDUC643_16_nonlinearity_files/figure-html/unnamed-chunk-46-1.png" style="display: block; margin: auto;" /&gt;
+]
+
+--
+
+.pull-right[
+**Our DIBELS data**
+&lt;img src="EDUC643_16_nonlinearity_files/figure-html/unnamed-chunk-47-1.png" style="display: block; margin: auto;" /&gt;
+]
+
+--
+
+`$$\hat{W20\_ORF} = 62.3 + 2230*F19\_ORF + 4.2*F19\_ORF^2 - 182.0 * F19\_ORF^3$$`
+
 
 ---
 # Other approaches
-&lt;img src="EDUC643_16_nonlinearity_files/figure-html/unnamed-chunk-43-1.png" style="display: block; margin: auto;" /&gt;
+
+.pull-left[
+.small[
+There are an infinite number of potentially effective transformations:
+- Squares, cubes, quartic, quintics, ...
+- Square roots, cube roots, fourth roots, ...
+- Logarithms (of any base), antilogarithms
+- Inverses
+- Trigonometric functions
+- Hyperbolic functions
+- Combinations of above...
+]
+]
+
+.pull-right[
+.small[
+Approaches to achieve local linearity:
+- Splines
+- Local estimated scatterplot smoothing (LOESS)
+]
+]
+
+--
+
+**Some emerging issues:**
+&lt;img src="EDUC643_16_nonlinearity_files/figure-html/unnamed-chunk-48-1.png" style="display: block; margin: auto;" /&gt;
 
 ---
 class: middle, inverse
@@ -663,7 +763,29 @@ class: middle, inverse
 
 
 ---
-# Different models
+# Different approaches
+
+.pull-left[
+**Empirical approach**
+.small[
+- Notice presence of non-linearity in relationship
+- Find an *ad-hod* transformation of either the predictor, the outcome, or both that renders the relationship linear
+- Use OLS in the transformed world, and conduct inference there
+- De-transform fitted model to produce sensible plots
+]
+]
+
+--
+
+.pull-right[
+**Theory-driven approach**
+.small[
+- Use theory or knowledge from prior research to postulate a non-linear model
+- Use non-linear regression (`nls` or other estimation packages) (part of the Generalized Linear Model family) to fit the postulated trend in the real world and conduct inference there
+- Interpret parameter estimates directly
+- **We are not learning this**
+]
+]
 
 ---
 # The Ladder and the Bulge
@@ -677,10 +799,27 @@ class: middle, inverse
 .red-pink[**Tukey's Bulge**]
 &lt;img src="tukey_bulge.png" width="733" style="display: block; margin: auto;" /&gt;
 ]
+
 ---
 ## Putting non-linearity together
-
-
+.small[
+- **Remember to check your linearity assumption**
+   + Use bivariate scatter plots
+   + Use residual and Q-Q plots to diagnose
+- **Make sensible transformations**
+   + Logarithmic, inverse, root and other functions can allow a return to a world of linearity and permit you to use the GLM tools of OLS to estimate non-linear relationships
+   + Best to use transformations that are the most straightforward to interpret
+   + Use Tukey's Bulge to guide what kind of transformation you will attempt
+   + There is no one "right" transformation for a given data shape
+   + Start with transforming x before y
+   + Do **NOT** use a "start" to log transform data that includes 0s
+   + Inspect scatter plots post-transformation to check for success in linearizing
+      - With large data, can be hard to see; consider binscatter options (by hand or `binsreg`)
+- **Predictors can interact with themselves**
+   + Quadratic and cubic models provide a flexible strategy for fitting non-linear models, especially those that cannot be linearized by logarithms
+   + Be careful about overfitting and model instability with polynomials of order &gt;3!
+   + Quadratics and logs will often produce similar fitted lines; quadratic allows direct statistical test for non-linearity, logarithm may fit with theory better and/or can be more readily interpretable
+]
 ---
 # Goals of the unit
 
@@ -696,14 +835,11 @@ class: middle, inverse
 ---
 # To-Dos
 
-### Reading: 
-- **Finish by **: LSWR Chapter 
-
-### Assignment 4:
-- Due Feb. 28, 11:59pm
-
 ### Assignment 5:
-- Due
+- Due March 8, 11:59p
+
+### Final
+- Due March 23, 12:01p
     </textarea>
 <style data-target="print-only">@media screen {.remark-slide-container{display:block;}.remark-slide-scaler{box-shadow:none;}}</style>
 <script src="https://remarkjs.com/downloads/remark-latest.min.js"></script>

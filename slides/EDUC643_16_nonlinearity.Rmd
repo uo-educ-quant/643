@@ -1,5 +1,5 @@
 ---
-title: "Interactions and non-linearity"
+title: "Non-linearity"
 subtitle: "EDUC 643: Unit 5 Part II"
 author: "David D. Liebowitz"
 #date: "`r format(Sys.time(), '%d %B %Y')`"
@@ -85,8 +85,6 @@ knitr::opts_chunk$set(warning = FALSE,
 ```{r, echo=F, out.width="90%"}
 include_graphics("Roadmap5.jpg")
 
-dibels <- read.csv(here("data/dibels.csv"))
-dibels_long <- read.csv(here("data/dibels_long.csv"))
 
 ```
 
@@ -854,31 +852,138 @@ flag
 ```
 
 --
-Focus only on shape of quadratic within range of data (don't extrapolate negative here)!
+
+.blue[**Which direction will the quadratic line of best fit point?**]
 
 ---
 # A quadratic relationship
 ```{r}
 flag + 
-  geom_smooth(method='lm', formula = read_score ~ poly(total_spending, 2))
+  geom_smooth(method='lm', formula = y ~ x + poly(x, 2), se=F)
 
 ```
 
+---
+# A quadratic relationship
+```{r}
+flag + 
+  geom_smooth(method='lm', formula = y ~ x + poly(x, 2))
+
+```
+
+--
+We can represent quadratic fits mathematically in generic form: $y = \beta_0 + \beta_1 x + \beta_3 x^2$.
+
+--
+.blue[**Challenge: what signs will each of the three coefficients take for the above relationship?**]
+
+---
+# Fitting the quadratic
+```{r, echo=T, output.lines=-c(1:4)}
+summary(lm(read_score ~ poly(total_spending, 2), pisa))
+```
+
+--
+Fitted equation: $\hat{read} = 460.0 + 177.7 * spend - 253.8 * spend^2$. 
+
+--
+.blue[**How do our model fit statistics compare to the linear version?**]
+
+---
+# Stay within the lines!
+
+.pull-left[
+```{r}
+set.seed(123)
+x <- seq(0, 100)
+y1 <- x^2 + rnorm(length(x), 0, 1000)
+quad <- cbind.data.frame(x, y1)
+
+
+ggplot(quad, aes(x, y1)) +
+          geom_point() +
+          theme_minimal(base_size = 14) +
+          theme(axis.title.x = element_blank(), axis.title.y = element_blank(), axis.text.y = element_blank())
+```
+]
+
+.pull-right[
+- Don't extrapolate the shape of the parabola to the left of the y-axis
+- Shouldn't assume it will go up
+]
 
 ---
 class: middle, inverse
 
 # Higher-order polynomials
 
+---
+# Cubics
+.small[We needn't restrict ourselves to transformations to normality to only quadratic relationships. Many relationships, for example are cubic (third-power) in nature.]
+
+.pull-left[
+**Strong cubic**
+```{r}
+set.seed(123)
+x <- seq(-100, 100)
+y1 <- x^3 + rnorm(length(x), 0, 1000)
+quad <- cbind.data.frame(x, y1)
+
+ggplot(quad, aes(x, y1)) +
+          geom_point() +
+          theme_minimal(base_size = 20) +
+          theme(axis.title.x = element_blank(), axis.title.y = element_blank(), axis.text.y = element_blank()) 
+```
+]
+
+--
+
+.pull-right[
+**Our DIBELS data**
+```{r}
+dibels <- read.csv(here("data/dibels.csv"))
+ggplot(dibels, aes(y1_boy_mean, y2_moy_mean)) +
+        theme_minimal(base_size = 16) +
+        geom_point(alpha=0.1) +
+        geom_smooth(method='lm', formula = y ~ poly(x, 3))
+```
+]
+
+--
+
+$$\hat{W20\_ORF} = 62.3 + 2230*F19\_ORF + 4.2*F19\_ORF^2 - 182.0 * F19\_ORF^3$$
+
 
 ---
 # Other approaches
-```{r}
-### fix this
+
+.pull-left[
+.small[
+There are an infinite number of potentially effective transformations:
+- Squares, cubes, quartic, quintics, ...
+- Square roots, cube roots, fourth roots, ...
+- Logarithms (of any base), antilogarithms
+- Inverses
+- Trigonometric functions
+- Hyperbolic functions
+- Combinations of above...
+]
+]
+
+.pull-right[
+.small[
+Approaches to achieve local linearity:
+- Splines
+- Local estimated scatterplot smoothing (LOESS)
+]
+]
+
+--
+
+**Some emerging issues:**
+```{r, fig.height=3.5}
 flag +
     geom_smooth(method='lm', formula = y ~ splines::bs(x))
-
-
 ```
 
 ---
@@ -887,7 +992,29 @@ class: middle, inverse
 
 
 ---
-# Different models
+# Different approaches
+
+.pull-left[
+**Empirical approach**
+.small[
+- Notice presence of non-linearity in relationship
+- Find an *ad-hod* transformation of either the predictor, the outcome, or both that renders the relationship linear
+- Use OLS in the transformed world, and conduct inference there
+- De-transform fitted model to produce sensible plots
+]
+]
+
+--
+
+.pull-right[
+**Theory-driven approach**
+.small[
+- Use theory or knowledge from prior research to postulate a non-linear model
+- Use non-linear regression (`nls` or other estimation packages) (part of the Generalized Linear Model family) to fit the postulated trend in the real world and conduct inference there
+- Interpret parameter estimates directly
+- **We are not learning this**
+]
+]
 
 ---
 # The Ladder and the Bulge
@@ -905,10 +1032,27 @@ include_graphics("tukey_ladder.png")
 include_graphics("tukey_bulge.png")
 ```
 ]
+
 ---
 ## Putting non-linearity together
-
-
+.small[
+- **Remember to check your linearity assumption**
+   + Use bivariate scatter plots
+   + Use residual and Q-Q plots to diagnose
+- **Make sensible transformations**
+   + Logarithmic, inverse, root and other functions can allow a return to a world of linearity and permit you to use the GLM tools of OLS to estimate non-linear relationships
+   + Best to use transformations that are the most straightforward to interpret
+   + Use Tukey's Bulge to guide what kind of transformation you will attempt
+   + There is no one "right" transformation for a given data shape
+   + Start with transforming x before y
+   + Do **NOT** use a "start" to log transform data that includes 0s
+   + Inspect scatter plots post-transformation to check for success in linearizing
+      - With large data, can be hard to see; consider binscatter options (by hand or `binsreg`)
+- **Predictors can interact with themselves**
+   + Quadratic and cubic models provide a flexible strategy for fitting non-linear models, especially those that cannot be linearized by logarithms
+   + Be careful about overfitting and model instability with polynomials of order >3!
+   + Quadratics and logs will often produce similar fitted lines; quadratic allows direct statistical test for non-linearity, logarithm may fit with theory better and/or can be more readily interpretable
+]
 ---
 # Goals of the unit
 
@@ -924,11 +1068,8 @@ include_graphics("tukey_bulge.png")
 ---
 # To-Dos
 
-### Reading: 
-- **Finish by **: LSWR Chapter 
-
-### Assignment 4:
-- Due Feb. 28, 11:59pm
-
 ### Assignment 5:
-- Due
+- Due March 8, 11:59p
+
+### Final
+- Due March 23, 12:01p
