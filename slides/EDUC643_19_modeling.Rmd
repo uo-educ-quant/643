@@ -57,7 +57,6 @@ include_graphics("Roadmap6.jpg")
 ---
 # Unit goals
 
-
 - Translate research questions into question predictors, covariates, outcomes and rival hypothesis predictors
 - Develop work processes to address real life data which contain large number of predictors
 - Build a logical and sequential taxonomy of fitted regression models
@@ -70,3 +69,42 @@ include_graphics("Roadmap6.jpg")
 class: middle, inverse
 
 # Taxonomies of regression models
+
+
+---
+# "Controlling for race" [sic]
+
+.small[
+> "*Model selection*: Think about why you are choosing certain variables to include in your model. A model can tell you how much variation is ‘explained’ by the variables you included, but it will not select the variables for you and each variable is not hermetically sealed from the rest of the world. For example, a model might include variables that control for Socio-economic Status (SES) and/or prior achievement. Remember that SES and prior achievement do not exist independent of racism. Students of color are generally overrepresented in lowresourced schools and tracks, and students in under-resourced schools have less experienced teachers, lower expectations, few role-models, among other inhibiting circumstances (Heitzeg, 2016; Brown, 2014). Thus, when you control for prior achievement and/or SES you can also think of it in a sense as ‘controlling’ for racist systems. In the UK, quantitative research that controls for ‘prior achievement’ at the age of eleven has been criticized for essentially disguising the effects of racism in early years education and elementary schooling and presenting it as if it is a deficit of the individual child, rather than an effect of the system (CRRE, 2021; Gillborn 2010)." <br> <br> - Castillo, W. & Gillborn, D. (2022). How to "QuantCrit": Practices and questions for education data researchers and users. (EdWorkingPapers: 22-546). Retrieved from Annenberg Institute at Brown University.
+]
+---
+# Mediation analysis
+
+
+---
+# Habits of mind
+
+### Currently
+- Solid understanding of affordances and limitations of applied regression modeling
+- Appreciation for the model’s flexibility
+- Learn how to link methods and substance: **how to think like a empirical researcher**
+- Importance of accessibly communicating quantitative findings to multiple audiences
+
+### Going forward
+- You never need believe someone's findings without evaluating their methodology
+- You won't just skim over methods sections in academic papers
+- You may consider how these statistical methods can be used in your substantive areas of interest to address important topics
+
+---
+# To-Dos
+
+### Final
+- Due March 23, 12:01p
+
+### Re- (late) submissions
+- Everything due March 17, 9:00a (no exceptions)
+- Assignments with scores <10.8 only
+- Earn up to 10.8
+
+---
+# Closing thoughts

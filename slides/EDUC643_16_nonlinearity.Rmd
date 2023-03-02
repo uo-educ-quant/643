@@ -91,14 +91,11 @@ include_graphics("Roadmap5.jpg")
 ---
 # Goals of the unit
 
-- Describe in writing and verbally the assumptions we violate when we fit a non-linear relationship in a linear model
+- Describe in writing and verbally the assumptions we violate when we fit a non-linear relationship with a linear model
 - Transform non-linear relationships into linear ones by using logarithmic scales 
 - Estimate regression models using logarithmic scales and interpret the results
-- Describe in writing and verbally the concept of statistical interaction
-- Estimate and interpret regression models with interactions between categorical and continuous predictors
-- Visualize interaction effects graphically
-- Describe statistical power and Type II error challenges resulting from interactions
-- Estimate models with quadratic and higher-order polynomial terms
+- Estimate models with quadratic and higher-order polynomial terms (special kinds of interactions)
+- Select between transformation options
 
 ---
 class: middle, inverse
@@ -909,7 +906,7 @@ ggplot(quad, aes(x, y1)) +
 
 .pull-right[
 - Don't extrapolate the shape of the parabola to the left of the y-axis
-- Shouldn't assume it will go up
+- Shouldn't assume the y values will be higher to the left of the y-axis
 ]
 
 ---
@@ -919,7 +916,7 @@ class: middle, inverse
 
 ---
 # Cubics
-.small[We needn't restrict ourselves to transformations to normality to only quadratic relationships. Many relationships, for example are cubic (third-power) in nature.]
+.small[We needn't restrict ourselves to transformations to normality to only quadratic relationships. Many relationships, for example are cubic (third-power) in nature. Particularly true when there are measurement issues in the tails and/or floor/ceiling effects.]
 
 .pull-left[
 **Strong cubic**
@@ -1012,7 +1009,7 @@ class: middle, inverse
 - Use theory or knowledge from prior research to postulate a non-linear model
 - Use non-linear regression (`nls` or other estimation packages) (part of the Generalized Linear Model family) to fit the postulated trend in the real world and conduct inference there
 - Interpret parameter estimates directly
-- **We are not learning this**
+- **We are not learning how to do this, but worth exploring yourself**
 ]
 ]
 
@@ -1056,14 +1053,11 @@ include_graphics("tukey_bulge.png")
 ---
 # Goals of the unit
 
-- Describe in writing and verbally the assumptions we violate when we fit a non-linear relationship in a linear model
+- Describe in writing and verbally the assumptions we violate when we fit a non-linear relationship with a linear model
 - Transform non-linear relationships into linear ones by using logarithmic scales 
 - Estimate regression models using logarithmic scales and interpret the results
-- Describe in writing and verbally the concept of statistical interaction
-- Estimate and interpret regression models with interactions between categorical and continuous predictors
-- Visualize interaction effects graphically
-- Describe statistical power and Type II error challenges resulting from interactions
-- Estimate models with quadratic and higher-order polynomial terms
+- Estimate and interpret models with quadratic and higher-order polynomial terms (special kinds of interactions)
+- Select between transformation options
 
 ---
 # To-Dos
@@ -1073,3 +1067,8 @@ include_graphics("tukey_bulge.png")
 
 ### Final
 - Due March 23, 12:01p
+
+### Re- (late) submissions
+- Everything due March 17, 9:00a (no exceptions)
+- Assignments with scores <10.8 only
+- Earn up to 10.8
