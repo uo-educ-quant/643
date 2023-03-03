@@ -448,7 +448,6 @@ log <- ggplot(pisa, aes(total_spending, read_score)) +
 log
 ```
 
-$$10^{\hat{READ}_j} = 10^{-78.03} + SPEND_{j}^{112.74}$$
 
 $$\hat{READ}_j = -78.03 + 112.74 \times \text{log}_{10}(SPEND_j)$$
 
@@ -887,10 +886,28 @@ Fitted equation: $\hat{read} = 460.0 + 177.7 * spend - 253.8 * spend^2$.
 .blue[**How do our model fit statistics compare to the linear version?**]
 
 ---
-# Stay within the lines!
+# The "right" fit to data
 
 .pull-left[
 ```{r}
+pisa2 <- read.csv(here("data/pisa.csv")) %>% 
+            select(c("Country", "total_spending", "read_score")) %>% filter(Country!="Qatar" & Country!="Luxembourg")
+pisa2$total_spending <- as.numeric(gsub(",", "", pisa2$total_spending))
+
+pisa2$iso2 <- countrycode::countrycode(pisa2$Country, "country.name", "iso2c")
+    pisa2$iso2 <- tolower(pisa2$iso2)
+
+ggplot(pisa2, aes(total_spending, read_score)) + 
+    geom_point() + geom_flag(aes(country=iso2), show.legend=F) +
+    theme(panel.background = element_rect(fill = 'lightblue', colour = 'lightblue'),
+          plot.background = element_rect(fill = "lightblue"),
+          panel.grid.major = element_blank(), panel.grid.minor = element_blank(),
+          axis.line = element_line(size = .6, colour = "black")) +
+    ylim(300,600) +
+    ylab("PISA reading score") + xlab("Total spending, age 6-15 ($)") + 
+    scale_x_continuous(label=scales::comma) +
+    geom_smooth(method='lm', formula = y ~ x + poly(x, 2))
+
 set.seed(123)
 x <- seq(0, 100)
 y1 <- x^2 + rnorm(length(x), 0, 1000)
@@ -904,9 +921,17 @@ ggplot(quad, aes(x, y1)) +
 ```
 ]
 
+.small[
 .pull-right[
+- A declining relationship between spending and performance doesn't make much substantive sense, so we would probably not use a quadratic fit for our full data
+- However, without Qatar and Luxembourg, a quadratic describes the relationship quite nicely
+
+<br>
+<br>
+
 - Don't extrapolate the shape of the parabola to the left of the y-axis
 - Shouldn't assume the y values will be higher to the left of the y-axis
+]
 ]
 
 ---

@@ -157,7 +157,7 @@ class: middle, inverse
 ]
 
 ---
-# A log 🌲 you say??
+# A log 🌳 you say??
 
 Logs are the function we can perform to "undo" raising a number to a power. If a number is equal to a base raised to a power `\((x = base^{power})\)`, then a logarithim of a given base is the number you would have to raise to that power to get `\(x\)`:
 
@@ -314,7 +314,6 @@ summary(lm(read_score ~ log10(total_spending), data=pisa))
 .pull-right[
 &lt;img src="EDUC643_16_nonlinearity_files/figure-html/unnamed-chunk-21-1.png" style="display: block; margin: auto;" /&gt;
 
-`$$10^{\hat{READ}_j} = 10^{-78.03} + SPEND_{j}^{112.74}$$`
 
 `$$\hat{READ}_j = -78.03 + 112.74 \times \text{log}_{10}(SPEND_j)$$`
 
@@ -688,15 +687,23 @@ Fitted equation: `\(\hat{read} = 460.0 + 177.7 * spend - 253.8 * spend^2\)`.
 .blue[**How do our model fit statistics compare to the linear version?**]
 
 ---
-# Stay within the lines!
+# The "right" fit to data
 
 .pull-left[
-&lt;img src="EDUC643_16_nonlinearity_files/figure-html/unnamed-chunk-45-1.png" style="display: block; margin: auto;" /&gt;
+&lt;img src="EDUC643_16_nonlinearity_files/figure-html/unnamed-chunk-45-1.png" style="display: block; margin: auto;" /&gt;&lt;img src="EDUC643_16_nonlinearity_files/figure-html/unnamed-chunk-45-2.png" style="display: block; margin: auto;" /&gt;
 ]
 
+.small[
 .pull-right[
+- A declining relationship between spending and performance doesn't make much substantive sense, so we would probably not use a quadratic fit for our full data
+- However, without Qatar and Luxembourg, a quadratic describes the relationship quite nicely
+
+&lt;br&gt;
+&lt;br&gt;
+
 - Don't extrapolate the shape of the parabola to the left of the y-axis
 - Shouldn't assume the y values will be higher to the left of the y-axis
+]
 ]
 
 ---
