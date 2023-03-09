@@ -157,7 +157,7 @@ class: middle, inverse
 ]
 
 ---
-# A log 🌳 you say??
+# A log 🌲 you say??
 
 Logs are the function we can perform to "undo" raising a number to a power. If a number is equal to a base raised to a power `\((x = base^{power})\)`, then a logarithim of a given base is the number you would have to raise to that power to get `\(x\)`:
 
@@ -197,7 +197,7 @@ Each 1 unit increase in a base-10 logarithm represents a 10-fold increase in `\(
 Can have logarithms of different base.
 
 ---
-# A log 🌳 you say??
+# A log 🌲 you say??
 
 Logs are the function we can perform to "undo" raising a number to a power. If a number is equal to a base raised to a power `\((x = base^{power})\)`, then a logarithim of a given base is the number you would have to raise to that power to get `\(x\)`:
 
@@ -353,7 +353,7 @@ class: middle, inverse
 ---
 # An alternative model
 
-The relationship of GDP and PPE are relative to their respective values. The relationship has a higher magnitude when GDP per capita is smaller and a smaller magnitude when GDP per capita is smaller.
+The relationship of GDP and PPE are relative to their respective values. The relationship has a smaller magnitude when GDP per capita is smaller and a larger magnitude when GDP per capita is larger.
 
 --
 Can use a log transformation to capture the non-absolute (non-constant) nature of the slope:
@@ -444,7 +444,7 @@ class: middle, inverse
 
 
 ---
-# Which 🌲 to harvest?
+# Which 🌳 to harvest?
 
 - Could theoretically select a log of any base to transform outcome or predictor or both to a linear relationship
 - Much more sensible to restrict yourself to base_10, base_2 or the .red-pink[**natural log**]; comes from Euler's number `\((e)\)`
@@ -773,7 +773,7 @@ class: middle, inverse
 **Empirical approach**
 .small[
 - Notice presence of non-linearity in relationship
-- Find an *ad-hod* transformation of either the predictor, the outcome, or both that renders the relationship linear
+- Find an *ad-hoc* transformation of either the predictor, the outcome, or both that renders the relationship linear
 - Use OLS in the transformed world, and conduct inference there
 - De-transform fitted model to produce sensible plots
 ]
@@ -785,7 +785,7 @@ class: middle, inverse
 **Theory-driven approach**
 .small[
 - Use theory or knowledge from prior research to postulate a non-linear model
-- Use non-linear regression (`nls` or other estimation packages) (part of the Generalized Linear Model family) to fit the postulated trend in the real world and conduct inference there
+- Use non-linear regression (`nls` or other estimation packages) (part of the .red-pink[**Generalized Linear Model**] family) to fit the postulated trend in the real world and conduct inference there
 - Interpret parameter estimates directly
 - **We are not learning how to do this, but worth exploring yourself**
 ]
@@ -816,13 +816,13 @@ class: middle, inverse
    + Use Tukey's Bulge to guide what kind of transformation you will attempt
    + There is no one "right" transformation for a given data shape
    + Start with transforming x before y
-   + Do **NOT** use a "start" to log transform data that includes 0s
+   + Generally, do **not** use a "start" to log transform data that includes 0s
    + Inspect scatter plots post-transformation to check for success in linearizing
       - With large data, can be hard to see; consider binscatter options (by hand or `binsreg`)
 - **Predictors can interact with themselves**
    + Quadratic and cubic models provide a flexible strategy for fitting non-linear models, especially those that cannot be linearized by logarithms
    + Be careful about overfitting and model instability with polynomials of order &gt;3!
-   + Quadratics and logs will often produce similar fitted lines; quadratic allows direct statistical test for non-linearity, logarithm may fit with theory better and/or can be more readily interpretable
+   + Quadratics and logs will often produce [similar fitted lines](https://daviddliebowitz.github.io/EDUC643_23W/slides/EDUC643_16_nonlinearity.html#95); quadratic allows direct statistical test for non-linearity, logarithm may fit with theory better and/or can be more readily interpretable
 ]
 ---
 # Goals of the unit
@@ -846,6 +846,10 @@ class: middle, inverse
 - Everything due March 17, 9:00a (no exceptions)
 - Assignments with scores &lt;10.8 only
 - Earn up to 10.8
+
+---
+# Log vs. quadratic
+&lt;img src="EDUC643_16_nonlinearity_files/figure-html/unnamed-chunk-51-1.png" style="display: block; margin: auto;" /&gt;
     </textarea>
 <style data-target="print-only">@media screen {.remark-slide-container{display:block;}.remark-slide-scaler{box-shadow:none;}}</style>
 <script src="https://remarkjs.com/downloads/remark-latest.min.js"></script>

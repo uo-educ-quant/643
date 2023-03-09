@@ -511,7 +511,7 @@ ppe +
 ---
 # An alternative model
 
-The relationship of GDP and PPE are relative to their respective values. The relationship has a higher magnitude when GDP per capita is smaller and a smaller magnitude when GDP per capita is smaller.
+The relationship of GDP and PPE are relative to their respective values. The relationship has a smaller magnitude when GDP per capita is smaller and a larger magnitude when GDP per capita is larger.
 
 --
 Can use a log transformation to capture the non-absolute (non-constant) nature of the slope:
@@ -1020,7 +1020,7 @@ class: middle, inverse
 **Empirical approach**
 .small[
 - Notice presence of non-linearity in relationship
-- Find an *ad-hod* transformation of either the predictor, the outcome, or both that renders the relationship linear
+- Find an *ad-hoc* transformation of either the predictor, the outcome, or both that renders the relationship linear
 - Use OLS in the transformed world, and conduct inference there
 - De-transform fitted model to produce sensible plots
 ]
@@ -1032,7 +1032,7 @@ class: middle, inverse
 **Theory-driven approach**
 .small[
 - Use theory or knowledge from prior research to postulate a non-linear model
-- Use non-linear regression (`nls` or other estimation packages) (part of the Generalized Linear Model family) to fit the postulated trend in the real world and conduct inference there
+- Use non-linear regression (`nls` or other estimation packages) (part of the .red-pink[**Generalized Linear Model**] family) to fit the postulated trend in the real world and conduct inference there
 - Interpret parameter estimates directly
 - **We are not learning how to do this, but worth exploring yourself**
 ]
@@ -1067,13 +1067,13 @@ include_graphics("tukey_bulge.png")
    + Use Tukey's Bulge to guide what kind of transformation you will attempt
    + There is no one "right" transformation for a given data shape
    + Start with transforming x before y
-   + Do **NOT** use a "start" to log transform data that includes 0s
+   + Generally, do **not** use a "start" to log transform data that includes 0s
    + Inspect scatter plots post-transformation to check for success in linearizing
       - With large data, can be hard to see; consider binscatter options (by hand or `binsreg`)
 - **Predictors can interact with themselves**
    + Quadratic and cubic models provide a flexible strategy for fitting non-linear models, especially those that cannot be linearized by logarithms
    + Be careful about overfitting and model instability with polynomials of order >3!
-   + Quadratics and logs will often produce similar fitted lines; quadratic allows direct statistical test for non-linearity, logarithm may fit with theory better and/or can be more readily interpretable
+   + Quadratics and logs will often produce [similar fitted lines](https://daviddliebowitz.github.io/EDUC643_23W/slides/EDUC643_16_nonlinearity.html#95); quadratic allows direct statistical test for non-linearity, logarithm may fit with theory better and/or can be more readily interpretable
 ]
 ---
 # Goals of the unit
@@ -1097,3 +1097,22 @@ include_graphics("tukey_bulge.png")
 - Everything due March 17, 9:00a (no exceptions)
 - Assignments with scores <10.8 only
 - Earn up to 10.8
+
+---
+# Log vs. quadratic
+```{r}
+ggplot(pisa2, aes(total_spending, read_score)) + 
+    geom_point() + geom_flag(aes(country=iso2), show.legend=F) +
+    theme(panel.background = element_rect(fill = 'lightblue', colour = 'lightblue'),
+          plot.background = element_rect(fill = "lightblue"),
+          panel.grid.major = element_blank(), panel.grid.minor = element_blank(),
+          axis.line = element_line(size = .6, colour = "black")) +
+    ylim(300,600) +
+    ylab("PISA reading score") + xlab("Total spending, age 6-15 ($)") + 
+    scale_x_continuous(label=scales::comma) +
+    geom_smooth(method='lm', formula = y ~ x + poly(x, 2), color='red', se=F) +
+    geom_smooth(method='lm', formula = y ~ log(x), color='black', se=F) +
+    annotate('text', x = 140000, y = 530, label = "Log_10 fit", color='black') +
+    annotate('text', x = 140000, y = 470, label = "Quadratic fit", color='red')
+
+```
