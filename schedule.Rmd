@@ -207,9 +207,7 @@ Readings:
 
 Lecture: 
 
-- Class 19-20 slides: [html]
-- Data: 
-- R script: 
+- Class 19-20 slides: [html](./slides/EDUC643_19_modeling.html) | [pdf](./slides/EDUC643_19_modeling.pdf)
 
 
 ## Final:

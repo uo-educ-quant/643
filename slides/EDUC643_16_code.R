@@ -177,10 +177,10 @@ summary(lm(log(ppe) ~ log(gdp), oecd2))
 
 # Graphing a quadratic
 flag + 
-  geom_smooth(method='lm', formula = y ~ x + poly(x, 2))
+  geom_smooth(method='lm', formula = y ~ x + I(x^2))
 
 # Estimating a quadratic 
-summary(lm(read_score ~ poly(total_spending, 2), pisa))
+summary(lm(read_score ~ total_spending + I(total_spending^2), pisa))
 
 #### Graphing a cubic
 # Bring in the DIBELS data
@@ -190,4 +190,4 @@ dibels <- read.csv(here("data/dibels.csv"))
 ggplot(dibels, aes(y1_boy_mean, y2_moy_mean)) +
   theme_minimal(base_size = 16) +
   geom_point(alpha=0.1) +
-  geom_smooth(method='lm', formula = y ~ poly(x, 3))
+  geom_smooth(method='lm', formula = y ~ x + I(x^2) + I(x^3))

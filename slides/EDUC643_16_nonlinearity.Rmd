@@ -835,7 +835,7 @@ gridExtra::grid.arrange(g1, g2, nrow = 1)
 Effects of a predictor can differ by that predictor:
 $$Y = \beta_0 + \beta_1 X_1 + \beta_2 (X_1 * X_1) + \varepsilon$$
 
-$$Y = \beta_0 + \beta_1 X_1 + \beta_2 X_1^2) + \varepsilon$$
+$$Y = \beta_0 + \beta_1 X_1 + \beta_2 X_1^2 + \varepsilon$$
 
 --
 
@@ -855,7 +855,7 @@ flag
 # A quadratic relationship
 ```{r}
 flag + 
-  geom_smooth(method='lm', formula = y ~ x + poly(x, 2), se=F)
+  geom_smooth(method='lm', formula = y ~ x + I(x^2), se=F)
 
 ```
 
@@ -863,24 +863,24 @@ flag +
 # A quadratic relationship
 ```{r}
 flag + 
-  geom_smooth(method='lm', formula = y ~ x + poly(x, 2))
+  geom_smooth(method='lm', formula = y ~ x + I(x^2))
 
 ```
 
 --
-We can represent quadratic fits mathematically in generic form: $y = \beta_0 + \beta_1 x + \beta_3 x^2$.
+We can represent quadratic fits mathematically in generic form: $y = \beta_0 + \beta_1 x + \beta_2 x^2$.
 
 --
 .blue[**Challenge: what signs will each of the three coefficients take for the above relationship?**]
 
 ---
 # Fitting the quadratic
-```{r, echo=T, output.lines=-c(1:4)}
-summary(lm(read_score ~ poly(total_spending, 2), pisa))
+```{r, echo=T, output.lines=-c(1:5)}
+summary(lm(read_score ~ total_spending + I(total_spending^2), pisa))
 ```
 
 --
-Fitted equation: $\hat{read} = 460.0 + 177.7 * spend - 253.8 * spend^2$. 
+Fitted equation: $\hat{read} = 372.8 + 0.00175 * spend - 0.00000000526 * spend^2$. 
 
 --
 .blue[**How do our model fit statistics compare to the linear version?**]
@@ -906,7 +906,7 @@ ggplot(pisa2, aes(total_spending, read_score)) +
     ylim(300,600) +
     ylab("PISA reading score") + xlab("Total spending, age 6-15 ($)") + 
     scale_x_continuous(label=scales::comma) +
-    geom_smooth(method='lm', formula = y ~ x + poly(x, 2))
+    geom_smooth(method='lm', formula = y ~ x + I(x^2))
 
 set.seed(123)
 x <- seq(0, 100)
@@ -967,13 +967,13 @@ dibels <- read.csv(here("data/dibels.csv"))
 ggplot(dibels, aes(y1_boy_mean, y2_moy_mean)) +
         theme_minimal(base_size = 16) +
         geom_point(alpha=0.1) +
-        geom_smooth(method='lm', formula = y ~ poly(x, 3))
+        geom_smooth(method='lm', formula = y ~ x + I(x^2) + I(x^3))
 ```
 ]
 
 --
 
-$$\hat{W20\_ORF} = 62.3 + 2230*F19\_ORF + 4.2*F19\_ORF^2 - 182.0 * F19\_ORF^3$$
+$$\hat{W20\_ORF} = 2.81 + 1.47*F19\_ORF - 0.0010*F19\_ORF^2 - 0.000017 * F19\_ORF^3$$
 
 
 ---
@@ -1110,7 +1110,7 @@ ggplot(pisa2, aes(total_spending, read_score)) +
     ylim(300,600) +
     ylab("PISA reading score") + xlab("Total spending, age 6-15 ($)") + 
     scale_x_continuous(label=scales::comma) +
-    geom_smooth(method='lm', formula = y ~ x + poly(x, 2), color='red', se=F) +
+    geom_smooth(method='lm', formula = y ~ x + I(x^2), color='red', se=F) +
     geom_smooth(method='lm', formula = y ~ log(x), color='black', se=F) +
     annotate('text', x = 140000, y = 530, label = "Log_10 fit", color='black') +
     annotate('text', x = 140000, y = 470, label = "Quadratic fit", color='red')

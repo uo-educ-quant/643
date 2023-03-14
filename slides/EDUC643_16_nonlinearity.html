@@ -157,7 +157,7 @@ class: middle, inverse
 ]
 
 ---
-# A log 🌲 you say??
+# A log 🌳 you say??
 
 Logs are the function we can perform to "undo" raising a number to a power. If a number is equal to a base raised to a power `\((x = base^{power})\)`, then a logarithim of a given base is the number you would have to raise to that power to get `\(x\)`:
 
@@ -197,7 +197,7 @@ Each 1 unit increase in a base-10 logarithm represents a 10-fold increase in `\(
 Can have logarithms of different base.
 
 ---
-# A log 🌲 you say??
+# A log 🌳 you say??
 
 Logs are the function we can perform to "undo" raising a number to a power. If a number is equal to a base raised to a power `\((x = base^{power})\)`, then a logarithim of a given base is the number you would have to raise to that power to get `\(x\)`:
 
@@ -444,7 +444,7 @@ class: middle, inverse
 
 
 ---
-# Which 🌳 to harvest?
+# Which 🌲 to harvest?
 
 - Could theoretically select a log of any base to transform outcome or predictor or both to a linear relationship
 - Much more sensible to restrict yourself to base_10, base_2 or the .red-pink[**natural log**]; comes from Euler's number `\((e)\)`
@@ -625,7 +625,7 @@ class: middle, inverse
 Effects of a predictor can differ by that predictor:
 `$$Y = \beta_0 + \beta_1 X_1 + \beta_2 (X_1 * X_1) + \varepsilon$$`
 
-`$$Y = \beta_0 + \beta_1 X_1 + \beta_2 X_1^2) + \varepsilon$$`
+`$$Y = \beta_0 + \beta_1 X_1 + \beta_2 X_1^2 + \varepsilon$$`
 
 --
 
@@ -648,7 +648,7 @@ Can point upwards or downwards, but **all quadratic relationships are .red-pink[
 &lt;img src="EDUC643_16_nonlinearity_files/figure-html/unnamed-chunk-43-1.png" style="display: block; margin: auto;" /&gt;
 
 --
-We can represent quadratic fits mathematically in generic form: `\(y = \beta_0 + \beta_1 x + \beta_3 x^2\)`.
+We can represent quadratic fits mathematically in generic form: `\(y = \beta_0 + \beta_1 x + \beta_2 x^2\)`.
 
 --
 .blue[**Challenge: what signs will each of the three coefficients take for the above relationship?**]
@@ -657,7 +657,7 @@ We can represent quadratic fits mathematically in generic form: `\(y = \beta_0 +
 # Fitting the quadratic
 
 ```r
-summary(lm(read_score ~ poly(total_spending, 2), pisa))
+summary(lm(read_score ~ total_spending + I(total_spending^2), pisa))
 ```
 
 ```
@@ -667,10 +667,10 @@ summary(lm(read_score ~ poly(total_spending, 2), pisa))
 ## -98.511 -15.722   3.806  22.651  59.394 
 ## 
 ## Coefficients:
-##                          Estimate Std. Error t value Pr(&gt;|t|)    
-## (Intercept)               459.985      3.887 118.327  &lt; 2e-16 ***
-## poly(total_spending, 2)1  177.680     31.341   5.669  4.0e-07 ***
-## poly(total_spending, 2)2 -253.728     31.341  -8.096  2.7e-11 ***
+##                       Estimate Std. Error t value Pr(&gt;|t|)    
+## (Intercept)          3.728e+02  9.665e+00  38.574  &lt; 2e-16 ***
+## total_spending       1.750e-03  1.798e-04   9.732 4.22e-14 ***
+## I(total_spending^2) -5.260e-09  6.498e-10  -8.096 2.70e-11 ***
 ## ---
 ## Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
 ## 
@@ -681,7 +681,7 @@ summary(lm(read_score ~ poly(total_spending, 2), pisa))
 ```
 
 --
-Fitted equation: `\(\hat{read} = 460.0 + 177.7 * spend - 253.8 * spend^2\)`. 
+Fitted equation: `\(\hat{read} = 372.8 + 0.00175 * spend - 0.00000000526 * spend^2\)`. 
 
 --
 .blue[**How do our model fit statistics compare to the linear version?**]
@@ -729,7 +729,7 @@ class: middle, inverse
 
 --
 
-`$$\hat{W20\_ORF} = 62.3 + 2230*F19\_ORF + 4.2*F19\_ORF^2 - 182.0 * F19\_ORF^3$$`
+`$$\hat{W20\_ORF} = 2.81 + 1.47*F19\_ORF - 0.0010*F19\_ORF^2 - 0.000017 * F19\_ORF^3$$`
 
 
 ---
