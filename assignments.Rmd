@@ -120,6 +120,8 @@ Deadline: March 8, 11:59pm
 
 Download: [html file](./assignments/assignment_5.html) | [nerds dataset](./data/nerds.csv)
 
+Key: [doc file](./assignments/keys/assignment_5_key.docx) | [R script](./assignments/keys/assignment_5_key.R)
+
 #### 3.6. Final Project
 
 **The Works**
