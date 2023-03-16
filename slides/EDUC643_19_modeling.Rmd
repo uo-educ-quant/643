@@ -539,6 +539,12 @@ proto
 .tiny[*Notes*: fitted lines generated from Model 5 in Table 1, which includes adjustments for school enrollment, rurality, school level, avg. SES status and median log-income. Shaded areas are 95% confidence intervals using heteroscedastic-robust standard errors.]
 
 ---
+# By hand
+```{r, output.lines=-c(1:5), echo=T}
+summary(fit5)
+```
+
+---
 # Interpreting these results (I)
 
 .small[
@@ -595,7 +601,7 @@ Your Results section is not a diary of everything you did (e.g., don't walk your
 - Due March 23, 12:01p
 
 ### Re- (late) submissions
-- Everything due March 17, 9:00a (no exceptions)
+- Everything due .red[**March 20, 12:01p**] (no exceptions, **but note change**)
 - Assignments with scores <10.8 only
 - Earn up to 10.8
 

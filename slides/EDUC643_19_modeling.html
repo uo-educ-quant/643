@@ -590,6 +590,40 @@ proto &lt;- ggplot() +
 .tiny[*Notes*: fitted lines generated from Model 5 in Table 1, which includes adjustments for school enrollment, rurality, school level, avg. SES status and median log-income. Shaded areas are 95% confidence intervals using heteroscedastic-robust standard errors.]
 
 ---
+# By hand
+
+```r
+summary(fit5)
+```
+
+```
+...
+## Residuals:
+##      Min       1Q   Median       3Q      Max 
+## -13598.4  -1548.1    146.8   1855.1  25392.3 
+## 
+## Coefficients:
+##                            Estimate Std. Error t value Pr(&gt;|t|)    
+## (Intercept)              79693.1245 14097.3859   5.653 1.97e-08 ***
+## frpl                     10005.1117  1711.8137   5.845 6.55e-09 ***
+## I(frpl^2)                -5843.2356  1408.8632  -4.147 3.60e-05 ***
+## rural                     1747.1672   355.1047   4.920 9.87e-07 ***
+## enroll                      -0.5160     0.3571  -1.445  0.14867    
+## sesavgall                 2884.5362   471.9816   6.112 1.34e-09 ***
+## lninc50avgall            -6425.9478  1298.5929  -4.948 8.57e-07 ***
+## as.factor(level)Early Ed -2490.7550  1612.9707  -1.544  0.12281    
+## as.factor(level)High      1495.3623   302.1784   4.949 8.56e-07 ***
+## as.factor(level)Middle    -830.0030   284.8479  -2.914  0.00364 ** 
+## ---
+## Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
+## 
+## Residual standard error: 3917 on 1183 degrees of freedom
+## Multiple R-squared:  0.1662,	Adjusted R-squared:  0.1599 
+## F-statistic:  26.2 on 9 and 1183 DF,  p-value: &lt; 2.2e-16
+...
+```
+
+---
 # Interpreting these results (I)
 
 .small[
@@ -646,7 +680,7 @@ Your Results section is not a diary of everything you did (e.g., don't walk your
 - Due March 23, 12:01p
 
 ### Re- (late) submissions
-- Everything due March 17, 9:00a (no exceptions)
+- Everything due .red[**March 20, 12:01p**] (no exceptions, **but note change**)
 - Assignments with scores &lt;10.8 only
 - Earn up to 10.8
 
