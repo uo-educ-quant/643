@@ -539,12 +539,6 @@ proto
 .tiny[*Notes*: fitted lines generated from Model 5 in Table 1, which includes adjustments for school enrollment, rurality, school level, avg. SES status and median log-income. Shaded areas are 95% confidence intervals using heteroscedastic-robust standard errors.]
 
 ---
-# By hand
-```{r, output.lines=-c(1:5), echo=T}
-summary(fit5)
-```
-
----
 # Interpreting these results (I)
 
 .small[

@@ -208,7 +208,6 @@ Readings:
 Lecture: 
 
 - Class 19-20 slides: [html](./slides/EDUC643_19_modeling.html) | [pdf](./slides/EDUC643_19_modeling.pdf)
-- Prototypical plots: [xlsx](./data/final_prototypical_plots.xlsx)
 
 
 ## Final:
