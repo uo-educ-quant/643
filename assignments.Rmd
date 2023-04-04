@@ -48,7 +48,7 @@ Deadline: Jan. 24, 11:59pm
 
 Download: [html file](./assignments/assignment_1.html) | [nerds dataset](./data/nerds.csv)
 
-Key: [doc file](./assignments/keys/assignment_1_key.docx) | [R script](assignments/keys/assignment_1_key.R)
+Key: <!-- [doc file](./assignments/keys/assignment_1_key.docx) | [R script](assignments/keys/assignment_1_key.R) -->
 
 #### 3.2. Assignment 2
 
@@ -66,7 +66,7 @@ Deadline: Feb. 3, 11:59pm (but I encourage you to complete by 1/31)
 
 Download: [html file](./assignments/assignment_2.html) | [nerds dataset](./data/nerds.csv)
 
-Key: [doc file](./assignments/keys/assignment_2_key.docx) | [R script](./assignments/keys/assignment_2_key.R)
+Key: <!-- [doc file](./assignments/keys/assignment_2_key.docx) | [R script](./assignments/keys/assignment_2_key.R) -->
 
 #### 3.3. Assignment 3
 
@@ -84,7 +84,7 @@ Deadline: Feb. 14, 11:59pm
 
 Download: [html file](./assignments/assignment_3.html) | [nerds dataset](./data/nerds.csv)
 
-Key: [doc file](./assignments/keys/assignment_3_key.docx) | [R script](./assignments/keys/assignment_3_key.R)
+Key: <!-- [doc file](./assignments/keys/assignment_3_key.docx) | [R script](./assignments/keys/assignment_3_key.R) -->
 
 
 #### 3.4. Assignment 4
@@ -103,7 +103,7 @@ Deadline: Feb. 27, 9:00am
 
 Download: [html file](./assignments/assignment_4.html) | [nerds dataset](./data/nerds.csv)
 
-Key: [doc file](./assignments/keys/assignment_4_key.docx) | [R script](./assignments/keys/assignment_4_key.R)
+Key: <!-- [doc file](./assignments/keys/assignment_4_key.docx) | [R script](./assignments/keys/assignment_4_key.R) -->
 
 
 #### 3.5. Assignment 5
@@ -120,7 +120,7 @@ Deadline: March 8, 11:59pm
 
 Download: [html file](./assignments/assignment_5.html) | [nerds dataset](./data/nerds.csv)
 
-Key: [doc file](./assignments/keys/assignment_5_key.docx) | [R script](./assignments/keys/assignment_5_key.R)
+Key: <!-- [doc file](./assignments/keys/assignment_5_key.docx) | [R script](./assignments/keys/assignment_5_key.R) -->
 
 #### 3.6. Final Project
 
