@@ -1,0 +1,91 @@
+---
+title: "EDUC 643 Assignment 1"
+subtitle: "Continuous relationships and bivariate regression"
+output: html_document
+---
+```{R, setup, include = FALSE}
+if (!require(pacman)) install.packages('pacman', repos = 'https://cran.rstudio.com')
+pacman::p_load(here, tidyverse, xaringan, knitr, kableExtra)
+
+opts_chunk$set(include = FALSE)
+```
+
+
+### General Guidelines
+
+The purpose of this assignment is to practice the concepts and vocabulary we have been modeling in class and implement some of the techniques we have learned. You may work on your own or collaborate with one partner. Please make sure that you engage in a a full, fair and mutually-agreeable collaboration if you do choose to collaborate. If you do collaborate, you should plan, execute and write-up your analyses together, not simply divide the work. Please make sure to indicate clearly when your work is joint and any other individual or resource (outside of class material) you consulted in your responses.
+
+### Submission Requirements
+
+Please upload below two files on Canvas:  
+
+1. An .html, .doc(x) or .pdf file that includes your typed responses (in your own words and not identical to anybody else's except your partner), tables, and/or figures to the problems
+2. The .Rmd or .R file that you used to render the tables and figures in the above html/pdf. 
+
+**Please submit a complete memo that includes all figures/tables integrated into the memo, uses full sentences and does not include any code chunks interspersed (you will be graded on this). As a challenge, try to format your tables and figure following [APA 7 guidelines](https://owl.purdue.edu/owl/research_and_citation/apa_style/apa_formatting_and_style_guide/apa_tables_and_figures.html) (you will not be graded on this).** 
+
+
+### Objectives of this assignment
+
+ * Create bivariate scatterplots and bivariate regression estimates
+
+ * State null hypothesis and interpret results of linear regression test of bivariate continuous relationship
+ 
+ * Substantively interpret results of bivariate relationship to non-expert audience
+
+### Data Background
+
+#### National Education Resource Database on Schools (NERD$)
+
+As a country, the United States spends approximately $650 billion per year on its K-12 education system. While district-level expenditure data has been available for decades, considerable funding variation exists within districts, as a result of the different experience levels (and therefore salaries) of teachers employed in a school, the specialized services particular schools offer, and targeted efforts to make schools more equitable through differentiated funding. Starting in 2015, the Every Student Succeeds Act began requiring that states report school-level expenditures. Even so, differences in how states report finance data, costs of living and more make cross-state comparisons challenging. The Edunomics Lab at Georgetown University recently launched the National Education Resource Database on Schools (NERD\$), which allows for the first time a fully comparable, cross-state window into school-level spending. It contains rich variables including measures of academic achievement and achievement gaps for school districts and counties, as well as district-level measures of racial and socioeconomic composition, racial and socioeconomic segregation patterns, and other features of the schooling system. More details on the NERD\$ data and ways it has been used to inform policy and practice are available [here](https://edunomicslab.org/nerds/).
+
+**Analytic Sample**. Our data set includes school-level data expenditure data for SY 2018-19 for 1,193 Oregon public schools. This represents nearly the full universe of Oregon public schools, with some restrictions due to data availability. Observations with missing and/or unreliable values on any of the key variables were deleted for simplification reasons.
+
+**Key variables**. The data set contains 14 variables, detailed below.
+
+ * *schoolname*, school name
+ * *ncesid*, school identifier assigned by the National Center for Education Statistics (a department of IES at the U.S. Department of Education)
+ * *ncesdistid_geo*, district identifier, assigned by NCES
+ * *distname*, district name
+ * *level*, level of schooling (0 = Other; 1 = Early Education; 2 = Elementary; 3 = Middle School; 4 = High School)
+ * *ppe*, per-pupil expenditure
+ * *enroll*, total school enrollment
+ * *frpl*, proportion (0-1) of students in school receiving free- or reduced-price meals
+ * *sesavgall*, Census-based SES composite index for all families residing within school district
+ * *lninc50avgall*, Census-based log of median income for all families residing within school district
+ * *baplusavgall*, Census-based Bachelor's degree-plus rate for all adults in families residing within district
+ * *unempavgall*, Census-based unemployment rate for all families residing within district
+ * *snapavgall*, Census-based SNAP receipt rate for all families residing within the district
+ * *locale*, Census-based location of schools attended by majority/plurality of students (Urban, Suburb, Town, Rural)
+ 
+
+### Assignment Details
+
+**Data preparation**: Open your RStudio, create a project and save it. Go to the root directory of the project and create folders named: "Code", "Data", "Figures" and "Tables." Download the [nerds.csv dataset](../data/nerds.csv) and store it in the folder "Data". Create an R script (or .Rmd) file in the Code folder. Read the data into your R environment. You do not need to include this part of the response in your memo; only in your code.
+
+
+#### 1. Descriptive Statistics
+
+1.1. Summarize the dataset. Specifically, create a table to show the means and standard deviations of the continuous variables (i.e., exclude the geographical identifiers and the *level* and *locale* categorical variables). Write 2-3 sentences to report and interpret these statistics. **(1 point)**
+
+1.2 Create a plot (*makes sure to label the x and y axis*) to visualize the relationship between the variables $ppe$ and $frpl$. Include a line of best fit on this display. **(1 points)**
+
+1.3 Write 1-2 sentences to interpret this visualized relationship, relying on the five features of bivariate relationships we introduced in class. **(1 point)**
+
+
+#### 2. Research Question: Do schools that educate a larger proportion of students with financial need spend more per student on their education?
+
+2.1. Write a formal linear model that describes the simple, bivariate relationship between school-level per-pupil expenditure and the school-level average receipt of free- or reduced-price lunch and interpret each of the terms in this model. **(1 point)**
+
+2.2. State your null hypothesis about the relationship between per-pupil expenditure and the proportion of students receiving free- or reduced-price lunch. **(1 point)**
+
+2.3. Formally test your hypothesis using an Ordinary Least Squares estimation strategy. Report your results in a formatted table. **(2 points)**
+
+2.4. Interpret the results of your test in 1-2 sentences. **(2 points)**
+
+2.5. Assess the quality of your model fit using the $R^2$ statistic. **(1 point)**
+
+2.6. Select an alpha-threshold and describe the corresponding confidence interval for your estimates of the relationship between $frpl$ and $ppe$. **(1 point)**
+
+2.7. Imagine you are an analyst working for Colt Gill, Director of the Oregon Department of Education. You have been tasked with describing to him whether schools with greater levels of student financial need receive more money. Write a short paragraph reporting the results of your analysis, while introducing appropriate caveats and nuances as needed. In particular, you should think about how you want to introduce the ideas of relationship magnitude, model fit, omitted variables, and correlation for a lay audience. **(1 point)**
+

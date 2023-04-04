@@ -164,6 +164,9 @@ Concrete learning objectives:
 - Contribute to building a community of live learners and life-long professional colleagues
 - Assign everyone an A
 
+--
+- Help you see that many common statistical approaches with fancy names (multivariate regression, ANOVA, Spearman rank correlation coefficient, MANCOVA, Welch's two-sample $t$-test, Weighted Least Squares, $\chi^2$ goodness-of-fit test, etc.) are part of the same same "family" of statistical tests known as the General Linear Model (GLM). 
+
 ---
 # Me
 
@@ -195,6 +198,7 @@ include_graphics("kids.jpg")
 - More examples of actually doing the analysis
 - More examples of write-up
 - More opportunities to collaborate with classmates (engage in active learning)
+- Clearer explanation of some concepts in class lectures
 
 --
 
@@ -223,7 +227,7 @@ include_graphics("kids.jpg")
 2. Readings are intended to supplement material from lectures (these can be completed after the first class of the unit)
 3. Two *OPTIONAL, UNGRADED* weekly lab meetings intended to provide support for R programming tasks. Each lab will cover identical material.
 4. Five (5) take-home quizzes worth trivial amount of points each (2% of grade)
-5. Four (4) data analytic assignments (15% each) + final project (30% of grade)
+5. Five (5) data analytic assignments (12% each) + final project (30% of grade)
 
 --
 
@@ -368,9 +372,9 @@ Before we get to the core question of the Kelly et al. study--how are dietary re
 
 --
 
-> We are examining this relationship so that we can better understand how all three of these variables (***OE_frequency***, ***EDEQ_restraint*** and ***BMI***) are related in Unit 3. Additionally, the properties of the variable ***BMI*** are pedadogically helpful in demonstrating the assumptions of OLS.
+> We are examining this relationship so that we can better understand how all three of these variables (***OE_frequency***, ***EDEQ_restraint*** and ***BMI***) are related in Unit 3. Additionally, the properties of the variable ***BMI*** in this particular dataset are pedadogically helpful in demonstrating the assumptions of OLS.
 
-> However, we recognize that BMI has been shown to be relatively uninformative about individuals' overall health and categorizes individuals based on distributions initially derived exclusively from white Western European (French and Scottish) study participants. We use the measure for pedagogical purposes because the variable is one of the few continuous measures in one of the few datasets that our UO colleagues shared with us, while noting its problematic historical use.
+> However, we recognize that BMI has been shown to be relatively uninformative about individuals' overall health and categorizes individuals based on distributions initially derived exclusively from white Western European (French and Scottish) study participants. We use the measure for pedagogical purposes because the variable is one of the few continuous measures in one of the few datasets that our UO colleagues shared with us, while noting its problematic historical use, particularly at the individual level.
 
 ---
 # Bivariate relationships
@@ -547,6 +551,25 @@ steep <- ggplot(pos, aes(x, y5)) +
 gridExtra::grid.arrange(steep, shallow, ncol=2)
 ```
 **Note that these have the same strength (tightness of fit)**
+
+---
+## Bivariate relationships: Magnitude
+
+Note that if you change the scale of either axis, it will change the perceived--**but not the *actual***--size of the magnitude
+```{r, echo=F, fig.height=5}
+yaxis <- shallow +
+            ggtitle("Extend y-axis") +
+            expand_limits(y=c(0,200))
+    
+xaxis <- shallow +
+            ggtitle("Extend x-axis") +
+            expand_limits(x=c(0,100))
+
+gridExtra::grid.arrange(shallow, yaxis, xaxis, ncol=3)
+```
+
+
+
 ---
 # BMI and over-eating
 

@@ -22,35 +22,41 @@ navbar:
         href: ./slides/EDUC643_5_assumptions.html
       - text: "6. Regression assumptions"
         href: ./slides/EDUC643_5_assumptions.html
-      - text: "7. Multiple regression"
+      - text: "7. Multiple regression I"
         href: ./slides/EDUC643_7_mult_regression.html
-      - text: "8. Multi-collinearity"
-        href: ./slides/EDUC643_8_mult_collinearity.html
-      - text: "9. Categorical predictors"
-        href: ./slides/EDUC643_9_categorical.html
-      - text: "10. Two sample <i>t</i>-tests"
-        href: ./slides/EDUC643_10_ttests.html
-      - text: "11. ANOVA"
-        href: ./slides/EDUC643_11_ANOVA.html
-      - text: "12. ANCOVA and GLM redux"
-        href: ./slides/EDUC643_12_ANCOVA.html
-      - text: "13. Non-linearity I"
-        href: ./slides/EDUC643_13_nonlinearity.html
-      - text: "14. Non-linearity II"
-        href: ./slides/EDUC643_13_nonlinearity.html
-      - text: "15. Interactions I"
-        href: ./slides/EDUC643_15_interactions.html
-      - text: "16. Interactions II"
-        href: ./slides/EDUC643_15_interactions.html
-      - text: "17. Model building taxonomies"
-        href: ./slides/EDUC643_17_modeling.html
+      - text: "8. Multiple regression II"
+        href: ./slides/EDUC643_7_mult_regression.html
+      - text: "9. Multiple regression III"
+        href: ./slides/EDUC643_7_mult_regression.html#85
+      - text: "10. Categorical predictors I"
+        href: ./slides/EDUC643_10_categorical.html
+      - text: "11. Categorical predictors II"
+        href: ./slides/EDUC643_10_categorical.html
+      - text: "12. Categorical predictors III"
+        href: ./slides/EDUC643_10_categorical.html
+      - text: "13. Interactions I"
+        href: ./slides/EDUC643_13_interactions.html
+      - text: "14. Interactions II"
+        href: ./slides/EDUC643_13_interactions.html
+      - text: "15. Interactions III"
+        href: ./slides/EDUC643_13_interactions.html
+      - text: "16. Non-linearity I"
+        href: ./slides/EDUC643_16_nonlinearity.html
+      - text: "17. Non-linearity II"
+        href: ./slides/EDUC643_16_nonlinearity.html
+      - text: "18. Non-linearity III"
+        href: ./slides/EDUC643_16_nonlinearity.html
+      - text: "19. Model building"
+        href: ./slides/EDUC643_19_modeling.html
+      - text: "20. Model building"
+        href: ./slides/EDUC643_19_modeling.html
 
 
   right:
   - text: Assignments
     href: assignments.html
   - icon: fa-github
-    href: https://github.com/uo-educ-quant/643
+    href: https://github.com/DavidDLiebowitz/EDUC643_23W
 
 output:
   html_document:

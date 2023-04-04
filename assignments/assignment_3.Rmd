@@ -1,0 +1,84 @@
+---
+title: "EDUC 643 Assignment 3"
+subtitle: "Mutliple regression regression"
+output: html_document
+---
+```{R, setup, include = FALSE}
+if (!require(pacman)) install.packages('pacman', repos = 'https://cran.rstudio.com')
+pacman::p_load(here, tidyverse, xaringan, knitr, kableExtra)
+
+opts_chunk$set(include = FALSE)
+```
+
+
+### General Guidelines
+
+The purpose of this assignment is to practice the concepts and vocabulary we have been modeling in class and implement some of the techniques we have learned. You may work on your own or collaborate with one partner. Please make sure that you engage in a a full, fair and mutually-agreeable collaboration if you do choose to collaborate. If you do collaborate, you should plan, execute and write-up your analyses together, not simply divide the work. Please make sure to indicate clearly when your work is joint and any other individual or resource (outside of class material) you consulted in your responses.
+
+### Submission Requirements
+
+Please upload below two files on Canvas:  
+
+1. An .html, .doc(x) or .pdf file that includes your typed responses (in your own words and not identical to anybody else's except your partner), tables, and/or figures to the problems
+2. The .Rmd or .R file that you used to render the tables and figures in the above html/pdf. 
+
+**Please submit a complete memo that includes all figures/tables integrated into the memo, uses full sentences and does not include any code chunks interspersed (you will be graded on this). As a challenge, try to format your tables and figure following [APA 7 guidelines](https://owl.purdue.edu/owl/research_and_citation/apa_style/apa_formatting_and_style_guide/apa_tables_and_figures.html) (you will not be graded on this).** 
+
+
+### Objectives of this assignment
+
+ * Fit multiple regression models and interpret results, including making appropriate inferences
+ 
+ * Plot and interpret an estimated bivariate relationship from a multiple regression model at prototypical values of a third variable
+ 
+ * Assess multiple regression results for assumptions violations
+
+### Data Background
+
+#### National Education Resource Database on Schools (NERD$)
+
+As a country, the United States spends approximately $650 billion per year on its K-12 education system. While district-level expenditure data has been available for decades, considerable funding variation exists within districts, as a result of the different experience levels (and therefore salaries) of teachers employed in a school, the specialized services particular schools offer, and targeted efforts to make schools more equitable through differentiated funding. Starting in 2015, the Every Student Succeeds Act began requiring that states report school-level expenditures. Even so, differences in how states report finance data, costs of living and more make cross-state comparisons challenging. The Edunomics Lab at Georgetown University recently launched the National Education Resource Database on Schools (NERD\$), which allows for the first time a fully comparable, cross-state window into school-level spending. It contains rich variables including measures of academic achievement and achievement gaps for school districts and counties, as well as district-level measures of racial and socioeconomic composition, racial and socioeconomic segregation patterns, and other features of the schooling system. More details on the NERD\$ data and ways it has been used to inform policy and practice are available [here](https://edunomicslab.org/nerds/).
+
+**Analytic Sample**. Our data set includes school-level data expenditure data for SY 2018-19 for 1,193 Oregon public schools. This represents nearly the full universe of Oregon public schools, with some restrictions due to data availability. Observations with missing and/or unreliable values on any of the key variables were deleted for simplification reasons.
+
+**Key variables**. The data set contains 14 variables, detailed below.
+
+ * *schoolname*, school name
+ * *ncesid*, school identifier assigned by the National Center for Education Statistics (a department of IES at the U.S. Department of Education)
+ * *ncesdistid_geo*, district identifier, assigned by NCES
+ * *distname*, district name
+ * *level*, level of schooling (0 = Other; 1 = Early Education; 2 = Elementary; 3 = Middle School; 4 = High School)
+ * *ppe*, per-pupil expenditure
+ * *enroll*, total school enrollment
+ * *frpl*, proportion (0-1) of students in school receiving free- or reduced-price meals
+ * *sesavgall*, Census-based SES composite index for all families residing within school district
+ * *lninc50avgall*, Census-based log of median income for all families residing within school district
+ * *baplusavgall*, Census-based Bachelor's degree-plus rate for all adults in families residing within district
+ * *unempavgall*, Census-based unemployment rate for all families residing within district
+ * *snapavgall*, Census-based SNAP receipt rate for all families residing within the district
+ * *locale*, Census-based location of schools attended by majority/plurality of students (Urban, Suburb, Town, Rural)
+ 
+
+### Assignment Details
+
+**Data preparation**: Open your RStudio, create a project and save it. Go to the root directory of the project and create folders named: "Code", "Data", "Figures" and "Tables." Download the [nerds.csv dataset](../data/nerds.csv) and store it in the folder "Data". Create an R script (or .Rmd) file in the Code folder. Read the data into your R environment. You do not need to include this part of the response in your memo; only in your code.
+
+
+#### Research Question: Do schools that educate a larger proportion of students with financial need spend more per student on their education?
+
+1.1. Review the variables you have at your disposal and select a set of substantively sensible ***continuous*** covariates that might explain schools' per-pupil expenditure and help clarify the relationship between $ppe$ and $frpl$. *Note: make sure to exclude the identifiers and the locale and level variables.* **(1 point)**
+
+1.2. Construct a correlation matrix and/or correlation heatmap to assess for potential multicollinearity issues in your selection of covariates and use it to decide which covariates you will select for your postulated model. **(2 points)**
+
+1.3. Write a formal linear model that describes the relationship between school-level per-pupil expenditure and the school-level average receipt of free- or reduced-price lunch, adjusting for the covariates you have selected (at least one required). Interpret each of the terms in this model. **(1 point)**
+
+1.4. State your null hypothesis about the relationship between per-pupil expenditure and the proportion of students receiving free- or reduced-price lunch, accounting for the covariates in your model. **(1 point)**
+
+1.5. Formally test your hypothesis using an Ordinary Least Squares estimation strategy. Report a set of results in a formatted table in which you compare the bivariate relationship between $ppe$ and $frpl$ with the multivariate relationship you have just estimated. **(2 points)**
+
+1.6. Interpret the results of your test in 1-2 sentences. **(2 points)**
+
+1.7. Assess the quality of your model fit and make appropriate inferences about your overall model, using relevant statistics. **(1 point)**
+
+1.8. Imagine you are writing a piece for *The Oregonian* detailing whether schools with greater levels of student financial need receive more money. Create a plot that illustrates the multivariate-adjusted relationship between the proportion of free- and reduced-price lunch recipients and per-pupil expenditure and prototypical values of the other variables in your model. Present the plot and a short paragraph reporting the results of your analysis to your readers **(2 point)**
+

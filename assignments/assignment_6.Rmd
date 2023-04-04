@@ -1,0 +1,95 @@
+---
+title: "EDUC 643 Final"
+subtitle: "The Works"
+output: html_document
+---
+```{R, setup, include = FALSE}
+if (!require(pacman)) install.packages('pacman', repos = 'https://cran.rstudio.com')
+pacman::p_load(here, tidyverse, xaringan, knitr, kableExtra)
+
+opts_chunk$set(include = FALSE)
+```
+
+
+### General Guidelines
+
+Let's integrate all (most) of what we've learned together over the past two terms. You may work on your own or collaborate with one (max 2) partner. Please make sure that you engage in a a full, fair and mutually-agreeable collaboration if you do choose to collaborate. If you do collaborate, you should plan, execute and write-up your analyses together, not simply divide the work. Please make sure to indicate clearly when your work is joint and any other individual or resource (outside of class material) you consulted in your responses.
+
+### Submission Requirements
+
+Please upload below two files on Canvas:  
+
+1. An .html, .doc(x) or .pdf file that includes your typed responses (in your own words and not identical to anybody else's except your partner), tables, and/or figures to the problems
+2. The .Rmd or .R file that you used to render the tables and figures in the above html/pdf. 
+
+**Please submit a complete "proto" paper (see below) that includes all figures/tables integrated into the manuscript (can be either in-line or at the end of the manuscript), uses full sentences and does not include any code chunks interspersed (you will be graded on this). Please format your manuscript, tables and figures following [APA 7 guidelines](https://owl.purdue.edu/owl/research_and_citation/apa_style/apa_formatting_and_style_guide/apa_tables_and_figures.html).**
+
+
+### Objectives of this assignment
+
+ * Calculate and interpret descriptive statistics about categorical and continuous quantitative data
+ 
+ * Use the General Linear Model framework to answer relational research questions that are amenable to the use of quantitative methods to respond to these questions
+ 
+ * Using tables, figures and words, interpret the results of your analysis for an academic research audience
+
+### Data Background
+
+#### Stanford Education Data Archive (SEDA)
+
+The data set we'll be using for this assignment is drawn from the Stanford Education Data Archive ([SEDA](https://edopportunity.org)) version 4.1. SEDA was launched in 2016 to provide nationally comparable, publicly available test score data for U.S. public school districts, allowing scientific inquiries on the relationships between educational conditions, contexts, and outcomes (especially student math/ELA achievements) at the district- (and school-) level across the nation. It contains rich variables including measures of academic achievement and achievement gaps for school districts and counties, as well as district-level measures of racial and socioeconomic composition, racial and socioeconomic segregation patterns, and other features of the schooling system. Some descriptive findings can be found [here](https://edopportunity.org/discoveries/). Findings from the SEDA data have drawn high-profile media coverage on levels of [inequality](https://www.nytimes.com/interactive/2016/04/29/upshot/money-race-and-success-how-your-school-district-compares.html) and differential [rates of growth](https://www.nytimes.com/interactive/2017/12/05/upshot/a-better-way-to-compare-public-schools.html) across districts.
+
+**Analytic Sample**. Our data set is district-level data for all United States school districts, with some [restrictions](https://edopportunity.org/get-the-data/seda-archive-downloads/) due to enrollment and data availability. The test-score outcome data has been averaged across the 10 years of the data collection window. Observations with missing values on any of the key variables were deleted for simplification reasons. After these restrictions, our dataset includes 12,239 observations.
+
+**Key variables**. The data set contains 24 variables, detailed below.
+
+ * *sedalea*, NCES district ID
+ * *sedaleaname*, district name
+ * *fips*, state ID
+ * *stateabb*, state abbreviation
+ * *math*, average math achievement (2008/9 - 2017/18 school years), standardized to mean = 0, *SD* = 1
+ * *read*, average reading/English Language Arts achievement (2008/9 - 2017/18 school years), standardized to mean = 0, *SD* = 1
+ * *pernam*, district-level proportion of Native American students
+ * *perasn*, district-level proportion of Asian students
+ * *perhsp*, district-level proportion of Hispanic students
+ * *perblk*, district-level proportion of Black students
+ * *perwht*, district-level proportion of White students
+ * *prfl*, district-level proportion of students eligible for free- or reduced-price school lunch
+ * *perecd*, district-level proportion of students classified as Economically Disadvantaged
+ * *perell*, district-level proportion of ELL students
+ * *perspeced*, district-level proportion of students in special education program
+ * *totenrl*, total district enrollment grades 3-8
+ * *rsflnfl*, relative diversity index between schools, free lunch/nonfree lunch (range: 0-1)
+ * *sesavgall*, Census-based SES composite index for all families residing within school district
+ * *lninc50avgall*, Census-based log of median income for all families residing within school district
+ * *baplusavgall*, Census-based Bachelor's degree-plus rate for all adults in families residing within district
+ * *unempavgall*, Census-based unemployment rate for all families residing within district
+ * *snapavgall*, Census-based SNAP receipt rate for all families residing within the district
+ * *single_momavgall*, Census-based single-mother head of household rate for all families residing within the district
+ * *locale*, Census-based location of schools attended by majority/plurality of students (Urban, Suburb, Town, Rural)
+ 
+
+### Assignment Details
+
+**Data preparation**: Open your RStudio, create a project and save it. Go to the root directory of the project and create folders named: "Code", "Data", "Figures" and "Tables." Download the [seda.csv dataset](../data/seda.csv) and store it in the folder "Data". Create an R script (or .Rmd) file in the Code folder. Read the data into your R environment. You do not need to include this part of the response in your memo; only in your code.
+
+
+#### The Works
+Your final assessment in EDUC 643 is to postulate one (or more) relational research questions that are amenable to the use of quantitative methods to respond to these questions. You will pose these research questions in the context of the SEDA data and analyze these data to seek answers to these questions. Then, you will construct an "proto" academic research paper synthesizing the results of your analysis. We call this a "proto" paper because (1) you will not spend any time contextual your study within the research literature; and (2) your results will be preliminary. 
+
+Your "proto" paper should be structured as follows:
+
+1. **Introduction**: in which (over 2-3 paragraphs) you provide some background and context for the research you will be conducting and you conclude by stating your central research questions.
+2. **Data and Sample**: in which you describe (over 2-3 paragraphs) some basic information about your data source and the variables contained therein. This section should include a table of descriptive statistics, including a few sentences interpreting the summary statistics for your central questions predictor(s) and outcome.
+3. **Method**: in which you postulate the model you will use to answer your research question, the null hypothesis you will test (including the alpha-threshold you will select), the assumptions you are making in conducting your analysis in this manner, and any tests of heterogeneity (moderation) you will conduct. (3-4 paragraphs)
+4. **Results**: in which you will present and interpret a taxonomy of results in tabular and graphical form (length is at your discretion, but remember this isn't a diary of everything you did). ***Minimally, you must share the following set of results:***
+    + Bivariate relationship between continuous outcome and continuous predictor
+    + Bivariate relationship between continuous outcome and categorical predictor
+    + Multivariate relationship between continuous outcome and continuous predictor, adjusting for other predictor(s)
+    + Assessment of the extent to which central assumptions of your modelling strategy have been met
+    + Tests for the presence of moderation and non-linearity
+5. **Conclusion**: in which you state in 1-2 paragraphs the central findings (and appropriate caveats and nuances) of your analysis in language accessible to a lay audience
+  
+**Please review the rubric on Canvas for more details on how the assignment will be assessed.**
+
+***NOTE:*** *It is possible to spend weeks on this assignment; however, it is intended to be completed in 10 hours. Please limit yourselves to **25 hours maximum** on this task. If you find yourself approaching this limit, please conclude your paper by describing how you would complete the analysis tasks and submit your work.*

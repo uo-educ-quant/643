@@ -1,0 +1,988 @@
+<!DOCTYPE html>
+<html lang="" xml:lang="">
+  <head>
+    <title>Non-linearity</title>
+    <meta charset="utf-8" />
+    <meta name="author" content="David D. Liebowitz" />
+    <script src="EDUC643_16_nonlinearity_files/header-attrs/header-attrs.js"></script>
+    <link href="EDUC643_16_nonlinearity_files/remark-css/default.css" rel="stylesheet" />
+    <link href="EDUC643_16_nonlinearity_files/remark-css/uo.css" rel="stylesheet" />
+    <link href="EDUC643_16_nonlinearity_files/remark-css/ki-fonts.css" rel="stylesheet" />
+    <link rel="stylesheet" href="my_custom.css" type="text/css" />
+    <link rel="stylesheet" href="xaringanthemer.css" type="text/css" />
+  </head>
+  <body>
+    <textarea id="source">
+class: center, middle, inverse, title-slide
+
+.title[
+# Non-linearity
+]
+.subtitle[
+## EDUC 643: Unit 5 Part II
+]
+.author[
+### David D. Liebowitz
+]
+
+---
+
+
+
+
+# Roadmap
+&lt;img src="Roadmap5.jpg" width="90%" style="display: block; margin: auto;" /&gt;
+
+---
+# Goals of the unit
+
+- Describe in writing and verbally the assumptions we violate when we fit a non-linear relationship with a linear model
+- Transform non-linear relationships into linear ones by using logarithmic scales 
+- Estimate regression models using logarithmic scales and interpret the results
+- Estimate models with quadratic and higher-order polynomial terms (special kinds of interactions)
+- Select between transformation options
+
+---
+class: middle, inverse
+
+# Non-linearity
+
+---
+# $ and learning
+&lt;img src="EDUC643_16_nonlinearity_files/figure-html/unnamed-chunk-2-1.png" style="display: block; margin: auto;" /&gt;
+
+---
+# $ and learning
+&lt;img src="EDUC643_16_nonlinearity_files/figure-html/unnamed-chunk-3-1.png" style="display: block; margin: auto;" /&gt;
+
+---
+# $ and learning
+&lt;img src="EDUC643_16_nonlinearity_files/figure-html/unnamed-chunk-4-1.png" style="display: block; margin: auto;" /&gt;
+
+--
+.small[***If assumptions hold***, each $10,000 diff in total spending associated, on average, with 4.3 scale score point difference in reading scores.]
+
+--
+.small[.blue[**But do they?**]]
+
+---
+# Linear?
+
+```r
+# Fit the model
+fit &lt;- lm(read_score ~ total_spending, data=pisa)
+# Generate residual vs fitted plot
+pisa$resid &lt;- resid(fit)
+pisa$fitted &lt;- fitted(fit)
+ggplot(pisa, aes(fitted, resid)) + geom_point() +
+  geom_hline(yintercept = 0, color = "red", linetype="dashed")
+```
+
+&lt;img src="EDUC643_16_nonlinearity_files/figure-html/unnamed-chunk-5-1.png" style="display: block; margin: auto;" /&gt;
+
+---
+&lt;img src="pisa_spending.png" width="1048" style="display: block; margin: auto;" /&gt;
+
+---
+# Make it nice
+
+--
+&lt;img src="EDUC643_16_nonlinearity_files/figure-html/unnamed-chunk-7-1.png" style="display: block; margin: auto;" /&gt;
+
+--
+At low levels of spending the relationship between ***total_spending*** and ***read_score*** has a big magnitude. At higher levels of spending, it seems much more modest (negative?).
+
+---
+# Piecewise
+&lt;img src="EDUC643_16_nonlinearity_files/figure-html/unnamed-chunk-8-1.png" style="display: block; margin: auto;" /&gt;
+
+---
+# Piecewise
+&lt;img src="EDUC643_16_nonlinearity_files/figure-html/unnamed-chunk-9-1.png" style="display: block; margin: auto;" /&gt;
+---
+# Piecewise
+&lt;img src="EDUC643_16_nonlinearity_files/figure-html/unnamed-chunk-10-1.png" style="display: block; margin: auto;" /&gt;
+
+---
+# Piecewise
+While it is true, as we've said before that .red-pink[*locally all relationships are linear*], we've identified some emerging issues:
+
+.small[
+- Cut points arbitrary and these choices may substantially alter nature of observed relationship
+- With large data "eyeballing" linear sub-segments impossible
+- Increasing loss of power (larger standard errors and confidence intervals, greater influence of outliers)
+- .red-pink[**Overfitting**] risks increase
+  + Analysis conforms to particularly to your specific data, but generalizes poorly to population of inference
+]
+
+--
+&lt;img src="EDUC643_16_nonlinearity_files/figure-html/unnamed-chunk-11-1.png" style="display: block; margin: auto;" /&gt;
+
+--
+**Solutions**: transformations and polynomials
+
+---
+class: middle, inverse
+
+## Logarithmic transformations in X
+
+---
+# Log transformations
+
+- We can posit a .red-pink[**non-linear relationship**] between X and Y *in the population*
+- Any non-linear relationship implies that the relationship between X and Y is relative to a particular value of X and/or Y, not absolute (the slope is non-constant)
+- .red-pink[**Transformations**] (i.e., spreading out in some cases and compressing in others the values of our X and Y variables) allow us to fit non-linear relationships within the existing machinery of the general linear model
+
+---
+# Log transformations in life
+
+.pull-left[
+&lt;img src="octave.png" width="224" style="display: block; margin: auto;" /&gt;
+`\(\uparrow\)` .small[1 octave = doubling of cycles-per-second]
+
+&lt;img src="covid.png" width="660" style="display: block; margin: auto;" /&gt;
+]
+
+.pull-right[
+&lt;img src="seismograph.jpg" width="355" style="display: block; margin: auto;" /&gt;
+.tiny2[
+| Seismic-wave amplitude  | Location              | Richter Scale
+|------------------------------------------------------------------
+| 1,000,000               | Christchurch, 2010    | 6.0
+| 10,000,000              | Port-au-Prince, 2010  | 7.0
+| 100,000,000             | Sichuan, 2008         | 8.0
+| 1,000,000,000           | Sumatra, 2004         | 9.0
+]
+`\(\uparrow\)` .small[1 Richter = 10x] `\(\uparrow\)` .small[SWA]
+]
+
+---
+# A log 🌳 you say??
+
+Logs are the function we can perform to "undo" raising a number to a power. If a number is equal to a base raised to a power `\((x = base^{power})\)`, then a logarithim of a given base is the number you would have to raise to that power to get `\(x\)`:
+
+.pull-left[
+**Exponents**
+
+`\(10 = 10^1\)`
+
+`\(100=10^2\)`
+
+`\(1,000 = 10^3\)`
+
+`\(10,000 = 10^4\)`
+
+`\(100,000 = 10^5\)`
+]
+
+.pull-right[
+**Logarithms**
+
+`\(\text{log}_{10}(10)=1\)`
+
+`\(\text{log}_{10}(100)=2\)`
+
+`\(\text{log}_{10}(1,000)=3\)`
+
+`\(\text{log}_{10}(100,000)=4\)`
+
+`\(\text{log}_{10}(100,000)=5\)`
+]
+
+--
+
+Each 1 unit increase in a base-10 logarithm represents a 10-fold increase in `\(x\)`.
+
+--
+Can have logarithms of different base.
+
+---
+# A log 🌳 you say??
+
+Logs are the function we can perform to "undo" raising a number to a power. If a number is equal to a base raised to a power `\((x = base^{power})\)`, then a logarithim of a given base is the number you would have to raise to that power to get `\(x\)`:
+
+.pull-left[
+**Exponents**
+
+`\(2 = 2^1\)`
+
+`\(4 = 2^2\)`
+
+`\(8 = 2^3\)`
+
+`\(16 = 2^4\)`
+
+`\(32 = 2^5\)`
+]
+
+.pull-right[
+**Logarithms**
+
+`\(\text{log}_{2}(2)=1\)`
+
+`\(\text{log}_{2}(4)=2\)`
+
+`\(\text{log}_{2}(8)=3\)`
+
+`\(\text{log}_{2}(16)=4\)`
+
+`\(\text{log}_{2}(32)=5\)`
+]
+
+
+--
+
+Each 1 unit increase in a base-2 logarithm represents a doubling of `\(x\)`.
+
+--
+
+Can say this as: “Log base 2 of 32 is 5” or “Log base 10 of 1,000 is 3”
+
+---
+# Understanding logs
+
+&lt;img src="log_scale.png" width="940" style="display: block; margin: auto;" /&gt;
+
+--
+
+**Some key concepts:**
+- Taking logs spreads out the distance between small (closer to 0) values and compresses the distance between large (further from zero) values.
+- Log base anything(1) is = 0
+- Log base anything(0) is undefined (can't raise anything to a power and get 0)
+- Log base anything&gt;0(negative number) is undefined (technically a complex number)
+- Taking logs is a .red-pink[**monotonic**] transformation; doesn’t change the order of any of the underlying raw values
+
+
+---
+# $ and scores?
+Let's try transforming our X variable (*total_spending*) on a logarithmic scale; can do this directly in our plot:
+
+```r
+log_flag &lt;- flag +
+              xlab("Total spending, age 6-15 (Log10 $)") +
+              scale_x_log10(breaks=c(10000, 50000, 100000, 300000), 
+                            label=scales::comma)
+```
+
+---
+# $ and scores?
+Let's try transforming our X variable (*total_spending*) on a logarithmic scale; can do this directly in our plot:
+&lt;img src="EDUC643_16_nonlinearity_files/figure-html/unnamed-chunk-17-1.png" style="display: block; margin: auto;" /&gt;
+
+---
+# $ and scores?
+Let's try transforming our X variable (*total_spending*) on a logarithmic scale; can do this directly in our plot:
+&lt;img src="EDUC643_16_nonlinearity_files/figure-html/unnamed-chunk-18-1.png" style="display: block; margin: auto;" /&gt;
+
+---
+## Regress read on `\(\text{log}_{10}(spend)\)`
+
+```r
+summary(lm(read_score ~ log10(total_spending), data=pisa))
+```
+
+```
+## 
+## Call:
+## lm(formula = read_score ~ log10(total_spending), data = pisa)
+## 
+## Residuals:
+##     Min      1Q  Median      3Q     Max 
+## -136.50  -20.83   11.00   22.42   59.11 
+## 
+## Coefficients:
+##                       Estimate Std. Error t value Pr(&gt;|t|)    
+## (Intercept)             -78.03      69.14  -1.129    0.263    
+## log10(total_spending)   112.74      14.46   7.798 8.06e-11 ***
+## ---
+## Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
+## 
+## Residual standard error: 35.59 on 63 degrees of freedom
+## Multiple R-squared:  0.4911,	Adjusted R-squared:  0.4831 
+## F-statistic:  60.8 on 1 and 63 DF,  p-value: 8.062e-11
+```
+
+---
+# Conceptually
+
+.pull-left[
+&lt;img src="EDUC643_16_nonlinearity_files/figure-html/unnamed-chunk-20-1.png" style="display: block; margin: auto;" /&gt;
+`$$\hat{READ}_j = 428+0.00043 \times SPEND_j$$`
+
+]
+
+.pull-right[
+&lt;img src="EDUC643_16_nonlinearity_files/figure-html/unnamed-chunk-21-1.png" style="display: block; margin: auto;" /&gt;
+
+
+`$$\hat{READ}_j = -78.03 + 112.74 \times \text{log}_{10}(SPEND_j)$$`
+
+]
+
+--
+
+- In ed/dev psych this kind of curve is called “learning curve”; represents standard rate of learning
+- More broadly, increasing exponential decay or diminishing marginal returns
+
+---
+# Interpret
+&lt;img src="EDUC643_16_nonlinearity_files/figure-html/unnamed-chunk-22-1.png" style="display: block; margin: auto;" /&gt;
+
+**Some alternative ways to describe this relationship:**
+.tiny[
+- Average reading scores in the population of countries sitting for the 2018 PISA reading test were 112.7 points higher for every ten-fold increase in cumulative educational spending on children aged 6-15.
+- As cumulative education spending on children aged 6-15 is ten times higher, reading scores in the population of countries sitting for the 2018 PISA reading test were 112.7 points higher, on average.
+- We predict that two countries that spend an order of magnitude (e.g., $10,000 vs. $100,00) apart on cumulative educational expenditures on children aged 6-15 will have PISA reading scores 112.7 points apart.
+]
+
+---
+class: middle, inverse
+
+# Log transformations in Y
+
+## aka Exponential growth curve
+
+---
+# GDP and PPE
+&lt;img src="EDUC643_16_nonlinearity_files/figure-html/unnamed-chunk-23-1.png" style="display: block; margin: auto;" /&gt;
+
+---
+# GDP and PPE
+&lt;img src="EDUC643_16_nonlinearity_files/figure-html/unnamed-chunk-24-1.png" style="display: block; margin: auto;" /&gt;
+
+---
+# An alternative model
+
+The relationship of GDP and PPE are relative to their respective values. The relationship has a smaller magnitude when GDP per capita is smaller and a larger magnitude when GDP per capita is larger.
+
+--
+Can use a log transformation to capture the non-absolute (non-constant) nature of the slope:
+
+`$$PPE_j = \beta_0 * 2^{(\beta_1 GDP_j + \varepsilon)}$$`
+
+`$$\text{log}_2(PPE_j) = \text{log}_2 \beta_0 + \beta_1 GDP_j + \varepsilon$$`
+---
+# Interpreting this
+
+Can interpret log outcomes as percent changes because:
+`$$Y_1 = \beta_0 2^{\beta_1 X_1}$$`
+`$$Y_2 = \beta_0 2^{\beta_1(X+1)} = \beta_0 2^{\beta_1 X} 2^{\beta_1}$$`
+
+`$$\frac{Y_2}{Y_1} = \frac{\beta_0 2^{\beta_1 X} 2^{\beta_1}}{\beta_0 2^{\beta_1 X}} = 2^{\beta_1}$$`
+
+So, `\(Y_2\)` is `\(2^{\beta_1}\)` times larger than `\(Y_1\)`!
+
+--
+Depends on key properties of logs:
+- log(xy) = log(x) + log(y)
+- `\(\text{log}(x^p)\)` = p*log(x)
+
+--
+
+.red-pink[**Percent growth rate**] = `\(\large 100(2^{\beta_1} - 1)\)`
+
+.small[Regress log(Y) on X and substitute the estimated slope into the equation for the percent growth rate to obtain the estimated percent growth rate per unit change in X.]
+
+`\(Y_2 = 2^{\beta_1} Y_1\)` is the same thing as saying the percent growth rate is `\(100(2^{\beta_1} - 1)\)`
+
+
+---
+# Visualized Y transformation
+
+```r
+oecd$log2ppe &lt;- log2(oecd$ppe)
+
+log_ppe &lt;- ggplot(oecd, aes(x=gdp, y=log2ppe))
+```
+
+---
+# Visualized Y transformation
+&lt;img src="EDUC643_16_nonlinearity_files/figure-html/unnamed-chunk-26-1.png" style="display: block; margin: auto;" /&gt;
+
+---
+## Regress `\(\text{log}_{2}(ppe)\)` on gdp
+
+```r
+summary(lm(log2(ppe) ~ gdp, oecd))
+```
+
+```
+...
+## Residuals:
+##      Min       1Q   Median       3Q      Max 
+## -0.39728 -0.09378  0.01867  0.11920  0.31357 
+## 
+## Coefficients:
+##              Estimate Std. Error t value Pr(&gt;|t|)    
+## (Intercept) 1.176e+01  1.113e-01   105.7   &lt;2e-16 ***
+## gdp         3.899e-05  2.484e-06    15.7   &lt;2e-16 ***
+## ---
+## Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
+## 
+## Residual standard error: 0.1712 on 32 degrees of freedom
+## Multiple R-squared:  0.8851,	Adjusted R-squared:  0.8815 
+## F-statistic: 246.5 on 1 and 32 DF,  p-value: &lt; 2.2e-16
+...
+```
+
+--
+**Percent growth rate**: `\(100(2^{0.000039} - 1) = 0.0027\%\)` ; for each $1 more of GDP per person, PPE is 0.0027% higher; or for each $1,000 more of GDP per person, PPE is 2.7% higher
+
+---
+# Interpreting log Y results
+&lt;img src="EDUC643_16_nonlinearity_files/figure-html/unnamed-chunk-28-1.png" style="display: block; margin: auto;" /&gt;
+`$$\text{log}_2 (\hat{PPE}_j) = 11.8 + 0.000039 * GDP_j$$`
+
+&gt; Per capita gross domestic product (GDP) is a strong predictor of yearly per-student expenditure from primary through tertiary education. In particular, if we compare two countries whose GDPs differ by $1,000, we would predict that the wealthier country would have per pupil expenditure that is 2.7 ***percent*** higher than the country with the smaller economy.
+
+---
+class: middle, inverse
+
+# Log-log transformations
+
+## aka proportional growth
+
+
+---
+# Which 🌲 to harvest?
+
+- Could theoretically select a log of any base to transform outcome or predictor or both to a linear relationship
+- Much more sensible to restrict yourself to base_10, base_2 or the .red-pink[**natural log**]; comes from Euler's number `\((e)\)`
+  
+`$$e = \lim_{n \to \infty}(1 + \frac{1}{n})^n \approx 2.718281828459...$$` 
+
+- .red-pink[**Natural log**]: `\(\text{log}_{2.718...}(x) = \text{log}_e(x) = \text{ln}(x)\)`
+
+---
+# All the countries
+&lt;img src="EDUC643_16_nonlinearity_files/figure-html/unnamed-chunk-29-1.png" style="display: block; margin: auto;" /&gt;
+
+---
+# Log-log transformations
+
+```r
+oecd2$lngdp &lt;- log(oecd2$gdp)
+oecd2$lnppe &lt;- log(oecd2$ppe)
+
+ln_ppe &lt;- ggplot(oecd2, aes(x=lngdp, y=lnppe))
+```
+
+---
+# Log-log transformations
+&lt;img src="EDUC643_16_nonlinearity_files/figure-html/unnamed-chunk-31-1.png" style="display: block; margin: auto;" /&gt;
+
+---
+## Regress `\(\text{ln}(ppe)\)` on `\(\text{ln}(gdp)\)`
+
+```r
+summary(lm(log(ppe) ~ log(gdp), oecd2))
+```
+
+```
+...
+## Residuals:
+##      Min       1Q   Median       3Q      Max 
+## -0.43570 -0.04076  0.01302  0.07489  0.26542 
+## 
+## Coefficients:
+##             Estimate Std. Error t value Pr(&gt;|t|)    
+## (Intercept) -0.39273    0.72674   -0.54    0.592    
+## log(gdp)     0.91274    0.06801   13.42 3.83e-15 ***
+## ---
+## Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
+## 
+## Residual standard error: 0.1509 on 34 degrees of freedom
+## Multiple R-squared:  0.8412,	Adjusted R-squared:  0.8365 
+## F-statistic: 180.1 on 1 and 34 DF,  p-value: 3.826e-15
+...
+```
+
+--
+`$$\hat{LnPPE}_j = -0.39 + 0.91 * LnGDP_j$$`
+
+---
+# Interpreting this
+
+Can interpret log-log relationships in percent terms. `\(\color{red}{\beta_1}\)` .red-pink[**represents the % change in Y per 1% change in X.**]
+
+
+.pull-left[
+.small[**Postulated model:**]
+- `\(Y = \beta_0 X^{\beta_1}e^{\varepsilon}\)`
+- `\(\text{ln}(Y) = \text{ln}(\beta_0 X^{\beta_1}e^{\varepsilon})\)`
+- `\(\text{ln}(Y) = \text{ln}(\beta_0) + \text{ln}(X^{\beta_1}) + \text{ln}(e^{\varepsilon})\)`
+- `\(\text{ln}(Y) = \text{ln}(\beta_0) + \beta_1 \text{ln}(X) + \varepsilon\)`
+]
+
+.pull-right[
+.small[**Imagine `\(Y_1\)` and `\(Y_2\)` are 1% (or 0.01) apart**:]
+- `\(Y_1 = \beta_0 X^{\beta_1}\)`
+- `\(Y_2 = \beta_0(1.01X)^{\beta_1} = \beta_0 X^{\beta_1}(1.01)^{\beta_1}\)`
+- `\(\frac{Y_2}{Y_1} = \frac{\beta_0 X^{\beta_1}}{\beta_0 X^{\beta_1}} = (1.01)^{\beta_1}\)`
+
+So `\(Y_2\)` is `\((1.01)^{\beta_1}\)` times larger than `\(Y_1\)`
+]
+
+--
+
+Regress ln(Y) on ln(X) and the slope estimate is the estimated percent difference in Y per 1 percent difference in X
+
+---
+# Interpret log-log relationship
+
+```r
+summary(lm(log(ppe) ~ log(gdp), oecd2))
+```
+
+```
+...
+## Residuals:
+##      Min       1Q   Median       3Q      Max 
+## -0.43570 -0.04076  0.01302  0.07489  0.26542 
+## 
+## Coefficients:
+##             Estimate Std. Error t value Pr(&gt;|t|)    
+## (Intercept) -0.39273    0.72674   -0.54    0.592    
+## log(gdp)     0.91274    0.06801   13.42 3.83e-15 ***
+## ---
+## Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
+## 
+## Residual standard error: 0.1509 on 34 degrees of freedom
+## Multiple R-squared:  0.8412,	Adjusted R-squared:  0.8365 
+## F-statistic: 180.1 on 1 and 34 DF,  p-value: 3.826e-15
+...
+```
+
+--
+"1 percent change in GDP predicts 0.91 percent change in PPE"
+
+---
+# Interpret log-log relationship
+&lt;img src="EDUC643_16_nonlinearity_files/figure-html/unnamed-chunk-34-1.png" style="display: block; margin: auto;" /&gt;
+`$$\text{ln}(\hat{PPE}_j) = \text{ln}(\beta_0) + \beta_1 \text{ln}(GDP_j) + \varepsilon$$`
+&gt; We predict that, on average, comparing two countries with GDP per capita separated by 1 percent the wealthier country will spend 0.91 percent more on its pupils across primary through tertiary education. 
+
+---
+## "Forbidden" log transformations
+So far, we've been dealing with situations in which all the variables we needed to transform were non-zero. In fact this is often not the case:
+&lt;img src="EDUC643_16_nonlinearity_files/figure-html/unnamed-chunk-35-1.png" style="display: block; margin: auto;" /&gt;
+
+--
+Many other instances: counts of behaviors, individual income, absences, scale scores, etc.
+
+---
+## "Forbidden" log transformations
+
+Traditional approach: 
+- Add a small "starter" value to all raw values (+1, +0.1, +0.01, +0.001, etc.)
+- Take log of this .red-pink[**"zero-inflated"**] variable
+
+.red[**DO NOT DO THIS!!!**]
+
+- Value selected for starter and proportion of 0s in your data can results in wildly inconsistent coefficient estimates
+- You'll address this issue in EDUC 645 with Poisson regression
+
+---
+
+
+.pull-left[
+&lt;img src="EDUC643_16_nonlinearity_files/figure-html/unnamed-chunk-37-1.png" style="display: block; margin: auto;" /&gt;
+.small[
+- Regress Y on log(X)
+- `\(Y = \hat{\beta_0} + \hat{\beta_1}\text{log}(X)\)`
+- "every doubling (or whatever base) of X associated with `\(\hat{\beta_1}\)` diff in Y"
+]
+]
+
+.pull-right[
+&lt;img src="EDUC643_16_nonlinearity_files/figure-html/unnamed-chunk-38-1.png" style="display: block; margin: auto;" /&gt;
+.small[
+- Regress log(Y) on X
+- `\(\text{log}(Y) = \hat{\beta_0} + \hat{\beta}_1 X\)`
+- Every 1 unit diff in X associated with `\(100(e^{\hat{\beta_1}} - 1)\)` % diff in Y
+]
+]
+
+--
+&lt;img src="EDUC643_16_nonlinearity_files/figure-html/unnamed-chunk-39-1.png" style="display: block; margin: auto;" /&gt;
+.small[
+- Regress log(Y) on log(X)
+- `\(\text{log}(Y) = \hat{\beta_0} + \hat{\beta_1}\text{log}(X)\)`
+- Every 1% diff in X associated with `\(\hat{\beta_1}\)` percent diff in Y
+]
+
+
+---
+class: middle, inverse
+
+# Quadratic terms: a special kind of interaction
+
+
+---
+# Quadratic model
+&lt;img src="EDUC643_16_nonlinearity_files/figure-html/unnamed-chunk-40-1.png" style="display: block; margin: auto;" /&gt;
+
+Effects of a predictor can differ by that predictor:
+`$$Y = \beta_0 + \beta_1 X_1 + \beta_2 (X_1 * X_1) + \varepsilon$$`
+
+`$$Y = \beta_0 + \beta_1 X_1 + \beta_2 X_1^2 + \varepsilon$$`
+
+--
+
+Can point upwards or downwards, but **all quadratic relationships are .red-pink[non-monotic]; the relationship both rises and falls (or falls and rises)**
+
+---
+# A quadratic relationship
+&lt;img src="EDUC643_16_nonlinearity_files/figure-html/unnamed-chunk-41-1.png" style="display: block; margin: auto;" /&gt;
+
+--
+
+.blue[**Which direction will the quadratic line of best fit point?**]
+
+---
+# A quadratic relationship
+&lt;img src="EDUC643_16_nonlinearity_files/figure-html/unnamed-chunk-42-1.png" style="display: block; margin: auto;" /&gt;
+
+---
+# A quadratic relationship
+&lt;img src="EDUC643_16_nonlinearity_files/figure-html/unnamed-chunk-43-1.png" style="display: block; margin: auto;" /&gt;
+
+--
+We can represent quadratic fits mathematically in generic form: `\(y = \beta_0 + \beta_1 x + \beta_2 x^2\)`.
+
+--
+.blue[**Challenge: what signs will each of the three coefficients take for the above relationship?**]
+
+---
+# Fitting the quadratic
+
+```r
+summary(lm(read_score ~ total_spending + I(total_spending^2), pisa))
+```
+
+```
+...
+## Residuals:
+##     Min      1Q  Median      3Q     Max 
+## -98.511 -15.722   3.806  22.651  59.394 
+## 
+## Coefficients:
+##                       Estimate Std. Error t value Pr(&gt;|t|)    
+## (Intercept)          3.728e+02  9.665e+00  38.574  &lt; 2e-16 ***
+## total_spending       1.750e-03  1.798e-04   9.732 4.22e-14 ***
+## I(total_spending^2) -5.260e-09  6.498e-10  -8.096 2.70e-11 ***
+## ---
+## Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
+## 
+## Residual standard error: 31.34 on 62 degrees of freedom
+## Multiple R-squared:  0.6117,	Adjusted R-squared:  0.5992 
+## F-statistic: 48.84 on 2 and 62 DF,  p-value: 1.834e-13
+...
+```
+
+--
+Fitted equation: `\(\hat{read} = 372.8 + 0.00175 * spend - 0.00000000526 * spend^2\)`. 
+
+--
+.blue[**How do our model fit statistics compare to the linear version?**]
+
+---
+# The "right" fit to data
+
+.pull-left[
+&lt;img src="EDUC643_16_nonlinearity_files/figure-html/unnamed-chunk-45-1.png" style="display: block; margin: auto;" /&gt;&lt;img src="EDUC643_16_nonlinearity_files/figure-html/unnamed-chunk-45-2.png" style="display: block; margin: auto;" /&gt;
+]
+
+.small[
+.pull-right[
+- A declining relationship between spending and performance doesn't make much substantive sense, so we would probably not use a quadratic fit for our full data
+- However, without Qatar and Luxembourg, a quadratic describes the relationship quite nicely
+
+&lt;br&gt;
+&lt;br&gt;
+
+- Don't extrapolate the shape of the parabola to the left of the y-axis
+- Shouldn't assume the y values will be higher to the left of the y-axis
+]
+]
+
+---
+class: middle, inverse
+
+# Higher-order polynomials
+
+---
+# Cubics
+.small[We needn't restrict ourselves to transformations to normality to only quadratic relationships. Many relationships, for example are cubic (third-power) in nature. Particularly true when there are measurement issues in the tails and/or floor/ceiling effects.]
+
+.pull-left[
+**Strong cubic**
+&lt;img src="EDUC643_16_nonlinearity_files/figure-html/unnamed-chunk-46-1.png" style="display: block; margin: auto;" /&gt;
+]
+
+--
+
+.pull-right[
+**Our DIBELS data**
+&lt;img src="EDUC643_16_nonlinearity_files/figure-html/unnamed-chunk-47-1.png" style="display: block; margin: auto;" /&gt;
+]
+
+--
+
+`$$\hat{W20\_ORF} = 2.81 + 1.47*F19\_ORF - 0.0010*F19\_ORF^2 - 0.000017 * F19\_ORF^3$$`
+
+
+---
+# Other approaches
+
+.pull-left[
+.small[
+There are an infinite number of potentially effective transformations:
+- Squares, cubes, quartic, quintics, ...
+- Square roots, cube roots, fourth roots, ...
+- Logarithms (of any base), antilogarithms
+- Inverses
+- Trigonometric functions
+- Hyperbolic functions
+- Combinations of above...
+]
+]
+
+.pull-right[
+.small[
+Approaches to achieve local linearity:
+- Splines
+- Local estimated scatterplot smoothing (LOESS)
+]
+]
+
+--
+
+**Some emerging issues:**
+&lt;img src="EDUC643_16_nonlinearity_files/figure-html/unnamed-chunk-48-1.png" style="display: block; margin: auto;" /&gt;
+
+---
+class: middle, inverse
+# Synthesis and wrap-up
+
+
+---
+# Different approaches
+
+.pull-left[
+**Empirical approach**
+.small[
+- Notice presence of non-linearity in relationship
+- Find an *ad-hoc* transformation of either the predictor, the outcome, or both that renders the relationship linear
+- Use OLS in the transformed world, and conduct inference there
+- De-transform fitted model to produce sensible plots
+]
+]
+
+--
+
+.pull-right[
+**Theory-driven approach**
+.small[
+- Use theory or knowledge from prior research to postulate a non-linear model
+- Use non-linear regression (`nls` or other estimation packages) (part of the .red-pink[**Generalized Linear Model**] family) to fit the postulated trend in the real world and conduct inference there
+- Interpret parameter estimates directly
+- **We are not learning how to do this, but worth exploring yourself**
+]
+]
+
+---
+# The Ladder and the Bulge
+
+.pull-left[
+.red-pink[**Tukey's Ladder**]
+&lt;img src="tukey_ladder.png" width="609" style="display: block; margin: auto;" /&gt;
+]
+
+.pull-right[
+.red-pink[**Tukey's Bulge**]
+&lt;img src="tukey_bulge.png" width="733" style="display: block; margin: auto;" /&gt;
+]
+
+---
+## Putting non-linearity together
+.small[
+- **Remember to check your linearity assumption**
+   + Use bivariate scatter plots
+   + Use residual and Q-Q plots to diagnose
+- **Make sensible transformations**
+   + Logarithmic, inverse, root and other functions can allow a return to a world of linearity and permit you to use the GLM tools of OLS to estimate non-linear relationships
+   + Best to use transformations that are the most straightforward to interpret
+   + Use Tukey's Bulge to guide what kind of transformation you will attempt
+   + There is no one "right" transformation for a given data shape
+   + Start with transforming x before y
+   + Generally, do **not** use a "start" to log transform data that includes 0s
+   + Inspect scatter plots post-transformation to check for success in linearizing
+      - With large data, can be hard to see; consider binscatter options (by hand or `binsreg`)
+- **Predictors can interact with themselves**
+   + Quadratic and cubic models provide a flexible strategy for fitting non-linear models, especially those that cannot be linearized by logarithms
+   + Be careful about overfitting and model instability with polynomials of order &gt;3!
+   + Quadratics and logs will often produce [similar fitted lines](https://daviddliebowitz.github.io/EDUC643_23W/slides/EDUC643_16_nonlinearity.html#95); quadratic allows direct statistical test for non-linearity, logarithm may fit with theory better and/or can be more readily interpretable
+]
+---
+# Goals of the unit
+
+- Describe in writing and verbally the assumptions we violate when we fit a non-linear relationship with a linear model
+- Transform non-linear relationships into linear ones by using logarithmic scales 
+- Estimate regression models using logarithmic scales and interpret the results
+- Estimate and interpret models with quadratic and higher-order polynomial terms (special kinds of interactions)
+- Select between transformation options
+
+---
+# To-Dos
+
+### Assignment 5:
+- Due March 8, 11:59p
+
+### Final
+- Due March 23, 12:01p
+
+### Re- (late) submissions
+- Everything due March 17, 9:00a (no exceptions)
+- Assignments with scores &lt;10.8 only
+- Earn up to 10.8
+
+---
+# Log vs. quadratic
+&lt;img src="EDUC643_16_nonlinearity_files/figure-html/unnamed-chunk-51-1.png" style="display: block; margin: auto;" /&gt;
+    </textarea>
+<style data-target="print-only">@media screen {.remark-slide-container{display:block;}.remark-slide-scaler{box-shadow:none;}}</style>
+<script src="https://remarkjs.com/downloads/remark-latest.min.js"></script>
+<script>var slideshow = remark.create({
+"highlightStyle": "github",
+"highlightLines": true,
+"countIncrementalSlides": false
+});
+if (window.HTMLWidgets) slideshow.on('afterShowSlide', function (slide) {
+  window.dispatchEvent(new Event('resize'));
+});
+(function(d) {
+  var s = d.createElement("style"), r = d.querySelector(".remark-slide-scaler");
+  if (!r) return;
+  s.type = "text/css"; s.innerHTML = "@page {size: " + r.style.width + " " + r.style.height +"; }";
+  d.head.appendChild(s);
+})(document);
+
+(function(d) {
+  var el = d.getElementsByClassName("remark-slides-area");
+  if (!el) return;
+  var slide, slides = slideshow.getSlides(), els = el[0].children;
+  for (var i = 1; i < slides.length; i++) {
+    slide = slides[i];
+    if (slide.properties.continued === "true" || slide.properties.count === "false") {
+      els[i - 1].className += ' has-continuation';
+    }
+  }
+  var s = d.createElement("style");
+  s.type = "text/css"; s.innerHTML = "@media print { .has-continuation { display: none; } }";
+  d.head.appendChild(s);
+})(document);
+// delete the temporary CSS (for displaying all slides initially) when the user
+// starts to view slides
+(function() {
+  var deleted = false;
+  slideshow.on('beforeShowSlide', function(slide) {
+    if (deleted) return;
+    var sheets = document.styleSheets, node;
+    for (var i = 0; i < sheets.length; i++) {
+      node = sheets[i].ownerNode;
+      if (node.dataset["target"] !== "print-only") continue;
+      node.parentNode.removeChild(node);
+    }
+    deleted = true;
+  });
+})();
+// add `data-at-shortcutkeys` attribute to <body> to resolve conflicts with JAWS
+// screen reader (see PR #262)
+(function(d) {
+  let res = {};
+  d.querySelectorAll('.remark-help-content table tr').forEach(tr => {
+    const t = tr.querySelector('td:nth-child(2)').innerText;
+    tr.querySelectorAll('td:first-child .key').forEach(key => {
+      const k = key.innerText;
+      if (/^[a-z]$/.test(k)) res[k] = t;  // must be a single letter (key)
+    });
+  });
+  d.body.setAttribute('data-at-shortcutkeys', JSON.stringify(res));
+})(document);
+(function() {
+  "use strict"
+  // Replace <script> tags in slides area to make them executable
+  var scripts = document.querySelectorAll(
+    '.remark-slides-area .remark-slide-container script'
+  );
+  if (!scripts.length) return;
+  for (var i = 0; i < scripts.length; i++) {
+    var s = document.createElement('script');
+    var code = document.createTextNode(scripts[i].textContent);
+    s.appendChild(code);
+    var scriptAttrs = scripts[i].attributes;
+    for (var j = 0; j < scriptAttrs.length; j++) {
+      s.setAttribute(scriptAttrs[j].name, scriptAttrs[j].value);
+    }
+    scripts[i].parentElement.replaceChild(s, scripts[i]);
+  }
+})();
+(function() {
+  var links = document.getElementsByTagName('a');
+  for (var i = 0; i < links.length; i++) {
+    if (/^(https?:)?\/\//.test(links[i].getAttribute('href'))) {
+      links[i].target = '_blank';
+    }
+  }
+})();
+// adds .remark-code-has-line-highlighted class to <pre> parent elements
+// of code chunks containing highlighted lines with class .remark-code-line-highlighted
+(function(d) {
+  const hlines = d.querySelectorAll('.remark-code-line-highlighted');
+  const preParents = [];
+  const findPreParent = function(line, p = 0) {
+    if (p > 1) return null; // traverse up no further than grandparent
+    const el = line.parentElement;
+    return el.tagName === "PRE" ? el : findPreParent(el, ++p);
+  };
+
+  for (let line of hlines) {
+    let pre = findPreParent(line);
+    if (pre && !preParents.includes(pre)) preParents.push(pre);
+  }
+  preParents.forEach(p => p.classList.add("remark-code-has-line-highlighted"));
+})(document);</script>
+
+<script>
+slideshow._releaseMath = function(el) {
+  var i, text, code, codes = el.getElementsByTagName('code');
+  for (i = 0; i < codes.length;) {
+    code = codes[i];
+    if (code.parentNode.tagName !== 'PRE' && code.childElementCount === 0) {
+      text = code.textContent;
+      if (/^\\\((.|\s)+\\\)$/.test(text) || /^\\\[(.|\s)+\\\]$/.test(text) ||
+          /^\$\$(.|\s)+\$\$$/.test(text) ||
+          /^\\begin\{([^}]+)\}(.|\s)+\\end\{[^}]+\}$/.test(text)) {
+        code.outerHTML = code.innerHTML;  // remove <code></code>
+        continue;
+      }
+    }
+    i++;
+  }
+};
+slideshow._releaseMath(document);
+</script>
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+(function () {
+  var script = document.createElement('script');
+  script.type = 'text/javascript';
+  script.src  = 'https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-MML-AM_CHTML';
+  if (location.protocol !== 'file:' && /^https?:/.test(script.src))
+    script.src  = script.src.replace(/^https?:/, '');
+  document.getElementsByTagName('head')[0].appendChild(script);
+})();
+</script>
+  </body>
+</html>
