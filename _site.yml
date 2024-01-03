@@ -13,43 +13,43 @@ navbar:
       - text: "1. Intro and bivariate relationships"
         href: ./slides/EDUC643_1_intro.html
       - text: "2. GLM"
-        href: ./slides/EDUC643_2_GLM.html
+        #href: ./slides/EDUC643_2_GLM.html
       - text: "3. Regression inference"
-        href: ./slides/EDUC643_3_inference.html
+        #href: ./slides/EDUC643_3_inference.html
       - text: "4. Correlation...and causality"
-        href: ./slides/EDUC643_4_correlation.html
+        #href: ./slides/EDUC643_4_correlation.html
       - text: "5. Regression assumptions"
-        href: ./slides/EDUC643_5_assumptions.html
+        #href: ./slides/EDUC643_5_assumptions.html
       - text: "6. Regression assumptions"
-        href: ./slides/EDUC643_5_assumptions.html
+        #href: ./slides/EDUC643_5_assumptions.html
       - text: "7. Multiple regression I"
-        href: ./slides/EDUC643_7_mult_regression.html
+        #href: ./slides/EDUC643_7_mult_regression.html
       - text: "8. Multiple regression II"
-        href: ./slides/EDUC643_7_mult_regression.html
+        #href: ./slides/EDUC643_7_mult_regression.html
       - text: "9. Multiple regression III"
-        href: ./slides/EDUC643_7_mult_regression.html#85
+        #href: ./slides/EDUC643_7_mult_regression.html#85
       - text: "10. Categorical predictors I"
-        href: ./slides/EDUC643_10_categorical.html
+        #href: ./slides/EDUC643_10_categorical.html
       - text: "11. Categorical predictors II"
-        href: ./slides/EDUC643_10_categorical.html
+        #href: ./slides/EDUC643_10_categorical.html
       - text: "12. Categorical predictors III"
-        href: ./slides/EDUC643_10_categorical.html
+        #href: ./slides/EDUC643_10_categorical.html
       - text: "13. Interactions I"
-        href: ./slides/EDUC643_13_interactions.html
+        #href: ./slides/EDUC643_13_interactions.html
       - text: "14. Interactions II"
-        href: ./slides/EDUC643_13_interactions.html
+        #href: ./slides/EDUC643_13_interactions.html
       - text: "15. Interactions III"
-        href: ./slides/EDUC643_13_interactions.html
+        #href: ./slides/EDUC643_13_interactions.html
       - text: "16. Non-linearity I"
-        href: ./slides/EDUC643_16_nonlinearity.html
+        #href: ./slides/EDUC643_16_nonlinearity.html
       - text: "17. Non-linearity II"
-        href: ./slides/EDUC643_16_nonlinearity.html
+        #href: ./slides/EDUC643_16_nonlinearity.html
       - text: "18. Non-linearity III"
-        href: ./slides/EDUC643_16_nonlinearity.html
+        #href: ./slides/EDUC643_16_nonlinearity.html
       - text: "19. Model building"
-        href: ./slides/EDUC643_19_modeling.html
+        #href: ./slides/EDUC643_19_modeling.html
       - text: "20. Model building"
-        href: ./slides/EDUC643_19_modeling.html
+        #href: ./slides/EDUC643_19_modeling.html
 
 
   right:

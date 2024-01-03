@@ -19,7 +19,7 @@ knitr::opts_chunk$set(echo = TRUE)
 
 The goal of the assignments is to practice the concepts and vocabulary we have been modeling in class and implement some of the techniques we have learned. You may work on your own or collaborate with one (1) partner. Please make sure that you engage in a full, fair and mutually-agreeable collaboration if you choose to collaborate. If you do collaborate, you should plan, execute and write-up your analyses together, not simply divide the work. Please make sure to indicate clearly when your work is joint and any other individual or resource (outside of class material) you consulted in your responses.
 
-Each of the five assignments during the term is worth 12 points, and the final project is worth 30 points. Assignments are generally due at 11:59pm on their due date. If circumstances arise that require an extension on an assignment, please communicate with the lead instructor *prior* to the assignment's due date. We will publish the answer keys to assignments prior to class the following day; thus, late assignments will be penalized by two (2) points. Late final projects may results in a final grade of I or D/F.
+The first assignment covers the first two units and is worth 20 points. The second through fourth assignments are each worth 13 points, and the final project is worth 30 points. Assignments are due at 11:59pm on their due date. If circumstances arise that require an extension on an assignment, please communicate with the lead instructor *prior* to the assignment's due date. We will publish the answer keys to assignments prior to class the following day; thus, late assignments will be penalized by two (2) points. Late final projects may results in a final grade of I or D/F.
 
 # 2. Submission Requirements
 
@@ -33,7 +33,7 @@ Please upload below two files on Canvas:
 
 #### 3.1. Assignment 1
 
-**Bivariate relationships**
+**Bivariate relationships and regression assumptions**
 
 Objectives of this assignment:
 
@@ -42,33 +42,21 @@ Objectives of this assignment:
  * State null hypothesis and interpret results of linear regression test of bivariate continuous relationship
  
  * Substantively interpret results of bivariate relationship to non-expert audience
-
-
-Deadline: Jan. 24, 11:59pm
-
-Download: [html file](./assignments/assignment_1.html) | [nerds dataset](./data/nerds.csv)
-
-Key: <!-- [doc file](./assignments/keys/assignment_1_key.docx) | [R script](assignments/keys/assignment_1_key.R) -->
-
-#### 3.2. Assignment 2
-
-**Regression assumptions**
-
-Objectives of this assignment:
-
+ 
  * Describe assumptions required of Ordinary Least Squares estimators
  
  * Assess regression fit for extent to which it satisfies OLS assumptions
  
  * Propose solutions to OLS assumption violations and discuss their potential merits and drawbacks 
 
-Deadline: Feb. 3, 11:59pm (but I encourage you to complete by 1/31)
 
-Download: [html file](./assignments/assignment_2.html) | [nerds dataset](./data/nerds.csv)
+Deadline: Feb. 1, 11:59pm
 
-Key: <!-- [doc file](./assignments/keys/assignment_2_key.docx) | [R script](./assignments/keys/assignment_2_key.R) -->
+Download: [html file](./assignments/assignment_1.html) | [nerds dataset](./data/nerds.csv)
 
-#### 3.3. Assignment 3
+Key: <!-- [doc file](./assignments/keys/assignment_1_key.docx) | [R script](assignments/keys/assignment_1_key.R) -->
+
+#### 3.2. Assignment 2
 
 **Multiple regression**
 
@@ -80,14 +68,14 @@ Objectives of this assignment:
  
  * Assess multiple regression results for assumptions violations
 
-Deadline: Feb. 14, 11:59pm
+Deadline: Feb. 15, 11:59pm
 
-Download: [html file](./assignments/assignment_3.html) | [nerds dataset](./data/nerds.csv)
+Download: <!-- [html file](./assignments/assignment_3.html) | [nerds dataset](./data/nerds.csv) -->
 
 Key: <!-- [doc file](./assignments/keys/assignment_3_key.docx) | [R script](./assignments/keys/assignment_3_key.R) -->
 
 
-#### 3.4. Assignment 4
+#### 3.3. Assignment 3
 
 **Categorical predictors**
 
@@ -99,14 +87,14 @@ Objectives of this assignment:
  
  * Use categorical predictors as covariates and use them to plot prototypical values of continuous relationships
 
-Deadline: Feb. 27, 9:00am
+Deadline: Feb. 22, 11:59pm
 
-Download: [html file](./assignments/assignment_4.html) | [nerds dataset](./data/nerds.csv)
+Download: <!-- [html file](./assignments/assignment_4.html) | [nerds dataset](./data/nerds.csv) -->
 
 Key: <!-- [doc file](./assignments/keys/assignment_4_key.docx) | [R script](./assignments/keys/assignment_4_key.R) -->
 
 
-#### 3.5. Assignment 5
+#### 3.4. Assignment 4
 
 **Interactions**
 
@@ -116,13 +104,13 @@ Objectives of this assignment:
  
  * Construct plots conveying substantively accessible results of interaction models
  
-Deadline: March 8, 11:59pm
+Deadline: March 7, 11:59pm
 
-Download: [html file](./assignments/assignment_5.html) | [nerds dataset](./data/nerds.csv)
+Download: <!-- [html file](./assignments/assignment_5.html) | [nerds dataset](./data/nerds.csv) -->
 
 Key: <!-- [doc file](./assignments/keys/assignment_5_key.docx) | [R script](./assignments/keys/assignment_5_key.R) -->
 
-#### 3.6. Final Project
+#### 3.5. Final Project
 
 **The Works**
 
@@ -134,6 +122,6 @@ Objectives of this assignment:
  
  * Using tables, figures and words, interpret the results of your analysis for an academic research audience
 
-Deadline: March 23, 12:01pm
+Deadline: March 21, 12:01pm
 
-Download: [html file](./assignments/assignment_6.html) | [seda dataset](./data/seda.csv)
+Download: <!-- [html file](./assignments/assignment_6.html) | [seda dataset](./data/seda.csv) -->
