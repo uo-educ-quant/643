@@ -170,41 +170,9 @@ Concrete learning objectives:
 ---
 # Me
 
-.pull-left[
-- David Liebowitz (aka, "David" or "Dr. Liebowitz")
-- he/him
-- English lit undergrad major
-- Former ELA teacher and principal
-- Policy analyst/advisor
-- **Applied** quantitative social scientist focused on improving leadership and policy
-- **Not** a methodologist
-]
-
-.pull-right[
-```{r, echo=F}
-include_graphics("kids.jpg")
-```
-]
-
-
---
-
-.small[*Personal interests: I work and have kids, so I have no life, but when I can, I try to go for runs or play in the Cascade range.*]
-
 
 ---
 # Learnings from the fall
-
-- More examples of actually doing the analysis
-- More examples of write-up
-- More opportunities to collaborate with classmates (engage in active learning)
-- Clearer explanation of some concepts in class lectures
-
---
-
-
-### A wondering:
-- Many students did not submit polished final products for their assignments, do we need to grade for this?
 
 
 ---
@@ -226,8 +194,8 @@ include_graphics("kids.jpg")
 1. Two 1.5-hour lectures will introduce concepts in interactive lectures, discussion and activities
 2. Readings are intended to supplement material from lectures (these can be completed after the first class of the unit)
 3. Two *OPTIONAL, UNGRADED* weekly lab meetings intended to provide support for R programming tasks. Each lab will cover identical material.
-4. Five (5) take-home quizzes worth trivial amount of points each (2% of grade)
-5. Five (5) data analytic assignments (12% each) + final project (30% of grade)
+4. Five (5) take-home quizzes worth trivial amount of points each (2% of grade each)
+5. Four (4) data analytic assignments (1st: 20 points; 2nd-4th: 13 points each) + final project (30% of grade)
 
 --
 

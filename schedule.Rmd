@@ -45,12 +45,8 @@ Lectures:
 - Data: [male_do_eating.sav](./data/male_do_eating.sav) | [codebook](./data/male_do_eating_codebook.pdf)
 - R code: [R script](./slides/EDUC643_1_code.R)
 
+Assignment 1: get started!!! (see below)
 
-Assignment 1:
-
-- Due: Jan. 24, 11:59pm
-- Assignment: [html file](./assignments/assignment_1.html)
-- Data: [nerds.csv](./data/nerds.csv)
 
 ## Unit 2: Assumptions & diagnostics
 
@@ -75,12 +71,12 @@ Lecture:
 - Data: [male_do_eating.sav](./data/male_do_eating.sav)
 - R code: [R script](./slides/EDUC643_5_code.R)
 
-Assignment 2:
 
-- Due: Feb. 3, 11:59pm (but I encourage you to complete by 1/31)
-- Assignment: [html file](./assignments/assignment_2.html)
+Assignment 1:
+
+- Due: Jan. 31, 11:59pm
+- Assignment: [html file](./assignments/assignment_1.html)
 - Data: [nerds.csv](./data/nerds.csv)
-
  
 ## Unit 3: Multiple regression
 
@@ -111,7 +107,7 @@ Lecture:
 - R code: [R script](./slides/EDUC643_7_code.R)
 - Prototypical plots: [xlsx](./data/prototypical_plots.xlsx)
  
-Assignment 3: 
+Assignment 2: 
 
 - Due: Feb. 14, 11:59pm
 - Assignment: [html file](./assignments/assignment_3.html)
@@ -145,7 +141,7 @@ Lecture:
 - Data: [dibels.csv](./data/dibels.csv) | [codebook](./data/dibels_codebook.pdf)
 - R code: [R script](./slides/EDUC643_10_code.R)
 
-Assignment 4:
+Assignment 3:
 
 - Due: Feb. 27, 9:00am
 - Assignment: [html file](./assignments/assignment_4.html)
@@ -179,7 +175,7 @@ Lecture:
 - Data: [dibels.csv](./data/dibels.csv) | [pisa.csv](./data/pisa.csv) | [oecd_2022.xlsx](./data/oecd_2022.xlsx)
 - R script: [interactions](./slides/EDUC643_13_code.R) | [non-linearity](./slides/EDUC643_16_code.R)
 
-Assignment 5:
+Assignment 4:
 
 - Due: March 8, 11:59pm
 - Assignment: [html file](./assignments/assignment_5.html)
