@@ -93,7 +93,7 @@ include_graphics("kelly_etal.png")
 
 .small[Using real-world data (generously provided by Nichole Kelly) about the dietary habits, health, and self-appraisals of males 18-30, we are going to attempt to answer a similar question.]
 
-.small[After a prolonged throat clearing, we are going to explore the .purple[**relationship**] between **dietary restraint behaviors** (self-reports on the extent to which participants consciously restricted their food intake) and **over-eating frequency** (participants' self-reported frequency of over-eating episodes).]
+.small[After a prolonged throat clearing, we're going to explore the .purple[**relationship**] between **dietary restraint behaviors** (self-reports on the extent to which participants restricted their food intake) and **over-eating frequency** (participants' self-reported frequency of over-eating episodes).]
 
 
 
@@ -241,7 +241,7 @@ ggplot(do, aes(x = predict, y = stu_resid)) +
 summary(fit)
 ```
 
-.small[Let's assume that we trust the way we've characterized this bivariate relationship. .red[**But perhaps there are other features among the participants that also influence their eating behaviors?**]]
+.small[Let's assume that we trust the way we've characterized this bivariate relationship. .purple[***But perhaps there are other features among the participants that also influence their eating behaviors?***]]
 
 ---
 # Another variable
@@ -402,7 +402,7 @@ two_d
 - **AND** on average, heavier cars have worse mpg
   + This is true across the distribution of cars' horsepower
 - These lines are parallel (have a common slope)
-  + This is only true because we have assumed them to be; aka .red-pink[**the main effects assumption**]
+  + This is only true because we have assumed them to be so; aka .red-pink[**the main effects assumption**]
   + We assume the relationship between each predictor and the outcome are equivalent, independent of the levels of the other predictors
 ]
 ]
@@ -505,8 +505,8 @@ class: middle, inverse
 
 Multiple regression helps us as follows:
 1. Allows us to simultaneously consider many contributing factors in the relationship
-2. We explain more of the variation in Y, and
-3. We make more accurate predictions of Y (#2 and 3 both make our residuals smaller)
+2. We explain more of the variation in $Y$, and
+3. We make more accurate predictions of $Y$ (#2 and 3 both make our residuals smaller)
 4. Provides a separate understanding of the relationship between each predictor and our outcome, adjusting for the effects of the other predictors (that is, holding the other predictors constant at their means)
 
 .red-pink[If we are ready to believe some **very** strong assumptions, multiple regression might even be able to characterize a credibly causal relationship between two variables of interest. However, there are some important limits to what multiple regression can do. More in a bit!]
@@ -795,13 +795,20 @@ class: middle, inverse
 
 ```{r}
 fit2 <- lm(OE_frequency ~ EDEQ_restraint + BMI, data=do)
+
+# Add a row with the F-statistic
+row <- tribble(~term,          ~'1',  ~'2', 
+               'F-statistic',  round(summary(fit)$fstatistic[1], 2), round(summary(fit2)$fstatistic[1], 3))
+attr(row, 'position') <- c(8)
+
 ```
 
 ```{r, echo=T}
 modelsummary(list(fit, fit2),
    stars=T,
    gof_omit = "Adj.|AIC|BIC|Log|RMSE|RSE",
-   coef_rename = c("EDEQ_restraint" = "Dietary Restraint Index (0-6)"))
+   coef_rename = c("EDEQ_restraint" = "Dietary Restraint Index (0-6)"),
+   add_rows = row)
 ```
 
 ---
@@ -883,6 +890,7 @@ modelsummary(list(fit, fit2),
    gof_omit = "Adj.|AIC|BIC|Log|RMSE|RSE|Std",
    vcov = "robust",
    coef_rename = c("EDEQ_restraint" = "Dietary Restraint Index (0-6)"),
+   add_rows = row,
    notes=c("Cells report coefficients and heteroscedastic-robust standard errors in parentheses."))
 ```
 
@@ -985,7 +993,7 @@ If two predictors are "too highly" correlated, we can't adjust for one to evalua
 
 Multicollinearity occurs when predictor variables are highly related to each other.
 
-This can straightforward to detect, such as when two of our predictors are strongly related to one another:
+This can be straightforward to detect, such as when two of our predictors are strongly related to one another:
 - Simple and adjusted slopes differ dramatically for two or more predictors
 - Estimated adjusted slopes seem substantively wrong
 - Standard errors *increase* with added predictors
@@ -1030,7 +1038,7 @@ include_graphics("venn2.png")
 .pull-left[
 .small[
 - **Highly correlated predictors**: jointly explained proportion of "c" is large; independent proportions of "a" and "b" are quite small; adding the other predictor will not help much
-- **Fairly uncorrelated predictors**: jointly explained proportion of "c" is relatively small; independent proportions of "a" and "b" are independently or both fairly meaningful; addign predictors will help
+- **Fairly uncorrelated predictors**: jointly explained proportion of "c" is relatively small; independent proportions of "a" and "b" are independently or both fairly meaningful; adding predictors will help
 ]
 ]
 
@@ -1076,7 +1084,7 @@ notes = "Notes: cells report Pearson correlation coefficients.")
 
 --
 
-We can examine these correlations for the presence of multi-collinearity in our data using a correlation matrix. .blue[**Do you see evidence of this here?**]
+We can examine these correlations for the presence of multi-collinearity in our data using a .red-pink[correlation matrix]. .blue[**Do you see evidence of this here?**]
 
 ---
 # Visual heatmap
@@ -1126,10 +1134,10 @@ include_graphics("venn3.png")
 ]
 
 ---
-# Some thoughts on "collinearity"
+## Some thoughts on "collinearity"
 .small[There are different perspectives on how serious of a problem multicollinearity is and what to do about it. Some of these perspectives are more acceptable than others (I think):]
 
-.small[Some believe that any instances of multicollinearity in your predictors are cause for concern and you should determine whether any of your covariates have a high degree of collinearity with each other, and if so, you should correct for it] 
+.small[Some believe that multicollinearity is always concerning; you should determine whether any covariates have collinearity with each other. If so, you should remove them or create factors.] 
 
 --
 - .small[.red[I think this is clearly wrong.] Covariates are intended to elucidate the relationship between your predictor and your outcome, but they aren't to be interpreted themselves as subsantively meaningful (sometimes they are called "nuisance parameters"). If they approach collinearity with each other, ***but not with your central question predictor***, this isn't an issue. Coefficients on your covariates may be biased and your inference about them would be wrong, but that's ok: you don't really care about them.]
@@ -1184,14 +1192,8 @@ class: middle, inverse
 # To-Dos
 
 ### Reading: 
-- **Finish by Feb. 2**: LSWR Chapter 15.3 if not done already!
+- **Finish by Feb. 8**: LSWR Chapter 15.3
 
 ### Assignment 2:
-- Due Feb 3., 11:59pm (**note extension!**)
+- Due Feb 16., 11:59pm
 
-### Assignment 3:
-- Due Feb. 14, 11:59pm (**note extension**)
-
---
-
-.large[.red[**Midterm SES!!!**]]

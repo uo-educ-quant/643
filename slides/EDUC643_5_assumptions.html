@@ -217,18 +217,18 @@ summary(lm(BMI ~ EDEQ_noise, data=do))
 ## 
 ## Residuals:
 ##     Min      1Q  Median      3Q     Max 
-## -18.849  -3.890  -1.089   2.693  33.623 
+## -18.440  -3.880  -1.040   3.018  32.665 
 ## 
 ## Coefficients:
 ##             Estimate Std. Error t value Pr(&gt;|t|)    
-## (Intercept)  24.1764     0.2559  94.469  &lt; 2e-16 ***
-*## EDEQ_noise    0.8442     0.1259   6.703 3.29e-11 ***
+## (Intercept)  24.0614     0.2541  94.701  &lt; 2e-16 ***
+*## EDEQ_noise    0.9350     0.1258   7.432 2.17e-13 ***
 ## ---
 ## Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
 ## 
-*## Residual standard error: 6.122 on 1083 degrees of freedom
-## Multiple R-squared:  0.03983,	Adjusted R-squared:  0.03894 
-## F-statistic: 44.92 on 1 and 1083 DF,  p-value: 3.288e-11
+*## Residual standard error: 6.094 on 1083 degrees of freedom
+## Multiple R-squared:  0.04852,	Adjusted R-squared:  0.04764 
+## F-statistic: 55.23 on 1 and 1083 DF,  p-value: 2.173e-13
 ```
 
 ---
@@ -324,7 +324,7 @@ Residuals can be valuable diagnostic tools to assessing the assumptions of the r
 - Inspecting particular cases to determine whether they are mis-measured or belong to a different population than the main one of your study
 - Improve your research design overall
 
-Our regression assumptions of .red-pink[**homscedasticity, normality** and **independence**] are all about the residuals. We often say as shorthand for this that the residuals are .red-pink[**independently and identically distributed**]:
+Our regression assumptions of .red-pink[**homscedasticity, normality**] and .red-pink[**independence**] are all about the residuals. We often say as shorthand for this that the residuals are .red-pink[**independently and identically distributed**]:
 `$$\varepsilon_i = \text{i.i.d. } N(0, \sigma^2)$$`
 
 ---
@@ -370,7 +370,7 @@ sd(do$resid)
 ```
 
 - Sample mean of the residuals is *always* exactly zero
-- On a scale ranging from about 5 to 60, most of our residuals are within 6 BMI units. However, we've done a poor job of predicting BMI for some participants.
+- On a scale ranging from about 5 to 60, most of our residuals are within 6 or so BMI units. However, we've done a poor job of predicting BMI for some participants.
 
 
 ---
@@ -488,7 +488,7 @@ However, we generally can correct for the presence of heteroscedasticity by the 
 ## Solutions to heteroscedasticity
 
 .small[
-We won't spend time on these now, but know that if you are concerned about the presence of heteroscedasticity in your data, you will generally want to use heteroscedasticity- robust standard errors (sometimes called sandwich estimators or [Eicker-Huber-White standard errors](https://www.jstor.org/stable/1912934) ). Some R options include `estimatr::lm_robust` and `modelsummary`.
+We won't spend time on these now, but know that if you are concerned about the presence of heteroscedasticity in your data, you will generally want to use heteroscedasticity- robust standard errors (sometimes called sandwich estimators or [Eicker-Huber-White standard errors](https://www.jstor.org/stable/1912934) ). Some R options include `estimatr::lm_robust` or when producing table results via `modelsummary`.
 ]
 
 
@@ -526,9 +526,9 @@ modelsummary(fit,
    &lt;td style="text-align:center;"&gt; 1.037*** &lt;/td&gt;
   &lt;/tr&gt;
   &lt;tr&gt;
-   &lt;td style="text-align:left;box-shadow: 0px 1px"&gt;  &lt;/td&gt;
-   &lt;td style="text-align:center;box-shadow: 0px 1px"&gt; (0.137) &lt;/td&gt;
-   &lt;td style="text-align:center;box-shadow: 0px 1px"&gt; (0.161) &lt;/td&gt;
+   &lt;td style="text-align:left;box-shadow: 0px 1.5px"&gt;  &lt;/td&gt;
+   &lt;td style="text-align:center;box-shadow: 0px 1.5px"&gt; (0.137) &lt;/td&gt;
+   &lt;td style="text-align:center;box-shadow: 0px 1.5px"&gt; (0.161) &lt;/td&gt;
   &lt;/tr&gt;
   &lt;tr&gt;
    &lt;td style="text-align:left;"&gt; Num.Obs. &lt;/td&gt;
@@ -599,7 +599,7 @@ For the standard errors (and associated inference tests) that we conduct in the 
 ```r
 qq &lt;- ggplot(do) + 
         stat_qq(aes(sample=stu_resid)) +
-        geom_abline(color=blue)
+        geom_abline(color=blue)   # by default, slope=1, intercept=0
 ```
 
 &lt;img src="EDUC643_5_assumptions_files/figure-html/unnamed-chunk-29-1.png" style="display: block; margin: auto;" /&gt;
@@ -634,7 +634,7 @@ If observations (and residuals) are correlated (i.e., there is some feature in o
 ---
 ## Solutions to residual independence
 
-.small[We won't spend time here, but if you are concerned about the presence of clusters in your data--*because you are worried it will affect your inference*--consider using cluster-robust standard errors, which inflate standard errors for the *k*&lt;sup&gt;th&lt;/sup&gt; regressor by] `\(\tau_k\)` .small[, where] `\(\tau_k = 1 + \rho_{kx} + \rho_{\mu}* (\text{avg. cluster size} - 1)\)`.
+.small[We won't spend time here, but if you are concerned about the presence of clusters in your data--*because you are worried it will affect your inference*--consider using cluster-robust standard errors, which inflate standard errors for the *k*&lt;sup&gt;th&lt;/sup&gt; regressor by] `\(\tau_k\)` .small[, where] `\(\tau_k \approx 1 + \rho_{kx} \rho_{\mu}* (\text{avg. cluster size} - 1)\)`.
 
 
 ```r
@@ -671,9 +671,9 @@ modelsummary(lm_city,
    &lt;td style="text-align:center;"&gt; 1.026* &lt;/td&gt;
   &lt;/tr&gt;
   &lt;tr&gt;
-   &lt;td style="text-align:left;box-shadow: 0px 1px"&gt;  &lt;/td&gt;
-   &lt;td style="text-align:center;box-shadow: 0px 1px"&gt; (0.212) &lt;/td&gt;
-   &lt;td style="text-align:center;box-shadow: 0px 1px"&gt; (0.461) &lt;/td&gt;
+   &lt;td style="text-align:left;box-shadow: 0px 1.5px"&gt;  &lt;/td&gt;
+   &lt;td style="text-align:center;box-shadow: 0px 1.5px"&gt; (0.212) &lt;/td&gt;
+   &lt;td style="text-align:center;box-shadow: 0px 1.5px"&gt; (0.461) &lt;/td&gt;
   &lt;/tr&gt;
   &lt;tr&gt;
    &lt;td style="text-align:left;"&gt; Num.Obs. &lt;/td&gt;
@@ -840,20 +840,22 @@ We can conduct a series of diagnostic steps and (sometimes) corrections to ensur
 # To-Dos
 
 ### Reading: 
-- **Finish by Jan. 31**: LSWR Chapter 15.8 - 15.9
+- **Finish by Jan. 30**: LSWR Chapter 15.8 - 15.9
 
 ### Quiz 1:
-- Open now, closes 1/25 at 5p
+- Open now, closes 1/26 at 5p
 
 ### Quiz 2: 
-- Opens 3:45 Tuesday, Jan. 31 (closes 5pm on 2/1)
+- Opens 3:45 Tuesday, Jan. 30 (closes 5pm on 1/31)
 
-### Assignment 2:
-- Due Feb 3., 11:59pm (**note extension!**)
-- I encourage you to complete by 1/31 so you can turn your attention to multiple regression
+### Assignment 1:
+- Due Feb 5., 11:59pm (**note extension!**)
 
 ### Next week: Multiple regression
 
+--
+
+.red[**Midterm Student Experience Survey!!!**]
 
  
     </textarea>

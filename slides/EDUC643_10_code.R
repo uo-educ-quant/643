@@ -2,7 +2,7 @@
 # Categorical predictors
 ## Created by: David Liebowitz
 ### First created: 2/1/23
-### Last update: 2/9/23
+### Last update: 2/13/24
 ### inputs: dibels.csv
 ######################################################
 
@@ -29,7 +29,7 @@ length(unique(dibels$sch_deid))
 # How many total students contribute test-scores?
 sum(dibels$tr_ts)
 
-# Will need to have a long version of the data
+# Will need to have a long version of the data -- Not necessary to know how to do
 dibels_long <- dibels %>% 
                 pivot_longer(
                   cols = c("y1_boy_mean", "y1_moy_mean",      # cols indicate which columns include the same variable stored across multiple columns

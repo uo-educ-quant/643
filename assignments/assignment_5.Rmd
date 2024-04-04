@@ -1,5 +1,5 @@
 ---
-title: "EDUC 643 Assignment 5"
+title: "EDUC 643 Assignment 4"
 subtitle: "Interactions"
 output: html_document
 ---
@@ -50,11 +50,11 @@ As a country, the United States spends approximately $650 billion per year on it
  * *enroll*, total school enrollment
  * *frpl*, proportion (0-1) of students in school receiving free- or reduced-price meals
  * *sesavgall*, Census-based SES composite index for all families residing within school district
- * *lninc50avgall*, Census-based log of median income for all families residing within school district
  * *baplusavgall*, Census-based Bachelor's degree-plus rate for all adults in families residing within district
  * *unempavgall*, Census-based unemployment rate for all families residing within district
  * *snapavgall*, Census-based SNAP receipt rate for all families residing within the district
  * *locale*, Census-based location of schools attended by majority/plurality of students (Urban, Suburb, Town, Rural)
+ * *inc50avgall*, Census-based median income for all families residing within school district
  
 
 ### Assignment Details
@@ -65,11 +65,11 @@ As a country, the United States spends approximately $650 billion per year on it
 
 1.1 State your null hypothesis regarding the above research question. **(1 point)**
 
-1.2 Test your null hypothesis and present a table displaying the results of this test. Construct a fitted equation for each school level in order to interpret the results of your analysis. **(2 points)**
+1.2 Test your null hypothesis and present a table displaying the results of this test. Construct a fitted equation for each school level and use the fitted equations to interpret the results of your analysis. **(2 points)**
 
-1.3 Construct a plot of the (potentially) differing relationship between $ppe$ and $frpl$ by school-grade-band level. Include confidence intervals on the plot. Interpret the plot. **(2 points)**
+1.3 Construct a plot of the (potentially) differing relationship between $ppe$ and $frpl$ by school-grade-band level. Include confidence intervals on the plot. Interpret the plot. **(3 points)**
 
-1.4 Describe how the results of your analysis in these questions differ from your analysis in Questions 2.1 - 2.4 on your previous assignment. **(1 point)**
+1.4 Describe how the results of your analysis in these questions differ from your analysis in Question 3.1 on your previous assignment. **(1 point)**
 
 ### 2. Does the relationship between school spending and school poverty rates differ by school size (enrollment)?
 

@@ -1,5 +1,5 @@
 ---
-title: "EDUC 643 Assignment 3"
+title: "EDUC 643 Assignment 2"
 subtitle: "Mutliple regression regression"
 output: html_document
 ---
@@ -52,11 +52,11 @@ As a country, the United States spends approximately $650 billion per year on it
  * *enroll*, total school enrollment
  * *frpl*, proportion (0-1) of students in school receiving free- or reduced-price meals
  * *sesavgall*, Census-based SES composite index for all families residing within school district
- * *lninc50avgall*, Census-based log of median income for all families residing within school district
  * *baplusavgall*, Census-based Bachelor's degree-plus rate for all adults in families residing within district
  * *unempavgall*, Census-based unemployment rate for all families residing within district
  * *snapavgall*, Census-based SNAP receipt rate for all families residing within the district
  * *locale*, Census-based location of schools attended by majority/plurality of students (Urban, Suburb, Town, Rural)
+ * *inc50avgall*, Census-based median income for all families residing within school district
  
 
 ### Assignment Details
@@ -78,7 +78,7 @@ As a country, the United States spends approximately $650 billion per year on it
 
 1.6. Interpret the results of your test in 1-2 sentences. **(2 points)**
 
-1.7. Assess the quality of your model fit and make appropriate inferences about your overall model, using relevant statistics. **(1 point)**
+1.7. Assess the quality of your model fit and make appropriate inferences about your overall model, using relevant statistics. **(2 points)**
 
 1.8. Imagine you are writing a piece for *The Oregonian* detailing whether schools with greater levels of student financial need receive more money. Create a plot that illustrates the multivariate-adjusted relationship between the proportion of free- and reduced-price lunch recipients and per-pupil expenditure and prototypical values of the other variables in your model. Present the plot and a short paragraph reporting the results of your analysis to your readers **(2 point)**
 

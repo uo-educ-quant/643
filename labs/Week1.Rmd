@@ -1,0 +1,163 @@
+---
+title: "Describing Variables and Relationships"
+author: enter_your_name
+date: "2024-01-08"
+output: 
+  html_document:
+    code_folding: hide
+---
+
+```{r setup, include=FALSE}
+#change eval = TRUE and keep everything else the same
+knitr::opts_chunk$set(echo = TRUE,
+                      warning = FALSE,
+                      messages = FALSE,
+                      eval = FALSE)
+```
+
+**GOALS:**
+
+1. Introduce .Rmd file
+2. Revise code to import and format dataset 
+3. Revise code to describe variables and relationships
+
+```{r load libraries}
+library(tidyverse)
+library(modelsummary)
+```
+
+### Reading and inspecting dataset 
+
+```{r read dataset}
+# we will use the dataset for the final project for EDUC 641 - ah01.csv
+# make a project and recommended folder for this class - save this .Rmd and the dataset in the folder, then read the dataset
+
+# replace the dots with code
+health <- read.csv("...")
+
+# check the number of rows and columns and the current type of column
+
+#replace the dots with code
+str(...)
+```
+
+*Q1. How many rows and columns are there? What is the current type of the following variables: id, mentor, education, gpa, gpa_3? What is the correct scale of measurement of each variable (nominal, ordinal, interval, or ratio)? Which are continuous and categorical variables?*
+
+**Answer here**
+
+### Changing variable types
+
+```{r convert to factor}
+# change id, mentor, and gpa_3 to factor variables
+# one is fone for you
+
+health$id <- factor(health$id) # we don't specify levels and labels here because they are too many. R will use the exisiting names as default levels
+
+# replace the dots with code
+health$mentor <- factor(health$mentor,
+                     levels = c(0,1),
+                     labels = c("...", "..."))
+
+health$gpa_3 <- ...
+```
+
+### Describing variables
+
+```{r descriving categorical variables}
+# report the number and proportion of students that had a mentor and those having a score of 3 or more on their GPA.
+
+table(health$mentor)
+prop.table(table(health$mentor))
+
+# replace the dots with code
+...(health$gpa_3)
+...(...(health$...))
+```
+
+*Q2. How many students had a mentor? What proportion of students had a GPA score of 3 or more?*
+
+**Asnwer here**
+
+```{r descriving continuous variables}
+# report the mean, median and standard deviation of the education variable.
+
+mean(health$education, na.rm = TRUE)
+median(...$..., na.rm = TRUE)
+sd(...$..., na.rm = TRUE)
+
+# do the same for the gpa variable
+
+mean(health$gpa, na.rm = TRUE)
+median(...$..., na.rm = TRUE)
+sd(...$..., na.rm = TRUE)
+```
+
+*Q3. Report the summary statistics for the education variable, i.e., the total number of years a student recieved formal education?*
+
+**Asnwer here**
+
+### Plotting variables and relationships 
+
+```{r bar plot for categorical variable and relationships}
+# make a bar plot to visualize the number of students who had a gpa score of 3 or more
+
+# replace the dots with code
+ggplot(data = ..., aes(x = ...))+
+  geom_bar(fill = "...") +
+  labs(x = "...",
+       y = "...")+
+  theme_minimal()
+
+# visually inspect the relationship between gpa_3 and mentor
+
+ggplot(data = ..., aes(x = mentor, fill = gpa_3)) +
+  geom_bar(position = "dodge") +
+  labs(x = "...",
+       y = "...",
+       fill = "...")+
+  theme_minimal()
+```
+
+*Q4. Comment about the visual relationship between mentor and gpa_3.*
+
+**Answer here**
+
+```{r distribution of continuous variable and relationships}
+# make a historgram to visualize the distribution of the education variable
+
+# replace the dots with code
+ggplot(data = ..., aes(x = education))+
+  geom_histogram(fill = "...", bins = 7) +
+  labs(x = "...",
+       y = "...")+
+  theme_minimal()
+
+# visually inspect the relationship between education and mentor
+
+ggplot(data = ..., aes(y = education, fill = mentor)) +
+  geom_boxplot(show.legend = F)+
+  labs(x = "...",
+       y = "...",
+       fill = "...")+
+  theme_minimal()
+```
+
+*Q5. Comment about the visual relationship between mentor and education*
+
+**Answer here**
+
+```{r bivariate relationships}
+# make a scatter plot to visualize the relationship between education and gpa
+
+# replace the dots with code
+ggplot(data = ..., aes(x = ..., y = ...))+
+  geom_point()+
+  labs(x = "...",
+       y = "...")+
+  theme_minimal()
+```
+
+*Q6. Comment about the visual relationship between education and gpa.*
+
+**Answer here**
+

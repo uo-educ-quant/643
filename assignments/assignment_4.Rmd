@@ -1,5 +1,5 @@
 ---
-title: "EDUC 643 Assignment 4"
+title: "EDUC 643 Assignment 3"
 subtitle: "Categorical predictors"
 output: html_document
 ---
@@ -53,11 +53,11 @@ As a country, the United States spends approximately $650 billion per year on it
  * *enroll*, total school enrollment
  * *frpl*, proportion (0-1) of students in school receiving free- or reduced-price meals
  * *sesavgall*, Census-based SES composite index for all families residing within school district
- * *lninc50avgall*, Census-based log of median income for all families residing within school district
  * *baplusavgall*, Census-based Bachelor's degree-plus rate for all adults in families residing within district
  * *unempavgall*, Census-based unemployment rate for all families residing within district
  * *snapavgall*, Census-based SNAP receipt rate for all families residing within the district
  * *locale*, Census-based location of schools attended by majority/plurality of students (Urban, Suburb, Town, Rural)
+ * *inc50avgall*, Census-based median income for all families residing within school district
  
 
 ### Assignment Details
@@ -76,7 +76,7 @@ As a country, the United States spends approximately $650 billion per year on it
 
 2.2 Test your null hypothesis using the statistical test that most directly *and efficiently* answers the above research question. Interpret the results of this test. **(2 points)**
 
-2.3 State the magnitude by which schools at each of the different grade-bands differ from each other in their per-pupil spending. Select (and justify) the most sensible group to serve as the comparison type of school. **(2 points)**
+2.3 State the magnitude by which schools at each of the different grade-bands differ from each other in their per-pupil spending and assess whether this magnitude is statistically different from zero. Select (and justify) the most sensible group to serve as the comparison type of school. **(2 points)**
 
 2.4 High schools are generally understood to have greater resource needs than other K-12 schools due to fundings items such as science laboratories, extra-curriculars and specialized classes. Test whether high schools spend more per-pupil than all other schools and interpret your results. **(1 point)**
 
@@ -84,4 +84,4 @@ As a country, the United States spends approximately $650 billion per year on it
 
 3.1 Review the variables you have at your disposal and select a set of substantively sensible (and non multi-collinear) ***continuous*** and ***categorical*** covariates that might explain schools' per-pupil expenditure and help clarify the relationship between $ppe$ and $frpl$. **(1 point)**
 
-3.2 Present a **table** and **plot** characterizing the regression-adjusted relationship between $frpl$ and $ppe$. Substantively interpret these results as you would for an academic journal article. **(2 points)**
+3.2 Present a **table** and **plot** characterizing the regression-adjusted relationship between $frpl$ and $ppe$. Substantively interpret these results as you would for an academic journal article. **(3 points)**

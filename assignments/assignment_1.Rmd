@@ -1,6 +1,6 @@
 ---
 title: "EDUC 643 Assignment 1"
-subtitle: "Continuous relationships and bivariate regression"
+subtitle: "Continuous relationships, bivariate regression and regression assumptions"
 output: html_document
 ---
 ```{R, setup, include = FALSE}
@@ -30,6 +30,12 @@ Please upload below two files on Canvas:
  * Create bivariate scatterplots and bivariate regression estimates
 
  * State null hypothesis and interpret results of linear regression test of bivariate continuous relationship
+
+ * Describe assumptions required of Ordinary Least Squares estimators
+ 
+ * Assess regression fit for extent to which it satisfies OLS assumptions
+ 
+ * Propose solutions to OLS assumption violations and discuss their potential merits and drawbacks 
  
  * Substantively interpret results of bivariate relationship to non-expert audience
 
@@ -52,17 +58,18 @@ As a country, the United States spends approximately $650 billion per year on it
  * *enroll*, total school enrollment
  * *frpl*, proportion (0-1) of students in school receiving free- or reduced-price meals
  * *sesavgall*, Census-based SES composite index for all families residing within school district
- * *lninc50avgall*, Census-based log of median income for all families residing within school district
  * *baplusavgall*, Census-based Bachelor's degree-plus rate for all adults in families residing within district
  * *unempavgall*, Census-based unemployment rate for all families residing within district
  * *snapavgall*, Census-based SNAP receipt rate for all families residing within the district
  * *locale*, Census-based location of schools attended by majority/plurality of students (Urban, Suburb, Town, Rural)
+ * *inc50avgall*, Census-based median income for all families residing within school district
  
 
 ### Assignment Details
 
 **Data preparation**: Open your RStudio, create a project and save it. Go to the root directory of the project and create folders named: "Code", "Data", "Figures" and "Tables." Download the [nerds.csv dataset](../data/nerds.csv) and store it in the folder "Data". Create an R script (or .Rmd) file in the Code folder. Read the data into your R environment. You do not need to include this part of the response in your memo; only in your code.
 
+#### Overarching Research Question: Do schools that educate a larger proportion of students with financial need spend more per student on their education?
 
 #### 1. Descriptive Statistics
 
@@ -73,7 +80,7 @@ As a country, the United States spends approximately $650 billion per year on it
 1.3 Write 1-2 sentences to interpret this visualized relationship, relying on the five features of bivariate relationships we introduced in class. **(1 point)**
 
 
-#### 2. Research Question: Do schools that educate a larger proportion of students with financial need spend more per student on their education?
+#### 2. Bivariate analysis
 
 2.1. Write a formal linear model that describes the simple, bivariate relationship between school-level per-pupil expenditure and the school-level average receipt of free- or reduced-price lunch and interpret each of the terms in this model. **(1 point)**
 
@@ -87,5 +94,19 @@ As a country, the United States spends approximately $650 billion per year on it
 
 2.6. Select an alpha-threshold and describe the corresponding confidence interval for your estimates of the relationship between $frpl$ and $ppe$. **(1 point)**
 
-2.7. Imagine you are an analyst working for Colt Gill, Director of the Oregon Department of Education. You have been tasked with describing to him whether schools with greater levels of student financial need receive more money. Write a short paragraph reporting the results of your analysis, while introducing appropriate caveats and nuances as needed. In particular, you should think about how you want to introduce the ideas of relationship magnitude, model fit, omitted variables, and correlation for a lay audience. **(1 point)**
 
+#### 3. Regression assumptions 
+
+3.1 What assumptions have you made in using an Ordinary Least Squares estimator in your analysis in Section 2? **(1 points)**
+
+3.2. Examine the school called "South Eugene High School" (*ncesid* == 410474000573) in the NERD$ data. Characterize its observed value of per-pupil expenditure and the proportion of students at the school classified as low-family-income. How do the observed values differ from the predicted values for this school? **(1 points)**
+
+3.3. Assess the residuals from the linear regression you conducted in Section 2 for evidence on the fitted model's linearity, the normality and homoscedasticity of the residuals, and for the presence of outliers. In these assessments you should minimally present three different figures. **(2 points)**
+
+3.4. What are some ways in which you could imagine the residuals in this dataset not being independently distributed? In other words, what sort of clustering might be present in these data and how would this affect your inference? **(1 points)**
+
+3.5. Given what you have found in 3.3 and 3.4, to what extent do you feel like your OLS regression assumptions have been met in this analysis? Are there solutions you would consider implementing if any of the regression assumptions are not met? If so, what are they (*note: you do not need to actually implement any of the solutions, just describe what they might be*)? What are some of the reasons not to implement any "fixes" to violations to your assumptions? **(2 points)**
+
+#### 4. Putting it together
+
+4.1. Imagine you are an analyst working for [Charlene Williams](https://www.oregon.gov/ode/about-us/Pages/Deputy-Superintendent-of-Public-Instruction.aspx), Director of the Oregon Department of Education. You have been tasked with describing to her whether schools with greater levels of student financial need receive more money. Write a short paragraph reporting the results of your analysis, while introducing appropriate caveats and nuances as needed. In particular, you should think about how you want to introduce the ideas of relationship magnitude, model fit, omitted variables, and correlation vs. causation for a lay audience. **(2 points)**

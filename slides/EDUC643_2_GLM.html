@@ -4,7 +4,7 @@
     <title>General Linear Model (GLM)</title>
     <meta charset="utf-8" />
     <meta name="author" content="David D. Liebowitz" />
-    <script src="EDUC643_2_GLM_files/header-attrs-2.10/header-attrs.js"></script>
+    <script src="EDUC643_2_GLM_files/header-attrs-2.20/header-attrs.js"></script>
     <link href="EDUC643_2_GLM_files/remark-css-0.0.1/default.css" rel="stylesheet" />
     <link href="EDUC643_2_GLM_files/remark-css-0.0.1/uo.css" rel="stylesheet" />
     <link href="EDUC643_2_GLM_files/remark-css-0.0.1/ki-fonts.css" rel="stylesheet" />
@@ -15,9 +15,15 @@
     <textarea id="source">
 class: center, middle, inverse, title-slide
 
+.title[
 # General Linear Model (GLM)
+]
+.subtitle[
 ## EDUC 643: Unit 1
+]
+.author[
 ### David D. Liebowitz
+]
 
 ---
 
@@ -401,15 +407,11 @@ The regression line on the left is a better fit because the sum of its squared e
 SSR is a bigger concept than just model predictions. It is a way of thinking about variability.
 
 --
+Our outcome's variability is simply the sum of squared deviations from its mean, aka the .red-pink[**sum of the squares (SS)**].
 
-Our outcome's variability is simply the sum of squared deviations from its mean.
-
-`$$SSR_\text{BMI} = \sum{(Y_i - \bar{Y})^2}$$`
+`$$\color{pink}{SS_\text{BMI}} = \sum{(Y_i - \bar{Y})^2}$$`
 &lt;img src="EDUC643_2_GLM_files/figure-html/unnamed-chunk-16-1.svg" style="display: block; margin: auto;" /&gt;
 
----
-Get a feel for trying to minimize the *sum of the square of the residuals*
-&lt;iframe src="https://daviddl.shinyapps.io/line_ss/?showcase=0" width="100%" height="550px"&gt;&lt;/iframe&gt;
 ---
 
 # Partitioning variance
@@ -420,7 +422,7 @@ We can partition the outcome's total variance `\((SS_{BMI})\)` into:
 * Model-accounted variance `\((SS_\text{Model})\)`
 * Residual variance `\((SS_\text{Residual})\)`
 
-`$$SS_\text{BMI} = SS_\text{Model} + SS_\text{Residual}$$`
+`$$\color{pink}{SS_\text{BMI}} = \color{purple}{SS_\text{Model}} + \color{green}{SS_\text{Residual}}$$`
 --
 
 Remember our goal with OLS regression is to find the model coefficients that minimize `\(SS_\text{Residual}\)`.
@@ -428,27 +430,30 @@ Remember our goal with OLS regression is to find the model coefficients that min
 
 ---
 # Partitioning variance
-`$$\text{If } SS_\text{BMI} = \color{purple}{SS_\text{Model}} + {SS_\text{Residual}}$$`
+`$$\text{If } \color{pink}{SS_\text{BMI}} = \color{purple}{SS_\text{Model}} + {SS_\text{Residual}}$$`
 
 `\(\color{purple}{SS_\text{Model}}\)` is the sum of squared deviations between the model predicted values `\((\hat{Y})\)` and the mean `\((\bar{Y})\)`.
 
-&lt;img src="EDUC643_2_GLM_files/figure-html/unnamed-chunk-18-1.svg" style="display: block; margin: auto;" /&gt;
+&lt;img src="EDUC643_2_GLM_files/figure-html/unnamed-chunk-17-1.svg" style="display: block; margin: auto;" /&gt;
 `$$\color{purple}{SS_\text{Model} = \sum{(\hat{Y} - \bar{Y})^2}}$$`
 ---
 # Partitioning variance
-`$$\text{If } SS_\text{BMI} = \color{purple}{SS_\text{Model}} + \color{green}{SS_\text{Residual}}$$`
+`$$\text{If } \color{pink}{SS_\text{BMI}} = \color{purple}{SS_\text{Model}} + \color{green}{SS_\text{Residual}}$$`
 
 `\(\color{green}{SS_\text{Residual}}\)` is the sum of squared deviations between the model predicted values `\((\hat{Y})\)` and the observed values `\((Y)\)`.
 
-&lt;img src="EDUC643_2_GLM_files/figure-html/unnamed-chunk-19-1.svg" style="display: block; margin: auto;" /&gt;
+&lt;img src="EDUC643_2_GLM_files/figure-html/unnamed-chunk-18-1.svg" style="display: block; margin: auto;" /&gt;
 `$$\color{green}{SS_\text{Residual} = \sum{(Y - \hat{Y})^2}}$$`
+---
+Get a feel for trying to minimize the *sum of the square of the residuals*
+&lt;iframe src="https://daviddl.shinyapps.io/line_ss/?showcase=0" width="100%" height="550px" data-external="1"&gt;&lt;/iframe&gt;
 
 ---
 # `\(R^2\)`
 
 Partitioning variance can be useful for model evaluation.
 
-`$$SS_\text{BMI} = SS_\text{Model} + SS_\text{Residual}$$`
+`$$\color{pink}{SS_\text{BMI}} = \color{purple}{SS_\text{Model}} + \color{green}{SS_\text{Residual}}$$`
 `\(R^2\)` ("R-squared") is the proportion of variance in the outcome our model accounts for.
 
 `$$R^2 = \frac{SS_\text{Model}}{SS_\text{BMI}}$$`
@@ -501,7 +506,7 @@ class: middle, inverse
 # To-Dos
 
 ### Reading: 
-- **By January 19 class**: LSWR Chapter 15.1 - 15.2 and 15.4 - 15.7
+- **By January 18 class**: LSWR Chapter 15.1 - 15.2 and 15.4 - 15.7 and Hu (2021)
 
 ### Review: 
 - Review EDUC 641, Unit 4 (Lectures 13 - 16)
@@ -555,6 +560,45 @@ if (window.HTMLWidgets) slideshow.on('afterShowSlide', function (slide) {
     deleted = true;
   });
 })();
+// add `data-at-shortcutkeys` attribute to <body> to resolve conflicts with JAWS
+// screen reader (see PR #262)
+(function(d) {
+  let res = {};
+  d.querySelectorAll('.remark-help-content table tr').forEach(tr => {
+    const t = tr.querySelector('td:nth-child(2)').innerText;
+    tr.querySelectorAll('td:first-child .key').forEach(key => {
+      const k = key.innerText;
+      if (/^[a-z]$/.test(k)) res[k] = t;  // must be a single letter (key)
+    });
+  });
+  d.body.setAttribute('data-at-shortcutkeys', JSON.stringify(res));
+})(document);
+(function() {
+  "use strict"
+  // Replace <script> tags in slides area to make them executable
+  var scripts = document.querySelectorAll(
+    '.remark-slides-area .remark-slide-container script'
+  );
+  if (!scripts.length) return;
+  for (var i = 0; i < scripts.length; i++) {
+    var s = document.createElement('script');
+    var code = document.createTextNode(scripts[i].textContent);
+    s.appendChild(code);
+    var scriptAttrs = scripts[i].attributes;
+    for (var j = 0; j < scriptAttrs.length; j++) {
+      s.setAttribute(scriptAttrs[j].name, scriptAttrs[j].value);
+    }
+    scripts[i].parentElement.replaceChild(s, scripts[i]);
+  }
+})();
+(function() {
+  var links = document.getElementsByTagName('a');
+  for (var i = 0; i < links.length; i++) {
+    if (/^(https?:)?\/\//.test(links[i].getAttribute('href'))) {
+      links[i].target = '_blank';
+    }
+  }
+})();
 // adds .remark-code-has-line-highlighted class to <pre> parent elements
 // of code chunks containing highlighted lines with class .remark-code-line-highlighted
 (function(d) {
@@ -572,17 +616,6 @@ if (window.HTMLWidgets) slideshow.on('afterShowSlide', function (slide) {
   }
   preParents.forEach(p => p.classList.add("remark-code-has-line-highlighted"));
 })(document);</script>
-
-<script>
-(function() {
-  var links = document.getElementsByTagName('a');
-  for (var i = 0; i < links.length; i++) {
-    if (/^(https?:)?\/\//.test(links[i].getAttribute('href'))) {
-      links[i].target = '_blank';
-    }
-  }
-})();
-</script>
 
 <script>
 slideshow._releaseMath = function(el) {

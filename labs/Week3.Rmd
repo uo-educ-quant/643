@@ -1,0 +1,184 @@
+---
+title: "Week 2-4 Lab"
+author: "(add your name)"
+date: "1/23/2024"
+output: 
+ html_document:
+     code_folding: hide
+---
+
+```{r setup, include=FALSE}
+# Don't make a change here
+knitr::opts_chunk$set(echo = TRUE,
+                      warning = FALSE,
+                      message = FALSE)
+```
+
+**In this lab, we explore the relationship between the age at which a student gets a mentor (mentee_age) and their high school GPA (gpa). You will plot the bivariate relationship and run an OLS linear regression model. Then you will create a regression table using modelsummary. You will also assess the regression assumptions.**
+
+### Task 1: Load the libraries and read the data
+
+#### load libraries
+
+```{r}
+# For this lab, you will need the following libraries: 
+# tidyverse, modelsummary
+# load them in your environment by completing the blanks
+# Remember to uncomment (remove the hash) to run the code
+# use install.packages("package_name") if you don't have these packages
+
+#library(.......)
+#....
+#....
+```
+
+#### read data 
+
+```{r}
+# Saving the data in an mentor_gpa object
+
+# mentor_gpa <- read.csv("https://daviddliebowitz.github.io/EDUC641_23F/data/ah02.csv") %>%
+# select(id, mentee_age, gpa)
+
+
+# Print the head of the data
+# Print the str of the data
+
+# head(...)
+# ....
+```
+
+### Task 2: Descriptive statistics
+
+```{r}
+
+# Find some descriptive statistics for the variables - mentee_age and gpa
+# Use the mean(), sd(), summary() functions
+
+# .....
+# .....
+    
+```
+
+
+### Task 3: Bi-variate Relationship
+
+We are interested in how the age at which students gets assigned a mentor (mentee_age) predicts their high school GPA (gpa), on average?
+
+**Q1. What is the predictor and outcome variables here?**
+
+*<Enter answer here>*
+
+#### plot the bivariate relationship
+
+```{r}
+# Make a bivariate plot. Fill what should be on the x and y-axis.
+# And give a meaningful title
+# Hint - put the outcome on y axis and predictor on x axis
+
+# lm_plot <- ggplot(data=mentor_gpa, aes(x= ....., y= .....)) + 
+#               geom_point() +
+#               labs(
+#               x = "Dietary restraint index (0-6)",
+#               title = "") +
+#               theme_minimal(base_size = 16) +
+#               geom_smooth(method='lm', se=F)
+
+# lm_plot
+```
+
+**Q2. Write 1-2 sentences to interpret this visualized relationship, relying on the five features of bivariate relationships we introduced in class (direction, linearity, outliers, strength, and magnitude).**
+
+*<Enter answer here>*
+
+### Task 4: Fitting the model and creating a summary table
+
+```{r}
+# Run an OLS linear regression model
+# Write the function, and the formula
+# It should be of the type 'outcome ~ predictor'
+# Assign it to an object of your choice
+
+#... <- ...(... ~ ..., data = mentor_gpa)
+
+#modelsummary(...,
+             # output = 'flextable',
+            # stars = TRUE,
+            # estimate  = c("{estimate} {stars} [{conf.low}, {conf.high}]"),
+            # gof_omit = "Adj.|Log.Lik.|AIC|BIC",
+            # coef_rename = c('EDEQ_restraint' = 'Dietary restraint')) %>% 
+  # autofit()
+
+```
+
+**Q3. Interpret the results of your test in 1-2 sentences.**
+
+*<Enter answer here>*
+
+### Task 5: Regression Assumptions
+
+**Q4. What assumptions have you made in using an Ordinary Least Squares estimator in your analysis?**
+
+*<Enter answer here>*
+
+#### Let's test for the assumptions. First, add to your dataset some variables/columns that are
+
+ - fitted/predicted values:
+ 
+```{r}
+# replace the dots with the model_name
+#mentor_gpa$predict <- predict(...)
+```
+ 
+ - raw residuals:
+ 
+```{r}
+# replace the dots with the model_name
+# mentor_gpa$resid <- residuals(...)
+```
+ 
+ - standardized residuals:
+ 
+```{r}
+# replace the dots with the model_name
+# mentor_gpa$std_resid <- rstandard(...)
+```
+ 
+  - studentized residuals:
+ 
+```{r}
+# replace the dots with the model_name
+# mentor_gpa$stu_resid <- rstudent(...)
+```
+
+#### Use the updated dataset to assess the residuals for evidence on the fitted model’s linearity and homogeneity of variance
+
+```{r}
+# The x-axis should be the predicted values and y-axis should be residuals
+
+# ggplot(mentor_gpa, aes(x = ..., y = ...)) +
+#   geom_point() +
+#   geom_hline(yintercept = 0, color = "red", linetype = "dashed") +
+#   ylab("Raw Residuals") + xlab("Fitted values") +
+#   theme_minimal(base_size = 16)
+```
+
+#### Examine the distribution of studentized residuals using a histogram.
+
+
+```{r}
+# ggplot(mentor_gpa, aes(...)) +
+#   geom_histogram(color = "white", fill = "grey50") +
+#   xlab("Studendized Residuals") +
+#   theme_minimal(base_size = 16)
+```
+
+#### Refer to the bivariate relationship and residual plots to talk about the outliers. 
+
+**Q5.  Assess the residuals from the linear regression you conducted for evidence on the fitted model’s linearity, the normality and homoscedasticity of the residuals, and for the presence of outliers.**
+
+*<Enter answer here>*
+
+
+
+

@@ -178,7 +178,7 @@ summary(fit)
 ---
 ## Evaluating regressions: Coefficients
 
-.small[Here we can find our **intercept** and slope coefficients for our linear regression.]
+.small[Here we can find our .red-pink[**intercept**] and slope coefficients for our linear regression.]
 
 ```{r, highlight.output = c(4,5), echo = F, output.lines = -c(1:8), comment = NA}
 summary(fit)
@@ -190,7 +190,7 @@ summary(fit)
 ---
 ## Evaluating regressions: Coefficients
 
-.small[Here we can find our intercept and **slope** coefficients for our linear regression.]
+.small[Here we can find our intercept and .red-pink[**slope**] coefficients for our linear regression.]
 
 ```{r, highlight.output = c(4,5), echo = F, output.lines = -c(1:8), comment = NA}
 summary(fit)
@@ -244,7 +244,7 @@ $$RSE = \sqrt{\frac{\text{sum of squared residuals}}{n-(\text{# of parameters es
 
 --
 
-.blue[What happens to our model's precision as our degrees of freedom decreases?]
+.blue[What happens to our model's precision as our degrees of freedom decrease?]
 
 --
 
@@ -420,8 +420,9 @@ The statistic that captures the likelihood that one would observe a value of $\h
 
 Prior to interacting with our data, we set an .red-pink[**alpha threshold**]; a probability threshold, below which we will consider $p$ to be so small that it is unlikely that we would have gotten this result if the null were true, and we will reject the null hypothesis. Above this value, we will fail to reject the null.
 
-In social science research, it is customary to (arbitrarily) set that threshold at **5 percent** $(p<0.05)$. In other words, we say that if the difference between our observed data and our expected data would have happened in fewer than 1 out of 20 randomly drawn samples, that the difference reflects a true difference in the population.
+In social science research, it is customary to (arbitrarily) set that threshold at **5 percent** $(p<0.05)$.<sup>1</sup> In other words, we say that if the difference between our observed data and our expected data would have happened in fewer than 1 out of 20 randomly drawn samples, that the difference reflects a true difference in the population.
 
+.footnote[[1] Reminder that in some disciplines, the convention is to set alpha thresholds at 0.01 or 0.1, highlighting that these are subjective and arbitrary.]
 ---
 # What are we testing?
 
@@ -548,7 +549,7 @@ Let's develop some intuition around the idea of .red-pink[**confidence intervals
 
 
 ---
-# Confidence Interval intuition
+# Confidence interval intuition
 
 ```{r, echo=F, fig.height=7}
 set.seed(1234)
@@ -621,7 +622,7 @@ plot2
 ```
 
 ---
-# Condidence interval intuition
+# Confidence interval intuition
 ```{r, echo=F, fig.height=7}
 library(gganimate)
 nsim = 100 ## Number of simulations
@@ -806,7 +807,7 @@ If we reject the null, then the model accounts for more variance than we would e
 
 Just like tests with other probability distribution, we are testing the probability of obtaining a value (or more extreme value) of $F$ under the $F$-Distribution.
 
-$$\Large F = \frac{MS_{Model}}{MS_{residual}}$$
+$$\Large F = \frac{MS_{model}}{MS_{residual}}$$
 
 Mean Squares (MS) are the Sums of Squares divided by their respective degrees of freedom.
 
@@ -821,7 +822,7 @@ summary(fit)
 Our omnibus test is significant at an $\alpha$-threshold of 0.05 $(p < 0.001)$, therefore we can reject the null hypothesis that the full model accounts for no variability in individuals' BMI.
 
 ---
-# Summarizing regression results
+## Summarizing regression results
 ```{r, echo=T}
 modelsummary(fit, stars=T,
   gof_omit = "Adj.|AIC|BIC|Log",
@@ -829,7 +830,7 @@ modelsummary(fit, stars=T,
 ```
 
 ---
-# Summarizing regression results
+## Summarizing regression results
 
 ```{r, echo=F}
 modelsummary(fit, stars=T,
@@ -879,15 +880,15 @@ class: middle, inverse
 # To-Dos
 
 ### Reading: 
-- **By January 19 class**: LSWR Chapter 15.1 - 15.2 and 15.4 - 15.7
-- **By January 24 class**: LSWR Chapter 5.7
+- **If you have not already**: LSWR Chapter 15.1 - 15.2 and 15.4 - 15.7 and Hu (2021)
+- **By January 30 class**: LSWR Chapter 5.7
 
 ### Quiz: 
-- Opens 3:45 on Tuesday, Jan. 24
+- TBD
 
 ### Assignment 1:
 - Now live
-- Have all information you need to complete
-- Due Jan. 24, 11:59pm
+- Have all information you need to complete parts 1 & 2
+- Due TBD
 
 

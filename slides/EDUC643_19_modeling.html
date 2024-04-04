@@ -87,7 +87,7 @@ There are a different set of modern automated model building approaches in the m
 
 **Key distinction:**
 
-.large[.purple[OLS vs. machine learning =]] `\(\Large \color{purple}{\hat{\beta}}\)` .purple[vs.] `\(\Large \color{purple}{\hat{Y}}\)`
+.large[.purple[OLS vs. machine learning =]] `\(\Large \color{purple}{\hat{\beta}}\)` .purple[vs.] `\(\large \color{purple}{\hat{Y}}\)`
 
 ---
 # Swimming in data
@@ -228,7 +228,7 @@ summary(lm(mpg ~ qsec + vs, data=mtcars))
    + In experimental settings, there may still be reasons to deviate from pre-registration plan, but deviating is probably less acceptable
 4. All data management and analysis steps should be present in your scripts and produce identical results to your manuscript. See guidance from [Social Science Data Editors](https://social-science-data-editors.github.io/guidance/)
    + In my opinion, it is still acceptable to do some post-hoc formatting of these results, but YMMV
-5. .red-pink[**Remember, your goal is not to get stars!**]
+5. .red[**Remember, your goal is not to get stars!**]
 
 ---
 # "Controlling for race" [sic]
@@ -318,7 +318,7 @@ class: middle, inverse
 
 .pull-right[
 .small[
-**Add'l covariates:** *sesavgall*, *lnincavgall*, *level*
+**Add'l covariates:** *sesavgall*, *lninc50avgall*, *level*
 
 **Rival hypothesis:** *rurality*
 ]
@@ -418,9 +418,9 @@ modelsummary(list(fit1, fit2, fit3, fit4, fit5, fit6),
    &lt;td style="text-align:center;"&gt; 2634.33*** &lt;/td&gt;
    &lt;td style="text-align:center;"&gt; 10142.62*** &lt;/td&gt;
    &lt;td style="text-align:center;"&gt; 10366.83*** &lt;/td&gt;
-   &lt;td style="text-align:center;"&gt; 10743.98*** &lt;/td&gt;
-   &lt;td style="text-align:center;"&gt; 10005.11*** &lt;/td&gt;
-   &lt;td style="text-align:center;"&gt; 9088.57*** &lt;/td&gt;
+   &lt;td style="text-align:center;"&gt; 10744.02*** &lt;/td&gt;
+   &lt;td style="text-align:center;"&gt; 10005.14*** &lt;/td&gt;
+   &lt;td style="text-align:center;"&gt; 9088.60*** &lt;/td&gt;
   &lt;/tr&gt;
   &lt;tr&gt;
    &lt;td style="text-align:left;"&gt;  &lt;/td&gt;
@@ -429,16 +429,16 @@ modelsummary(list(fit1, fit2, fit3, fit4, fit5, fit6),
    &lt;td style="text-align:center;"&gt; (1975.43) &lt;/td&gt;
    &lt;td style="text-align:center;"&gt; (2019.60) &lt;/td&gt;
    &lt;td style="text-align:center;"&gt; (2032.64) &lt;/td&gt;
-   &lt;td style="text-align:center;"&gt; (1969.69) &lt;/td&gt;
+   &lt;td style="text-align:center;"&gt; (1969.68) &lt;/td&gt;
   &lt;/tr&gt;
   &lt;tr&gt;
    &lt;td style="text-align:left;"&gt; FRPL&lt;sup&gt;2&lt;/sup&gt; &lt;/td&gt;
    &lt;td style="text-align:center;"&gt;  &lt;/td&gt;
    &lt;td style="text-align:center;"&gt; -6517.77*** &lt;/td&gt;
    &lt;td style="text-align:center;"&gt; -6818.83*** &lt;/td&gt;
-   &lt;td style="text-align:center;"&gt; -6393.18*** &lt;/td&gt;
-   &lt;td style="text-align:center;"&gt; -5843.24*** &lt;/td&gt;
-   &lt;td style="text-align:center;"&gt; -5158.01** &lt;/td&gt;
+   &lt;td style="text-align:center;"&gt; -6393.22*** &lt;/td&gt;
+   &lt;td style="text-align:center;"&gt; -5843.26*** &lt;/td&gt;
+   &lt;td style="text-align:center;"&gt; -5158.04** &lt;/td&gt;
   &lt;/tr&gt;
   &lt;tr&gt;
    &lt;td style="text-align:left;"&gt;  &lt;/td&gt;
@@ -473,8 +473,8 @@ modelsummary(list(fit1, fit2, fit3, fit4, fit5, fit6),
    &lt;td style="text-align:center;"&gt;  &lt;/td&gt;
    &lt;td style="text-align:center;"&gt;  &lt;/td&gt;
    &lt;td style="text-align:center;"&gt;  &lt;/td&gt;
-   &lt;td style="text-align:center;"&gt; 1747.17*** &lt;/td&gt;
-   &lt;td style="text-align:center;"&gt; -759.39 &lt;/td&gt;
+   &lt;td style="text-align:center;"&gt; 1747.18*** &lt;/td&gt;
+   &lt;td style="text-align:center;"&gt; -759.37 &lt;/td&gt;
   &lt;/tr&gt;
   &lt;tr&gt;
    &lt;td style="text-align:left;"&gt;  &lt;/td&gt;
@@ -483,7 +483,7 @@ modelsummary(list(fit1, fit2, fit3, fit4, fit5, fit6),
    &lt;td style="text-align:center;"&gt;  &lt;/td&gt;
    &lt;td style="text-align:center;"&gt;  &lt;/td&gt;
    &lt;td style="text-align:center;"&gt; (442.48) &lt;/td&gt;
-   &lt;td style="text-align:center;"&gt; (2812.75) &lt;/td&gt;
+   &lt;td style="text-align:center;"&gt; (2812.76) &lt;/td&gt;
   &lt;/tr&gt;
   &lt;tr&gt;
    &lt;td style="text-align:left;"&gt; Rural x FRPL &lt;/td&gt;
@@ -492,7 +492,7 @@ modelsummary(list(fit1, fit2, fit3, fit4, fit5, fit6),
    &lt;td style="text-align:center;"&gt;  &lt;/td&gt;
    &lt;td style="text-align:center;"&gt;  &lt;/td&gt;
    &lt;td style="text-align:center;"&gt;  &lt;/td&gt;
-   &lt;td style="text-align:center;"&gt; 8794.38 &lt;/td&gt;
+   &lt;td style="text-align:center;"&gt; 8794.35 &lt;/td&gt;
   &lt;/tr&gt;
   &lt;tr&gt;
    &lt;td style="text-align:left;"&gt;  &lt;/td&gt;
@@ -501,7 +501,7 @@ modelsummary(list(fit1, fit2, fit3, fit4, fit5, fit6),
    &lt;td style="text-align:center;"&gt;  &lt;/td&gt;
    &lt;td style="text-align:center;"&gt;  &lt;/td&gt;
    &lt;td style="text-align:center;"&gt;  &lt;/td&gt;
-   &lt;td style="text-align:center;"&gt; (9610.35) &lt;/td&gt;
+   &lt;td style="text-align:center;"&gt; (9610.36) &lt;/td&gt;
   &lt;/tr&gt;
   &lt;tr&gt;
    &lt;td style="text-align:left;"&gt; Rural x FRPL&lt;sup&gt;2&lt;/sup&gt; &lt;/td&gt;
@@ -510,16 +510,16 @@ modelsummary(list(fit1, fit2, fit3, fit4, fit5, fit6),
    &lt;td style="text-align:center;"&gt;  &lt;/td&gt;
    &lt;td style="text-align:center;"&gt;  &lt;/td&gt;
    &lt;td style="text-align:center;"&gt;  &lt;/td&gt;
-   &lt;td style="text-align:center;"&gt; -6344.93 &lt;/td&gt;
+   &lt;td style="text-align:center;"&gt; -6344.90 &lt;/td&gt;
   &lt;/tr&gt;
   &lt;tr&gt;
-   &lt;td style="text-align:left;box-shadow: 0px 1px"&gt;  &lt;/td&gt;
-   &lt;td style="text-align:center;box-shadow: 0px 1px"&gt;  &lt;/td&gt;
-   &lt;td style="text-align:center;box-shadow: 0px 1px"&gt;  &lt;/td&gt;
-   &lt;td style="text-align:center;box-shadow: 0px 1px"&gt;  &lt;/td&gt;
-   &lt;td style="text-align:center;box-shadow: 0px 1px"&gt;  &lt;/td&gt;
-   &lt;td style="text-align:center;box-shadow: 0px 1px"&gt;  &lt;/td&gt;
-   &lt;td style="text-align:center;box-shadow: 0px 1px"&gt; (7298.67) &lt;/td&gt;
+   &lt;td style="text-align:left;box-shadow: 0px 1.5px"&gt;  &lt;/td&gt;
+   &lt;td style="text-align:center;box-shadow: 0px 1.5px"&gt;  &lt;/td&gt;
+   &lt;td style="text-align:center;box-shadow: 0px 1.5px"&gt;  &lt;/td&gt;
+   &lt;td style="text-align:center;box-shadow: 0px 1.5px"&gt;  &lt;/td&gt;
+   &lt;td style="text-align:center;box-shadow: 0px 1.5px"&gt;  &lt;/td&gt;
+   &lt;td style="text-align:center;box-shadow: 0px 1.5px"&gt;  &lt;/td&gt;
+   &lt;td style="text-align:center;box-shadow: 0px 1.5px"&gt; (7298.68) &lt;/td&gt;
   &lt;/tr&gt;
   &lt;tr&gt;
    &lt;td style="text-align:left;"&gt; &lt;b&gt;Addtl. Covariates?&lt;/b&gt; &lt;/td&gt;
@@ -646,9 +646,11 @@ Your Results section is not a diary of everything you did (e.g., don't walk your
 - Due March 23, 12:01p
 
 ### Re- (late) submissions
-- Everything due .red[**March 20, 12:01p**] (no exceptions, **but note change**)
-- Assignments with scores &lt;10.8 only
-- Earn up to 10.8
+- Everything due .red[**March 15, 5:00p**] (**no exceptions**)
+- Assignments with scores &lt;90% only
+- Earn up to 90%
+
+### .red[Student Experience Survey!!!!]
 
 ---
 # Closing thoughts

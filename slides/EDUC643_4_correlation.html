@@ -59,20 +59,20 @@ class: middle, inverse
 ---
 # Correlations
 
-* Correlation coefficients `\((r)\)` describe the **strength** of a linear relationship between two variables. 
+* Correlation coefficients `\((r)\)` describe the .red-pink[**strength**] of a linear relationship between two variables. 
 
 * The concept was first developed by Karl Pearson a eugenics professor at the University College of London. As we discussed last term, he held many despicable [views](https://nautil.us/how-eugenics-shaped-statistics-238014/).
 
 * He (along with Francis Galton and RA Fisher) also pioneered many of the basic tools of modern statistics, including the concepts of standard deviation, `\(\chi^2\)`, goodness of fit and the correlation coefficient
 
-* Correlations are dimensionless measures that eliminate the metrics of any particular scale. 
+* Correlations are ***dimensionless measures*** that eliminate the metrics of any particular scale. 
 
 * To construct these dimensionless measures requires **standardizing** each variable.
 
 ---
 # Standardizing variables
 
-* Any variable can be standardized using a simple algorithm.
+* As a reminder, any variable can be standardized using a simple algorithm.
 
 Each observation `\((i)\)` is transformed into standardized form using the following formula:
 
@@ -117,8 +117,8 @@ do &lt;- do %&gt;%
 # Visualize in our data
 Let's transform *BMI* and *EDEQ_RESTRAINT* into standardized versions:
 &lt;img src="EDUC643_4_correlation_files/figure-html/unnamed-chunk-4-1.png" style="display: block; margin: auto;" /&gt;
-Note that the scale of our variables have changed.
 
+- Note that the scale of our variables have changed.
 - The standardized regression line goes through the origin (0, 0)
 
 ---
@@ -212,6 +212,8 @@ RQ: What is the relationship between Oregon's annual per capita divorce rate and
 --
 &lt;img src="EDUC643_4_correlation_files/figure-html/unnamed-chunk-10-1.png" style="display: block; margin: auto;" /&gt;
 
+--
+
 *On the 10 o'clock news tonight: does U.S. beef consumption cause more "beefs" between Oregonians and their spouses?*
 
 ---
@@ -253,23 +255,6 @@ This is a classic problem of a .blue[**confounder**]!&lt;sup&gt;1&lt;/sup&gt;
 
 .footnote[[1] More fun with [spurious correlations](https://www.tylervigen.com/spurious-correlations)]
 
----
-## Directed acyclic graphs (DAGs)
-
-[Directed Acyclical Graphs (DAGs)](https://journals.sagepub.com/doi/pdf/10.1177/2515245917745629) model causal relationships through graphical representation.
-
-
-&lt;img src="EDUC643_4_correlation_files/figure-html/unnamed-chunk-13-1.png" style="display: block; margin: auto;" /&gt;
-
----
-# Spurious correlation
-
-&lt;img src="EDUC643_4_correlation_files/figure-html/unnamed-chunk-14-1.png" style="display: block; margin: auto;" /&gt;
-
---
-
-&gt; .small[*It is easy to prove that the wearing of tall hats and the carrying of umbrellas enlarges the chest, prolongs life, and confers comparative immunity from disease...A university degree, a daily bath, the owning of thirty pairs of trousers, a knowledge of Wagner’s music, a pew in church, anything, in short, that implies more means and better nurture…can be statistically palmed off as a magic spell conferring all sorts of privileges...The mathematician whose correlations would fill a Newton with admiration, may, in collecting and accepting data and drawing conclusions from them, fall into quite crude errors by just such popular oversights.* -George Bernard Shaw (1906)]
-
 
 ---
 # Why correlation `\(\neq\)` causation?
@@ -278,24 +263,54 @@ Common barriers in attributing causality to observed co-relationships include:
 - .blue[Confounders]: a third variable causes changes in X and also in Y
 - [Colliders](http://www.the100.ci/2017/03/14/that-one-weird-third-variable-problem-nobody-ever-mentions-conditioning-on-a-collider/): a third variable that is caused by both the predictor and outcome; controlling for this can make a true causal relationship disappear!
 - .blue[Reverse causation]: X may cause Y **or** Y may cause X
-- [Simpson's Paradox](https://en.wikipedia.org/wiki/Simpson%27s_paradox): a third variable may reverse the correlation
-- [Selection bias](https://daviddliebowitz.github.io/EDUC643_23W/slides/EDUC643_4_correlation.html#44): due to the way in which the sample was constructed, observed relationships (or lack thereof) mask the true underlying relationship.
+- [Simpson's Paradox](https://daviddliebowitz.github.io/EDUC643_W24/slides/EDUC643_4_correlation.html#45): a third variable may reverse the correlation
+- .blue[Selection bias]: due to the way in which the sample was constructed, observed relationships (or lack thereof) mask the true underlying relationship.
 - Also, **lack** of correlation `\(\neq\)` **lack** of causality
 
 &lt;img src="causalinf.jpg" width="30%" style="display: block; margin: auto;" /&gt;
 h/t [@causalinf](https://twitter.com/causalinf)
 
+
+---
+# No racial bias in policing?
+
+.pull-left[
+In 2016, Harvard economics professor Roland Fryer&lt;sup&gt;1&lt;/sup&gt; released a [study](https://www.journals.uchicago.edu/doi/full/10.1086/701423) that claimed to find that police were ***equally likely*** to use force (i.e., officer-involved shootings) on whether the individuals they stopped were Black or White.
+]
+
+.pull-right[
+&lt;img src="fryer.jpg" width="904" style="display: block; margin: auto;" /&gt;
+]
+
+As you can imagine, this drew substantial media attention and controversy. We read about this in Lily Hu's [article](https://www.bostonreview.net/articles/race-policing-and-the-limits-of-social-science/) in the *Boston Review*.
+
+.footnote[[1] Since this study's release, Fryer has been accused of improper behavior towards members of his research lab.]
+
+---
+# Selection bias
+
+As detailed in [Knox, Lowe and Mummolo (2020)](https://www.cambridge.org/core/journals/american-political-science-review/article/administrative-records-mask-racially-biased-policing/66BC0F9998543868BB20F241796B79B8#article), Fryer's results are a product of a fundamental statistical error: .red-pink[**selecting on the outcome** (dependent variable)]
+
+&lt;img src="EDUC643_4_correlation_files/figure-html/unnamed-chunk-15-1.png" style="display: block; margin: auto;" /&gt;
+
+---
+# Selection bias
+
+As detailed in [Knox, Lowe and Mummolo (2020)](https://www.cambridge.org/core/journals/american-political-science-review/article/administrative-records-mask-racially-biased-policing/66BC0F9998543868BB20F241796B79B8#article), Fryer's results are a product of a fundamental statistical error: .red-pink[**selecting on the outcome** (dependent variable)]
+
+&lt;img src="EDUC643_4_correlation_files/figure-html/unnamed-chunk-16-1.png" style="display: block; margin: auto;" /&gt;
+.footnote[Helpful [thread](https://twitter.com/bristimtom/status/1259458866015805440) with a nice illustration of how selecting on the dependent variable and collider bias are interrelated.]
+
+
 ---
 # From correlation to causality
 
-### Five criteria for establishing causality:&lt;sup&gt;1&lt;/sup&gt;
+### Three criteria for establishing causality:&lt;sup&gt;1&lt;/sup&gt;
 
 .pull-left[
 1. Cause must precede effect in time
-2. Identified mechanism
-3. Consistency
-4. Responsiveness
-5. No plausible alternative explanation
+2. Systematic relationship between variation in cause and variation in effect
+3. No plausible alternative explanation
 ]
 
 .pull-right[
@@ -318,6 +333,11 @@ Research design is critical. So too can be [Directed Acyclical Graphs (DAGs)](ht
 * Discuss science communication and how you would distinguish correlations from causal relationships to the average person.
 
 * In what contexts might it be difficult to conduct an experimental study to establish causality?
+
+* Consider the debate around the social science study of racial differences in officer-involved violence. Some of the conclusions analysts reach about critically important social issues diverge for highly technical and opaque reasons. What does this imply about the contributions of quantitative social science to public discourse and policy?
+
+
+&gt; .small[.green[*It is easy to prove that the wearing of tall hats and the carrying of umbrellas enlarges the chest, prolongs life, and confers comparative immunity from disease...A university degree, a daily bath, the owning of thirty pairs of trousers, a knowledge of Wagner’s music, a pew in church, anything, in short, that implies more means and better nurture…can be statistically palmed off as a magic spell conferring all sorts of privileges...The mathematician whose correlations would fill a Newton with admiration, may, in collecting and accepting data and drawing conclusions from them, fall into quite crude errors by just such popular oversights.* -George Bernard Shaw (1906)]]
 
 ---
 class: middle, inverse
@@ -384,46 +404,25 @@ class: middle, inverse
 # To-Dos
 
 ### Reading: 
-- **Finish if you have not already**: LSWR Chapter 15.1 - 15.2 and 15.4 - 15.7
-- **By January 24**: LSWR Chapter 5.7
+- **By January 25**: LSWR Chapter 5.7
 
 ### Quiz: 
-- Opens 3:45 Tuesday, Jan. 24 (closes 5pm on 1/25)
+- Opens 3:45 Tuesday, Jan. 25 (closes 5pm on 1/26)
 
 ### Assignment 1:
-- Due Jan. 24, 11:59pm
+- Due February 5, 11:59pm
 
-### Next week: Regression assumptions
-
----
-# No racial bias in policing?
-
-.pull-left[
-In 2016, Harvard economics professor Roland Fryer&lt;sup&gt;1&lt;/sup&gt; released a [study](https://www.journals.uchicago.edu/doi/full/10.1086/701423) that claimed to find that police were ***equally likely*** to use force (i.e., officer-involved shootings) on whether the individuals they stopped were Black or White.
-]
-
-.pull-right[
-&lt;img src="fryer.jpg" width="904" style="display: block; margin: auto;" /&gt;
-]
-
-As you can imagine, this drew substantial media attention and controversy. We read about (but did not discuss) this last term in Lily Hu's [article](https://www.bostonreview.net/articles/race-policing-and-the-limits-of-social-science/) in the *Boston Review*.
-
-.footnote[[1] Since this study's release, Fryer has been accused of improper behavior towards members of his research lab.]
+### Next time: Regression assumptions
 
 ---
-# Selection bias
-
-As detailed in [Knox, Lowe and Mummolo (2020)](https://www.cambridge.org/core/journals/american-political-science-review/article/administrative-records-mask-racially-biased-policing/66BC0F9998543868BB20F241796B79B8#article), Fryer's results are a product of a fundamental statistical error: .red-pink[**selecting on the outcome** (dependent variable)]
+# Simpson's Paradox
 
 &lt;img src="EDUC643_4_correlation_files/figure-html/unnamed-chunk-18-1.png" style="display: block; margin: auto;" /&gt;
 
 ---
-# Selection bias
-
-As detailed in [Knox, Lowe and Mummolo (2020)](https://www.cambridge.org/core/journals/american-political-science-review/article/administrative-records-mask-racially-biased-policing/66BC0F9998543868BB20F241796B79B8#article), Fryer's results are a product of a fundamental statistical error: .red-pink[**selecting on the outcome** (dependent variable)]
-
+# Simpson's Paradox
 &lt;img src="EDUC643_4_correlation_files/figure-html/unnamed-chunk-19-1.png" style="display: block; margin: auto;" /&gt;
-.footnote[Helpful [thread](https://twitter.com/bristimtom/status/1259458866015805440) with a nice illustration of how selecting on the dependent variable and collider bias are interrelated.]
+
     </textarea>
 <style data-target="print-only">@media screen {.remark-slide-container{display:block;}.remark-slide-scaler{box-shadow:none;}}</style>
 <script src="https://remarkjs.com/downloads/remark-latest.min.js"></script>

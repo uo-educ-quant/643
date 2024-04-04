@@ -39,13 +39,14 @@ Readings:
 Lectures:
 
 - Class 1 (1/9) slides: [html](./slides/EDUC643_1_intro.html) | [pdf](./slides/EDUC643_1_intro.pdf)
-<!--
 - Class 2 (1/11) slides: [html](./slides/EDUC643_2_GLM.html) | [pdf](./slides/EDUC643_2_GLM.pdf)
-- Class 3 (1/16) slides: [html](./slides/EDUC643_3_inference.html) | [pdf](./slides/EDUC643_3_inference.pdf)
-- Class 4 (1/18) slides: [html](./slides/EDUC643_4_correlation.html) | [pdf](./slides/EDUC643_4_correlation.pdf)
--->
+- Class 3 (1/18) slides: [html](./slides/EDUC643_3_inference.html) | [pdf](./slides/EDUC643_3_inference.pdf)
+- Class 4 (1/23) slides: [html](./slides/EDUC643_4_correlation.html) | [pdf](./slides/EDUC643_4_correlation.pdf)
 - Data: [male_do_eating.sav](./data/male_do_eating.sav) | [codebook](./data/male_do_eating_codebook.pdf)
 - R code: [R script](./slides/EDUC643_1_code.R)
+- Labs:
+    + Week 1: [doc](./labs/EDUC643_Wk1.docx) | [rmd](./labs/Week1.Rmd)
+    + Week 3: [rmd](./labs/Week3.Rmd)
 
 Assignment 1: get started!!! (see below)
 
@@ -68,15 +69,16 @@ Readings:
 - [LSWR Chapter 15.8-15.9](https://learningstatisticswithr.com/lsr-0.6.pdf) 
 
 Lecture: 
-<!--
-- Class 5-6 (1/23 and 1/25) slides: [html](./slides/EDUC643_5_assumptions.html) | [pdf](./slides/EDUC643_5_assumptions.pdf)
+
+- Class 5-6 (1/25 and 1/30) slides: [html](./slides/EDUC643_5_assumptions.html) | [pdf](./slides/EDUC643_5_assumptions.pdf)
 - Data: [male_do_eating.sav](./data/male_do_eating.sav)
 - R code: [R script](./slides/EDUC643_5_code.R)
--->
+- Labs: 
+    + Week 4: [doc](./labs/EDUC643_Wk4.docx) | [RMarkdown assignment template](./labs/formatted_rmd_starter.Rmd)
 
 Assignment 1:
 
-- Due: February 1, 11:59pm
+- Due: February 5, 11:59pm
 - Assignment: [html file](./assignments/assignment_1.html)
 - Data: [nerds.csv](./data/nerds.csv)
  
@@ -103,19 +105,19 @@ Readings:
 - [LSWR Chapter 15.3](https://learningstatisticswithr.com/lsr-0.6.pdf) 
 
 Lecture: 
-<!--
-- Class 7-8 (1/30, 2/1 and 2/6) slides: [html](./slides/EDUC643_7_mult_regression.html) | [pdf](./slides/EDUC643_7_mult_regression.pdf)
+
+- Class 7-9 (2/1, 2/6, 2/8) slides: [html](./slides/EDUC643_7_mult_regression.html) | [pdf](./slides/EDUC643_7_mult_regression.pdf)
 - Data: [male_do_eating.sav](./data/male_do_eating.sav)
 - R code: [R script](./slides/EDUC643_7_code.R)
 - Prototypical plots: [xlsx](./data/prototypical_plots.xlsx)
- -->
+
  
 Assignment 2: 
-- Due: Feb. 15, 11:59pm
-<!--
+
+- Due: Feb. 16, 11:59pm
 - Assignment: [html file](./assignments/assignment_3.html)
 - Data: [nerds.csv](./data/nerds.csv)
--->
+
  
 ## Unit 4: Categorical predictors
 
@@ -140,19 +142,20 @@ Readings:
 
 Lecture: 
 
-<!--
-- Class 10 - 12 (2/8, 2/13 and 2/15) slides: [html](./slides/EDUC643_10_categorical.html) | [pdf](./slides/EDUC643_10_categorical.pdf)
+- Class 10 - 12 (2/13,  2/15 and 2/20) slides: [html](./slides/EDUC643_10_categorical.html) | [pdf](./slides/EDUC643_10_categorical.pdf)
 - Data: [dibels.csv](./data/dibels.csv) | [codebook](./data/dibels_codebook.pdf)
 - R code: [R script](./slides/EDUC643_10_code.R)
--->
+- Labs:
+    + Week 6: [doc](./labs/EDUC643_Wk6.docx)
+    + Week 7: [doc](./labs/EDUC643_Wk7.docx)
 
 Assignment 3:
-- Due: Feb. 22, 11:59pm
 
-<!--
+- Due: Feb. 26, 11:59pm
+
 - Assignment: [html file](./assignments/assignment_4.html)
 - Data: [nerds.csv](./data/nerds.csv)
--->
+
 
 ## Unit 5: Interactions and non-linearity
  
@@ -173,29 +176,31 @@ Objectives
 Readings: 
 
 - **Complete prior to 2/27 class:** [LSWR Chapter 16.2](https://learningstatisticswithr.com/lsr-0.6.pdf)
-- **Complete prior to 3/12 class:** [Campbell & Ramey 1994](./data/Campbell Ramey 1994.pdf)
+- **Complete prior to 3/7 class:** [Campbell & Ramey 1994](./data/Campbell Ramey 1994.pdf)
+    + Reading questions: [doc](./data/Campbell Ramey reading questions.docx)
 
 Lecture: 
 
-<!--
-- Class 13-15 (2/20, 2/22 and 2/27) slides: [html](./slides/EDUC643_13_interactions.html) | [pdf](./slides/EDUC643_13_interactions.pdf)
-- Class 16-18 (2/29, 3/5 and 3/7) slides: [html](./slides/EDUC643_16_nonlinearity.html) | [pdf](./slides/EDUC643_16_nonlinearity.pdf)
+
+- Class 13-14 (2/22 and 2/27) slides: [html](./slides/EDUC643_13_interactions.html) | [pdf](./slides/EDUC643_13_interactions.pdf)
+- Class 15-17 (2/29, 3/5 and 3/7) slides: [html](./slides/EDUC643_16_nonlinearity.html) | [pdf](./slides/EDUC643_16_nonlinearity.pdf)
 - Data: [dibels.csv](./data/dibels.csv) | [pisa.csv](./data/pisa.csv) | [oecd_2022.xlsx](./data/oecd_2022.xlsx)
-- R script: [interactions](./slides/EDUC643_13_code.R) | [non-linearity](./slides/EDUC643_16_code.R)
--->
+- R script: [interactions](./slides/EDUC643_13_code.R) | [non-linearity](./slides/EDUC643_16_code.R) 
+- Labs:
+    + Week 8: [Rmd](./labs/Week8.Rmd)
+    + Week 9: [doc](./labs/EDUC643_Wk9.docx)
 
 Assignment 4:
-- Due: March 7, 11:59pm
 
-<!--
+- Due: March 8, 11:59pm
+
 - Assignment: [html file](./assignments/assignment_5.html)
 - Data: [nerds.csv](./data/nerds.csv)
--->
+
 
 ## Unit 6: Model building
  
 **Topic: Model building**
-
 
 Objectives
 
@@ -213,14 +218,12 @@ Readings:
 
 Lecture: 
 
-<!--
-- Class 19-20 slides: [html](./slides/EDUC643_19_modeling.html) | [pdf](./slides/EDUC643_19_modeling.pdf)
--->
+- Class 18 slides: [html](./slides/EDUC643_19_modeling.html) | [pdf](./slides/EDUC643_19_modeling.pdf)
+
+**Class cancelled on March 14** (David in Baltimore for AEFP Conference)
 
 ## Final:
 
 - Due: Mar. 21, 12:01pm
-<!--
 - Assignment: [html file](./assignments/assignment_6.html)
 - Data: [seda.csv](./data/seda.csv)
--->

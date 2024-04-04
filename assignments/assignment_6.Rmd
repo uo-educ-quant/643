@@ -75,7 +75,7 @@ The data set we'll be using for this assignment is drawn from the Stanford Educa
 
 
 #### The Works
-Your final assessment in EDUC 643 is to postulate one (or more) relational research questions that are amenable to the use of quantitative methods to respond to these questions. You will pose these research questions in the context of the SEDA data and analyze these data to seek answers to these questions. Then, you will construct an "proto" academic research paper synthesizing the results of your analysis. We call this a "proto" paper because (1) you will not spend any time contextual your study within the research literature; and (2) your results will be preliminary. 
+Your final assessment in EDUC 643 is to postulate one (or more) relational research questions that are amenable to the use of quantitative methods to respond to these questions. You will pose these research questions in the context of the SEDA data and analyze these data to seek answers to these questions. Then, you will construct an "proto" academic research paper synthesizing the results of your analysis. We call this a "proto" paper because (1) you will not spend any time contextualizing your study within the research literature; and (2) your results will be preliminary. 
 
 Your "proto" paper should be structured as follows:
 

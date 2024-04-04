@@ -1,0 +1,154 @@
+---
+title: "Week 8 Lab"
+author: "(your name)"
+date: "2024-02-27/28"
+output: 
+  html_document:
+    code_foling = TRUE
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE,
+                      warning = FALSE,
+                      message = FALSE)
+```
+
+```{css, echo=FALSE}
+/* Whole document: */
+body{
+  font-family: Helvetica;
+  font-size: 13pt;
+}
+```
+
+### Task 1: Load the libraries and read the data
+
+```{r}
+#loading libraries 
+pacman::p_load(tidyverse, modelsummary, margins)
+
+#read in dataset 
+dibel_df <- read.csv("https://daviddliebowitz.github.io/EDUC643_W24/data/dibels.csv") 
+
+```
+
+## Run code 
+
+```{r}
+dibel_df <- dibel_df %>% 
+  select(id = sch_deid,
+         grade,
+         w2 = y1_moy_mean,
+         w4 = y2_moy_mean,
+         frpl = frpl_prop,
+         enrollment = school_enroll)
+
+dibel_df <- pivot_longer(dibel_df,
+                   cols = w2:w4,
+                   names_to = "wave",
+                   names_prefix = "w",
+                   values_to = "score") %>% 
+  mutate(id = as.character(id),
+         time = factor(ifelse(wave %in% c(1, 2), 1, 2), 
+                       levels = c(1,2), labels = c("Pre", "Post")),
+         grade = as.factor(grade),
+         enrollment = as.numeric(enrollment)) %>% 
+  select(-wave)
+```
+
+We conducted some data management on the original DIBELS data and currently we have these variables:
+
+ - score: ORF score (school-by-grade-by-wave level)
+ - post: coded one for school year 2020-21 and zero for school year 2019-20
+ - grade: coded 1-5 for 1-5 graders
+ - enrollment: test enrollment (school level) 
+ 
+**Motivating RQ1: does the relationship between score and students' ORF trajectories pre- and post-pandemic-onset (`time`) differ across grade (`grade`)?**
+
+Check the reference group of categorical predictor:
+
+ - All grade levels have decent number of observations, so it does not matter which one serves as reference group when you use grade as a predictor
+ 
+ 
+```{r}
+# Choose a sensible reference group. 
+dibel_df$grade <- relevel(dibel_df$grade, ref = "...") 
+# uncomment and check below to see now grade 5 is your first group
+# table(df$grade)
+```
+ 
+ 
+Model specification:
+
+$$ score = \beta_0 + \beta_1post + \beta_2grade... + \beta_3grade... + \beta_4grade... + \\ \beta_5grade... + \beta_6time*grade... + \beta_7time*grade... + \beta_8time*grade... + \beta_9time*grade... + \epsilon $$
+
+### Task 1: Estimate the relationship between ORF score and time by grades**
+
+```{r echo=TRUE, eval=TRUE}
+# linear model fit 
+fit1 <- lm(score ~ time * grade, dibel_df)
+
+#table output
+modelsummary(list(fit1),
+             stars=T,
+             vcov = "robust",
+             gof_omit = "Adj.|AIC|BIC|Log|RMSE|RSE|Std.Err")
+## Make sure to add notes in assignment table outputs regarding standard errors, etc. 
+
+```
+
+### Task 2: Plotting the relationship between time and scores by grades 
+
+```{r, fig.width = 10}
+margins::margins(fit1,
+                 at = list(grade = c("1", "2", "3", "4", "5"))) %>% 
+  ggplot(aes(x = relevel(time, ref = 'Pre'), 
+             y = fitted, 
+             color = grade,
+             group = grade)) +
+  geom_point() +
+  geom_line() +
+  theme_minimal(base_size = 14) +
+  labs(x = "Time of MOY administration",
+       y = "ORF score",
+       color = "Grade")
+```
+
+
+**Q: Interpret the answer to the research question in 3-4 lines. **
+ 
+ 
+**Motivating RQ2: does the relationship between score and proportion of students eligible for free and reduced price lunch differ by grade adjusting for school enrollment?**
+
+Model specification:
+
+$$ score = \beta_0 + \beta_1FRPL + \beta_2Grade...+ \beta_3Grade... + \beta_4Grad... +  \beta_5Grade... + \beta_6FRPL*Grade... + \beta_7FRPL*Grade... + \beta_8FRPL*Grade... + \beta_9FRPL*Grade... + \beta_10Enroll \epsilon $$
+
+### Task 3: Estimate the relationship between score and frpl by grade adjusting for school enrollment
+
+```{r echo=TRUE, eval=TRUE}
+fit2 <- lm(score ~ frpl + grade + enrollment + grade * frpl, dibel_df %>% filter(time == "Post"))
+modelsummary(list(fit2),
+             stars=T,
+             vcov = "robust",
+             gof_omit = "Adj.|AIC|BIC|Log|RMSE|RSE|Std.Err")
+```
+
+### Task 4: Plot prototypical values of specified levels 
+
+```{r, fig.width = 10}
+margins::margins(fit2,
+                 at = list(grade = c("1", "2", "3", "4", "5"))) %>% 
+  ggplot(aes(x = frpl, 
+             y = fitted, 
+             color = grade)) +
+  geom_smooth(method = "lm") +
+  theme_minimal(base_size = 16) +
+  labs(x = "School enrollment",
+       y = "ORF score",
+       color = "Grade")
+```
+
+
+**Q: Interpret the answer to the research question in 3-4 lines. **
+

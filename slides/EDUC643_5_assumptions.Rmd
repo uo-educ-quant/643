@@ -387,7 +387,7 @@ Residuals can be valuable diagnostic tools to assessing the assumptions of the r
 - Inspecting particular cases to determine whether they are mis-measured or belong to a different population than the main one of your study
 - Improve your research design overall
 
-Our regression assumptions of .red-pink[**homscedasticity, normality** and **independence**] are all about the residuals. We often say as shorthand for this that the residuals are .red-pink[**independently and identically distributed**]:
+Our regression assumptions of .red-pink[**homscedasticity, normality**] and .red-pink[**independence**] are all about the residuals. We often say as shorthand for this that the residuals are .red-pink[**independently and identically distributed**]:
 $$\varepsilon_i = \text{i.i.d. } N(0, \sigma^2)$$
 
 ---
@@ -419,7 +419,7 @@ sd(do$resid)
 ```
 
 - Sample mean of the residuals is *always* exactly zero
-- On a scale ranging from about 5 to 60, most of our residuals are within 6 BMI units. However, we've done a poor job of predicting BMI for some participants.
+- On a scale ranging from about 5 to 60, most of our residuals are within 6 or so BMI units. However, we've done a poor job of predicting BMI for some participants.
 
 
 ---
@@ -599,7 +599,7 @@ However, we generally can correct for the presence of heteroscedasticity by the 
 ## Solutions to heteroscedasticity
 
 .small[
-We won't spend time on these now, but know that if you are concerned about the presence of heteroscedasticity in your data, you will generally want to use heteroscedasticity- robust standard errors (sometimes called sandwich estimators or [Eicker-Huber-White standard errors](https://www.jstor.org/stable/1912934) ). Some R options include `estimatr::lm_robust` and `modelsummary`.
+We won't spend time on these now, but know that if you are concerned about the presence of heteroscedasticity in your data, you will generally want to use heteroscedasticity- robust standard errors (sometimes called sandwich estimators or [Eicker-Huber-White standard errors](https://www.jstor.org/stable/1912934) ). Some R options include `estimatr::lm_robust` or when producing table results via `modelsummary`.
 ]
 
 
@@ -667,10 +667,10 @@ ggplot(do, aes(x = predict, y = stu_resid)) +
 ```{r, echo=T}
 qq <- ggplot(do) + 
         stat_qq(aes(sample=stu_resid)) +
-        geom_abline(color=blue)
+        geom_abline(color=blue)   # by default, slope=1, intercept=0
 ```
 
-```{r, fig.height=4}
+```{r, fig.height=3.25}
 qq +
   theme_minimal(base_size = 16)
 ```
@@ -728,7 +728,7 @@ ggplot(do, aes(x = predict, y = stu_resid, col=city)) +
 ---
 ## Solutions to residual independence
 
-.small[We won't spend time here, but if you are concerned about the presence of clusters in your data--*because you are worried it will affect your inference*--consider using cluster-robust standard errors, which inflate standard errors for the *k*<sup>th</sup> regressor by] $\tau_k$ .small[, where] $\tau_k = 1 + \rho_{kx} + \rho_{\mu}* (\text{avg. cluster size} - 1)$.
+.small[We won't spend time here, but if you are concerned about the presence of clusters in your data--*because you are worried it will affect your inference*--consider using cluster-robust standard errors, which inflate standard errors for the *k*<sup>th</sup> regressor by] $\tau_k$ .small[, where] $\tau_k \approx 1 + \rho_{kx} \rho_{\mu}* (\text{avg. cluster size} - 1)$.
 
 ```{r, echo=T}
 modelsummary(lm_city,
@@ -948,19 +948,21 @@ We can conduct a series of diagnostic steps and (sometimes) corrections to ensur
 # To-Dos
 
 ### Reading: 
-- **Finish by Jan. 31**: LSWR Chapter 15.8 - 15.9
+- **Finish by Jan. 30**: LSWR Chapter 15.8 - 15.9
 
 ### Quiz 1:
-- Open now, closes 1/25 at 5p
+- Open now, closes 1/26 at 5p
 
 ### Quiz 2: 
-- Opens 3:45 Tuesday, Jan. 31 (closes 5pm on 2/1)
+- Opens 3:45 Tuesday, Jan. 30 (closes 5pm on 1/31)
 
-### Assignment 2:
-- Due Feb 3., 11:59pm (**note extension!**)
-- I encourage you to complete by 1/31 so you can turn your attention to multiple regression
+### Assignment 1:
+- Due Feb 5., 11:59pm (**note extension!**)
 
 ### Next week: Multiple regression
 
+--
+
+.red[**Midterm Student Experience Survey!!!**]
 
  

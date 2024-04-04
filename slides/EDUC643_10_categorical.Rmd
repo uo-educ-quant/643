@@ -145,7 +145,7 @@ Of course, this begs the question...
 Another important distinction: .red-pink[**dichotomies**] (only 2 categories) vs. .red-pink[**polychotomies**] (>2 categories)
 
 ---
-# Our (new!) motivating question
+## Our (new!) motivating question
 .small[A team of researchers based at the .green[**University of Oregon**] aimed to understand the effects of the COVID-19 pandemic on students' early literacy skills.<sup>1</sup>]
 ```{r}
 include_graphics("dibels_team.png")
@@ -212,7 +212,7 @@ lines(density(dibels$post), col="red")
 legend(150, .008, legend=c("pre", "post"), fill=c("black", "red"))
 ```
 --
-.small[But, as you may by now have anticipated, we are interested in knowing how likely we are to have gotten such a difference by idiosyncrasy of sampling from a population of school-grades in which there was no difference.]
+.small[But, as you may by now have anticipated, we are interested in knowing how likely we are to have gotten such a difference by ***idiosyncrasy of sampling*** from a population of school-grades in which there was no difference.]
 
 --
 .small[Fortunately, we have just such a tool in our toolbox already. .blue[**What will the (asymptotic) distribution of means of repeatedly drawn samples from a given population be?**]]
@@ -299,15 +299,13 @@ include_graphics("pivot_longer.png")
 
 --
 
-Understanding exactly how to do this will take repeated time and practice, and you will nearly always need to look up and remind yourself how to do it. Bookmark and get familiar with this vignette: [https://tidyr.tidyverse.org/articles/pivot.html](https://tidyr.tidyverse.org/articles/pivot.html)!
+Understanding exactly how to do this will take repeated time and practice, and you will nearly always need to look up and remind yourself how to do it. Bookmark and familiarize yourself with this vignette: [https://tidyr.tidyverse.org/articles/pivot.html](https://tidyr.tidyverse.org/articles/pivot.html)!
 
 --
 
-I'm going to show you the code to reshape your data (here from wide to long), but you don't need to be able to do this for assignments in this class. You should aim to understand substantively what is going on.
+You don't need to be able to do this for assignments in this class, but I have the code for how to do so at the [end of the slides](https://daviddliebowitz.github.io/EDUC643_W24/slides/EDUC643_10_categorical.html#139).
 
----
-# Pivot longer
-```{r, echo=T}
+```{r, echo=F}
 dibels_long <- dibels %>% 
                   pivot_longer(
                     cols = c("y1_boy_mean", "y1_moy_mean", 
@@ -466,7 +464,7 @@ summary(fit1)
 ```{r, echo=F, highlight.output=c(12)}
 summary(fit1)
 ```
-Our point estimate is identical to our [original two-sample $t$-test](https://daviddliebowitz.github.io/EDUC643_23W/slides/EDUC643_9_categorical.html#17), though our inference has changed slightly.
+Our point estimate is identical to our [original two-sample $t$-test](https://daviddliebowitz.github.io/EDUC643_W24/slides/EDUC643_10_categorical.html#19), though our inference has changed slightly.
 
 
 ---
@@ -1095,7 +1093,7 @@ fit3 <- lm(mean_orf ~ period, dibels_long)
 anova(fit3)
 ```
 
-.small[We can see all the information we calculated earlier. With a *p*-value] $<2.2 \times 10^{-16}$, .small[our *F*-statistic highly unlikely to be a product of a population in which the population means across the four waves of ORF administration were equal. Therefore we reject the null hypothesis and conclude that, on average in the population, the mean ORF scores differed significantly across the waves of assessment administration.]
+.small[We can see all the information we calculated earlier. With a *p*-value] $<2.2 \times 10^{-16}$, .small[our *F*-statistic is highly unlikely to be a product of a population in which the population means across the four waves of ORF administration were equal. Therefore we reject the null hypothesis and conclude that, on average in the population, the mean ORF scores differed significantly across the waves of assessment administration.]
 
  
 ---
@@ -1183,7 +1181,7 @@ Now that we've learned the basic concept of multiple regression, it's a fairly s
 
 --
 
-Preliminarily, let's look at three: *GRADE* and *SCHOOL_ENROLL*:
+Preliminarily, let's look at two: *GRADE* and *SCHOOL_ENROLL*:
 
 $$
 \begin{aligned}
@@ -1390,7 +1388,7 @@ class: middle, inverse
 - .red-pink[**Analysis of covariance (ANCOVA)**] is an extension of ANOVA and multiple regression
 - It is also a part of the broader family of General Linear Models
 - The model relates categorical predictors to a continuous outcome, adjusting for the effects of other covariates
-  + Note: you may see in some (older) sources the statement that ANCOVA models can only adjust for the effects of other categorical covariates. This is not true as long as you are careful to specify your categorical covariates as dummy indicators
+  + Note: you may see in some (older) sources the statement that ANCOVA models can only adjust for the effects of other continuous covariates. This is not true as long as you are careful to specify your categorical covariates as dummy indicators
 - The null hypothesis is still the same as ANOVA $(\mu_1 = \mu_2 = \mu_K)$.
 
 
@@ -1414,9 +1412,9 @@ Let's contrast an ANOVA with an ANCOVA test:
 anova(fit3, fit4)
 ```
 
-- In our basic ANOVA, our residual SS was 28,193,461 (it still is now). Now we see the residual SS for our ANCOVA fit is 6,431,752, or meaningfully (and statistically significantly smaller)
+- In our basic ANOVA, our residual SS was 28,193,461 (it still is now). Now we see the residual SS for our ANCOVA fit is 6,431,752, or meaningfully (and statistically significantly) smaller
 - Our variance has been "reorganized" with the addition of **school_enroll**.
-- We can compare the two model fits with a new $F$-statistic that assesses whether one explains more of the variance ("is a better fit") than the other. It is.
+- We can compare the two model fits with a new $F$-statistic that assesses whether one explains more of the variance ("is a better fit") than the other...it is.
 
 
 ---
@@ -1478,10 +1476,24 @@ class: middle, inverse
 # To-Dos
 
 ### Reading: 
-- **Finish by Feb. 16**: LSWR Chapter 14 and 16.6
+- **Finish by Feb. 20**: LSWR Chapter 14 and 16.6
+
+### Assignment 2:
+- Due Feb. 16, 11:59pm
 
 ### Assignment 3:
-- Due Feb. 14, 11:59pm (**note extension**)
+- Due Feb. 26, 11:59pm
 
-### Assignment 4:
-- Due Feb. 27, 9:00am
+
+---
+# Pivot longer
+```{r, echo=T}
+dibels_long <- dibels %>% 
+                  pivot_longer(
+                    cols = c("y1_boy_mean", "y1_moy_mean", 
+                             "y2_boy_mean", "y2_moy_mean"),
+                    names_to = "period",
+                    names_pattern = "(.*)_mean",
+                    values_to = "mean_orf")
+dibels_long$period <- factor(dibels_long$period)
+```

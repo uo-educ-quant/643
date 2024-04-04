@@ -48,7 +48,9 @@ class: center, middle, inverse, title-slide
 
 --
 
-.small[.blue[This is an entirely re-designed and modernized quantitative sequence for the COE. We welcome your feedback! Given the new-ness of these three courses, there are likely to be shortcomings. We are committed to solving them as they arise, but we ask for your grace in allowing us to do so. In the end, we think this will be a better experience for you and your future program-mates.]]
+.small[.blue[This is a re-designed and modernized core quantitative sequence at the COE. We welcome your feedback!
+
+Given the relative new-ness of these courses, there are likely to be hiccups. We are committed to solving them, but we ask for your grace in allowing us to do so.]]
 
 ---
 # EDUC pedagogical orientation
@@ -71,7 +73,7 @@ We assume that you enter this course (EDUC 643) with the ability to:
 - Conduct a one-sample `\(t\)`-test and fit a bivariate Ordinary Least Squares regression
 
 --
-- See [EDUC 641 data management guide](https://daviddliebowitz.github.io/EDUC641_22F/data_management.html) for data management pointers
+- See [EDUC 641 data management guide](https://daviddliebowitz.github.io/EDUC641_23F/data_management.html) for data management pointers
 
 
 ---
@@ -105,13 +107,39 @@ Concrete learning objectives:
 --
 - Help you see that many common statistical approaches with fancy names (multivariate regression, ANOVA, Spearman rank correlation coefficient, MANCOVA, Welch's two-sample `\(t\)`-test, Weighted Least Squares, `\(\chi^2\)` goodness-of-fit test, etc.) are part of the same same "family" of statistical tests known as the General Linear Model (GLM). 
 
+--
+(aka .red-pink[*demystify the world of statistics*])
+
 ---
 # Me
 
+.pull-left[
+- David Liebowitz (aka, "David" or "Dr. Liebowitz")
+- he/him
+- English lit undergrad major
+- Former ELA teacher and principal
+- Policy analyst/advisor
+- **Applied** quantitative social scientist focused on improving leadership and policy in schools
+- **Not** a methodologist
+]
+
+.pull-right[
+&lt;img src="kids.jpg" width="85%" style="display: block; margin: auto;" /&gt;
+]
 
 ---
 # Learnings from the fall
 
+- Maintain inclusivity, clarity, communuication, organization and accessibility
+- Improve active learning (also more "chew time") and accessibility
+- Clarity in use of technical language
+- Review topics on which students struggled in assignments
+
+--
+
+.gray[
+- Match structure of final to assignments
+]
 
 ---
 # Roadmap of EDUC 643
@@ -122,8 +150,8 @@ Concrete learning objectives:
 | 2     | 3        | Regression assumptions
 | 3     | 4        | Multiple regression
 | 4     | 5-6      | Categorical predictors
-| 5     | 7-8      | Non-linearities and interactions
-| 6     | 9-10     | Model building and applied analysis
+| 5     | 7-9      | Non-linearities and interactions
+| 6     | 10       | Model building and applied analysis
 
 
 ---
@@ -331,7 +359,7 @@ summary(do$EDS_total)
 ggplot(data=do, aes(EDS_total)) + geom_bar()
 ```
 
-&lt;img src="EDUC643_1_intro_files/figure-html/unnamed-chunk-8-1.svg" style="display: block; margin: auto;" /&gt;
+&lt;img src="EDUC643_1_intro_files/figure-html/unnamed-chunk-9-1.svg" style="display: block; margin: auto;" /&gt;
 
 
 ```r
@@ -366,10 +394,10 @@ Before we get to the core question of the Kelly et al. study--how are dietary re
 We are interested in the *relationship* between dietary restraint (*EDEQ_restraint*) and body-mass index (*BMI*). Statistically, the relationship is the same regardless of which variable is the outcome.
 
 .pull-left[
-&lt;img src="EDUC643_1_intro_files/figure-html/unnamed-chunk-10-1.svg" style="display: block; margin: auto;" /&gt;
+&lt;img src="EDUC643_1_intro_files/figure-html/unnamed-chunk-11-1.svg" style="display: block; margin: auto;" /&gt;
 ]
 .pull-right[
-&lt;img src="EDUC643_1_intro_files/figure-html/unnamed-chunk-11-1.svg" style="display: block; margin: auto;" /&gt;
+&lt;img src="EDUC643_1_intro_files/figure-html/unnamed-chunk-12-1.svg" style="display: block; margin: auto;" /&gt;
 ]
 
 --
@@ -387,7 +415,7 @@ biv &lt;- ggplot(data=do, aes(x=EDEQ_restraint, y=BMI)) +
           geom_point()
 ```
 
-&lt;img src="EDUC643_1_intro_files/figure-html/unnamed-chunk-13-1.svg" style="display: block; margin: auto;" /&gt;
+&lt;img src="EDUC643_1_intro_files/figure-html/unnamed-chunk-14-1.svg" style="display: block; margin: auto;" /&gt;
 
 ---
 # Bivariate relationships
@@ -403,34 +431,34 @@ biv &lt;- ggplot(data=do, aes(x=EDEQ_restraint, y=BMI)) +
 ---
 ## Bivariate relationships: Direction
 
-&lt;img src="EDUC643_1_intro_files/figure-html/unnamed-chunk-14-1.svg" style="display: block; margin: auto;" /&gt;
+&lt;img src="EDUC643_1_intro_files/figure-html/unnamed-chunk-15-1.svg" style="display: block; margin: auto;" /&gt;
 ---
 ## Bivariate relationships: Linearity
-
-&lt;img src="EDUC643_1_intro_files/figure-html/unnamed-chunk-15-1.svg" style="display: block; margin: auto;" /&gt;
-
----
-## Bivariate relationships: Outliers
 
 &lt;img src="EDUC643_1_intro_files/figure-html/unnamed-chunk-16-1.svg" style="display: block; margin: auto;" /&gt;
 
 ---
-## Bivariate relationships: Strength
+## Bivariate relationships: Outliers
 
 &lt;img src="EDUC643_1_intro_files/figure-html/unnamed-chunk-17-1.svg" style="display: block; margin: auto;" /&gt;
+
+---
+## Bivariate relationships: Strength
+
+&lt;img src="EDUC643_1_intro_files/figure-html/unnamed-chunk-18-1.svg" style="display: block; margin: auto;" /&gt;
 
 **Note that these have the same slope (magnitude)**
 ---
 ## Bivariate relationships: Magnitude
 
-&lt;img src="EDUC643_1_intro_files/figure-html/unnamed-chunk-18-1.svg" style="display: block; margin: auto;" /&gt;
+&lt;img src="EDUC643_1_intro_files/figure-html/unnamed-chunk-19-1.svg" style="display: block; margin: auto;" /&gt;
 **Note that these have the same strength (tightness of fit)**
 
 ---
 ## Bivariate relationships: Magnitude
 
 Note that if you change the scale of either axis, it will change the perceived--**but not the *actual***--size of the magnitude
-&lt;img src="EDUC643_1_intro_files/figure-html/unnamed-chunk-19-1.svg" style="display: block; margin: auto;" /&gt;
+&lt;img src="EDUC643_1_intro_files/figure-html/unnamed-chunk-20-1.svg" style="display: block; margin: auto;" /&gt;
 
 
 
@@ -439,13 +467,13 @@ Note that if you change the scale of either axis, it will change the perceived--
 
 .blue[So what can we say with respect to these five characteristics in our data?]
 
-&lt;img src="EDUC643_1_intro_files/figure-html/unnamed-chunk-20-1.svg" style="display: block; margin: auto;" /&gt;
+&lt;img src="EDUC643_1_intro_files/figure-html/unnamed-chunk-21-1.svg" style="display: block; margin: auto;" /&gt;
 ---
 # A line through our cloud
 
 Notice that in the previous slide, we added a line running through our data
 
-&lt;img src="EDUC643_1_intro_files/figure-html/unnamed-chunk-21-1.svg" style="display: block; margin: auto;" /&gt;
+&lt;img src="EDUC643_1_intro_files/figure-html/unnamed-chunk-22-1.svg" style="display: block; margin: auto;" /&gt;
 That line is defined by the intercept (value `\(Y\)` takes when `\(X=0\)`) and the slope (the difference in `\(Y\)` per 1 unit difference in `\(X\)`)
 &gt; `\(Y = intercept + slope*X\)` (you may have seen this in HS as Y = mX + b)
 
@@ -468,7 +496,7 @@ class: middle, inverse
 # To-Dos
 
 ### Reading: 
-- **By January 19 class**: LSWR Chapter 15.1 - 15.2 and 15.4 - 15.7
+- **By January 18 class**: LSWR Chapter 15.1 - 15.2 and 15.4 - 15.7 and Hu (2021)
 
 ### Review: 
 - Review EDUC 641, Unit 4 (Lectures 13 - 16)

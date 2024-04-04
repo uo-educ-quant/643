@@ -2,7 +2,7 @@
 # Multiple regression
 ## Created by: David Liebowitz
 ### First created: 1/23/23
-### Last update: 1/31/23
+### Last update: 1/31/24
 ### inputs: male_do_eating.sav
 ######################################################
 
@@ -156,12 +156,26 @@ ggplot(df) +
 ###############################################################################################################
 
 # Preparing a nice regression table -- on screen
+
+# Unfortunately, modelsummary requires a work-around to produce the F-statistic in your table
+# I'm showing you how to do in below, but you don't need to add this extra row
+
+# Add a row with the F-statistic
+row <- tribble(~term,          ~'1',  ~'2', 
+               'F-statistic',  round(summary(fit)$fstatistic[1], 2), round(summary(fit2)$fstatistic[1], 3))
+attr(row, 'position') <- c(8)
+
+
+# Produce the model onscreen with the added row
 modelsummary(list(fit, fit2),
              stars=T,
              gof_omit = "Adj.|AIC|BIC|Log|RMSE|RSE",
-             coef_rename = c("EDEQ_restraint" = "Dietary Restraint Index (0-6)"))
+             coef_rename = c("EDEQ_restraint" = "Dietary Restraint Index (0-6)"),
+             add_rows = row) # <- with the added row 
 
-# Preparing a nice regression table -- output to .doc
+
+
+# Preparing a nice regression table -- output to .doc (without the added row)
 modelsummary(list(fit, fit2),
              stars=T,
              gof_omit = "Adj.|AIC|BIC|Log|RMSE|RSE",

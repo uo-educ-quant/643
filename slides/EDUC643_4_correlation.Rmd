@@ -112,20 +112,20 @@ class: middle, inverse
 ---
 # Correlations
 
-* Correlation coefficients $(r)$ describe the **strength** of a linear relationship between two variables. 
+* Correlation coefficients $(r)$ describe the .red-pink[**strength**] of a linear relationship between two variables. 
 
 * The concept was first developed by Karl Pearson a eugenics professor at the University College of London. As we discussed last term, he held many despicable [views](https://nautil.us/how-eugenics-shaped-statistics-238014/).
 
 * He (along with Francis Galton and RA Fisher) also pioneered many of the basic tools of modern statistics, including the concepts of standard deviation, $\chi^2$, goodness of fit and the correlation coefficient
 
-* Correlations are dimensionless measures that eliminate the metrics of any particular scale. 
+* Correlations are ***dimensionless measures*** that eliminate the metrics of any particular scale. 
 
 * To construct these dimensionless measures requires **standardizing** each variable.
 
 ---
 # Standardizing variables
 
-* Any variable can be standardized using a simple algorithm.
+* As a reminder, any variable can be standardized using a simple algorithm.
 
 Each observation $(i)$ is transformed into standardized form using the following formula:
 
@@ -205,8 +205,8 @@ std <- ggplot(do, aes(EDEQ_std, BMI_std)) +
 
 std
 ```
-Note that the scale of our variables have changed.
 
+- Note that the scale of our variables have changed.
 - The standardized regression line goes through the origin (0, 0)
 
 ---
@@ -328,6 +328,8 @@ lm_eqn <- function(beef){
 db + geom_text(x = 4.5, y = 62, label = lm_eqn(beef), parse=TRUE)
 ```
 
+--
+
 *On the 10 o'clock news tonight: does U.S. beef consumption cause more "beefs" between Oregonians and their spouses?*
 
 ---
@@ -361,49 +363,6 @@ This is a classic problem of a .blue[**confounder**]!<sup>1</sup>
 
 .footnote[[1] More fun with [spurious correlations](https://www.tylervigen.com/spurious-correlations)]
 
----
-## Directed acyclic graphs (DAGs)
-
-[Directed Acyclical Graphs (DAGs)](https://journals.sagepub.com/doi/pdf/10.1177/2515245917745629) model causal relationships through graphical representation.
-
-
-```{r, echo=F, fig.height=5}
-dag <- ggdag::dagify(y ~ x,
-                     exposure = "x",
-                     outcome = "y",
-              labels = c("x" = "Beef",
-                         "y" = "Divorce"),
-              coords = list(x = c(x=1, y=3),
-                            y = c(x=2, y=2))
-                            )
-ggdag::ggdag(dag, use_labels = "label", text=F, text_size = 8) +
-  ggdag::theme_dag() + 
-   guides(fill = F, color=F)
-```
-
----
-# Spurious correlation
-
-```{r, echo=F, fig.height=3.5}
-dag2 <- ggdag::dagify(y ~ x + z,
-                       x ~ z,
-                     exposure = "x",
-                     outcome = "y",
-                     labels = c("x" = "Beef",
-                         "y" = "Divorce",
-                         "z" = "Year"),
-                coords = list(x = c(x = 1, z = 2, y = 3),
-                              y = c(x = 2, z = 3, y = 2))
-                              )
-ggdag::ggdag_status(dag2, use_labels = "label", text=F, text_size=8) +
-  ggdag::theme_dag() + 
-  guides(fill = F, color=F)
-```
-
---
-
-> .small[*It is easy to prove that the wearing of tall hats and the carrying of umbrellas enlarges the chest, prolongs life, and confers comparative immunity from disease...A university degree, a daily bath, the owning of thirty pairs of trousers, a knowledge of Wagner’s music, a pew in church, anything, in short, that implies more means and better nurture…can be statistically palmed off as a magic spell conferring all sorts of privileges...The mathematician whose correlations would fill a Newton with admiration, may, in collecting and accepting data and drawing conclusions from them, fall into quite crude errors by just such popular oversights.* -George Bernard Shaw (1906)]
-
 
 ---
 # Why correlation $\neq$ causation?
@@ -412,8 +371,8 @@ Common barriers in attributing causality to observed co-relationships include:
 - .blue[Confounders]: a third variable causes changes in X and also in Y
 - [Colliders](http://www.the100.ci/2017/03/14/that-one-weird-third-variable-problem-nobody-ever-mentions-conditioning-on-a-collider/): a third variable that is caused by both the predictor and outcome; controlling for this can make a true causal relationship disappear!
 - .blue[Reverse causation]: X may cause Y **or** Y may cause X
-- [Simpson's Paradox](https://en.wikipedia.org/wiki/Simpson%27s_paradox): a third variable may reverse the correlation
-- [Selection bias](https://daviddliebowitz.github.io/EDUC643_23W/slides/EDUC643_4_correlation.html#44): due to the way in which the sample was constructed, observed relationships (or lack thereof) mask the true underlying relationship.
+- [Simpson's Paradox](https://daviddliebowitz.github.io/EDUC643_W24/slides/EDUC643_4_correlation.html#45): a third variable may reverse the correlation
+- .blue[Selection bias]: due to the way in which the sample was constructed, observed relationships (or lack thereof) mask the true underlying relationship.
 - Also, **lack** of correlation $\neq$ **lack** of causality
 
 ```{r, echo=F, out.width="30%"}
@@ -421,17 +380,70 @@ include_graphics("causalinf.jpg")
 ```
 h/t [@causalinf](https://twitter.com/causalinf)
 
+
+---
+# No racial bias in policing?
+
+.pull-left[
+In 2016, Harvard economics professor Roland Fryer<sup>1</sup> released a [study](https://www.journals.uchicago.edu/doi/full/10.1086/701423) that claimed to find that police were ***equally likely*** to use force (i.e., officer-involved shootings) on whether the individuals they stopped were Black or White.
+]
+
+.pull-right[
+```{r, echo=F}
+include_graphics("fryer.jpg")
+```
+]
+
+As you can imagine, this drew substantial media attention and controversy. We read about this in Lily Hu's [article](https://www.bostonreview.net/articles/race-policing-and-the-limits-of-social-science/) in the *Boston Review*.
+
+.footnote[[1] Since this study's release, Fryer has been accused of improper behavior towards members of his research lab.]
+
+---
+# Selection bias
+
+As detailed in [Knox, Lowe and Mummolo (2020)](https://www.cambridge.org/core/journals/american-political-science-review/article/administrative-records-mask-racially-biased-policing/66BC0F9998543868BB20F241796B79B8#article), Fryer's results are a product of a fundamental statistical error: .red-pink[**selecting on the outcome** (dependent variable)]
+
+```{r, echo=F, fig.height=6, fig.width=10}
+set.seed(1234)
+fryer <- readxl::read_excel(here("data/police_stop.xlsx"))
+fryer$violent_tend <- factor(fryer$violent_tend,
+                             levels=c(0,1),
+                             labels=(c("Non-violent", "Violent")))
+
+race <-  ggplot(fryer, aes(x=race, y=prob_stop, color=violent_tend)) + 
+        geom_jitter() +
+        ylab("Probability of being stopped") +
+        xlab("") +
+        theme_minimal(base_size=16) +
+        theme(legend.title=element_blank()) +
+        geom_vline(xintercept=1.5)
+
+race
+```
+
+---
+# Selection bias
+
+As detailed in [Knox, Lowe and Mummolo (2020)](https://www.cambridge.org/core/journals/american-political-science-review/article/administrative-records-mask-racially-biased-policing/66BC0F9998543868BB20F241796B79B8#article), Fryer's results are a product of a fundamental statistical error: .red-pink[**selecting on the outcome** (dependent variable)]
+
+```{r, echo=F, fig.height=6, fig.width=10}
+set.seed(1234)
+race + 
+  annotate("rect", xmin = 0.5, xmax=1.5, ymin=0.5, ymax=1, alpha=0.1, fill="#e64173") +
+  annotate("rect", xmin = 1.5, xmax=2.5, ymin=0.9, ymax=1, alpha=0.1, fill="purple")
+```
+.footnote[Helpful [thread](https://twitter.com/bristimtom/status/1259458866015805440) with a nice illustration of how selecting on the dependent variable and collider bias are interrelated.]
+
+
 ---
 # From correlation to causality
 
-### Five criteria for establishing causality:<sup>1</sup>
+### Three criteria for establishing causality:<sup>1</sup>
 
 .pull-left[
 1. Cause must precede effect in time
-2. Identified mechanism
-3. Consistency
-4. Responsiveness
-5. No plausible alternative explanation
+2. Systematic relationship between variation in cause and variation in effect
+3. No plausible alternative explanation
 ]
 
 .pull-right[
@@ -456,6 +468,11 @@ Research design is critical. So too can be [Directed Acyclical Graphs (DAGs)](ht
 * Discuss science communication and how you would distinguish correlations from causal relationships to the average person.
 
 * In what contexts might it be difficult to conduct an experimental study to establish causality?
+
+* Consider the debate around the social science study of racial differences in officer-involved violence. Some of the conclusions analysts reach about critically important social issues diverge for highly technical and opaque reasons. What does this imply about the contributions of quantitative social science to public discourse and policy?
+
+
+> .small[.green[*It is easy to prove that the wearing of tall hats and the carrying of umbrellas enlarges the chest, prolongs life, and confers comparative immunity from disease...A university degree, a daily bath, the owning of thirty pairs of trousers, a knowledge of Wagner’s music, a pew in church, anything, in short, that implies more means and better nurture…can be statistically palmed off as a magic spell conferring all sorts of privileges...The mathematician whose correlations would fill a Newton with admiration, may, in collecting and accepting data and drawing conclusions from them, fall into quite crude errors by just such popular oversights.* -George Bernard Shaw (1906)]]
 
 ---
 class: middle, inverse
@@ -522,66 +539,60 @@ class: middle, inverse
 # To-Dos
 
 ### Reading: 
-- **Finish if you have not already**: LSWR Chapter 15.1 - 15.2 and 15.4 - 15.7
-- **By January 24**: LSWR Chapter 5.7
+- **By January 25**: LSWR Chapter 5.7
 
 ### Quiz: 
-- Opens 3:45 Tuesday, Jan. 24 (closes 5pm on 1/25)
+- Opens 3:45 Tuesday, Jan. 25 (closes 5pm on 1/26)
 
 ### Assignment 1:
-- Due Jan. 24, 11:59pm
+- Due February 5, 11:59pm
 
-### Next week: Regression assumptions
-
----
-# No racial bias in policing?
-
-.pull-left[
-In 2016, Harvard economics professor Roland Fryer<sup>1</sup> released a [study](https://www.journals.uchicago.edu/doi/full/10.1086/701423) that claimed to find that police were ***equally likely*** to use force (i.e., officer-involved shootings) on whether the individuals they stopped were Black or White.
-]
-
-.pull-right[
-```{r, echo=F}
-include_graphics("fryer.jpg")
-```
-]
-
-As you can imagine, this drew substantial media attention and controversy. We read about (but did not discuss) this last term in Lily Hu's [article](https://www.bostonreview.net/articles/race-policing-and-the-limits-of-social-science/) in the *Boston Review*.
-
-.footnote[[1] Since this study's release, Fryer has been accused of improper behavior towards members of his research lab.]
+### Next time: Regression assumptions
 
 ---
-# Selection bias
+# Simpson's Paradox
 
-As detailed in [Knox, Lowe and Mummolo (2020)](https://www.cambridge.org/core/journals/american-political-science-review/article/administrative-records-mask-racially-biased-policing/66BC0F9998543868BB20F241796B79B8#article), Fryer's results are a product of a fundamental statistical error: .red-pink[**selecting on the outcome** (dependent variable)]
-
-```{r, echo=F, fig.height=6, fig.width=10}
+```{r, echo=F, fig.height=6}
 set.seed(1234)
-fryer <- readxl::read_excel(here("data/police_stop.xlsx"))
-fryer$violent_tend <- factor(fryer$violent_tend,
-                             levels=c(0,1),
-                             labels=(c("Non-violent", "Violent")))
+height <- rep(60, 1000)
+a <- c("Age 10-14", "Age 70-74")    
+age <- rep(a, 250)
+bball <- cbind.data.frame(age, height)
 
-race <-  ggplot(fryer, aes(x=race, y=prob_stop, color=violent_tend)) + 
-        geom_jitter() +
-        ylab("Probability of being stopped") +
-        xlab("") +
-        theme_minimal(base_size=16) +
-        theme(legend.title=element_blank()) +
-        geom_vline(xintercept=1.5)
+bball <- bball %>% mutate(height = case_when(age=="Age 10-14" ~ height,
+                                             age=="Age 70-74" ~ height+10))
 
-race
+bball <- bball %>% mutate(height = height + rnorm(length(height), 0, 5))
+
+bball <- bball %>% mutate(skill = faux::rnorm_pre(height, mu = 0, sd = 5, r = 0.5))
+
+bball <- bball %>% mutate(skill = case_when(age=="Age 10-14" ~ skill+4,
+                                            age=="Age 70-74" ~ skill-4))
+
+
+plot <- ggplot(data=bball, aes(height, skill)) + 
+  geom_point() +
+  geom_smooth(method="lm", se=F) +
+  ggtitle("Relationship between height and basketball ability") +
+  xlab("height (in)") +
+  theme_minimal(base_size = 16)
+
+plot 
+
+
 ```
 
 ---
-# Selection bias
-
-As detailed in [Knox, Lowe and Mummolo (2020)](https://www.cambridge.org/core/journals/american-political-science-review/article/administrative-records-mask-racially-biased-policing/66BC0F9998543868BB20F241796B79B8#article), Fryer's results are a product of a fundamental statistical error: .red-pink[**selecting on the outcome** (dependent variable)]
-
-```{r, echo=F, fig.height=6, fig.width=10}
-set.seed(1234)
-race + 
-  annotate("rect", xmin = 0.5, xmax=1.5, ymin=0.5, ymax=1, alpha=0.1, fill="#e64173") +
-  annotate("rect", xmin = 1.5, xmax=2.5, ymin=0.9, ymax=1, alpha=0.1, fill="purple")
+# Simpson's Paradox
+```{r, fig.height=6}
+ggplot(data=bball, aes(height, skill, col=age)) + 
+  geom_point() +
+  geom_smooth(method="lm", se=F) +
+  ggtitle("Relationship between height and basketball ability") +
+  xlab("height (in)") +
+  theme_minimal(base_size = 16) +
+  theme(legend.position="none") +
+  annotate("text", x=50, y=12, label="Age 10-14", color="#F8766D", size=5) +
+  annotate("text", x=84, y=-12, label="Age 70-74", color="#00BFC4", size=5)
 ```
-.footnote[Helpful [thread](https://twitter.com/bristimtom/status/1259458866015805440) with a nice illustration of how selecting on the dependent variable and collider bias are interrelated.]
+

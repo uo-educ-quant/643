@@ -19,7 +19,7 @@ editor_options:
 ```{R, setup, include = F}
 library(pacman)
 
-p_load(here, MASS, tidyverse, ggplot2, xaringan, knitr, kableExtra, haven, broom, xaringanthemer)
+p_load(here, MASS, tidyverse, ggplot2, xaringan, knitr, kableExtra, haven, broom, xaringanthemer, ggthemes)
 
 
 i_am("slides/EDUC643_2_GLM.rmd")
@@ -388,7 +388,8 @@ do %>%
   geom_point() + 
   geom_point(aes(y=predict), col = "blue", alpha=0.3) +
   geom_segment(aes(xend = EDEQ_restraint, yend=predict), col = "green", alpha = 0.5) +
-  geom_smooth(aes(EDEQ_restraint, predict))
+  geom_smooth(aes(EDEQ_restraint, predict)) +
+  theme_minimal(base_size = 16)
 
 ```
 
@@ -447,7 +448,8 @@ do %>%
   geom_point() + 
   geom_point(aes(y=predict), col = "blue", alpha=0.3) +
   geom_segment(aes(xend = EDEQ_restraint, yend=predict), col = "green", alpha = 0.5) +
-  geom_smooth(aes(EDEQ_restraint, predict))
+  geom_smooth(aes(EDEQ_restraint, predict)) +
+  theme_minimal(base_size = 16)
 
 ```
 
@@ -496,7 +498,8 @@ good_fit_plot <- good_fit %>%
   geom_point() + 
   geom_point(aes(y=predict), col = "blue", alpha=0.3) +
   geom_segment(aes(xend = EDEQ_restraint, yend=predict), col = "green", alpha = 0.5) +
-  geom_smooth(aes(EDEQ_restraint, predict))
+  geom_smooth(aes(EDEQ_restraint, predict)) +
+  theme_minimal(base_size = 16)
 
 good_fit_plot
 
@@ -514,7 +517,8 @@ bad_fit_plot <- bad_fit %>%
   geom_point() + 
   geom_point(aes(y=predict), col = "blue", alpha=0.3) +
   geom_segment(aes(xend = EDEQ_restraint, yend=predict), col = "green", alpha = 0.5) +
-  geom_smooth(aes(EDEQ_restraint, predict))
+  geom_smooth(aes(EDEQ_restraint, predict)) +
+  theme_minimal(base_size = 16)
 
 bad_fit_plot
 
@@ -552,30 +556,28 @@ The regression line on the left is a better fit because the sum of its squared e
 SSR is a bigger concept than just model predictions. It is a way of thinking about variability.
 
 --
+Our outcome's variability is simply the sum of squared deviations from its mean, aka the .red-pink[**sum of the squares (SS)**].
 
-Our outcome's variability is simply the sum of squared deviations from its mean.
-
-$$SSR_\text{BMI} = \sum{(Y_i - \bar{Y})^2}$$
+$$\color{pink}{SS_\text{BMI}} = \sum{(Y_i - \bar{Y})^2}$$
 ```{r, fig.height = 3.75, fig.width = 6, echo = F}
 do <- do %>% 
-  mutate(participant_id = seq(1:1085))
+  mutate(mean_bmi = mean(BMI))
 
-do %>% 
-  filter(participant_id <= 30) %>% 
-  ggplot(aes(x = participant_id, y = BMI)) +
-  geom_point() +
-  geom_hline(yintercept = mean(do$BMI), color = "blue") +
-  geom_segment(aes(xend = participant_id, yend=mean(do$OE_frequency)), col = "green", alpha = 0.5) +
-  geom_label(x = 15, y = mean(do$BMI), label = "Mean BMI", color= "blue")
+set.seed(100)
+ssr_plot <- do %>% 
+  sample_n(100) %>% 
+  ggplot(aes(x=EDEQ_restraint, y=BMI)) + 
+  geom_point() + 
+  geom_hline(aes(yintercept=mean(do$BMI)), col = "pink", alpha=0.8, size=0.8) +
+  annotate('text', x=5, y=24, label="Mean BMI", col = "pink") +
+  geom_segment(aes(xend = EDEQ_restraint, yend=mean_bmi), col = "pink", alpha = 0.5) +
+  geom_smooth(aes(EDEQ_restraint, BMI), method='lm', linetype="dashed", se=F, alpha=0.3, size=0.2) +
+  theme_minimal(base_size = 16)
 
-```
-
----
-Get a feel for trying to minimize the *sum of the square of the residuals*
-```{r, echo=F, fig.height=8}
-include_app(c("https://daviddl.shinyapps.io/line_ss/"), height="550px")
+ssr_plot
 
 ```
+
 ---
 
 # Partitioning variance
@@ -586,7 +588,7 @@ We can partition the outcome's total variance $(SS_{BMI})$ into:
 * Model-accounted variance $(SS_\text{Model})$
 * Residual variance $(SS_\text{Residual})$
 
-$$SS_\text{BMI} = SS_\text{Model} + SS_\text{Residual}$$
+$$\color{pink}{SS_\text{BMI}} = \color{purple}{SS_\text{Model}} + \color{green}{SS_\text{Residual}}$$
 --
 
 Remember our goal with OLS regression is to find the model coefficients that minimize $SS_\text{Residual}$.
@@ -594,24 +596,29 @@ Remember our goal with OLS regression is to find the model coefficients that min
 
 ---
 # Partitioning variance
-$$\text{If } SS_\text{BMI} = \color{purple}{SS_\text{Model}} + {SS_\text{Residual}}$$
+$$\text{If } \color{pink}{SS_\text{BMI}} = \color{purple}{SS_\text{Model}} + {SS_\text{Residual}}$$
 
 $\color{purple}{SS_\text{Model}}$ is the sum of squared deviations between the model predicted values $(\hat{Y})$ and the mean $(\bar{Y})$.
 
 ```{r, echo = F, fig.height = 3.75, fig.width=6}
+do <- do %>% 
+  mutate(participant_id = seq(1:1085))
+
 do %>% 
   filter(participant_id <= 30) %>% 
   ggplot(aes(x = participant_id, y = BMI)) +
   geom_point() + 
   geom_point(aes(y=predict), col = "purple", alpha=0.3) +
   geom_segment(aes(xend = participant_id, y = mean(do$BMI), yend=predict), col = "purple", alpha = 0.5) +
-  geom_hline(yintercept = mean(do$BMI), color = "blue")
+  geom_hline(aes(yintercept=mean(do$BMI)), col = "pink", alpha=0.8, size=0.8) +
+  annotate('text', x=3, y=28, label="Mean BMI", col = "pink") +
+  theme_minimal(base_size=16)
 
 ```
 $$\color{purple}{SS_\text{Model} = \sum{(\hat{Y} - \bar{Y})^2}}$$
 ---
 # Partitioning variance
-$$\text{If } SS_\text{BMI} = \color{purple}{SS_\text{Model}} + \color{green}{SS_\text{Residual}}$$
+$$\text{If } \color{pink}{SS_\text{BMI}} = \color{purple}{SS_\text{Model}} + \color{green}{SS_\text{Residual}}$$
 
 $\color{green}{SS_\text{Residual}}$ is the sum of squared deviations between the model predicted values $(\hat{Y})$ and the observed values $(Y)$.
 
@@ -622,18 +629,26 @@ do %>%
   geom_point() + 
   geom_point(aes(y=predict), col = "purple", alpha=0.3) +
   geom_segment(aes(xend = participant_id, y = mean(do$BMI), yend=predict), col = "purple", alpha = 0.5) +
-  geom_hline(yintercept = mean(do$BMI), color = "blue") +
-  geom_segment(aes(xend = participant_id, y = predict, yend=BMI), col = "green", alpha = 0.5)
+  geom_hline(aes(yintercept=mean(do$BMI)), col = "pink", alpha=0.8, size=0.8) +
+  annotate('text', x=3, y=28, label="Mean BMI", col = "pink") +
+  geom_segment(aes(xend = participant_id, y = predict, yend=BMI), col = "green", alpha = 0.5) + 
+  theme_minimal(base_size=16)
 
 ```
 $$\color{green}{SS_\text{Residual} = \sum{(Y - \hat{Y})^2}}$$
+---
+Get a feel for trying to minimize the *sum of the square of the residuals*
+```{r, echo=F, fig.height=8}
+include_app(c("https://daviddl.shinyapps.io/line_ss/"), height="550px")
+
+```
 
 ---
 # $R^2$
 
 Partitioning variance can be useful for model evaluation.
 
-$$SS_\text{BMI} = SS_\text{Model} + SS_\text{Residual}$$
+$$\color{pink}{SS_\text{BMI}} = \color{purple}{SS_\text{Model}} + \color{green}{SS_\text{Residual}}$$
 $R^2$ ("R-squared") is the proportion of variance in the outcome our model accounts for.
 
 $$R^2 = \frac{SS_\text{Model}}{SS_\text{BMI}}$$
@@ -686,7 +701,7 @@ class: middle, inverse
 # To-Dos
 
 ### Reading: 
-- **By January 19 class**: LSWR Chapter 15.1 - 15.2 and 15.4 - 15.7
+- **By January 18 class**: LSWR Chapter 15.1 - 15.2 and 15.4 - 15.7 and Hu (2021)
 
 ### Review: 
 - Review EDUC 641, Unit 4 (Lectures 13 - 16)

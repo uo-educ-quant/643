@@ -2,7 +2,7 @@
 # Estimating bivariate relationship and check assumptions
 ## Created by: David Liebowitz
 ### First created: 12/15/22
-### Last update: 1/23/23
+### Last update: 1/25/24
 ### inputs: male_do_eating.sav
 ######################################################
 

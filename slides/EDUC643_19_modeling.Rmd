@@ -139,7 +139,7 @@ There are a different set of modern automated model building approaches in the m
 
 **Key distinction:**
 
-.large[.purple[OLS vs. machine learning =]] $\Large \color{purple}{\hat{\beta}}$ .purple[vs.] $\Large \color{purple}{\hat{Y}}$
+.large[.purple[OLS vs. machine learning =]] $\Large \color{purple}{\hat{\beta}}$ .purple[vs.] $\large \color{purple}{\hat{Y}}$
 
 ---
 # Swimming in data
@@ -303,7 +303,7 @@ ggdag::ggdag_status(dag4, use_labels = "label", text=F, text_size=6) +
    + In experimental settings, there may still be reasons to deviate from pre-registration plan, but deviating is probably less acceptable
 4. All data management and analysis steps should be present in your scripts and produce identical results to your manuscript. See guidance from [Social Science Data Editors](https://social-science-data-editors.github.io/guidance/)
    + In my opinion, it is still acceptable to do some post-hoc formatting of these results, but YMMV
-5. .red-pink[**Remember, your goal is not to get stars!**]
+5. .red[**Remember, your goal is not to get stars!**]
 
 ---
 # "Controlling for race" [sic]
@@ -387,6 +387,7 @@ nerds$level <- as.factor(nerds$level) %>%
                       relevel(ref="Elementary")
 nerds$locale <- as.factor(nerds$locale)
 nerds <- nerds %>% mutate(rural = ifelse(locale=="Rural", 1, 0))
+nerds$lninc50avgall <- log(nerds$inc50avgall)
 ```
 
 .pull-left[
@@ -401,7 +402,7 @@ nerds <- nerds %>% mutate(rural = ifelse(locale=="Rural", 1, 0))
 
 .pull-right[
 .small[
-**Add'l covariates:** *sesavgall*, *lnincavgall*, *level*
+**Add'l covariates:** *sesavgall*, *lninc50avgall*, *level*
 
 **Rival hypothesis:** *rurality*
 ]
@@ -595,9 +596,11 @@ Your Results section is not a diary of everything you did (e.g., don't walk your
 - Due March 23, 12:01p
 
 ### Re- (late) submissions
-- Everything due .red[**March 20, 12:01p**] (no exceptions, **but note change**)
-- Assignments with scores <10.8 only
-- Earn up to 10.8
+- Everything due .red[**March 15, 5:00p**] (**no exceptions**)
+- Assignments with scores <90% only
+- Earn up to 90%
+
+### .red[Student Experience Survey!!!!]
 
 ---
 # Closing thoughts
