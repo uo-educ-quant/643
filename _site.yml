@@ -52,7 +52,7 @@ navbar:
   - text: Assignments
     href: assignments.html
   - icon: fa-github
-    href: https://github.com/DavidDLiebowitz/EDUC643_W24
+    href: https://github.com/uo-educ-quant/643
 
 output:
   html_document:
